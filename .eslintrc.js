@@ -26,5 +26,8 @@ module.exports = {
     'vue/name-property-casing': ['error', 'kebab-case'],
     'yoda': ['error', 'never', {'onlyEquality': true}],
     'unicorn/number-literal-case': 'off'
+  },
+  globals: {
+    'Potree': true
   }
 }

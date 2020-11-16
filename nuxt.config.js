@@ -11,10 +11,25 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      { src: "/libs/jquery/jquery-3.1.1.min.js", defer: true},
+      { src: "/libs/spectrum/spectrum.js", defer: true},
+      { src: "/libs/jquery-ui/jquery-ui.min.js", defer: true},
+      { src: "/libs/three.js/build/three.min.js", defer: true},
+      { src: "/libs/other/BinaryHeap.js", defer: true},
+      { src: "/libs/tween/tween.min.js", defer: true},
+      { src: "/libs/d3/d3.js", defer: true},
+      { src: "/libs/proj4/proj4.js", defer: true},
+      { src: "/libs/openlayers3/ol.js", defer: true},
+      { src: "/libs/i18next/i18next.js", defer: true},
+      { src: "/libs/jstree/jstree.js", defer: true},
+      { src: "/libs/potree/potree.js", defer: true},
+      { src: "/libs/plasio/js/laslaz.js", defer: true}
+    ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['~assets/style/common'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [],
@@ -40,5 +55,9 @@ export default {
   axios: {},
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    transpile: [
+      'three'
+    ]
+  }
 }
