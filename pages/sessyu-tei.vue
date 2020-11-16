@@ -1,4 +1,3 @@
 <template lang="pug">
-.root
-  h1 雪舟庭
+Viewer(file='/pointclouds/sessyu-tei/metadata.json')
 </template>
