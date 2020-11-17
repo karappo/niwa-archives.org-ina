@@ -1,5 +1,11 @@
 # niwa-archive-nuxt
 
+| Environment | サーバー  | URL                        | BasicAuth(id:pw) |
+|:------------|:---------|:---------------------------|:-----------------|
+| Production  | TODO     | TODO                       |                  |
+| Staging     | Heteml   | https://niwa.karappo.net   | niwa:archive     |
+| Development | nuxt     | http://localhost:3000      |                  |
+
 ## Build Setup
 
 ```bash
