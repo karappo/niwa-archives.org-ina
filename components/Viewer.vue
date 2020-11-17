@@ -17,7 +17,7 @@ export default {
       default: null
     }
   },
-  mounted() {
+  async mounted() {
     const viewer = new Potree.Viewer(this.$el)
 
     viewer.setEDLEnabled(true)
@@ -25,21 +25,15 @@ export default {
     viewer.setPointBudget(2 * 1000 * 1000)
     viewer.loadSettingsFromURL()
 
-    viewer.loadGUI(() => {
-      viewer.setLanguage('en')
-    })
+    const { pointcloud } = await Potree.loadPointCloud(this.file)
 
-    Potree.loadPointCloud(this.file).then((e) => {
-      const pointcloud = e.pointcloud
-      const material = pointcloud.material
+    const material = pointcloud.material
+    material.activeAttributeName = 'rgba'
+    material.minSize = 2
+    material.pointSizeType = Potree.PointSizeType.ADAPTIVE
 
-      material.activeAttributeName = 'rgba'
-      material.minSize = 2
-      material.pointSizeType = Potree.PointSizeType.ADAPTIVE
-
-      viewer.scene.addPointCloud(pointcloud)
-      viewer.fitToScreen()
-    })
+    viewer.scene.addPointCloud(pointcloud)
+    viewer.fitToScreen()
   }
 }
 </script>
