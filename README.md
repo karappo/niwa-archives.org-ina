@@ -6,7 +6,7 @@
 | Staging     | Heteml   | https://niwa.karappo.net   | niwa:archive     |
 | Development | nuxt     | http://localhost:3000      |                  |
 
-## 点群データのサブサンプリング
+## 1. 点群データのサブサンプリング
 
 CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると重いので、CLIでやったほうがよい。
 
@@ -16,3 +16,15 @@ CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると�
 
 サブサンプリングの値は`0.1`から`0.725`くらいが良さそう。
 雪舟庭のデータだと、`0.7`だと処理終了前にCCが固まってしまった。
+
+## 2. e57 → las 変換
+
+1. Cloudcompareで1で作成したe57ファイルを開き（CCを開いたあとでWindowにファイルをドロップしないとエラーが出て開けないかも）
+2. サイドバーのDB Treeから、エンティティを選択
+3. Saveでlasファイルに変換
+
+## 3. Windows上のPotreeConverterで変換
+
+1. Resilio Syncを使って、lasファイルを転送
+2. Windows上で、コマンドプロンプトを立ち上げ、`PotreeCOnverter_2.0.1_windows_x64/PotreeConverter.exec <filename>`を実行
+3. ファイルが生成される
