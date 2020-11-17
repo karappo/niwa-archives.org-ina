@@ -6,21 +6,12 @@
 | Staging     | Heteml   | https://niwa.karappo.net   | niwa:archive     |
 | Development | nuxt     | http://localhost:3000      |                  |
 
-## Build Setup
+## 点群データのサブサンプリング
 
-```bash
-# install dependencies
-$ yarn install
+CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると重いので、CLIでやったほうがよい。
 
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
+```sh
+/Applications/CloudCompare.app/Contents/MacOS/CloudCompare -O -GLOBAL_SHIFT AUTO /path/to/raw-data.e57  -C_EXPORT_FMT E57 -SS SPATIAL 0.2 -SAVE_CLOUDS ALL_AT_ONCE
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+サブサンプリングの値は`0.2`か`0.1`くらいが良さそう。
