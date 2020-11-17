@@ -9,10 +9,10 @@
     nuxt-link.murin-an(to='/murin-an-0.1/' :class="{current: $route.path === '/murin-an-0.1/'}") 無鄰菴(0.1)<br>61.8MB
     nuxt-link.murin-an(to='/murin-an-0.08/' :class="{current: $route.path === '/murin-an-0.08/'}") 無鄰菴(0.08)<br>91.6MB
     nuxt-link.murin-an(to='/murin-an-0.07/' :class="{current: $route.path === '/murin-an-0.07/'}") 無鄰菴(0.07)<br>114.1MB
-    nuxt-link.murin-an(to='/murin-an-0.06/' :class="{current: $route.path === '/murin-an-0.06/'}") 無鄰菴(0.06)<br>146.7MB
+    //- nuxt-link.murin-an(to='/murin-an-0.06/' :class="{current: $route.path === '/murin-an-0.06/'}") 無鄰菴(0.06)<br>146.7MB
     nuxt-link.murin-an(to='/murin-an-0.05/' :class="{current: $route.path === '/murin-an-0.05/'}") 無鄰菴(0.05)<br>195.5MB
-    nuxt-link.murin-an(to='/murin-an-0.04/' :class="{current: $route.path === '/murin-an-0.04/'}") 無鄰菴(0.04)<br>276.6MB
-    nuxt-link.murin-an(to='/murin-an-0.03/' :class="{current: $route.path === '/murin-an-0.03/'}") 無鄰菴(0.03)<br>418.8MB
+    //- nuxt-link.murin-an(to='/murin-an-0.04/' :class="{current: $route.path === '/murin-an-0.04/'}") 無鄰菴(0.04)<br>276.6MB
+    //- nuxt-link.murin-an(to='/murin-an-0.03/' :class="{current: $route.path === '/murin-an-0.03/'}") 無鄰菴(0.03)<br>418.8MB
     nuxt-link.murin-an(to='/murin-an-0.02/' :class="{current: $route.path === '/murin-an-0.02/'}") 無鄰菴(0.02)<br>750.3MB
   main
     nuxt/
