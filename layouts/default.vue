@@ -1,7 +1,8 @@
 <template lang="pug">
 #pageTop
   nav
-    nuxt-link(to='/sessyu-tei/' :class="{current: $route.path === '/sessyu-tei/'}") 雪舟庭
+    nuxt-link(to='/sessyu-tei-0.1/' :class="{current: $route.path === '/sessyu-tei-0.1/'}") 雪舟庭(0.1)
+    nuxt-link(to='/sessyu-tei-0.2/' :class="{current: $route.path === '/sessyu-tei-0.2/'}") 雪舟庭(0.2)
     nuxt-link(to='/murin-an/' :class="{current: $route.path === '/murin-an/'}") 無鄰菴
   main
     nuxt/
