@@ -5,6 +5,7 @@
     nuxt-link.sessyu-tei(to='/sessyu-tei-0.1/' :class="{current: $route.path === '/sessyu-tei-0.1/'}") 雪舟庭(0.1)<br>169MB
     nuxt-link.sessyu-tei(to='/sessyu-tei-0.08/' :class="{current: $route.path === '/sessyu-tei-0.08/'}") 雪舟庭(0.08)<br>263.4MB
     nuxt-link.sessyu-tei(to='/sessyu-tei-0.07/' :class="{current: $route.path === '/sessyu-tei-0.07/'}") 雪舟庭(0.07)<br>341.7MB
+    nuxt-link.sessyu-tei(to='/sessyu-tei-0.05/' :class="{current: $route.path === '/sessyu-tei-0.05/'}") 雪舟庭(0.05)<br>3.6GB
     nuxt-link.murin-an(to='/murin-an-0.2/' :class="{current: $route.path === '/murin-an-0.2/'}") 無鄰菴(0.2)<br>17.3MB
     nuxt-link.murin-an(to='/murin-an-0.1/' :class="{current: $route.path === '/murin-an-0.1/'}") 無鄰菴(0.1)<br>61.8MB
     nuxt-link.murin-an(to='/murin-an-0.08/' :class="{current: $route.path === '/murin-an-0.08/'}") 無鄰菴(0.08)<br>91.6MB
