@@ -1,13 +1,13 @@
 # Basic Auth
-#DEP_STAGING_RM <Files ~ "^.(htaccess|htpasswd)$">
-#DEP_STAGING_RM deny from all
-#DEP_STAGING_RM </Files>
-#DEP_STAGING_RM AuthUserFile /home/users/0/karappo/web/preview/niwa.karappo.net/.htpasswd
-#DEP_STAGING_RM AuthGroupFile /dev/null
-#DEP_STAGING_RM AuthName "Please enter your ID and password"
-#DEP_STAGING_RM AuthType Basic
-#DEP_STAGING_RM require valid-user
-#DEP_STAGING_RM order deny,allow
+# <Files ~ "^.(htaccess|htpasswd)$">
+# deny from all
+# </Files>
+# AuthUserFile /home/users/0/karappo/web/preview/niwa.karappo.net/.htpasswd
+# AuthGroupFile /dev/null
+# AuthName "Please enter your ID and password"
+# AuthType Basic
+# require valid-user
+# order deny,allow
 
 # Redirect http to https
 <IfModule mod_rewrite.c>
