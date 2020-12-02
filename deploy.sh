@@ -5,7 +5,7 @@ if [ $1 = 'production' ]; then
   # DEPLOY_DIR='TODO'
 elif [ $1 = 'staging' ]; then
   DEPLOY_ENV='STAGING'
-  DEPLOY_DIR='preview/niwa.karappo.net'
+  DEPLOY_DIR='sites/niwa.karappo.net'
 else
   echo "Target is not defined."
   exit 1

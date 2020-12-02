@@ -2,7 +2,7 @@
 # <Files ~ "^.(htaccess|htpasswd)$">
 # deny from all
 # </Files>
-# AuthUserFile /home/users/0/karappo/web/preview/niwa.karappo.net/.htpasswd
+# AuthUserFile /home/users/0/karappo/web/sites/niwa.karappo.net/.htpasswd
 # AuthGroupFile /dev/null
 # AuthName "Please enter your ID and password"
 # AuthType Basic
