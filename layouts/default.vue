@@ -1,7 +1,7 @@
 <template lang="pug">
 #pageTop
   nav
-    nuxt-link(v-for="(c, i) in clouds" :to="`/${c.alias}/`" :class="_class(c.alias)") {{ c.label }}<br>{{ c.size }}
+    nuxt-link(v-for="(c, i) in clouds" :key="i" :to="`/${c.alias}/`" :class="_class(c.alias)") {{ c.label }}<br>{{ c.size }}
   main
     nuxt/
 </template>
@@ -42,16 +42,6 @@ main
 
 <script>
 export default {
-  methods: {
-    _class(alias) {
-      const __class = {
-        current: this.$route.path === `/${alias}/`
-      }
-      const aliasWithoutNum = alias.match(/(.*)-[0-9.]+$/)[1]
-      __class[aliasWithoutNum] = true
-      return __class
-    }
-  },
   data() {
     return {
       clouds: [
@@ -86,6 +76,16 @@ export default {
           size: '750.3MB'
         }
       ]
+    }
+  },
+  methods: {
+    _class(alias) {
+      const __class = {
+        current: this.$route.path === `/${alias}/`
+      }
+      const aliasWithoutNum = alias.match(/(.*)-[0-9.]+$/)[1]
+      __class[aliasWithoutNum] = true
+      return __class
     }
   }
 }
