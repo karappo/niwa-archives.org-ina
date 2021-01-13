@@ -1,12 +1,7 @@
 <template lang="pug">
 #pageTop
   nav
-    nuxt-link.sessyu-tei(to='/sessyu-tei-0.1/' :class="{current: $route.path === '/sessyu-tei-0.1/'}") 雪舟庭(0.1)<br>169MB
-    nuxt-link.sessyu-tei(to='/sessyu-tei-0.05/' :class="{current: $route.path === '/sessyu-tei-0.05/'}") 雪舟庭(0.05)<br>605.1MB
-    nuxt-link.sessyu-tei(to='/sessyu-tei-0.02/' :class="{current: $route.path === '/sessyu-tei-0.02/'}") 雪舟庭(0.02)<br>2.95GB
-    nuxt-link.murin-an(to='/murin-an-0.1/' :class="{current: $route.path === '/murin-an-0.1/'}") 無鄰菴(0.1)<br>61.8MB
-    nuxt-link.murin-an(to='/murin-an-0.05/' :class="{current: $route.path === '/murin-an-0.05/'}") 無鄰菴(0.05)<br>195.5MB
-    nuxt-link.murin-an(to='/murin-an-0.02/' :class="{current: $route.path === '/murin-an-0.02/'}") 無鄰菴(0.02)<br>750.3MB
+    nuxt-link(v-for="(c, i) in clouds" :class="c.class" :to="`/${c.alias}/`") {{ c.label }}<br>{{ c.size }}
   main
     nuxt/
 </template>
@@ -44,3 +39,50 @@ main
   height: calc(100vh - #{$nav_h})
   background: black
 </style>
+
+<script>
+export default {
+  data() {
+    return {
+      clouds: [
+        {
+          alias: 'sessyu-tei-0.1',
+          class: 'sessyu-tei',
+          label: '雪舟庭(0.1)',
+          size: '169MB'
+        },
+        {
+          alias: 'sessyu-tei-0.05',
+          class: 'sessyu-tei',
+          label: '雪舟庭(0.05)',
+          size: '605.1MB'
+        },
+        {
+          alias: 'sessyu-tei-0.02',
+          class: 'sessyu-tei',
+          label: '雪舟庭(0.02)',
+          size: '2.95GB'
+        },
+        {
+          alias: 'murin-an-0.1',
+          class: 'murin-an',
+          label: '無鄰菴(0.1)',
+          size: '61.8MB'
+        },
+        {
+          alias: 'murin-an-0.05',
+          class: 'murin-an',
+          label: '無鄰菴(0.05)',
+          size: '195.5MB'
+        },
+        {
+          alias: 'murin-an-0.02',
+          class: 'murin-an',
+          label: '無鄰菴(0.02)',
+          size: '750.3MB'
+        }
+      ]
+    }
+  }
+}
+</script>
