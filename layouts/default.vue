@@ -1,7 +1,7 @@
 <template lang="pug">
 #pageTop
   nav
-    nuxt-link(v-for="(c, i) in clouds" :to="`/${c.alias}/`" :class="_class(c)") {{ c.label }}<br>{{ c.size }}
+    nuxt-link(v-for="(c, i) in clouds" :to="`/${c.alias}/`" :class="_class(c.alias)") {{ c.label }}<br>{{ c.size }}
   main
     nuxt/
 </template>
@@ -43,11 +43,12 @@ main
 <script>
 export default {
   methods: {
-    _class(c) {
+    _class(alias) {
       const __class = {
-        current: this.$route.path === `/${c.alias}/`
+        current: this.$route.path === `/${alias}/`
       }
-      __class[c.class] = true
+      const aliasWithoutNum = alias.match(/(.*)-[0-9.]+$/)[1]
+      __class[aliasWithoutNum] = true
       return __class
     }
   },
@@ -56,37 +57,31 @@ export default {
       clouds: [
         {
           alias: 'sessyu-tei-0.1',
-          class: 'sessyu-tei',
           label: '雪舟庭(0.1)',
           size: '169MB'
         },
         {
           alias: 'sessyu-tei-0.05',
-          class: 'sessyu-tei',
           label: '雪舟庭(0.05)',
           size: '605.1MB'
         },
         {
           alias: 'sessyu-tei-0.02',
-          class: 'sessyu-tei',
           label: '雪舟庭(0.02)',
           size: '2.95GB'
         },
         {
           alias: 'murin-an-0.1',
-          class: 'murin-an',
           label: '無鄰菴(0.1)',
           size: '61.8MB'
         },
         {
           alias: 'murin-an-0.05',
-          class: 'murin-an',
           label: '無鄰菴(0.05)',
           size: '195.5MB'
         },
         {
           alias: 'murin-an-0.02',
-          class: 'murin-an',
           label: '無鄰菴(0.02)',
           size: '750.3MB'
         }
