@@ -1,7 +1,7 @@
 <template lang="pug">
 #pageTop
   nav
-    nuxt-link(v-for="(c, i) in clouds" :class="c.class" :to="`/${c.alias}/`") {{ c.label }}<br>{{ c.size }}
+    nuxt-link(v-for="(c, i) in clouds" :to="`/${c.alias}/`" :class="_class(c)") {{ c.label }}<br>{{ c.size }}
   main
     nuxt/
 </template>
@@ -42,6 +42,15 @@ main
 
 <script>
 export default {
+  methods: {
+    _class(c) {
+      const __class = {
+        current: this.$route.path === `/${c.alias}/`
+      }
+      __class[c.class] = true
+      return __class
+    }
+  },
   data() {
     return {
       clouds: [
