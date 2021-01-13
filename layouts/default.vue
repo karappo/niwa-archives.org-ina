@@ -1,7 +1,8 @@
 <template lang="pug">
 #pageTop
   nav
-    nuxt-link(v-for="(c, i) in clouds" :key="i" :to="`/${c.alias}/`" :class="_class(c.alias)") {{ c.label }}<br>{{ c.size }}
+    nuxt-link(v-for="(c, i) in clouds" :key="i" :to="`/${c.alias}/`" :class="_class(c.alias)")
+      | {{ c.label }}<br>{{ c.size }}
   main
     nuxt/
 </template>
