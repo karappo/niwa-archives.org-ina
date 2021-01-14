@@ -6,9 +6,9 @@
   main
     nuxt/
   footer
-    label(for='shape') PointShape:
+    label(for='shape') Point Shape:
     ShapeSelect
-    label(for='shape') EDLEnabled:
+    label(for='shape') Eye Dome Lighting:
     input(type="checkbox" @change="updateEDL" :checked="$store.state.eyeDomeLighting")
 </template>
 
