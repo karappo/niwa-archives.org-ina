@@ -1,11 +1,11 @@
 export const state = () => ({
-  EDLEnabled: true,
+  eyeDomeLighting: true,
   shape: 0
 })
 
 export const mutations = {
-  EDLEnabled(state, value) {
-    state.EDLEnabled = value
+  eyeDomeLighting(state, value) {
+    state.eyeDomeLighting = value
   },
   shape(state, value) {
     state.shape = value

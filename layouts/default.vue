@@ -9,7 +9,7 @@
     label(for='shape') PointShape:
     ShapeSelect
     label(for='shape') EDLEnabled:
-    input(type="checkbox" @change="updateEDLEnabled" :checked="$store.state.EDLEnabled")
+    input(type="checkbox" @change="updateEDL" :checked="$store.state.eyeDomeLighting")
 </template>
 
 <style lang="sass" scoped>
@@ -100,8 +100,8 @@ export default {
     }
   },
   methods: {
-    updateEDLEnabled(e) {
-      this.$store.commit('EDLEnabled', e.target.checked)
+    updateEDL(e) {
+      this.$store.commit('eyeDomeLighting', e.target.checked)
       this.$nuxt.$emit('setting-updated')
     },
     _class(alias) {
