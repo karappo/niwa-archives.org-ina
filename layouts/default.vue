@@ -1,26 +1,29 @@
 <template lang="pug">
 #pageTop
-  nav
+  header
     nuxt-link(v-for="(c, i) in clouds" :key="i" :to="`/${c.alias}/`" :class="_class(c.alias)")
       | {{ c.label }}<br>{{ c.size }}
   main
     nuxt/
+  footer
+    label(for='shape') PointShape:
+    ShapeSelect
 </template>
 
 <style lang="sass" scoped>
 #pageTop
+  height: 100vh
   display: flex
-  flex-wrap: wrap
   flex-direction: column
-$nav_h: 50px
-nav
+header
   width: 100%
-  height: $nav_h
+  height: 50px
+  flex-basis: 50px
   display: flex
   align-items: center
   a
-    width: 50%
     height: 100%
+    width: 100%
     display: flex
     justify-content: center
     align-items: center
@@ -37,8 +40,20 @@ nav
       &.current
         background-color: #78d4c7
 main
-  height: calc(100vh - #{$nav_h})
+  flex-basis: auto
   background: black
+  flex-grow: 2
+footer
+  width: 100%
+  flex-basis: 50px
+  background-color: black
+  display: flex
+  align-items: center
+  padding: 0 20px
+  color: white
+  font-size: 12px
+  label
+    margin-right: 10px
 </style>
 
 <script>

@@ -31,9 +31,14 @@ export default {
     material.activeAttributeName = 'rgba'
     material.minSize = 2
     material.pointSizeType = Potree.PointSizeType.ADAPTIVE
+    material.shape = this.$store.state.shape
 
     viewer.scene.addPointCloud(pointcloud)
     viewer.fitToScreen()
+
+    this.$nuxt.$on('setting-updated', () => {
+      material.shape = this.$store.state.shape
+    })
   }
 }
 </script>
