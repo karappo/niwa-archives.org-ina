@@ -16,6 +16,7 @@ export default {
       { src: "/libs/spectrum/spectrum.js", defer: true},
       { src: "/libs/jquery-ui/jquery-ui.min.js", defer: true},
       { src: "/libs/three.js/build/three.min.js", defer: true},
+      { src: "/libs/three.js/extra/lines.js", defer: true},
       { src: "/libs/other/BinaryHeap.js", defer: true},
       { src: "/libs/tween/tween.min.js", defer: true},
       { src: "/libs/d3/d3.js", defer: true},
@@ -23,7 +24,7 @@ export default {
       { src: "/libs/openlayers3/ol.js", defer: true},
       { src: "/libs/i18next/i18next.js", defer: true},
       { src: "/libs/jstree/jstree.js", defer: true},
-      { src: "/libs/potree/potree.js", defer: true},
+      { src: "/build/potree/potree.js", defer: true},
       { src: "/libs/plasio/js/laslaz.js", defer: true}
     ],
   },

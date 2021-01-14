@@ -9395,6 +9395,12 @@ void main() {
 				} else if (!pointcloud.showBoundingBox && node.boundingBoxNode) {
 					node.boundingBoxNode.visible = false;
 				}
+
+				// if(node.boundingBoxNode !== undefined && exports.debug.allowedNodes !== undefined){
+				// 	if(!exports.debug.allowedNodes.includes(node.name)){
+				// 		node.boundingBoxNode.visible = false;
+				// 	}
+				// }
 			}
 
 			// add child nodes to priorityQueue
@@ -13995,6 +14001,8 @@ void main() {
 
 	OctreeGeometryNode.IDCount = 0;
 
+	// let loadedNodes = new Set();
+
 	class NodeLoader{
 
 		constructor(url){
@@ -14010,29 +14018,49 @@ void main() {
 			node.loading = true;
 			Potree.numNodesLoading++;
 
-			if(node.nodeType === 2){
-				await this.loadHierarchy(node);
-			}
+			// console.log(node.name, node.numPoints);
 
-			let {byteOffset, byteSize} = node;
+			// if(loadedNodes.has(node.name)){
+			// 	// debugger;
+			// }
+			// loadedNodes.add(node.name);
 
 			try{
+				if(node.nodeType === 2){
+					await this.loadHierarchy(node);
+				}
+
+				let {byteOffset, byteSize} = node;
+
 
 				let urlOctree = `${this.url}/../octree.bin`;
 
 				let first = byteOffset;
 				let last = byteOffset + byteSize - 1n;
 
-				let response = await fetch(urlOctree, {
-					headers: {
-						'content-type': 'multipart/byteranges',
-						'Range': `bytes=${first}-${last}`,
-					},
-				});
+				let buffer;
 
-				let buffer = await response.arrayBuffer();
+				if(byteSize === 0n){
+					buffer = new ArrayBuffer(0);
+					console.warn(`loaded node with 0 bytes: ${node.name}`);
+				}else {
+					let response = await fetch(urlOctree, {
+						headers: {
+							'content-type': 'multipart/byteranges',
+							'Range': `bytes=${first}-${last}`,
+						},
+					});
 
-				let workerPath = Potree.scriptPath + '/workers/OctreeDecoderWorker.js';
+					buffer = await response.arrayBuffer();
+				}
+
+				let workerPath;
+				if(this.metadata.encoding === "BROTLI"){
+					workerPath = Potree.scriptPath + '/workers/2.0/DecoderWorker_brotli.js';
+				}else {
+					workerPath = Potree.scriptPath + '/workers/2.0/DecoderWorker.js';
+				}
+
 				let worker = Potree.workerPool.getWorker(workerPath);
 
 				worker.onmessage = function (e) {
@@ -14090,6 +14118,7 @@ void main() {
 				let min = node.octreeGeometry.offset.clone().add(box.min);
 				let size = box.max.clone().sub(box.min);
 				let max = min.clone().add(size);
+				let numPoints = node.numPoints;
 
 				let offset = node.octreeGeometry.loader.offset;
 
@@ -14102,6 +14131,7 @@ void main() {
 					max: max,
 					size: size,
 					offset: offset,
+					numPoints: numPoints
 				};
 
 				worker.postMessage(message, [message.buffer]);
@@ -14111,6 +14141,7 @@ void main() {
 				Potree.numNodesLoading--;
 
 				console.log(`failed to load ${node.name}`);
+				console.log(e);
 				console.log(`trying again!`);
 			}
 		}
@@ -14138,6 +14169,10 @@ void main() {
 				let byteOffset = view.getBigInt64(i * bytesPerNode + 6, true);
 				let byteSize = view.getBigInt64(i * bytesPerNode + 14, true);
 
+				// if(byteSize === 0n){
+				// 	// debugger;
+				// }
+
 
 				if(current.nodeType === 2){
 					// replace proxy with real node
@@ -14157,6 +14192,10 @@ void main() {
 				}
 				
 				current.nodeType = type;
+
+				if(current.nodeType === 2){
+					continue;
+				}
 
 				for(let childIndex = 0; childIndex < 8; childIndex++){
 					let childExists = ((1 << childIndex) & childMask) !== 0;
@@ -14188,10 +14227,10 @@ void main() {
 
 			let duration = (performance.now() - tStart);
 
-			if(duration > 20){
-				let msg = `duration: ${duration}ms, numNodes: ${numNodes}`;
-				console.log(msg);
-			}
+			// if(duration > 20){
+			// 	let msg = `duration: ${duration}ms, numNodes: ${numNodes}`;
+			// 	console.log(msg);
+			// }
 		}
 
 		async loadHierarchy(node){
@@ -14281,7 +14320,7 @@ void main() {
 		"uint64": PointAttributeTypes.DATA_TYPE_UINT64,
 	};
 
-	class OctreeLoader_1_8{
+	class OctreeLoader{
 
 		static parseAttributes(jsonAttributes){
 
@@ -14335,7 +14374,7 @@ void main() {
 			let response = await fetch(url);
 			let metadata = await response.json();
 
-			let attributes = OctreeLoader_1_8.parseAttributes(metadata.attributes);
+			let attributes = OctreeLoader.parseAttributes(metadata.attributes);
 
 			let loader = new NodeLoader(url);
 			loader.metadata = metadata;
@@ -14365,7 +14404,7 @@ void main() {
 			octree.boundingSphere = boundingBox.getBoundingSphere(new THREE.Sphere());
 			octree.tightBoundingSphere = boundingBox.getBoundingSphere(new THREE.Sphere());
 			octree.offset = offset;
-			octree.pointAttributes = OctreeLoader_1_8.parseAttributes(metadata.attributes);
+			octree.pointAttributes = OctreeLoader.parseAttributes(metadata.attributes);
 			octree.loader = loader;
 
 			let root = new OctreeGeometryNode("r", octree, boundingBox);
@@ -14379,8 +14418,7 @@ void main() {
 
 			octree.root = root;
 
-			//await OctreeLoader_1_8.loadHierarchy(url, root);
-			await loader.load(root);
+			loader.load(root);
 
 			let result = {
 				geometry: octree,
@@ -23566,20 +23604,23 @@ ENDSEC
 							selectedRange = [...attribute.range];
 						}
 
-						panel.find('#sldExtraRange').slider({
-							range: true,
-							min: min, 
-							max: max, 
-							step: 0.01,
-							values: selectedRange,
-							slide: (event, ui) => {
-								let [a, b] = ui.values;
+						let minMaxAreNumbers = typeof min === "number" && typeof max === "number";
 
-								material.setRange(attribute.name, [a, b]);
-							}
-						});
+						if(minMaxAreNumbers){
+							panel.find('#sldExtraRange').slider({
+								range: true,
+								min: min, 
+								max: max, 
+								step: 0.01,
+								values: selectedRange,
+								slide: (event, ui) => {
+									let [a, b] = ui.values;
 
-						// material.extraRange = [min, max];
+									material.setRange(attribute.name, [a, b]);
+								}
+							});
+						}
+
 					}
 
 					let blockWeights = $('#materials\\.composite_weight_container');
@@ -23892,14 +23933,15 @@ ENDSEC
 					
 					let range = material.getRange(attributeName);
 
-					// currently only supporting scalar ranges.
-					// rgba, normals, positions, etc have vector ranges, however
-					if(typeof range !== "number"){
-						return;
-					}
-
 					if(range == null){
 						range = attribute.range;
+					}
+
+					// currently only supporting scalar ranges.
+					// rgba, normals, positions, etc have vector ranges, however
+					let isValidRange = (typeof range[0] === "number") && (typeof range[1] === "number");
+					if(!isValidRange){
+						return;
 					}
 
 					if(range){
@@ -30145,7 +30187,12 @@ ENDSEC
 
 			this.initThree();
 			this.prepareVR();
-			this.initDragAndDrop();
+
+			if(args.noDragAndDrop){
+				
+			}else {
+				this.initDragAndDrop();
+			}
 
 			if(typeof Stats !== "undefined"){
 				this.stats = new Stats();
@@ -32933,7 +32980,7 @@ ENDSEC
 	const version = {
 		major: 1,
 		minor: 7,
-		suffix: 'beta'
+		suffix: '.1'
 	};
 
 	let lru = new LRU();
@@ -33000,7 +33047,7 @@ ENDSEC
 					}
 				});
 			} else if (path.indexOf('metadata.json') > 0) {
-				Potree.OctreeLoader_1_8.load(path).then(e => {
+				Potree.OctreeLoader.load(path).then(e => {
 					let geometry = e.geometry;
 
 					if(!geometry){
@@ -33021,7 +33068,7 @@ ENDSEC
 					}
 				});
 
-				OctreeLoader_1_8.load(path, function (geometry) {
+				OctreeLoader.load(path, function (geometry) {
 					if (!geometry) {
 						//callback({type: 'loading_failed'});
 						console.error(new Error(`failed to load point cloud from URL: ${path}`));
@@ -33179,7 +33226,7 @@ ENDSEC
 	exports.NodeLoader = NodeLoader;
 	exports.NormalizationEDLMaterial = NormalizationEDLMaterial;
 	exports.NormalizationMaterial = NormalizationMaterial;
-	exports.OctreeLoader_1_8 = OctreeLoader_1_8;
+	exports.OctreeLoader = OctreeLoader;
 	exports.OrbitControls = OrbitControls;
 	exports.OrientedImage = OrientedImage;
 	exports.OrientedImageLoader = OrientedImageLoader;
