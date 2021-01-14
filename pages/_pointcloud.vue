@@ -38,6 +38,7 @@ export default {
 
     this.$nuxt.$on('setting-updated', () => {
       material.shape = this.$store.state.shape
+      viewer.setEDLEnabled(this.$store.state.EDLEnabled)
     })
   }
 }

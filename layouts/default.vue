@@ -8,6 +8,8 @@
   footer
     label(for='shape') PointShape:
     ShapeSelect
+    label(for='shape') EDLEnabled:
+    input(type="checkbox" @change="updateEDLEnabled" :checked="$store.state.EDLEnabled")
 </template>
 
 <style lang="sass" scoped>
@@ -53,7 +55,10 @@ footer
   color: white
   font-size: 12px
   label
+    margin-left: 20px
     margin-right: 10px
+    &:first-child
+      margin-left: 0
 </style>
 
 <script>
@@ -95,6 +100,10 @@ export default {
     }
   },
   methods: {
+    updateEDLEnabled(e) {
+      this.$store.commit('EDLEnabled', e.target.checked)
+      this.$nuxt.$emit('setting-updated')
+    },
     _class(alias) {
       const __class = {
         current: this.$route.path === `/${alias}/`
