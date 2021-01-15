@@ -11,7 +11,7 @@ else
   exit 1
 fi
 
-if nuxt generate; then
+if yarn generate; then
   # Remove useless files
   find ./dist/ -name '.DS_Store' -type f -delete
   find ./dist/ -name '.nojekyll' -type f -delete
