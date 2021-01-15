@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "nuxt",
+    "prebuild": "rm -rf dist",
     "build": "nuxt build",
+    "pregenerate": "rm -rf dist",
     "generate": "nuxt generate",
     "rename": "mv ./dist/htaccess ./dist/.htaccess; mv ./dist/htpasswd ./dist/.htpasswd",
     "rename-back": "mv ./dist/.htaccess ./dist/htaccess; mv ./dist/.htpasswd ./dist/htpasswd",
