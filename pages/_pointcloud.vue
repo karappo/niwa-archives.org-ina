@@ -6,6 +6,8 @@ div
 div
   width: 100%
   height: 100%
+  /deep/ canvas
+    outline: none
 </style>
 
 <script>
