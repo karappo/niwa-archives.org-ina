@@ -23,6 +23,8 @@ export default {
     const viewer = new Potree.Viewer(this.$el)
 
     viewer.setEDLEnabled(true)
+    // viewer.setEDLRadius(0.9)
+    viewer.setEDLStrength(0.1)
     viewer.setFOV(60)
     viewer.setPointBudget(2 * 1000 * 1000)
     viewer.loadSettingsFromURL()
