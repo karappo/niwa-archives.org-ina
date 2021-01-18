@@ -36,14 +36,13 @@ export default {
     viewer.scene.addPointCloud(pointcloud)
     viewer.fitToScreen()
 
-    Potree.OrientedImageLoader.load(
+    const images = await Potree.OrientedImageLoader.load(
       '/orientedImage/cameraParams.xml',
       '/orientedImage/imageParams.txt',
       viewer
-    ).then((images) => {
-      console.log('hoge!', images)
-      viewer.scene.addOrientedImages(images)
-    })
+    )
+    console.log('hoge!', images)
+    viewer.scene.addOrientedImages(images)
 
     this.$nuxt.$on('setting-updated', () => {
       material.shape = this.$store.state.shape
