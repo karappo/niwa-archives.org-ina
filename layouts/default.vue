@@ -45,6 +45,7 @@ main
   flex-basis: auto
   background: black
   flex-grow: 2
+  position: relative
 footer
   width: 100%
   flex-basis: 50px
