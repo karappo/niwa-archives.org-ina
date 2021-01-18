@@ -38,13 +38,15 @@ export default {
     viewer.scene.addPointCloud(pointcloud)
     viewer.fitToScreen()
 
-    const images = await Potree.OrientedImageLoader.load(
-      '/orientedImage/cameraParams.xml',
-      '/orientedImage/imageParams.txt',
-      viewer
-    )
-    console.log('hoge!', images)
-    viewer.scene.addOrientedImages(images)
+    if (/sessyu-tei-.*/.test(this.$route.params.pointcloud)) {
+      const images = await Potree.OrientedImageLoader.load(
+        '/orientedImage/cameraParams.xml',
+        '/orientedImage/imageParams.txt',
+        viewer
+      )
+      console.log(images)
+      viewer.scene.addOrientedImages(images)
+    }
 
     this.$nuxt.$on('setting-updated', () => {
       material.shape = this.$store.state.shape
