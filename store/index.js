@@ -1,7 +1,7 @@
 export const state = () => ({
   EDLEnabled: true,
-  EDLRadius: 0.9,
-  EDLStrength: 0.1,
+  EDLRadius: 0.9, // default: 1.4
+  EDLStrength: 0.1, // default: 0.4
   shape: 1,
   size: 0.8
 })
