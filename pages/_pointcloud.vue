@@ -22,7 +22,6 @@ export default {
   async mounted() {
     const viewer = new Potree.Viewer(this.$el)
 
-    viewer.setEDLEnabled(true)
     // viewer.setEDLRadius(0.9)
     viewer.setEDLStrength(0.1)
     viewer.setFOV(60)
@@ -33,9 +32,13 @@ export default {
 
     const material = pointcloud.material
     material.activeAttributeName = 'rgba'
-    material.size = this.$store.state.size
     material.pointSizeType = Potree.PointSizeType.ADAPTIVE
-    material.shape = this.$store.state.shape
+
+    const config = () => {
+      viewer.setEDLEnabled(this.$store.state.eyeDomeLighting)
+      material.shape = this.$store.state.shape
+      material.size = this.$store.state.size
+    }
 
     viewer.scene.addPointCloud(pointcloud)
     viewer.fitToScreen()
@@ -50,11 +53,8 @@ export default {
       viewer.scene.addOrientedImages(images)
     }
 
-    this.$nuxt.$on('setting-updated', () => {
-      material.shape = this.$store.state.shape
-      material.size = this.$store.state.size
-      viewer.setEDLEnabled(this.$store.state.eyeDomeLighting)
-    })
+    this.$nuxt.$on('setting-updated', config)
+    config()
   }
 }
 </script>
