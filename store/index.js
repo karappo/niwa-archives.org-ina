@@ -9,7 +9,7 @@ export const mutations = {
     state.eyeDomeLighting = value
   },
   shape(state, value) {
-    state.shape = value
+    state.shape = parseInt(value, 10)
   },
   size(state, value) {
     state.size = value
