@@ -1,6 +1,6 @@
 export const state = () => ({
   eyeDomeLighting: true,
-  shape: 0
+  shape: 1
 })
 
 export const mutations = {
