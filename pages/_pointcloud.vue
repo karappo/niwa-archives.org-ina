@@ -21,13 +21,12 @@ export default {
   },
   async mounted() {
     const viewer = new Potree.Viewer(this.$el)
-
     viewer.setFOV(60)
     viewer.setPointBudget(2_000_000)
     viewer.loadSettingsFromURL()
+
     const file = `/pointclouds/${this.$route.params.pointcloud}/metadata.json`
     const { pointcloud } = await Potree.loadPointCloud(file)
-
     const material = pointcloud.material
     material.activeAttributeName = 'rgba'
     material.pointSizeType = Potree.PointSizeType.ADAPTIVE
