@@ -1,13 +1,16 @@
 <template lang="pug">
 select(@change="updateShape")
-  option(value='SQUARE') SQUARE
-  option(value='CIRCLE') CIRCLE
-  option(value='PARABOLOID') PARABOLOID
+  option(v-for="(v, k) in options" :value="v" :selected="$store.state.shape === v") {{ k }}
 </template>
 
 <script>
 import { mapState } from 'vuex'
 export default {
+  data() {
+    return {
+      options: Potree.PointShape
+    }
+  },
   computed: {
     ...mapState({
       shape: (state) => state.obj.shape
@@ -16,8 +19,7 @@ export default {
   methods: {
     updateShape(e) {
       if (Potree) {
-        const val = Potree.PointShape[e.target.value]
-        this.$store.commit('shape', val)
+        this.$store.commit('shape', e.target.value)
         this.$nuxt.$emit('setting-updated')
       } else {
         console.error('Potree is not defined...')
