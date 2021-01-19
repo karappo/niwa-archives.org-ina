@@ -8,13 +8,15 @@
   footer
     label(for='shape') Point Shape:
     ShapeSelect#shape
-    label(for='size') Point Size:
+    label(for='size') Size:
     input#size(type="number" @change="updateSize" :value="$store.state.size" step="0.01")
-    label(for='edl') 輪郭:
     input#edl(type="checkbox" @change="updateEDL" :checked="$store.state.EDLEnabled")
-    label(for='radius') 輪郭の太さ:
+    label(for='edl') 輪郭
+    label(for='radius') 太さ:
     input#radius(type="number" @change="updateEDLRadius" :value="$store.state.EDLRadius" step="0.1" :disabled="!$store.state.EDLEnabled")
-    label(for='strength') 輪郭の強さ:
+    label(for='strength') 強さ:
+    input#strength(type="number" @change="updateEDLStrength" :value="$store.state.EDLStrength" step="0.1" :disabled="!$store.state.EDLEnabled")
+    label(for='strength') 透明度:
     input#strength(type="number" @change="updateEDLStrength" :value="$store.state.EDLStrength" step="0.1" :disabled="!$store.state.EDLEnabled")
 </template>
 
@@ -66,8 +68,14 @@ footer
     margin-right: 10px
     &:first-child
       margin-left: 0
-  input[type="number"]
-    width: 4em
+    &[for="edl"]
+      margin-left: 5px
+      margin-right: 0
+  input
+    &[type="number"]
+      width: 4em
+    &#edl
+      margin-left: 40px
 </style>
 
 <script>
