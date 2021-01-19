@@ -32,3 +32,14 @@ CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると�
 ## 4. potreeの更新
 
 [本家リポジトリ](https://github.com/potree/potree))の `/libs` 及び `/build` ディレクトリをそのまま `/static` 下に複製して、読み込む。
+
+
+## macos safari 上で表示できない
+
+`ReferenceError: Can't find variable: WebGL2RenderingContext`
+↓
+開発>実験的な機能>WebGL2.0
+↓
+`TypeError: view.getBigInt64 is not a function. (In 'view.getBigInt64(i * bytesPerNode + 6, true)', 'view.getBigInt64' is undefined)`
+↓
+未解決…
