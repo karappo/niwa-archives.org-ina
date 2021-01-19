@@ -10,12 +10,12 @@
     ShapeSelect#shape
     label(for='size') Point Size:
     input#size(type="number" @change="updateSize" :value="$store.state.size" step="0.01")
-    label(for='edl') EDL(Eye Dome Lighting):
+    label(for='edl') 輪郭:
     input#edl(type="checkbox" @change="updateEDL" :checked="$store.state.EDLEnabled")
-    label(for='radius') EDL Radius:
-    input#radius(type="number" @change="updateEDLRadius" :value="$store.state.EDLRadius" step="0.01")
-    label(for='strength') EDL Strength:
-    input#strength(type="number" @change="updateEDLStrength" :value="$store.state.EDLStrength" step="0.01")
+    label(for='radius') 輪郭の太さ:
+    input#radius(type="number" @change="updateEDLRadius" :value="$store.state.EDLRadius" step="0.1" :disabled="!$store.state.EDLEnabled")
+    label(for='strength') 輪郭の強さ:
+    input#strength(type="number" @change="updateEDLStrength" :value="$store.state.EDLStrength" step="0.1" :disabled="!$store.state.EDLEnabled")
 </template>
 
 <style lang="sass" scoped>
