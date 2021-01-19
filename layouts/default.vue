@@ -10,8 +10,12 @@
     ShapeSelect#shape
     label(for='size') Point Size:
     input#size(type="number" @change="updateSize" :value="$store.state.size" step="0.01")
-    label(for='edl') Eye Dome Lighting:
-    input#edl(type="checkbox" @change="updateEDL" :checked="$store.state.eyeDomeLighting")
+    label(for='edl') EDL(Eye Dome Lighting):
+    input#edl(type="checkbox" @change="updateEDL" :checked="$store.state.EDLEnabled")
+    label(for='radius') EDL Radius:
+    input#radius(type="number" @change="updateEDLRadius" :value="$store.state.EDLRadius" step="0.01")
+    label(for='strength') EDL Strength:
+    input#strength(type="number" @change="updateEDLStrength" :value="$store.state.EDLStrength" step="0.01")
 </template>
 
 <style lang="sass" scoped>
@@ -106,11 +110,18 @@ export default {
   },
   methods: {
     updateEDL(e) {
-      this.$store.commit('eyeDomeLighting', e.target.checked)
+      this.$store.commit('EDLEnabled', e.target.checked)
+      this.$nuxt.$emit('setting-updated')
+    },
+    updateEDLRadius(e) {
+      this.$store.commit('EDLRadius', e.target.value)
+      this.$nuxt.$emit('setting-updated')
+    },
+    updateEDLStrength(e) {
+      this.$store.commit('EDLStrength', e.target.value)
       this.$nuxt.$emit('setting-updated')
     },
     updateSize(e) {
-      console.log('updateSize', e.target.value)
       this.$store.commit('size', e.target.value)
       this.$nuxt.$emit('setting-updated')
     },

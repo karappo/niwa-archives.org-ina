@@ -1,15 +1,23 @@
 export const state = () => ({
-  eyeDomeLighting: true,
+  EDLEnabled: true,
+  EDLRadius: 0.9,
+  EDLStrength: 0.1,
   shape: 1,
   size: 0.8
 })
 
 export const mutations = {
-  eyeDomeLighting(state, value) {
-    state.eyeDomeLighting = value
+  EDLEnabled(state, value) {
+    state.EDLEnabled = value
+  },
+  EDLRadius(state, value) {
+    state.EDLRadius = value * 1
+  },
+  EDLStrength(state, value) {
+    state.EDLStrength = value * 1
   },
   shape(state, value) {
-    state.shape = parseInt(value, 10)
+    state.shape = value * 1
   },
   size(state, value) {
     state.size = value

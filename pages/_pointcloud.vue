@@ -22,8 +22,6 @@ export default {
   async mounted() {
     const viewer = new Potree.Viewer(this.$el)
 
-    // viewer.setEDLRadius(0.9)
-    viewer.setEDLStrength(0.1)
     viewer.setFOV(60)
     viewer.setPointBudget(2_000_000)
     viewer.loadSettingsFromURL()
@@ -35,7 +33,9 @@ export default {
     material.pointSizeType = Potree.PointSizeType.ADAPTIVE
 
     const config = () => {
-      viewer.setEDLEnabled(this.$store.state.eyeDomeLighting)
+      viewer.setEDLEnabled(this.$store.state.EDLEnabled)
+      viewer.setEDLRadius(this.$store.state.EDLRadius)
+      viewer.setEDLStrength(this.$store.state.EDLStrength)
       material.shape = this.$store.state.shape
       material.size = this.$store.state.size
     }
