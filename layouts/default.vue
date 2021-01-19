@@ -11,13 +11,13 @@
     label(for='size') Size:
     input#size(type="number" @change="updateSize" :value="$store.state.size" step="0.01")
     input#edl(type="checkbox" @change="updateEDL" :checked="$store.state.EDLEnabled")
-    label(for='edl') 輪郭
+    label(for='edl' title="Eye-Dome Lighting") EDL
     label(for='radius') 太さ:
     input#radius(type="number" @change="updateEDLRadius" :value="$store.state.EDLRadius" step="0.1" :disabled="!$store.state.EDLEnabled")
     label(for='strength') 強さ:
     input#strength(type="number" @change="updateEDLStrength" :value="$store.state.EDLStrength" step="0.1" :disabled="!$store.state.EDLEnabled")
-    label(for='strength') 透明度:
-    input#strength(type="number" @change="updateEDLStrength" :value="$store.state.EDLStrength" step="0.1" :disabled="!$store.state.EDLEnabled")
+    label(for='opacity') 透明度:
+    input#opacity(type="number" @change="updateEDLOpacity" :value="$store.state.EDLOpacity" step="0.1" :disabled="!$store.state.EDLEnabled")
 </template>
 
 <style lang="sass" scoped>
@@ -127,6 +127,10 @@ export default {
     },
     updateEDLStrength(e) {
       this.$store.commit('EDLStrength', e.target.value)
+      this.$nuxt.$emit('setting-updated')
+    },
+    updateEDLOpacity(e) {
+      this.$store.commit('EDLOpacity', e.target.value)
       this.$nuxt.$emit('setting-updated')
     },
     updateSize(e) {

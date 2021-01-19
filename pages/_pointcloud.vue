@@ -35,6 +35,7 @@ export default {
       viewer.setEDLEnabled(this.$store.state.EDLEnabled)
       viewer.setEDLRadius(this.$store.state.EDLRadius)
       viewer.setEDLStrength(this.$store.state.EDLStrength)
+      viewer.setEDLOpacity(this.$store.state.EDLOpacity)
       material.shape = this.$store.state.shape
       material.size = this.$store.state.size
     }
