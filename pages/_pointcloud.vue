@@ -26,7 +26,7 @@ export default {
     // viewer.setEDLRadius(0.9)
     viewer.setEDLStrength(0.1)
     viewer.setFOV(60)
-    viewer.setPointBudget(2 * 1000 * 1000)
+    viewer.setPointBudget(2_000_000)
     viewer.loadSettingsFromURL()
     const file = `/pointclouds/${this.$route.params.pointcloud}/metadata.json`
     const { pointcloud } = await Potree.loadPointCloud(file)
