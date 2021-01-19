@@ -1,6 +1,7 @@
 export const state = () => ({
   eyeDomeLighting: true,
-  shape: 1
+  shape: 1,
+  size: 0.8
 })
 
 export const mutations = {
@@ -9,6 +10,9 @@ export const mutations = {
   },
   shape(state, value) {
     state.shape = value
+  },
+  size(state, value) {
+    state.size = value
   }
 }
 

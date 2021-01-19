@@ -7,9 +7,11 @@
     nuxt/
   footer
     label(for='shape') Point Shape:
-    ShapeSelect
-    label(for='shape') Eye Dome Lighting:
-    input(type="checkbox" @change="updateEDL" :checked="$store.state.eyeDomeLighting")
+    ShapeSelect#shape
+    label(for='size') Point Size:
+    input#size(type="number" @change="updateSize" :value="$store.state.size" step="0.01")
+    label(for='edl') Eye Dome Lighting:
+    input#edl(type="checkbox" @change="updateEDL" :checked="$store.state.eyeDomeLighting")
 </template>
 
 <style lang="sass" scoped>
@@ -60,6 +62,8 @@ footer
     margin-right: 10px
     &:first-child
       margin-left: 0
+  input[type="number"]
+    width: 4em
 </style>
 
 <script>
@@ -103,6 +107,11 @@ export default {
   methods: {
     updateEDL(e) {
       this.$store.commit('eyeDomeLighting', e.target.checked)
+      this.$nuxt.$emit('setting-updated')
+    },
+    updateSize(e) {
+      console.log('updateSize', e.target.value)
+      this.$store.commit('size', e.target.value)
       this.$nuxt.$emit('setting-updated')
     },
     _class(alias) {

@@ -33,7 +33,7 @@ export default {
 
     const material = pointcloud.material
     material.activeAttributeName = 'rgba'
-    material.minSize = 2
+    material.size = this.$store.state.size
     material.pointSizeType = Potree.PointSizeType.ADAPTIVE
     material.shape = this.$store.state.shape
 
@@ -52,6 +52,7 @@ export default {
 
     this.$nuxt.$on('setting-updated', () => {
       material.shape = this.$store.state.shape
+      material.size = this.$store.state.size
       viewer.setEDLEnabled(this.$store.state.eyeDomeLighting)
     })
   }
