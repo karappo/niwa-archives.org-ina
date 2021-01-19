@@ -4,17 +4,11 @@ select(@change="updateShape")
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   data() {
     return {
       options: Potree.PointShape
     }
-  },
-  computed: {
-    ...mapState({
-      shape: (state) => state.obj.shape
-    })
   },
   methods: {
     updateShape(e) {
