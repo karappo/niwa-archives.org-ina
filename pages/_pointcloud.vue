@@ -49,7 +49,6 @@ export default {
         '/orientedImage/imageParams.txt',
         viewer
       )
-      console.log(images)
       viewer.scene.addOrientedImages(images)
     }
 
