@@ -52,7 +52,7 @@ export default {
       viewer.scene.addOrientedImages(images)
     }
 
-    this.$nuxt.$on('setting-updated', config)
+    this.$nuxt.$on('settingUpdated', config)
     config()
   }
 }

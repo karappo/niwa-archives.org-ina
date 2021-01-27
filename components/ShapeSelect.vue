@@ -14,7 +14,7 @@ export default {
     updateShape(e) {
       if (Potree) {
         this.$store.commit('shape', e.target.value)
-        this.$nuxt.$emit('setting-updated')
+        this.$nuxt.$emit('settingUpdated')
       } else {
         console.error('Potree is not defined...')
       }

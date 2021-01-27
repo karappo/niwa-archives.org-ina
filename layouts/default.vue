@@ -119,23 +119,23 @@ export default {
   methods: {
     updateEDL(e) {
       this.$store.commit('EDLEnabled', e.target.checked)
-      this.$nuxt.$emit('setting-updated')
+      this.$nuxt.$emit('settingUpdated')
     },
     updateEDLRadius(e) {
       this.$store.commit('EDLRadius', e.target.value)
-      this.$nuxt.$emit('setting-updated')
+      this.$nuxt.$emit('settingUpdated')
     },
     updateEDLStrength(e) {
       this.$store.commit('EDLStrength', e.target.value)
-      this.$nuxt.$emit('setting-updated')
+      this.$nuxt.$emit('settingUpdated')
     },
     updateEDLOpacity(e) {
       this.$store.commit('EDLOpacity', e.target.value)
-      this.$nuxt.$emit('setting-updated')
+      this.$nuxt.$emit('settingUpdated')
     },
     updateSize(e) {
       this.$store.commit('size', e.target.value)
-      this.$nuxt.$emit('setting-updated')
+      this.$nuxt.$emit('settingUpdated')
     },
     _class(alias) {
       const __class = {
