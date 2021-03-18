@@ -1,0 +1,9 @@
+// Componentからもimportできるように定数やmixinの定義のみのスタイルシート
+
+@import general/util
+@import general/mixins
+
+// Componentsでも閾値を共有できるように、common.sassではなく、ここで設定する
+$pc_sp_threshold: 990px
+@import general/pc-sp
+
