@@ -1,5 +1,5 @@
 <template lang="pug">
-div トップページです
+div トップページ！
 </template>
 
 <style lang="sass" scoped></style>
