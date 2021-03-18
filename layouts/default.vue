@@ -2,7 +2,8 @@
 #pageTop
   header
     .colL
-      Img2X.logo(src='logo.png')
+      h1
+        Img2X.logo(src='logo.png')
     .colR
       .label
         span.ja 終らない庭のアーカイヴ
