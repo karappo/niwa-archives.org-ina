@@ -50,20 +50,7 @@ export default {
   axios: {},
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-    transpile: [
-      'three'
-    ]
-  },
+  build: {},
 
-  generate: {
-    routes: [
-      '/murin-an-0.1/',
-      '/murin-an-0.05/',
-      '/murin-an-0.02/',
-      '/sessyu-tei-0.1/',
-      '/sessyu-tei-0.05/',
-      '/sessyu-tei-0.02/'
-    ]
-  }
+  generate: {}
 }
