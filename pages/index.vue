@@ -27,7 +27,7 @@ main
 
     h2 Report
 
-    h3 「Uncompleted Niwa Archive 終らない庭のアーカイヴ」へ<br>――庭園アーカイヴ・プロジェクト 2020年度 活動レポート
+    h3 「Incomplete Niwa Archive 終らない庭のアーカイヴ」へ<br>――庭園アーカイヴ・プロジェクト 2020年度 活動レポート
 
     section
 
@@ -38,7 +38,7 @@ main
         li YCAM庭園アーカイヴ・プロジェクト研究会の実施
         li 京都・無鄰菴庭園の調査の開始
         li 常栄寺雪舟庭のさらなる調査とアーカイヴUIの開発
-        li 目指すアーカイヴの明確化――「Uncompleted Niwa Archive終わらない庭のアーカイヴ」へ
+        li 目指すアーカイヴの明確化――「Incomplete Niwa Archive 終わらない庭のアーカイヴ」へ
       p 前年度は主に研究メンバー5人のみで研究活動を行なっていたが、2020年度は、幸いなことに多くの人々の協力を得ることができた。以下にその概略を順に記す。
 
     section
