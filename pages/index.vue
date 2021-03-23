@@ -187,9 +187,9 @@ main
             | 三島由紀夫「「仙洞御所」序文」『決定版 三島由紀夫全集 34』（新潮社、2003年）、467頁、469頁。
             a.footnote-backref(href="#fnref9") ↩
 
-  article#report
+  article#credit
 
-    h2 Report
+    h2 Credit
 
     section
 
