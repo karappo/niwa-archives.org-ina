@@ -7,6 +7,14 @@
 $pc_sp_threshold: 990px
 @import general/pc-sp
 
+$weights: 'Heavy','Bold','Regular','Light','XLight','Thin','Hairline'
+@each $weight in $weights
+  @font-face
+    font-family: 'K2-v1-#{$weight}'
+    font-weight: normal
+    src: url('~assets/font/K2-v1-#{$weight}.otf')
+    src: url('~assets/font/K2-v1-#{$weight}.woff') format('woff')
+
 %font_tsukuantique_l
   font-family: 'FOT-筑紫アンティークS明朝 Std L', 'TsukuAntiqueSMinStd-L'
 %font_tsukuaold_r

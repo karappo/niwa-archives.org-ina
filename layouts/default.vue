@@ -21,7 +21,7 @@
     padding: 88px 62px
     margin-top: -21px
     margin-left: 5px
-    font-family: $helvetica
+    font-family: 'K2-v1-Light', $helvetica
     display: flex
     h1
       position: fixed
