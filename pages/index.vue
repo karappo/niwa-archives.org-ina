@@ -135,7 +135,7 @@ main
     letter-spacing: 0
     line-height: 2
     h2
-      font-family: $helvetica
+      font-family: 'K2-v1-Light', $helvetica
       font-size: 15px
       font-weight: normal
       letter-spacing: 0.05em
