@@ -27,7 +27,7 @@ main
 
     h2 Report
 
-    h3 「Incomplete Niwa Archive 終らない庭のアーカイヴ」へ<br>――庭園アーカイヴ・プロジェクト 2020年度 活動レポート
+    h4 「Incomplete Niwa Archives 終らない庭のアーカイヴ」へ<br>――庭園アーカイヴ・プロジェクト 2020年度 活動レポート
 
     section
 
@@ -38,7 +38,7 @@ main
         li YCAM庭園アーカイヴ・プロジェクト研究会の実施
         li 京都・無鄰菴庭園の調査の開始
         li 常栄寺雪舟庭のさらなる調査とアーカイヴUIの開発
-        li 目指すアーカイヴの明確化――「Incomplete Niwa Archive 終わらない庭のアーカイヴ」へ
+        li 目指すアーカイヴの明確化――「Incomplete Niwa Archives 終わらない庭のアーカイヴ」へ
       p 前年度は主に研究メンバー5人のみで研究活動を行なっていたが、2020年度は、幸いなことに多くの人々の協力を得ることができた。以下にその概略を順に記す。
 
     section
@@ -202,14 +202,14 @@ main
         | 　　　　　　津田和俊（京都工芸繊維大学 KYOTO Design Lab 講師、YCAM専門委員）<br>
         | <br>
         | 研究協力者：<br>
-        | ・ウェブデザイン・開発　　　  KARAPPO Inc.<br>
+        | ・ウェブデザイン・開発　　　　KARAPPO Inc.<br>
         | ・3Dビューワー開発協力　　　白木良（プログラマー）<br>
-        | ・常栄寺庭園 3Dスキャン　	　石井栄一、西本文博<br>
+        | ・常栄寺庭園 3Dスキャン　　　石井栄一、西本文博<br>
         | ・常栄寺庭園 サウンド・レコーディング　　中上淳二（YCAM InterLab）<br>
-        | ・常栄寺庭園 植物調査　　　   出口晃多、大金まどか、平尾美紀、原さくら、秋貞朝<br>
+        | ・常栄寺庭園 植物調査　　　　出口晃多、大金まどか、平尾美紀、原さくら、秋貞朝<br>
         | ・無鄰菴庭園3Dスキャン　　　井上智博（京都工芸繊維大学 KYOTO Design Lab）<br>
         | 　　　　　　　　　　　　　　孫夢（京都工芸繊維大学 KYOTO Design Lab）<br>
-        | ・サウンド・システム開発　	　安齋励應（慶應義塾大学SFC徳井直生研究室 B4）<br>
+        | ・サウンド・システム開発　　　安齋励應（慶應義塾大学SFC徳井直生研究室 B4）<br>
         | 　　　　　　　　　　　　　　 岡崎圭佑（慶應義塾大学SFC徳井直生研究室 B2）<br>
         | <br>
         | 制作協力：公益財団法人 山口市文化振興財団（山口情報芸術センター）<br>
@@ -258,7 +258,8 @@ article
     font-size: 15px
     font-weight: normal
     letter-spacing: 0.05em
-    margin: 78px 0
+    margin: 0
+    padding: 70px 0
   h3
     font-size: 20px
     letter-spacing: 0

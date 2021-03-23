@@ -2,7 +2,8 @@
 #pageTop
   header
     h1
-      Img2X.logo(src='logo.png')
+      a(href="#pageTop")
+        Img2X.logo(src='logo.png')
       span Project Outline
     nav.sections
       a(href="#about") About
@@ -11,6 +12,7 @@
     nav.languages
       nuxt-link(to='/en/' :class="{current: $nuxt.$route.path === '/en/'}") English
       nuxt-link(to='/' :class="{current: $nuxt.$route.path === '/'}") Japanese
+  Img2X.floatingTitle(src='owaranai.png' alt='終らない庭のアーカイヴ')
   nuxt/
 </template>
 
@@ -58,6 +60,11 @@
         display: block
         width: 70px
         border-top: 1px solid #516760
+.floatingTitle
+  position: fixed
+  left: 62px
+  bottom: 56px
+  z-index: -1
 </style>
 
 <script>
