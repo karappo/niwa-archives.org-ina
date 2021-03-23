@@ -221,14 +221,13 @@ main
         | 京都市<br>
         | 無鄰菴管理事務所<br>
         | 植彌加藤造園株式会社
-
+  article
     footer
       | 科学研究費 基盤研究 (B)<br>
       | 「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
       | （課題番号：19H01225、研究代表者：原瑠璃彦）<br>
       | contact:
       ExternalLink(href="niwaarchive@rurihikohara.com") niwaarchive@rurihikohara.com
-
 </template>
 
 <style lang="sass" scoped>
@@ -236,63 +235,65 @@ main
 @import '~/assets/style/const'
 main
   padding-top: 10px
-  section.mv
-    margin: 64px 50px 0
-    display: flex
-    flex-direction: column
-    align-items: center
-    > img.mv-text
-      margin: 0 auto
-    > img.mv
-      margin-top: -14px
-      width: 100%
-      height: auto
-  article
-    width: 690px
-    margin: 0 65px 215px auto
-    @extend %font_tsukuantique_l
+section.mv
+  margin: 64px 50px 0
+  display: flex
+  flex-direction: column
+  align-items: center
+  > img.mv-text
+    margin: 0 auto
+  > img.mv
+    margin-top: -14px
+    width: 100%
+    height: auto
+article
+  width: 690px
+  margin: 0 65px 215px auto
+  @extend %font_tsukuantique_l
+  font-size: 15px
+  letter-spacing: 0
+  line-height: 2
+  h2
+    font-family: 'K2-v1-Light', $helvetica
     font-size: 15px
+    font-weight: normal
+    letter-spacing: 0.05em
+    margin: 78px 0
+  h3
+    font-size: 20px
     letter-spacing: 0
-    line-height: 2
-    h2
-      font-family: 'K2-v1-Light', $helvetica
-      font-size: 15px
-      font-weight: normal
-      letter-spacing: 0.05em
-      margin: 78px 0
-    h3
-      font-size: 20px
-      letter-spacing: 0
-      line-height: 1.5
-      margin: 88px 0
-    h4
-      font-size: 16px
-      letter-spacing: 0
-      line-height: 2.375
-      margin: 70px 0
-    a[href]
-      color: #9ABA8F
-    p + p
-      margin-top: 2em
-    sup
-      font-size: 0.5em
-    ol
-      padding-left: 1em
-    ul
-      padding-left: 1.8em
-    .footnotes
-      @extend %font_tsukuaold_r
-      font-size: 12px
-      line-height: 23px
-  section + section:not(.footnotes)
-    margin-top: 200px
-  figure
-    margin: 32px 0 26px
-  #murin-an-fig1
-    vertical-align: bottom
-    margin-bottom: 2px
-  #murin-an-fig2
-    margin-right: 2px
+    line-height: 1.5
+    margin: 88px 0
+  h4
+    font-size: 16px
+    letter-spacing: 0
+    line-height: 2.375
+    margin: 70px 0
+  a[href]
+    color: #9ABA8F
+  p + p
+    margin-top: 2em
+  sup
+    font-size: 0.5em
+  ol
+    padding-left: 1em
+  ul
+    padding-left: 1.8em
+  .footnotes
+    @extend %font_tsukuaold_r
+    font-size: 12px
+    line-height: 23px
+section + section:not(.footnotes)
+  margin-top: 200px
+figure
+  margin: 32px 0 26px
+#murin-an-fig1
+  vertical-align: bottom
+  margin-bottom: 2px
+#murin-an-fig2
+  margin-right: 2px
+footer
+  opacity: 0.5
 </style>
 
 <script>
