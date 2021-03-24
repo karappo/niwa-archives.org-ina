@@ -84,22 +84,21 @@ main
         li#fn2.footnote-item
           p
             | 尼崎博正「近代庭園の濫觴」『七代目小川治兵衛――山紫水明の都にかへさねば』（ミネルヴァ書房、2012年）、38-55頁、鈴木博之「はじまりとしての山縣有朋」『庭師 小川治兵衛とその時代』（東京大学出版会、2013年）、55-98頁。植治のこうした作庭を促したのは、山県有朋の主導によるところが大きいという。
-            | 詳しくは、
-            ExternalLink(href="https://murin-an.jp") 無鄰菴ウェブサイト
-            | を参照されたい。
             a.footnote-backref(href="#fnref2") ↩
         li#fn3.footnote-item
           p
-            | 無鄰菴庭園を常栄寺庭園の「うつし」とする説もある〔野村勘治『旅に出たら寄ってみたい庭 30』（小学館、1997年）、88頁〕。
+            | 詳しくは、
+            ExternalLink(href="https://murin-an.jp") 無鄰菴ウェブサイト
+            | を参照されたい。
             a.footnote-backref(href="#fnref3") ↩
         li#fn4.footnote-item
           p
-            | 3Dスキャンにあたっては、京都工芸繊維大学KYOTO Design Labの井上智博氏に多大な協力を得た。
+            | 無鄰菴庭園を常栄寺庭園の「うつし」とする説もある〔野村勘治『旅に出たら寄ってみたい庭 30』（小学館、1997年）、88頁〕。
             a.footnote-backref(href="#fnref4") ↩
         li#fn5.footnote-item
           p
             | 3Dスキャンにあたっては、京都工芸繊維大学KYOTO Design Labの井上智博氏に多大な協力を得た。
-            a.footnote-backref(href="#fnref4") ↩
+            a.footnote-backref(href="#fnref5") ↩
 
     section
       h4 庭園アーカイヴ UIの開発
