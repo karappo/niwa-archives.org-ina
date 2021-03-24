@@ -7,7 +7,7 @@ sup.footnote-ref
 export default {
   props: {
     num: {
-      type: Number,
+      type: String,
       required: true
     }
   }
