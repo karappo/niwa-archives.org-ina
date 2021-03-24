@@ -2,7 +2,7 @@
 main
   section.mv
     img.mv-text(src='~/assets/image/mv-text.svg')
-    Img2X.mv(src='mv.jpg')
+    Carousel
   article#about
 
     h2 About
@@ -242,9 +242,6 @@ section.mv
   > img.mv-text
     width: calc(100% - 6vw)
     margin: 0 auto -1vw
-  > img.mv
-    width: 100%
-    height: auto
 article
   width: 690px
   margin: 0 65px 215px auto
