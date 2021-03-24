@@ -240,9 +240,9 @@ section.mv
   flex-direction: column
   align-items: center
   > img.mv-text
-    margin: 0 auto
+    width: calc(100% - 6vw)
+    margin: 0 auto -1vw
   > img.mv
-    margin-top: -14px
     width: 100%
     height: auto
 article
