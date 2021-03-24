@@ -21,6 +21,8 @@
     "core-js": "^3.6.5",
     "node-sass": "^5.0.0",
     "nuxt": "^2.14.6",
+    "nuxt-i18n": "^6.21.1",
+    "nuxt-ua": "^1.0.6",
     "pug": "^3.0.0",
     "pug-plain-loader": "^1.0.0",
     "sass-loader": "^10.1.0",
