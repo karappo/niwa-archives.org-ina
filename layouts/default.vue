@@ -2,13 +2,14 @@
 #pageTop
   header
     h1
-      a(href="#pageTop")
+      a(href="#" v-scroll-to="'#pageTop'")
         Img2X.logo(src='logo.png')
       span Project Outline
     nav.sections
-      a(href="#about") About
-      a(href="#report") Report
-      a(href="#credit") Credit
+
+      a(href="#" v-scroll-to="'#about'") About
+      a(href="#" v-scroll-to="'#report'") Report
+      a(href="#" v-scroll-to="'#credit'") Credit
     nav.languages
       nuxt-link(to='/en/' :class="{current: $nuxt.$route.path === '/en/'}") English
       nuxt-link(to='/' :class="{current: $nuxt.$route.path === '/'}") Japanese

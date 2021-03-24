@@ -45,6 +45,7 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    ['vue-scrollto/nuxt', { duration: 1000, easing: 'ease-in-out' }]
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
