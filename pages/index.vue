@@ -288,7 +288,8 @@ article
   blockquote
     @extend %font_tsukuaold_r
     font-size: 14px
-    line-height: 30px
+    line-height: 2
+    margin: 34px 0 34px 51px
 section + section:not(.footnotes)
   margin-top: 200px
 figure
