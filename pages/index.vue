@@ -81,6 +81,7 @@ main
         Img2X#murin-an-fig1(src="murin-an-1.jpg" alt="無鄰菴の風景")
         Img2X#murin-an-fig2(src="murin-an-2.jpg" alt="無鄰菴の風景")
         Img2X#murin-an-fig3(src="murin-an-3.jpg" alt="無鄰菴の風景")
+        figcaption TODO: キャプションが入ります
 
     section.footnotes
       ol.footnotes-list(start="2")
@@ -124,6 +125,7 @@ main
       p また、庭園の立体音響録音データに関しては、伊藤隆之を中心として人の聴取に向けた編集を行なっているほか、城一裕主導のもと、慶應義塾大学環境情報学部政策・メディア研究科 徳井直生研究室（安齋励應（M2）、岡崎隆祐（B3））の協力を得て、深層学習を用いた音の判定システムを実験・開発中である。具体的には、日本庭園で聴こえる様々な音を分類し、その分類に基づいて計算機に学習させたモデルを用いることで、季節や時間帯で移り変わるそれぞれの庭園の立体音響録音データから、そこで聴こえる鳥や虫の声の種別を判定するというものである。
       figure
         Img2X(src="ui.png" alt="UIのラフデザイン")
+        figcaption TODO: キャプションが入ります
     section.footnotes
       ol.footnotes-list(start="6")
         li#fn6.footnote-item
@@ -139,6 +141,7 @@ main
       p 「まるで映画のよう」というのが、メンバー一同の率直な感想だった。庭の音は刻一刻と変化してゆき、一つとして同じ音が再生されることはない。それは当たり前のことではあるのだが、しかし、庭にいて同じ時間を過ごすよりも、そこから音だけを切り出す、つまりそこで起きていることの情報を削減することで、より露わになる。
       figure
         Img2X(src="sessyu-tei-photo.jpg" alt="雪舟庭の写真")
+        figcaption TODO: キャプションが入ります
       p また、高原が撮影した、庭のあちこちにいる生物の様子の動画は数百個に及ぶ。一つの庭のなかで起きていることは、あまりに膨大である。「いま」「そこ」で生成していることすら、あまりに多様で、人間が、あるいはコンピューターであっても、すべてを把握することは不可能である。ましてや、その「いま」が無限に庭では蓄積されていくのである。そうした膨大な情報を撮影や録音等によって「切り出す」ことによって、人は、そこで起きている出来事を比較的容易に把握できるようになる。
       p ここで、これまで度々参照されてきた、ヴァルター・ベンヤミンの「写真小史」（1931）の一節を思い出しておきたい。
       blockquote
@@ -146,6 +149,7 @@ main
       p 本プロジェクトが目指しているのは、言ってみれば、庭の「無意識的なもの」を可視化させることであるのかもしれない。ただし、ここで用いられるテクノロジーは写真だけではなく、動画撮影、録音、3Dスキャン等も含まれる<Footnote num="8" />。こうした種々のテクノロジーによって露呈される「庭の無意識的なもの」を一度切り出して収集し、それを再び結合し総合することが、本アーカイヴの目的であるようだ。
       figure
         Img2X(src="kanabun.jpg" alt="雪舟庭の写真")
+        figcaption TODO: キャプションが入ります
 
     section.footnotes
       ol.footnotes-list(start="7")
@@ -297,6 +301,11 @@ section + section:not(.footnotes)
   margin-top: 200px
 figure
   margin: 32px 0 26px
+  figcaption
+    @extend %font_tsukuaold_r
+    text-align: right
+    font-size: 12px
+    line-height: 23px
 #murin-an-fig1
   vertical-align: bottom
   margin-bottom: 2px
