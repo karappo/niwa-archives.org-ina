@@ -32,10 +32,10 @@ export default {
   data() {
     return {
       slides: [
-        { caption: '3D scanning data of Sessyu tei' },
-        { caption: '3D scanning data of Sessyu tei' },
-        { caption: '3D scanning data of Murin an' },
-        { caption: '3D scanning data of Murin an' }
+        { caption: '3D scanning data of Sessyu-tei' },
+        { caption: '3D scanning data of Sessyu-tei' },
+        { caption: '3D scanning data of Murin-an' },
+        { caption: '3D scanning data of Murin-an' }
       ],
       options: {
         autoplay: true,

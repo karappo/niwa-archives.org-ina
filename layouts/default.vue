@@ -67,7 +67,3 @@
   bottom: 56px
   z-index: -1
 </style>
-
-<script>
-export default {}
-</script>

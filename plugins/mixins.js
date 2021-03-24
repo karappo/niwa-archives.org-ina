@@ -36,17 +36,7 @@ Vue.mixin({
       const _class = []
       // let title = this.$t('title') TODO
       const title = '終わらない庭のアーカイヴ - Incomplete Niwa Archives'
-      let titleTemplate = `%s | ${title}`
-      // ページクラス
-      if (this.isPage('/')) {
-        _class.push('top')
-        titleTemplate = null
-      } else {
-        // eslint-disable-next-line
-        const _page = this.$route.path.replace(this.localePath('/'), '').replace('/', '')
-        _class.push(_page)
-        // title = this.$t(`${_page}.title`) TODO
-      }
+      const titleTemplate = `%s | ${title}`
       // noScroll
       if (this.noScroll) {
         _class.push('noScroll')

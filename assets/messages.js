@@ -1,7 +1,7 @@
 
 module.exports = {
   ja: {
-    title: '終わらない庭のアーカイブ - Incomplete Niwa Archives',
+    title: '終わらない庭のアーカイヴ - Incomplete Niwa Archives',
     description: 'TODO 説明',
   },
   en: {
