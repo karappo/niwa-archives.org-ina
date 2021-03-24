@@ -52,11 +52,7 @@ export default {
   axios: {},
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-    vendor: [
-      'vue-awesome-swiper'
-    ]
-  },
+  build: {},
 
   generate: {}
 }
