@@ -201,25 +201,43 @@ main
 
       p
         | 科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
-        | 研究代表者：原瑠璃彦（青山学院大学客員研究員）<br>
-        | 研究分担者：伊藤隆之（YCAM InterLab）<br>
-        | 　　　　　　高原文江（YCAM Inter Lab）<br>
-        | 　　　　　　城一裕（九州大学准教授、YCAM専門委員）　　　　　　<br>
-        | 　　　　　　津田和俊（京都工芸繊維大学 KYOTO Design Lab 講師、YCAM専門委員）<br>
-        | <br>
+      dl
+        dt 研究代表者：
+        dd 原瑠璃彦（青山学院大学客員研究員）
+        dt 研究分担者：
+        dd
+          | 伊藤隆之（YCAM InterLab）<br>
+          | 高原文江（YCAM Inter Lab）<br>
+          | 城一裕（九州大学准教授、YCAM専門委員）<br>
+          | 津田和俊（京都工芸繊維大学 KYOTO Design Lab 講師、YCAM専門委員）
+      p
         | 研究協力者：<br>
-        | ・ウェブデザイン・開発　　　　KARAPPO Inc.<br>
-        | ・3Dビューワー開発協力　　　白木良（プログラマー）<br>
-        | ・常栄寺庭園 3Dスキャン　　　石井栄一、西本文博<br>
-        | ・常栄寺庭園 サウンド・レコーディング　　中上淳二（YCAM InterLab）<br>
-        | ・常栄寺庭園 植物調査　　　　出口晃多、大金まどか、平尾美紀、原さくら、秋貞朝<br>
-        | ・無鄰菴庭園3Dスキャン　　　井上智博（京都工芸繊維大学 KYOTO Design Lab）<br>
-        | 　　　　　　　　　　　　　　孫夢（京都工芸繊維大学 KYOTO Design Lab）<br>
-        | ・サウンド・システム開発　　　安齋励應（慶應義塾大学SFC徳井直生研究室 B4）<br>
-        | 　　　　　　　　　　　　　　 岡崎圭佑（慶應義塾大学SFC徳井直生研究室 B2）<br>
-        | <br>
-        | 制作協力：公益財団法人 山口市文化振興財団（山口情報芸術センター）<br>
-        | <br>
+      dl.wide
+        dt ウェブデザイン・開発
+        dd KARAPPO Inc.
+        dt 3Dビューワー開発協力
+        dd 白木良（プログラマー）
+        dt 常栄寺庭園 3Dスキャン
+        dd 石井栄一、西本文博
+        dt
+          | 常栄寺庭園<br>
+          | サウンド・レコーディング
+        dd 中上淳二（YCAM InterLab）
+        dt 常栄寺庭園 植物調査
+        dd 出口晃多、大金まどか、平尾美紀、原さくら、秋貞朝
+        dt 無鄰菴庭園3Dスキャン
+        dd
+          | 井上智博（京都工芸繊維大学 KYOTO Design Lab）<br>
+          | 孫夢（京都工芸繊維大学 KYOTO Design Lab）<br>
+        dt サウンド・システム開発
+        dd
+          | 安齋励應（慶應義塾大学SFC徳井直生研究室 B4）<br>
+          | 岡崎圭佑（慶應義塾大学SFC徳井直生研究室 B2）
+      dl.narrow
+        dt 制作協力：
+        dd 公益財団法人 山口市文化振興財団（山口情報芸術センター）
+
+      p
         | 謝辞：<br>
         | 宗教法人 常栄寺<br>
         | 山口市文化財保護課<br>
@@ -233,7 +251,7 @@ main
       | 「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
       | （課題番号：19H01225、研究代表者：原瑠璃彦）<br>
       | contact:
-      ExternalLink(href="niwaarchive@rurihikohara.com") niwaarchive@rurihikohara.com
+      ExternalLink.mail(href="mailto:niwaarchive@rurihikohara.com") niwaarchive@rurihikohara.com
 </template>
 
 <style lang="sass" scoped>
@@ -311,8 +329,33 @@ figure
   margin-bottom: 2px
 #murin-an-fig2
   margin-right: 2px
+dl
+  display: flex
+  flex-wrap: wrap
+  $width: 6em
+  dt
+    width: $width
+  dd
+    width: calc(100% - #{$width + 4em})
+    margin-left: 2em
+dl.wide
+  $width: 12em
+  dt
+    width: $width
+  dd
+    width: calc(100% - #{$width + 4em})
+    margin-left: 2em
+dl.narrow
+  $width: 5em
+  dt
+    width: $width
+  dd
+    width: calc(100% - #{$width + 4em})
+    margin-left: 2em
 footer
   opacity: 0.5
+  .mail
+    margin-left: 1em
 </style>
 
 <script>
