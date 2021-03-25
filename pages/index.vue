@@ -542,8 +542,6 @@ h4
   letter-spacing: 0.032em
   line-height: 2
   margin: 70px 0
-a[href]
-  color: #9ABA8F
 p + p
   margin-top: 2em
 sup

@@ -39,6 +39,8 @@
         letter-spacing: 0.05em
         margin-top: 2px
         margin-left: 70px
+    a
+      color: white
     nav
       a
         font-size: 15px
