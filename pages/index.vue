@@ -320,7 +320,7 @@ main(:data-lang="this.$i18n.locale")
               | Sixth session (October 10, 2020): Shimamura Yukitada, “Kindai no sencha kūkan ni taisuru kinsei kōki bunjin bunka no eikyō [Late Early Modern Literati Culture’s Influence on the Modern Sencha Space]”<br>
               | Seventh session (January 16, 2021): Tsugawa Eri, “Ko no hyōgen kara umareru engekiteki paburikku supēsu [Theatrical Public Space Born from Expression of Personality]”<br>
               | Eighth session (February 20, 2021): Aida Daiya, “Korogaru kōen shirīzu ni tsuite [On the KOROGARU Park Series]”<br>
-              a.footnote-backref(v-scroll-to="{el: '#fnref1', offset: 0}" href="#") ↩
+              FootnoteBackref(num="1")
 
       section(data-fuwa)
         h4 Research on Murin-an Garden in Kyoto Begins
@@ -340,21 +340,21 @@ main(:data-lang="this.$i18n.locale")
           li#fn2.footnote-item
             p
               | See Amasaki Hiromasa, “Kindai teien no ranshō,” in Nanadaime Ogawa Jihei—sanshi suimei no miyako ni kaesaneba (Mineruba Shobō, 2012), 38–55; Suzuki Hiroyuki, “Hajimari to shiteno Yamagata Aritomo,” in Niwashi Ogawa Jihei to sono jidai (University of Tokyo Press, 2013), 53–98. Ueji’s garden-making at Murin-an is said to have taken significant cue from Yamagata Aritomo.
-              a.footnote-backref(v-scroll-to="{el: '#fnref2', offset: 0}" href="#") ↩
+              FootnoteBackref(num="2")
           li#fn3.footnote-item
             p
               | See
               ExternalLink(href="https://murin-an.jp")  Murin-an’s website
               | for details.
-              a.footnote-backref(v-scroll-to="{el: '#fnref3', offset: 0}" href="#") ↩
+              FootnoteBackref(num="3")
           li#fn4.footnote-item
             p
               | One commentator maintains that the garden at Murin-an is a “utsushi [emulation]” of Jōei-ji’s (Nomura Kanji, Tabi ni detara yotte mitai niwa 30 [Shōgaku-kan, 1997], 88).
-              a.footnote-backref(v-scroll-to="{el: '#fnref4', offset: 0}" href="#") ↩
+              FootnoteBackref(num="4")
           li#fn5.footnote-item
             p
               | Inoue Tomohiro (KYOTO Design Lab, Kyoto Institute of Technology) was of great assistance in our 3D scanning campaigns.
-              a.footnote-backref(v-scroll-to="{el: '#fnref5', offset: 0}" href="#") ↩
+              FootnoteBackref(num="5")
 
       section(data-fuwa)
         h4 Developing the Archives User Interface
@@ -382,7 +382,7 @@ main(:data-lang="this.$i18n.locale")
           li#fn6.footnote-item
             p
               | KARAPPO Inc., has designed the website of Mori no DNA zukan, an important precedent for our project.
-              a.footnote-backref(v-scroll-to="{el: '#fnref6', offset: 0}" href="#") ↩
+              FootnoteBackref(num="6")
 
       section(data-fuwa)
         h4 Digitizing the Gardens
@@ -405,11 +405,11 @@ main(:data-lang="this.$i18n.locale")
           li#fn7.footnote-item
             p
               | Walter Benjamin, “Little History of Photography,” trans. Edmund Jephcott and Kingsley Shorter, in Selected Writings 2, pt. 2, 1931–1934, ed. Michael W. Jennings, Howard Eiland, and Gary Smith (Cambridge, MA: Belknap, 1999), 510, 512.
-              a.footnote-backref(v-scroll-to="{el: '#fnref7', offset: 0}" href="#") ↩
+              FootnoteBackref(num="7")
           li#fn8.footnote-item
             p
               | Abe Kazunao develops the concept of “the optical unconscious” into “mediated unconscious.” See “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017), 188, 189.
-              a.footnote-backref(v-scroll-to="{el: '#fnref8', offset: 0}" href="#") ↩
+              FootnoteBackref(num="8")
 
       section(data-fuwa)
         h4 Archives to Be Experienced Absentmindedly
@@ -434,7 +434,7 @@ main(:data-lang="this.$i18n.locale")
           li#fn9.footnote-item
             p
               | Mishima Yukio, “‘Sentō Gosho’ jobun,” in Ketteiban Mishima Yukio zenshū 34 (Shinchō-sha, 2003), 467, 469.
-              a.footnote-backref(v-scroll-to="{el: '#fnref9', offset: 0}" href="#") ↩
+              FootnoteBackref(num="9")
 
     article#credit
 
