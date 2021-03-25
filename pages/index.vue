@@ -166,7 +166,7 @@ main(:data-lang="this.$i18n.locale")
               FootnoteBackref(num="7")
           li#fn8.footnote-item
             p
-              | 阿部一直は、「視覚的無意識」を発展させ、「メディア的無意識」という語を用いている。〔Abe Kazunao, “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017), p. ?.〕
+              | 阿部一直は、「視覚的無意識」を発展させ、「メディア的無意識」という語を用いている。〔Abe Kazunao, “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017), p. 188-89.〕
               FootnoteBackref(num="8")
 
       section(data-fuwa)
@@ -408,7 +408,7 @@ main(:data-lang="this.$i18n.locale")
               a.footnote-backref(v-scroll-to="{el: '#fnref7', offset: 0}" href="#") ↩
           li#fn8.footnote-item
             p
-              | Abe Kazunao develops the concept of “the optical unconscious” into “mediated unconscious.” See “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017).
+              | Abe Kazunao develops the concept of “the optical unconscious” into “mediated unconscious.” See “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017), 188, 189.
               a.footnote-backref(v-scroll-to="{el: '#fnref8', offset: 0}" href="#") ↩
 
       section(data-fuwa)
