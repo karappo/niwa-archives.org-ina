@@ -1,9 +1,9 @@
 <template lang="pug">
 swiper.carousel(ref="mySwiper" :options="options")
   swiper-slide(v-for="(i, index) in [1,2,3,4]" :key="i")
-    Img2X.pc(:src="`mv-${i}.jpg`")
-    Img2X.sp(:src="`mv-${i}-sp.jpg`")
-    .caption {{ $t(`carouselCaptions[${index}]`) }}
+    .slide(:style="style(i)")
+      img.aspect(src="~/assets/image/carousel-aspect-ratio.svg")
+      .caption {{ $t(`carouselCaptions[${index}]`) }}
 </template>
 
 <style lang="sass" scoped>
@@ -11,9 +11,18 @@ swiper.carousel(ref="mySwiper" :options="options")
 .carousel
   width: 100%
   position: relative
-  img
+  .slide
+    background-position: center
+    background-size: cover
+    +sp
+      width: 100%
+      height: calc( var(--vh, 100vh) - 205px) // ブラウザのUIを考慮した高さを取得
+  img.aspect
     width: 100%
     height: auto
+    visibility: hidden
+    +sp
+      display: none
   .caption
     opacity: 0.8
     position: absolute
@@ -44,6 +53,16 @@ export default {
           crossFade: true
         },
         loop: true
+      }
+    }
+  },
+  mounted() {
+    console.log(this.$el.offsetTop)
+  },
+  methods: {
+    style(i) {
+      return {
+        backgroundImage: `url(${require(`@/assets/image/mv-${i}@2x.jpg`)})`
       }
     }
   }
