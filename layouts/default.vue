@@ -1,6 +1,6 @@
 <template lang="pug">
 #pageTop
-  header
+  header(data-fuwa)
     h1
       a(href="#" v-scroll-to="'#pageTop'")
         Img2X.logo(src='logo.png')
