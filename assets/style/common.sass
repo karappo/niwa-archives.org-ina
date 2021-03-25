@@ -22,22 +22,24 @@ a[href]
 .en
   font-family: 'K2-v1-Light', $helvetica
 
-*:not(.mv):not(.visual)[data-fuwa]
+*:not(.mv):not(.visual):not(figure)[data-fuwa]
   opacity: 0
   color: rgba(255,255,255,0)
   text-shadow: 0px 0px 40px rgba(255, 255, 255, 0.5)
   transition: text-shadow 1.5s, opacity 1.5s !important
-*:not(.mv):not(.visual)[data-fuwa=visible]
+*:not(.mv):not(.visual):not(figure)[data-fuwa=visible]
   opacity: 1
   color: rgba(255,255,255,1)
   text-shadow: 0px 0px 0px rgba(255, 255, 255, 0.5)
   transition: text-shadow 1.5s, opacity 1.5s !important
 
 .mv[data-fuwa],
-.visual[data-fuwa]
+.visual[data-fuwa],
+figure[data-fuwa]
   opacity: 0
   transition: opacity 2s !important
 .mv[data-fuwa=visible],
-.visual[data-fuwa=visible]
+.visual[data-fuwa=visible],
+figure[data-fuwa=visible]
   opacity: 1
   transition: opacity 2s !important

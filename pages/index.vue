@@ -84,7 +84,7 @@ main(:data-lang="this.$i18n.locale")
         p 無鄰菴庭園は季節ごとに変化が豊かである。6月には瑞々しい緑に恵まれた状況で3Dスキャンを実施することができたが、一方で無鄰菴は、冬は枯芝の庭となり趣きが大きく異なるため、その3Dスキャンを行うべく、12月に実施した。ところが、その調査2日目より雪に恵まれたことにより、期せずして3バージョンの3Dスキャンを実施することができた。
         p 無鄰菴庭園に関するこれらの素材については、来年度中に公開予定である。
 
-        figure
+        figure(data-fuwa)
           Img2X#murin-an-fig1(src="murin-an-1.jpg" alt="無鄰菴の風景")
           Img2X#murin-an-fig2(src="murin-an-2.jpg" alt="無鄰菴の風景")
           Img2X#murin-an-fig3(src="murin-an-3.jpg" alt="無鄰菴の風景")
@@ -130,7 +130,7 @@ main(:data-lang="this.$i18n.locale")
         p 現時点では、こうした多様なデータを、主にOUTLINE・VIEW・ELEMENTという3つの階層に分けて整理する方向で作業を進めている。OUTLINEとは、その庭園に関する基本的な情報、またその大枠となる図面や3Dデータ等、庭園の俯瞰を可能にするデータである。VIEWとは、主に人が庭園を体験する視点に基づく画像や映像である。そして、ELEMENTは、庭園の各要素のディテール、さらには人が肉眼では認識できないミクロのレベルの情報である。
         p 現在開発中のUIでは、庭園の3Dデータに、VIEW、ELEMENTのデータをプロットし、ユーザーがこれを任意に参照できるシステムを構築している。それぞれのデータにはタグが付せられており、一つ一つが関係を有する。
         p また、庭園の立体音響録音データに関しては、伊藤隆之を中心として人の聴取に向けた編集を行なっているほか、城一裕主導のもと、慶應義塾大学環境情報学部政策・メディア研究科 徳井直生研究室（安齋励應（M2）、岡崎隆祐（B3））の協力を得て、深層学習を用いた音の判定システムを実験・開発中である。具体的には、日本庭園で聴こえる様々な音を分類し、その分類に基づいて計算機に学習させたモデルを用いることで、季節や時間帯で移り変わるそれぞれの庭園の立体音響録音データから、そこで聴こえる鳥や虫の声の種別を判定するというものである。
-        figure
+        figure(data-fuwa)
           Img2X(src="ui.png" alt="UIのラフデザイン")
           figcaption TODO: キャプションが入ります
       section.footnotes(data-fuwa)
@@ -146,7 +146,7 @@ main(:data-lang="this.$i18n.locale")
         p こうした試行錯誤のなか、徐々に、本プロジェクトが目指すべきアーカイヴのかたちが明確になってきた。とくに、実際に、庭園の録音データや撮影データを多数収集することで見えてくることは多かった。
         p なかでも6月11日に録音したおよそ1時間30分におよぶ常栄寺庭園の早朝の立体音響録音データは、メンバー一同が驚くものであった。そこには早朝の庭の饗宴というべきか、無数の野鳥と昆虫、そしてモリアオガエルが庭のそこかしこで鳴き続けていた。まるであらかじめパート分けされているかのように、ヒヨドリたちが全面に聴こえることもあれば、モリアオガエルが一斉に鳴きだすこともあり、また、両者が鳴き交わすこともある。途中からはやがて雨が降り出すが、その音も決して均一ではなく、葉に落ちるとき、水面に落ちるとき、地面に落ちるときで異なり、その強弱から降り方の変化が分かる。
         p 「まるで映画のよう」というのが、メンバー一同の率直な感想だった。庭の音は刻一刻と変化してゆき、一つとして同じ音が再生されることはない。それは当たり前のことではあるのだが、しかし、庭にいて同じ時間を過ごすよりも、そこから音だけを切り出す、つまりそこで起きていることの情報を削減することで、より露わになる。
-        figure
+        figure(data-fuwa)
           Img2X(src="sessyu-tei-photo.jpg" alt="雪舟庭の写真")
           figcaption TODO: キャプションが入ります
         p また、高原が撮影した、庭のあちこちにいる生物の様子の動画は数百個に及ぶ。一つの庭のなかで起きていることは、あまりに膨大である。「いま」「そこ」で生成していることすら、あまりに多様で、人間が、あるいはコンピューターであっても、すべてを把握することは不可能である。ましてや、その「いま」が無限に庭では蓄積されていくのである。そうした膨大な情報を撮影や録音等によって「切り出す」ことによって、人は、そこで起きている出来事を比較的容易に把握できるようになる。
@@ -154,7 +154,7 @@ main(:data-lang="this.$i18n.locale")
         blockquote
           | カメラに語りかける自然は、肉眼に語りかける自然とは当然異なる。（中略）人間によって意識を織りこまれた空間の代わりに、無意識が織りこまれた空間が立ち現われるのである。（中略）こうした視覚における無意識的なものは、写真によってはじめて知られる。それは衝動における無意識的なものが、精神分析によってはじめて知られるのと同様である。<Footnote num="7" />
         p 本プロジェクトが目指しているのは、言ってみれば、庭の「無意識的なもの」を可視化させることであるのかもしれない。ただし、ここで用いられるテクノロジーは写真だけではなく、動画撮影、録音、3Dスキャン等も含まれる<Footnote num="8" />。こうした種々のテクノロジーによって露呈される「庭の無意識的なもの」を一度切り出して収集し、それを再び結合し総合することが、本アーカイヴの目的であるようだ。
-        figure
+        figure(data-fuwa)
           Img2X(src="kanabun.jpg" alt="虫の写真")
           figcaption TODO: キャプションが入ります
 
@@ -329,7 +329,7 @@ main(:data-lang="this.$i18n.locale")
         p As their structure takes full account of the specificities of their respective sites, not two Japanese gardens are exactly alike. Jōei-ji and Murin-an Gardens already show a number of contrasts with each other.<Footnote num="4" /> While Jōei-ji garden is attached to a Buddhist temple, Murin-an’s belongs to what was originally the private residence of a powerful figure. Jōei-ji is structured around a pond, whereas Murin-an has only a shallow stream. The former is built on a slope; the latter’s site is almost entirely flat. Jōei-ji is at the foot of a mountain, in an extremely quiet area; Murin-an is situated on flat terrain and adjacent to a street, with the drone of the traffic constantly audible inside the garden. The sound of running water from the aforementioned stream is another sonic constant in the latter.
         p In June and December 2020, we carried out 3D scanning of the entire Garden.<Footnote num="5" /> These were followed in October by a water quality survey and interviews with Deguchi Kenta, the gardener in charge, and Hirano Tomoaki, a staff member (both Ueya Katō Zōen, Inc.), about maintenance of and birdlife at Murin-an. Also in October, we trialed fixed-point long-time video recording as well as Ambisonics.
         p Murin-an exhibits a striking series of changes from one season to another. In June we were able to 3D scan in lush greenery. When we went back in December, hoping to capture the radical transformation of scenery brought on by dead lawns in winter, we were blessed with snowfall from our second day onward. This gave us the unexpected opportunity to produce three different versions of scanning. We are working to publish these materials on Murin-an in the course of the next academic year.
-        figure
+        figure(data-fuwa)
           Img2X#murin-an-fig1(src="murin-an-1.jpg" alt="Picture of Murin-an")
           Img2X#murin-an-fig2(src="murin-an-2.jpg" alt="Picture of Murin-an")
           Img2X#murin-an-fig3(src="murin-an-3.jpg" alt="Picture of Murin-an")
@@ -374,7 +374,7 @@ main(:data-lang="this.$i18n.locale")
         p At this time we are working to divide this diverse collection into three principal registers, OUTLINE, VIEW and ELEMENT. OUTLINE is the basic information about the Gardens, as well as various data that allow to take an overview of the sites including architectural plans and 3D scans. VIEW designates chiefly images and videos based on the human experience of the Gardens. Finally, ELEMENT consists of close-ups of the individual details of the Gardens and micro-level information invisible to naked human eye.
         p The UI currently under development plots the VIEW and ELEMENT data onto the 3D scans of the Gardens, making the whole available for users’ free exploration. Each data is tagged and has its own network of relations.
         p As for surround audio recordings, a team led by Itō Takayuki is currently editing them with human hearing in mind. A deep learning-based sound identification system is also being developed and trialed by Jō Kazuhiro in collaboration with Anzai Reo and Okazaki Keisuke, M2 and B3 students respectively at Tokui Nao lab, Graduate School of Media and Governance, Keio University. This involves classifying diverse sounds in Japanese gardens to categories and having computers learn these categories to produce models. These models will then be used to identify different bird and animal species by their “voices” captured in the surround audio recordings.
-        figure
+        figure(data-fuwa)
           Img2X(src="ui.png" alt="UI laugh design")
           figcaption TODO: キャプションが入ります
       section.footnotes(data-fuwa)
@@ -388,7 +388,7 @@ main(:data-lang="this.$i18n.locale")
         h4 Digitizing the Gardens
 
         p These trials and errors gradually brought into focus the shape of archives for this project to work toward. The experience of producing a large amount of video and audio recordings on the ground was especially instructive. In particular, the almost one-hour-and-a-half long Ambisonics at Jōei-ji Garden, made early in the morning of June 11, was a true revelation to the entire team. Countless wild birds and insects as well as forest green tree frogs keep singing everywhere in what might be called a morning garden symphony. As though each group were assigned a part in advance, sometimes brown-eared bulbuls dominate the entire scene, sometimes forest green tree frogs begin singing all at once, sometimes they sing to each other. Similarly, when rain starts to fall later in the recording, the sound varies depending on whether rain hits leaves, water surface or the ground, indexing the fluctuation in the intensity of the rainfall. “It’s exactly like a movie!” was our unanimous, spontaneous response. The soundscape in a garden changes minute by minute, with no two sounds ever similar. If that is a common knowledge, isolating sound from its environment, thereby reducing the information as to things happening there, makes that knowledge even more evident than when one is in the Garden, spending time in it.
-        figure
+        figure(data-fuwa)
           Img2X(src="sessyu-tei-photo.jpg" alt="Picture of Jōei-ji Garden")
           figcaption TODO: キャプションが入ります
         p Takahara for her part shot a few hundred video footages of animals found at various spots in the Garden. There is an overwhelming amount of things happening in a garden. What is coming into being right here and now alone is too diverse for a human or even a computer to grasp in its entirety. Furthermore, such now accumulates infinitely in a garden. Isolating this overwhelming amount of information by means of video and audio recording makes it relatively easier to comprehend what is occurring in that space.
@@ -396,7 +396,7 @@ main(:data-lang="this.$i18n.locale")
         blockquote
           | It is another nature which speaks to the camera rather than to the eye…. A space informed by human consciousness gives way to a space informed by the unconscious…. It is through photography that we first discover the existence of this optical unconscious, just as we discover the instinctual unconscious through psychoanalysis.<Footnote num="7" />
           p Perhaps what our project seeks is to make a garden’s “unconscious” visible. That said, the technologies mobilized here include not only photography but video and sound recordings and 3D scans as well.<Footnote num="8" /> To isolate a garden’s “unconscious” that the technologies reveal in the form of separate pieces of information, and then to put them back together into a synthesis—that seems to be the purpose of our archives.
-        figure
+        figure(data-fuwa)
           Img2X(src="kanabun.jpg" alt="Picture of insect")
           figcaption TODO: キャプションが入ります
 
