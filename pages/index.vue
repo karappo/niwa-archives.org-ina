@@ -677,12 +677,25 @@ export default {
     ExternalLink,
     MailLink
   },
+  data() {
+    return {
+      fontPlusTimer: null
+    }
+  },
   mounted() {
-    FONTPLUS.reload()
     this.updateGoogleAnalyticsTitle()
     setTimeout(this.initFuwa, 1000)
+    this.fontPlusTimer = setInterval(this.loadFont, 1000)
   },
   methods: {
+    loadFont() {
+      console.log('loadFont...')
+      if (FONTPLUS) {
+        console.log('FONTPLUS.reload() OK!')
+        FONTPLUS.reload()
+        clearInterval(this.fontPlusTimer)
+      }
+    },
     openSound() {
       window.open(
         'https://www.dropbox.com/s/8lmowlcl5blo3nv/6%E6%9C%8811%E6%97%A5_4%E6%99%8250%E5%88%86.wav?dl=0',
