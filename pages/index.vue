@@ -509,7 +509,7 @@ section.mv
   flex-direction: column
   align-items: center
   > img.mv-text
-    width: calc(100% - 6vw)
+    width: calc(100% - 5vw)
     margin: 0 auto -1vw
 section.visual
   margin: 0 50px
@@ -531,17 +531,16 @@ h2
   font-size: 15px
   font-weight: normal
   letter-spacing: 0.05em
-  margin: 0
-  padding: 70px 0
+  margin: 70px 0
 h3
-  font-size: 20px
-  letter-spacing: 0
+  font-size: 24px
+  letter-spacing: 0.032em
   line-height: 1.5
   margin: 88px 0
 h4
-  font-size: 16px
-  letter-spacing: 0
-  line-height: 2.375
+  font-size: 20px
+  letter-spacing: 0.032em
+  line-height: 2
   margin: 70px 0
 a[href]
   color: #9ABA8F
@@ -577,10 +576,11 @@ figcaption
   text-align: right
   font-size: 12px
   line-height: 23px
+  margin-top: 7px
+  opacity: 0.8
 main[data-lang='en']
  figcaption
     font-family: 'K2-v1-Light', $helvetica
-
 #murin-an-fig1
   vertical-align: bottom
   margin-bottom: 2px

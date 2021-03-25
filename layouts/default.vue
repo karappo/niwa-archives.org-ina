@@ -31,6 +31,7 @@
       display: flex
       align-items: flex-start
       margin-top: 1px
+      z-index: 2
       span
         color: #A3A3A3
         font-size: 15px
