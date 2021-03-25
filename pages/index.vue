@@ -206,8 +206,7 @@ main(:data-lang="this.$i18n.locale")
 
       section(data-fuwa)
 
-        p
-          | 科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
+        p 科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」
         dl
           dt 研究代表者：
           dd 原瑠璃彦（青山学院大学客員研究員）
@@ -217,8 +216,7 @@ main(:data-lang="this.$i18n.locale")
             | 高原文江（YCAM Inter Lab）<br>
             | 城一裕（九州大学准教授、YCAM専門委員）<br>
             | 津田和俊（京都工芸繊維大学 KYOTO Design Lab 講師、YCAM専門委員）
-        p
-          | 研究協力者：<br>
+        p 研究協力者：<br>
         dl.wide
           dt ウェブデザイン・開発
           dd KARAPPO Inc.
