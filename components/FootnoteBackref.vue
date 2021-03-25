@@ -1,6 +1,5 @@
 <template lang="pug">
-sup.footnote-ref
-  a(href="#" v-scroll-to="{el: `#fn${num}`, offset: 0}" :id="'fnref'+num") {{ num }}
+a.footnote-backref(v-scroll-to="{el: `#fnref${num}`, offset: 0}" href="#") ↩
 </template>
 
 <script>

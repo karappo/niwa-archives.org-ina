@@ -73,7 +73,7 @@ main(:data-lang="this.$i18n.locale")
               | 第6回（2020年10月10日）：島村幸忠「近代の煎茶空間に対する近世後期文人文化の影響」<br>
               | 第7回（2021年1月16日）：津川恵理「個の表現から生まれる演劇的パブリックスペース」<br>
               | 第8回（2021年2月20日）：会田大也「コロガル公園シリーズについて」
-              a.footnote-backref(href="#fnref1") ↩
+              FootnoteBackref(num="1")
 
       section(data-fuwa)
         h4 京都・無鄰菴庭園の調査の開始
@@ -95,21 +95,21 @@ main(:data-lang="this.$i18n.locale")
           li#fn2.footnote-item
             p
               | 尼崎博正「近代庭園の濫觴」『七代目小川治兵衛――山紫水明の都にかへさねば』（ミネルヴァ書房、2012年）、38-55頁、鈴木博之「はじまりとしての山縣有朋」『庭師 小川治兵衛とその時代』（東京大学出版会、2013年）、55-98頁。植治のこうした作庭を促したのは、山県有朋の主導によるところが大きいという。
-              a.footnote-backref(href="#fnref2") ↩
+              FootnoteBackref(num="2")
           li#fn3.footnote-item
             p
               | 詳しくは、
               ExternalLink(href="https://murin-an.jp") 無鄰菴ウェブサイト
               | を参照されたい。
-              a.footnote-backref(href="#fnref3") ↩
+              FootnoteBackref(num="3")
           li#fn4.footnote-item
             p
               | 無鄰菴庭園を常栄寺庭園の「うつし」とする説もある〔野村勘治『旅に出たら寄ってみたい庭 30』（小学館、1997年）、88頁〕。
-              a.footnote-backref(href="#fnref4") ↩
+              FootnoteBackref(num="4")
           li#fn5.footnote-item
             p
               | 3Dスキャンにあたっては、京都工芸繊維大学KYOTO Design Labの井上智博氏に多大な協力を得た。
-              a.footnote-backref(href="#fnref5") ↩
+              FootnoteBackref(num="5")
 
       section(data-fuwa)
         h4 庭園アーカイヴ UIの開発
@@ -138,7 +138,7 @@ main(:data-lang="this.$i18n.locale")
           li#fn6.footnote-item
             p
               | KARAPPO Inc.は、本プロジェクトによって重要な先行例《森のDNA図鑑》のウェブ・デザインも手がけている。
-              a.footnote-backref(href="#fnref6") ↩
+              FootnoteBackref(num="6")
 
       section(data-fuwa)
         h4 庭園をデータ化するということ
@@ -163,11 +163,11 @@ main(:data-lang="this.$i18n.locale")
           li#fn7.footnote-item
             p
               | 久保哲司訳「写真小史」『ベンヤミン・コレクションI――近代の意味』（筑摩書房、1995年）、558-59頁。
-              a.footnote-backref(href="#fnref7") ↩
+              FootnoteBackref(num="7")
           li#fn8.footnote-item
             p
               | 阿部一直は、「視覚的無意識」を発展させ、「メディア的無意識」という語を用いている。〔Abe Kazunao, “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017), p. ?.〕
-              a.footnote-backref(href="#fnref8") ↩
+              FootnoteBackref(num="8")
 
       section(data-fuwa)
         h4 ぼんやりと体験できるアーカイヴ
@@ -198,7 +198,7 @@ main(:data-lang="this.$i18n.locale")
           li#fn9.footnote-item
             p
               | 三島由紀夫「「仙洞御所」序文」『決定版 三島由紀夫全集 34』（新潮社、2003年）、467頁、469頁。
-              a.footnote-backref(href="#fnref9") ↩
+              FootnoteBackref(num="9")
 
     article#credit
 
@@ -320,7 +320,7 @@ main(:data-lang="this.$i18n.locale")
               | Sixth session (October 10, 2020): Shimamura Yukitada, “Kindai no sencha kūkan ni taisuru kinsei kōki bunjin bunka no eikyō [Late Early Modern Literati Culture’s Influence on the Modern Sencha Space]”<br>
               | Seventh session (January 16, 2021): Tsugawa Eri, “Ko no hyōgen kara umareru engekiteki paburikku supēsu [Theatrical Public Space Born from Expression of Personality]”<br>
               | Eighth session (February 20, 2021): Aida Daiya, “Korogaru kōen shirīzu ni tsuite [On the KOROGARU Park Series]”<br>
-              a.footnote-backref(href="#fnref1") ↩
+              a.footnote-backref(v-scroll-to="{el: '#fnref1', offset: 0}" href="#") ↩
 
       section(data-fuwa)
         h4 Research on Murin-an Garden in Kyoto Begins
@@ -340,21 +340,21 @@ main(:data-lang="this.$i18n.locale")
           li#fn2.footnote-item
             p
               | See Amasaki Hiromasa, “Kindai teien no ranshō,” in Nanadaime Ogawa Jihei—sanshi suimei no miyako ni kaesaneba (Mineruba Shobō, 2012), 38–55; Suzuki Hiroyuki, “Hajimari to shiteno Yamagata Aritomo,” in Niwashi Ogawa Jihei to sono jidai (University of Tokyo Press, 2013), 53–98. Ueji’s garden-making at Murin-an is said to have taken significant cue from Yamagata Aritomo.
-              a.footnote-backref(href="#fnref2") ↩
+              a.footnote-backref(v-scroll-to="{el: '#fnref2', offset: 0}" href="#") ↩
           li#fn3.footnote-item
             p
               | See
               ExternalLink(href="https://murin-an.jp")  Murin-an’s website
               | for details.
-              a.footnote-backref(href="#fnref3") ↩
+              a.footnote-backref(v-scroll-to="{el: '#fnref3', offset: 0}" href="#") ↩
           li#fn4.footnote-item
             p
               | One commentator maintains that the garden at Murin-an is a “utsushi [emulation]” of Jōei-ji’s (Nomura Kanji, Tabi ni detara yotte mitai niwa 30 [Shōgaku-kan, 1997], 88).
-              a.footnote-backref(href="#fnref4") ↩
+              a.footnote-backref(v-scroll-to="{el: '#fnref4', offset: 0}" href="#") ↩
           li#fn5.footnote-item
             p
               | Inoue Tomohiro (KYOTO Design Lab, Kyoto Institute of Technology) was of great assistance in our 3D scanning campaigns.
-              a.footnote-backref(href="#fnref5") ↩
+              a.footnote-backref(v-scroll-to="{el: '#fnref5', offset: 0}" href="#") ↩
 
       section(data-fuwa)
         h4 Developing the Archives User Interface
@@ -382,7 +382,7 @@ main(:data-lang="this.$i18n.locale")
           li#fn6.footnote-item
             p
               | KARAPPO Inc., has designed the website of Mori no DNA zukan, an important precedent for our project.
-              a.footnote-backref(href="#fnref6") ↩
+              a.footnote-backref(v-scroll-to="{el: '#fnref6', offset: 0}" href="#") ↩
 
       section(data-fuwa)
         h4 Digitizing the Gardens
@@ -405,11 +405,11 @@ main(:data-lang="this.$i18n.locale")
           li#fn7.footnote-item
             p
               | Walter Benjamin, “Little History of Photography,” trans. Edmund Jephcott and Kingsley Shorter, in Selected Writings 2, pt. 2, 1931–1934, ed. Michael W. Jennings, Howard Eiland, and Gary Smith (Cambridge, MA: Belknap, 1999), 510, 512.
-              a.footnote-backref(href="#fnref7") ↩
+              a.footnote-backref(v-scroll-to="{el: '#fnref7', offset: 0}" href="#") ↩
           li#fn8.footnote-item
             p
               | Abe Kazunao develops the concept of “the optical unconscious” into “mediated unconscious.” See “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017).
-              a.footnote-backref(href="#fnref8") ↩
+              a.footnote-backref(v-scroll-to="{el: '#fnref8', offset: 0}" href="#") ↩
 
       section(data-fuwa)
         h4 Archives to Be Experienced Absentmindedly
@@ -434,7 +434,7 @@ main(:data-lang="this.$i18n.locale")
           li#fn9.footnote-item
             p
               | Mishima Yukio, “‘Sentō Gosho’ jobun,” in Ketteiban Mishima Yukio zenshū 34 (Shinchō-sha, 2003), 467, 469.
-              a.footnote-backref(href="#fnref9") ↩
+              a.footnote-backref(v-scroll-to="{el: '#fnref9', offset: 0}" href="#") ↩
 
     article#credit
 
