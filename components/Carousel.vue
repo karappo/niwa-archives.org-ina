@@ -1,7 +1,8 @@
 <template lang="pug">
 swiper.carousel(ref="mySwiper" :options="options")
   swiper-slide(v-for="(i, index) in [1,2,3,4]" :key="i")
-    Img2X(:src="`mv-${i}.jpg`")
+    Img2X.pc(:src="`mv-${i}.jpg`")
+    Img2X.sp(:src="`mv-${i}-sp.jpg`")
     .caption {{ $t(`carouselCaptions[${index}]`) }}
 </template>
 
