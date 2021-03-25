@@ -3,6 +3,9 @@ main(:data-lang="this.$i18n.locale")
   section.mv(data-fuwa)
     img.mv-text(src='~/assets/image/mv-text.svg')
     Carousel
+    .scrollGuide.sp
+      span Scroll
+      i
 
   template(v-if="$i18n.locale == 'ja'")
 
@@ -491,8 +494,28 @@ section.mv
   display: flex
   flex-direction: column
   align-items: center
+  position: relative
   +sp
     margin: 0
+  .scrollGuide
+    position: absolute
+    right: 0
+    bottom: 0
+    z-index: 10
+    display: flex
+    flex-direction: column
+    span
+      font-size: 13px
+      letter-spacing: 0.07em
+      font-family: 'K2-v1-XLight', $helvetica
+      transform: rotate(90deg) translate(-40px, -10px)
+      transform-origin: left top
+    i
+      margin-top: 45px
+      display: block
+      height: 100px
+      width: 1px
+      background-color: #A9BCB6
   > img.mv-text
     width: calc(100% - 5vw)
     margin: 0 auto -1vw
