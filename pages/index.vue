@@ -504,6 +504,10 @@ article
   font-size: 15px
   letter-spacing: 0
   line-height: 2
+  +sp
+    width: calc(100% - 50px)
+    margin-left: 25px
+    margin-right: 25px
   &:last-child
     margin-bottom: 56px
 main[data-lang='en']
@@ -552,6 +556,10 @@ section + section:not(.footnotes)
   margin-top: 200px
 figure
   margin: 32px 0 26px
+  img
+    +sp
+      width: 100%
+      height: auto
 figcaption
   @extend %font_tsukuaold_r
   text-align: right
