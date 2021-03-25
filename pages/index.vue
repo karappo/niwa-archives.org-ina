@@ -441,56 +441,46 @@ main(:data-lang="this.$i18n.locale")
       section(data-fuwa)
 
         p
-          | 科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
+          | Grant-in-Aid for Scientific Research (B) <br>
+          | “Research and Development of Comprehensive Archives of Japanese Gardens”
         dl
-          dt 研究代表者：
-          dd 原瑠璃彦（青山学院大学客員研究員）
-          dt 研究分担者：
+          dt Principal Investigator:
+          dd Rurihiko Hara (Lecturer at Shizuoka University)
+          dt Co-Investigators:
           dd
-            | 伊藤隆之（YCAM InterLab）<br>
-            | 高原文江（YCAM Inter Lab）<br>
-            | 城一裕（九州大学准教授、YCAM専門委員）<br>
-            | 津田和俊（京都工芸繊維大学 KYOTO Design Lab 講師、YCAM専門委員）
-        p
-          | 研究協力者：<br>
-        dl.wide
-          dt ウェブデザイン・開発
+            | Itō Takayuki (YCAM InterLab), <br>
+            | Takahara Fumie (YCAM InterLab), <br>
+            | Jō Kazuhiro (Associate Professor at Kyushu University, Expert Advisor of YCAM), <br>
+            | Tsuda Kazutoshi (Lecturer at KYOTO Design Lab, Kyoto Institute of Technology, Senior Research Fellow of YCAM)
+        p Research Collaborators:<br>
+        dl
+          dt UI Design and Development
           dd KARAPPO Inc.
-          dt 3Dビューワー開発協力
-          dd 白木良（プログラマー）
-          dt 常栄寺庭園 3Dスキャン
-          dd 石井栄一、西本文博
+          dt Cooperation for the Development of 3D viewer
+          dd Shiraki Ryō (Programmer)
+          dt 3D Scanning of Jōei-ji Garden
+          dd Ishii Eiichi, Nishimoto Fumihiro
           dt
-            | 常栄寺庭園<br>
-            | サウンド・レコーディング
-          dd 中上淳二（YCAM InterLab）
-          dt 常栄寺庭園 植物調査
-          dd 出口晃多、大金まどか、平尾美紀、原さくら、秋貞朝
-          dt 無鄰菴庭園3Dスキャン
+            | Ambisonics Recording of Jōei-ji Garden
+          dd Nakaue Junji (YCAM InterLab)
+          dt Botanical Survey of Jōei-ji Garden
+          dd Deguchi Kōta, Ōgane Madoka, Hirao Miki, Hara Sakura, Akisada Hajime
+          dt 3D Scanning of Murin-an Garden
           dd
-            | 井上智博（京都工芸繊維大学 KYOTO Design Lab）<br>
-            | 孫夢（京都工芸繊維大学 KYOTO Design Lab）<br>
-          dt サウンド・システム開発
+            | Inoue Tomohiro (KYOTO Design Lab, Kyoto Institute of Technology), <br>
+            | Sun Meng (KYOTO Design Lab, Kyoto Institute of Technology)
+          dt Development of Sound System
           dd
-            | 安齋励應（慶應義塾大学SFC徳井直生研究室 B4）<br>
-            | 岡崎圭佑（慶應義塾大学SFC徳井直生研究室 B2）
-        dl.narrow
-          dt 制作協力：
-          dd 公益財団法人 山口市文化振興財団（山口情報芸術センター）
-
-        p
-          | 謝辞：<br>
-          | 宗教法人 常栄寺<br>
-          | 山口市文化財保護課<br>
-          | <br>
-          | 京都市<br>
-          | 無鄰菴管理事務所<br>
-          | 植彌加藤造園株式会社
+            | Anzai Reo (B4 student at Tokui Nao lab, Graduate School of Media and Governance, Keio University), <br>
+            | Okazaki Keisuke (B2 student at Tokui Nao lab, Graduate School of Media and Governance, Keio University)
+        p Developed in Cooperation with Public Interest Incorporated Foundation, Yamaguchi City Foundation for Cultural Promotion (Yamaguchi Center for Arts and Media)
+        p Special thanks to Religious corporation, Jōei-ji temple, Cultural Properties Protection Department of Yamaguchi City, Kyoto City, Murin-an Management Office, UEYAKATO LANDSCAPE Co., LTD.
+        p Special thanks to Religious corporation, Jōei-ji temple, Cultural Properties Protection Department of Yamaguchi City, Kyoto City, Murin-an Management Office, UEYAKATO LANDSCAPE Co., LTD.
     article(data-fuwa)
       footer
-        | 科学研究費 基盤研究 (B)<br>
-        | 「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
-        | （課題番号：19H01225、研究代表者：原瑠璃彦）<br>
+        | Grant-in-Aid for Scientific Research (B) <br>
+        | “Research and Development of Comprehensive Archives of Japanese Gardens” <br>
+        | (JSPS KAKENHI Grant Number JP19H01225, Principal Investigator: Rurihiko Hara) <br>
         | contact:
         ExternalLink.mail(href="mailto:niwaarchive@rurihikohara.com") niwaarchive@rurihikohara.com
 
@@ -591,6 +581,20 @@ dl
   dd
     width: calc(100% - #{$width + 4em})
     margin-left: 2em
+main[data-lang='en']
+  #credit
+    p,
+    dl
+      font-size: 13px
+  dl
+    $width: 10em
+    dt
+      width: $width
+      padding-bottom: 1em
+    dd
+      width: calc(100% - #{$width + 4em})
+      margin-left: 2em
+      padding-bottom: 1em
 dl.wide
   $width: 12em
   dt
@@ -609,6 +613,9 @@ footer
   opacity: 0.5
   .mail
     margin-left: 1em
+main[data-lang='en']
+  footer
+    font-size: 13px
 </style>
 
 <script>
