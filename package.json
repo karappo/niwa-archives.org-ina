@@ -14,6 +14,12 @@
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "yarn lint:js"
   },
+  "config": {
+    "nuxt": {
+      "host": "192.168.0.104",
+      "port": "3000"
+    }
+  },
   "dependencies": {
     "@karappo-inc/vue-components": "^0.3.1",
     "@nuxtjs/axios": "^5.12.2",
