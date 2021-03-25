@@ -51,19 +51,23 @@
       a + a
         margin-left: 32px
     nav.sections
-      margin: 3px 102px 0 auto
-    nav.languages
-      margin: 3px 0 0 0
-      display: flex
+      margin: 3px 262px 0 auto
       position: relative
-      &:before
+      &:after
         content: ''
         position: absolute
         top: 7px
-        left: -90px
+        right: -80px
         display: block
         width: 70px
         border-top: 1px solid #516760
+    nav.languages
+      margin: 3px 0 0 0
+      display: flex
+      position: fixed
+      top: 66px
+      right: 65px
+      z-index: 2
 .floatingTitle
   position: fixed
   left: 62px
