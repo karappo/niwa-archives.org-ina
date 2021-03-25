@@ -24,12 +24,14 @@ a[href]
 
 *:not(.mv):not(.visual)[data-fuwa]
   opacity: 0
-  transform: translateX(50px)
-  transition: transform 1s, opacity 1s !important
+  color: rgba(255,255,255,0)
+  text-shadow: 0px 0px 40px rgba(255, 255, 255, 0.5)
+  transition: text-shadow 1.5s, opacity 1.5s !important
 *:not(.mv):not(.visual)[data-fuwa=visible]
   opacity: 1
-  transform: translateX(0)
-  transition: transform 1s, opacity 1s !important
+  color: rgba(255,255,255,1)
+  text-shadow: 0px 0px 0px rgba(255, 255, 255, 0.5)
+  transition: text-shadow 1.5s, opacity 1.5s !important
 
 .mv[data-fuwa],
 .visual[data-fuwa]
