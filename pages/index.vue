@@ -98,9 +98,7 @@ main(:data-lang="this.$i18n.locale")
               FootnoteBackref(num="2")
           li#fn3.footnote-item
             p
-              | 詳しくは、
-              ExternalLink(href="https://murin-an.jp") 無鄰菴ウェブサイト
-              | を参照されたい。
+              | 詳しくは、<ExternalLink href="https://murin-an.jp">無鄰菴ウェブサイト</ExternalLink> を参照されたい。
               FootnoteBackref(num="3")
           li#fn4.footnote-item
             p
@@ -255,8 +253,7 @@ main(:data-lang="this.$i18n.locale")
         | 科学研究費 基盤研究 (B)<br>
         | 「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
         | （課題番号：19H01225、研究代表者：原瑠璃彦）<br>
-        | contact:
-        ExternalLink.mail(href="mailto:niwaarchive@rurihikohara.com") niwaarchive@rurihikohara.com
+        | contact: <MailLink to="niwaarchive@rurihikohara.com">niwaarchive@rurihikohara.com</MailLink>
 
   template(v-else)
 
@@ -341,9 +338,7 @@ main(:data-lang="this.$i18n.locale")
               FootnoteBackref(num="2")
           li#fn3.footnote-item
             p
-              | See
-              ExternalLink(href="https://murin-an.jp")  Murin-an’s website
-              | for details.
+              | See <ExternalLink href="https://murin-an.jp">Murin-an’s website</ExternalLink> for details.
               FootnoteBackref(num="3")
           li#fn4.footnote-item
             p
@@ -481,9 +476,7 @@ main(:data-lang="this.$i18n.locale")
         | Grant-in-Aid for Scientific Research (B) <br>
         | “Research and Development of Comprehensive Archives of Japanese Gardens” <br>
         | (JSPS KAKENHI Grant Number JP19H01225, Principal Investigator: Rurihiko Hara) <br>
-        | contact:
-        ExternalLink.mail(href="mailto:niwaarchive@rurihikohara.com") niwaarchive@rurihikohara.com
-
+        | contact: <MailLink to="niwaarchive@rurihikohara.com">niwaarchive@rurihikohara.com</MailLink>
 </template>
 
 <style lang="sass" scoped>
@@ -615,19 +608,18 @@ dl.narrow
     margin-left: 2em
 footer
   opacity: 0.5
-  .mail
-    margin-left: 1em
 main[data-lang='en']
   footer
     font-size: 13px
 </style>
 
 <script>
-import { ExternalLink } from '@karappo-inc/vue-components'
+import { ExternalLink, MailLink } from '@karappo-inc/vue-components'
 
 export default {
   components: {
-    ExternalLink
+    ExternalLink,
+    MailLink
   },
   mounted() {
     FONTPLUS.reload()
