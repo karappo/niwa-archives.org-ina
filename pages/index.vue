@@ -580,23 +580,25 @@ dl
   $width: 6em
   dt
     width: $width
+    margin-bottom: 0.5em
   dd
     width: calc(100% - #{$width + 4em})
     margin-left: 2em
+    margin-bottom: 0.5em
 main[data-lang='en']
   #credit
     p,
     dl
       font-size: 13px
   dl
-    $width: 10em
+    $width: 15em
     dt
       width: $width
-      padding-bottom: 1em
+      margin-bottom: 1em
     dd
       width: calc(100% - #{$width + 4em})
       margin-left: 2em
-      padding-bottom: 1em
+      margin-bottom: 1em
 dl.wide
   $width: 12em
   dt
