@@ -1,12 +1,12 @@
 <template lang="pug">
 main(:data-lang="this.$i18n.locale")
-  section.mv
+  section.mv(data-fuwa)
     img.mv-text(src='~/assets/image/mv-text.svg')
     Carousel
 
   template(v-if="$i18n.locale == 'ja'")
 
-    article#about
+    article#about(data-fuwa)
 
       h2 About
 
@@ -28,13 +28,13 @@ main(:data-lang="this.$i18n.locale")
 
     article#report
 
-      h2 Report
+      h2(data-fuwa) Report
 
-      h4
+      h4(data-fuwa)
         | 「Incomplete Niwa Archives 終らない庭のアーカイヴ」へ <br>
         | ――庭園アーカイヴ・プロジェクト 2020年度 活動レポート
 
-      section
+      section(data-fuwa)
 
         p
           | 2019年に始動した庭園アーカイヴ・プロジェクトの基本的な背景と目的については、
@@ -51,7 +51,7 @@ main(:data-lang="this.$i18n.locale")
           li 目指すアーカイヴの明確化――「Incomplete Niwa Archives 終わらない庭のアーカイヴ」へ
         p 前年度は主に研究メンバー5人のみで研究活動を行なっていたが、2020年度は、幸いなことに多くの人々の協力を得ることができた。以下にその概略を順に記す。
 
-      section
+      section(data-fuwa)
 
         h4 YCAM庭園アーカイヴ・プロジェクト研究会の実施
 
@@ -61,7 +61,7 @@ main(:data-lang="this.$i18n.locale")
           | 研究会自体は非公開ではあるが、プロジェクトメンバー以外のYCAM職員も参加可能としたこともあって、毎回充実したプレゼンテーションと濃密なディスカッションを行うことができた。そこでは、そもそも庭園や公園がどういう場であり、それはどのように生成され、どのように用いられ、どのように記録・アーカイヴ化されうるのか、という諸問題について、きわめて広範囲な視野のもとに検討することができた。これらの研究会の成果については、何らかのかたちでの公開を予定している。<br>
           | また、当研究会とは別に、シン・八田利也氏企画・主催によるオンライン・レクチャー・シリーズ「フィールドワーク〈で〉デザインすること」の第6回「庭とアーカイヴからみたフィールドワークとデザイン」で、原と高原のプレゼンテーションに基づき、貴重な議論を交わすことができたのは得難い機会であった。このオンライン・イベントによって、本プロジェクトの目指すべきアーカイヴのあり方がより明確にできたところが大きい。
 
-      section.footnotes
+      section.footnotes(data-fuwa)
         ol.footnotes-list
           li#fn1.footnote-item
             p
@@ -75,7 +75,7 @@ main(:data-lang="this.$i18n.locale")
               | 第8回（2021年2月20日）：会田大也「コロガル公園シリーズについて」
               a.footnote-backref(href="#fnref1") ↩
 
-      section
+      section(data-fuwa)
         h4 京都・無鄰菴庭園の調査の開始
 
         p 当初より、2020年度からは、京都・無鄰菴庭園の調査を開始する予定であった。無鄰菴庭園は、明治27-29（1894-96）年に、山縣有朋の京都別邸としてつくられたもので、その庭園は、七代目・小川治兵衛（植治）（1860-1933）によるものである。植治は、近代日本庭園の改革者として知られるが、彼がそうした近代の新しい日本庭園の作庭を最初に実現したのが無鄰菴庭園であった。その変化はしばしば「象徴主義から自然主義」と論じられるが、具体的には、それまでの日本庭園のように海に見立てる池ではなく、疎水から引いた水流をつくり、石を立てるのではなく伏せ、東山の借景を用いる、といった点に集約される<Footnote num="2" />。近年は、様々な文化活動が盛んに実施されており、全国でもっとも活発な日本庭園の一つといえよう<Footnote num="3" />。
@@ -90,7 +90,7 @@ main(:data-lang="this.$i18n.locale")
           Img2X#murin-an-fig3(src="murin-an-3.jpg" alt="無鄰菴の風景")
           figcaption TODO: キャプションが入ります
 
-      section.footnotes
+      section.footnotes(data-fuwa)
         ol.footnotes-list(start="2")
           li#fn2.footnote-item
             p
@@ -111,7 +111,7 @@ main(:data-lang="this.$i18n.locale")
               | 3Dスキャンにあたっては、京都工芸繊維大学KYOTO Design Labの井上智博氏に多大な協力を得た。
               a.footnote-backref(href="#fnref5") ↩
 
-      section
+      section(data-fuwa)
         h4 庭園アーカイヴ UIの開発
 
         p 常栄寺庭園に関しても、昨年度に引き続き調査を行なった。より精度の高い3Dデータを取得するためのスキャニングのほか、庭園において、定点長時間撮影・立体音響録音を複数回行った。また、高原文江は、3Dスキャニングの傍、庭園の各地で見られる生物の撮影も行った。そのほか、庭園の読み解き・解釈の例として、庭園を管理している伊藤尚吾氏（有限会社 伊藤造園 代表取締役）、鉱物学者の加納隆氏（山口大学名誉教授）、動物学者の田中浩氏（山口県立山口博物館学芸員）のインタビューを庭園で直に行った。
@@ -133,14 +133,14 @@ main(:data-lang="this.$i18n.locale")
         figure
           Img2X(src="ui.png" alt="UIのラフデザイン")
           figcaption TODO: キャプションが入ります
-      section.footnotes
+      section.footnotes(data-fuwa)
         ol.footnotes-list(start="6")
           li#fn6.footnote-item
             p
               | KARAPPO Inc.は、本プロジェクトによって重要な先行例《森のDNA図鑑》のウェブ・デザインも手がけている。
               a.footnote-backref(href="#fnref6") ↩
 
-      section
+      section(data-fuwa)
         h4 庭園をデータ化するということ
 
         p こうした試行錯誤のなか、徐々に、本プロジェクトが目指すべきアーカイヴのかたちが明確になってきた。とくに、実際に、庭園の録音データや撮影データを多数収集することで見えてくることは多かった。
@@ -158,7 +158,7 @@ main(:data-lang="this.$i18n.locale")
           Img2X(src="kanabun.jpg" alt="虫の写真")
           figcaption TODO: キャプションが入ります
 
-      section.footnotes
+      section.footnotes(data-fuwa)
         ol.footnotes-list(start="7")
           li#fn7.footnote-item
             p
@@ -169,7 +169,7 @@ main(:data-lang="this.$i18n.locale")
               | 阿部一直は、「視覚的無意識」を発展させ、「メディア的無意識」という語を用いている。〔Abe Kazunao, “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017), p. ?.〕
               a.footnote-backref(href="#fnref8") ↩
 
-      section
+      section(data-fuwa)
         h4 ぼんやりと体験できるアーカイヴ
 
         p
@@ -179,11 +179,11 @@ main(:data-lang="this.$i18n.locale")
         p とくに、日本の庭を見てそれを読解し何か理解しようとすると、大きなジレンマに陥る。確かに、そこから象徴的、機能的な意義を読み取ることは可能である。しかしながら、それが庭の体験のすべてではない。庭とは、「よくわからないもの」「とらえどころのないもの」でもある。目の前に広がる庭を、ただ、何となく、ぼんやりと眺め、聴いていること。こうした、半理性的、あるいは半意識的な行為は、庭特有のものではないだろうか。
         p 庭の新しいアーカイヴが、本来の庭のように多くの可能性に開かれたものであることを目指すとき、それは、そのアーカイヴもまた「庭のようなもの」、つまり、「ぼんやりと眺め、聴いていること」が可能なものだということであろう。それは具体的には、そのアーカイヴ・システムが、用途に応じてデータが参照できるというだけでなく、無目的に用いること、言ってみれば、ゲームのように遊ぶことができるということ、あるいは、庭の音や映像が、BGMやBGVにもなるということであろう。そうしたアーカイヴ・システムこそ、息の長いものになるのではないだろうか。
 
-    section.visual
+    section.visual(data-fuwa)
       Img2X(src='plan-view.jpg')
 
     article
-      section
+      section(data-fuwa)
         h4 「Incomplete Niwa Archives 終らない庭のアーカイヴ」へ
 
         p こうした経緯を経て、最終的に、本プロジェクトが目指すアーカイヴを「Incomplete Niwa Archives 終らない庭のアーカイヴ」と命名するに至った。
@@ -193,7 +193,7 @@ main(:data-lang="this.$i18n.locale")
           | われわれは音楽を体験するやうに、生を体験するやうに、日本の庭を体験することができる。又、生にあざむかれるやうに、日本の庭にあざむかれることができる。<Footnote num="9" />
         p 本プロジェクトが目指す「庭のような」アーカイヴもまた、このように「終らない」「果てしのない」ものになる。「終らない庭のアーカイヴ」とは、日本庭園という「終らない庭」のアーカイヴのことであるとともに、そのアーカイヴもまた「庭のよう」であり、それも「終らない」ものだということを示している。それは、庭とアーカイヴの矛盾を孕んでいる。
         p こうした企図のもと、いよいよ最終年度となる2021年度には、秋頃に「Incomplete Niwa Archives 終らない庭のアーカイヴ」のフルバージョンをウェブ上で公開するとともに、YCAMという場所に特化した展示を行う予定である。
-      section.footnotes
+      section.footnotes(data-fuwa)
         ol.footnotes-list(start="9")
           li#fn9.footnote-item
             p
@@ -202,9 +202,9 @@ main(:data-lang="this.$i18n.locale")
 
     article#credit
 
-      h2 Credit
+      h2(data-fuwa) Credit
 
-      section
+      section(data-fuwa)
 
         p
           | 科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
@@ -252,7 +252,7 @@ main(:data-lang="this.$i18n.locale")
           | 京都市<br>
           | 無鄰菴管理事務所<br>
           | 植彌加藤造園株式会社
-    article
+    article(data-fuwa)
       footer
         | 科学研究費 基盤研究 (B)<br>
         | 「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
@@ -262,7 +262,7 @@ main(:data-lang="this.$i18n.locale")
 
   template(v-else)
 
-    article#about
+    article#about(data-fuwa)
 
       h2 About
 
@@ -277,14 +277,14 @@ main(:data-lang="this.$i18n.locale")
 
     article#report
 
-      h2 Report
+      h2(data-fuwa) Report
 
-      h4
+      h4(data-fuwa)
         | Toward “Incomplete Niwa Archives” <br>
         | Garden Archives Project Activity Report 2020
 
 
-      section
+      section(data-fuwa)
         p As to the general background and aims of the Garden Archives Project, inaugurated in 2019, kindly refer to
         a(href="#" v-scroll-to="'#about'") the Mission Statement
         |  as well as
@@ -299,7 +299,7 @@ main(:data-lang="this.$i18n.locale")
           li Further conceptualization of “Incomplete Niwa Archives”
         p In contrast to the previous year, when we conducted our research primarily on our own, we were fortunate in 2020 to welcome many collaborators. What follows is a chronological overview of our activities.
 
-      section
+      section(data-fuwa)
 
         h4 The Garden Archives Project Workshops at YCAM
 
@@ -308,7 +308,7 @@ main(:data-lang="this.$i18n.locale")
           | Our invitees were as follows: Yamauchi Tomoki (gardener and associate professor of aesthetics, Kyoto University of Education), Kondō Ryōsuke (assistant professor of aesthetics and landscape history, the University of Tokyo), Emmanuel Marès (associate professor of history of Japanese garden and architecture, Kyoto Sangyo University), Inoue Tomohiro (technological staff, KYOTO Design Lab, Kyoto Institute of Technology), Shimamura Yukitada (4th young master, Sankiteibaisaryū school of tea, scholar of senchadō and PhD student at the University of Kyoto), Tsugawa Eri (architect and CEO at ALTEMY, teaching/research fellow at the Tokyo University of Arts) and Aida Daiya (artistic director, YCAM).<Footnote num="1" /><br>
           | Although the meetings were not open to the public, we encouraged participation from the YCAM community beyond those directly affiliated with this project. This issued at each session in productive presentation and vigorous discussion. A very broad range of viewpoints were thus offered to examine issues such as the nature of gardens and parks, and how they are constructed, used and recorded/archived. We are projecting to publish the outcome of these workshops in some suitable form.<br>
           | On a separate occasion, Takahara and Hara gave a presentation on our project under the title “Fieldwork and Design seen from the perspectives of Gardens and Archives” at the 6th session of “Designing ‘with’ Fieldwork,” an online lecture series organized by Shin Toshiya Hotta, followed by a fruitful discussion. As such, this event went a long way toward bringing in focus what kind of archives our project should work toward.
-      section.footnotes
+      section.footnotes(data-fuwa)
         ol.footnotes-list
           li#fn1.footnote-item
             p
@@ -322,7 +322,7 @@ main(:data-lang="this.$i18n.locale")
               | Eighth session (February 20, 2021): Aida Daiya, “Korogaru kōen shirīzu ni tsuite [On the KOROGARU Park Series]”<br>
               a.footnote-backref(href="#fnref1") ↩
 
-      section
+      section(data-fuwa)
         h4 Research on Murin-an Garden in Kyoto Begins
 
         p We had originally planned to commence our research on Murin-an Garden in Kyoto in 2020. Murin-an was built between Meiji 27 and 29 (1894–96) by politician Yamagata Aritomo as a villa in Kyoto. Its garden was designed by Ogawa Jihei VII (alias Ueji, 1860–1933), a celebrated modernizer of Japanese gardening. This was the first concretization of Ueji’s vision of a new, contemporary garden-making. His innovation, often characterized as “from symbolism to naturalism,” consisted in replacing the traditional pond, made to symbolically stand for the ocean, by a stream of water drawn from the nearby canal, placing stones not upright but prone, and “borrowing” the scenery of the surrounding Higashiyama.<Footnote num="2" /> In recent years Murin-an frequently plays host to a variety of cultural events, becoming one of the most dynamic Japanese gardens in the country.<Footnote num="3" />
@@ -335,7 +335,7 @@ main(:data-lang="this.$i18n.locale")
           Img2X#murin-an-fig3(src="murin-an-3.jpg" alt="Picture of Murin-an")
           figcaption TODO: キャプションが入ります
 
-      section.footnotes
+      section.footnotes(data-fuwa)
         ol.footnotes-list(start="2")
           li#fn2.footnote-item
             p
@@ -356,7 +356,7 @@ main(:data-lang="this.$i18n.locale")
               | Inoue Tomohiro (KYOTO Design Lab, Kyoto Institute of Technology) was of great assistance in our 3D scanning campaigns.
               a.footnote-backref(href="#fnref5") ↩
 
-      section
+      section(data-fuwa)
         h4 Developing the Archives User Interface
 
         p Our research on Jōei-ji Garden continues. In addition to rescanning of the site for higher resolution 3D data, we produced repeated fixed-point long-time video recording and Ambisonics. While performing 3D scanning, Takahara Fumie also shot wildlife in the Garden. Additionally, we conducted interviews with Itō Shōgo, in charge of the Garden (CEO, Itō Zōen Ltd.), mineralogist Kanō Takashi (professor emeritus, Yamaguchi University), and zoologist Tanaka Hiroshi (curator, Yamaguchi Prefectural Yamaguchi Museum) while taking a walk together in the actual Garden. Not only did each of these experts bring his own perspective, the peripatetic form allowed us to record their thoughts emerge on the spot. To compile this diverse collection of data into a single user interface, we began to collaborate with KARAPPO Inc., a design office active in a variety of fields.<Footnote num="6" />
@@ -377,14 +377,14 @@ main(:data-lang="this.$i18n.locale")
         figure
           Img2X(src="ui.png" alt="UI laugh design")
           figcaption TODO: キャプションが入ります
-      section.footnotes
+      section.footnotes(data-fuwa)
         ol.footnotes-list(start="6")
           li#fn6.footnote-item
             p
               | KARAPPO Inc., has designed the website of Mori no DNA zukan, an important precedent for our project.
               a.footnote-backref(href="#fnref6") ↩
 
-      section
+      section(data-fuwa)
         h4 Digitizing the Gardens
 
         p These trials and errors gradually brought into focus the shape of archives for this project to work toward. The experience of producing a large amount of video and audio recordings on the ground was especially instructive. In particular, the almost one-hour-and-a-half long Ambisonics at Jōei-ji Garden, made early in the morning of June 11, was a true revelation to the entire team. Countless wild birds and insects as well as forest green tree frogs keep singing everywhere in what might be called a morning garden symphony. As though each group were assigned a part in advance, sometimes brown-eared bulbuls dominate the entire scene, sometimes forest green tree frogs begin singing all at once, sometimes they sing to each other. Similarly, when rain starts to fall later in the recording, the sound varies depending on whether rain hits leaves, water surface or the ground, indexing the fluctuation in the intensity of the rainfall. “It’s exactly like a movie!” was our unanimous, spontaneous response. The soundscape in a garden changes minute by minute, with no two sounds ever similar. If that is a common knowledge, isolating sound from its environment, thereby reducing the information as to things happening there, makes that knowledge even more evident than when one is in the Garden, spending time in it.
@@ -400,7 +400,7 @@ main(:data-lang="this.$i18n.locale")
           Img2X(src="kanabun.jpg" alt="Picture of insect")
           figcaption TODO: キャプションが入ります
 
-      section.footnotes
+      section.footnotes(data-fuwa)
         ol.footnotes-list(start="7")
           li#fn7.footnote-item
             p
@@ -411,25 +411,25 @@ main(:data-lang="this.$i18n.locale")
               | Abe Kazunao develops the concept of “the optical unconscious” into “mediated unconscious.” See “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017).
               a.footnote-backref(href="#fnref8") ↩
 
-      section
+      section(data-fuwa)
         h4 Archives to Be Experienced Absentmindedly
 
         p What, then, is the ideal shape for such recombined and synthesized archives to take? From the beginning our conviction was that the “synthetic archives” we develop here need to be open to various possibilities, just like Japanese gardens are not limited to specific usages. Reflecting on this particular point now, it warrants attention that gardens do not exist solely for utility and reason. They are certainly open to numerous uses and possibilities, but gardens’ essence resides in the fact that they are also used to create a situation that has nothing to do with use. That is, one can look at gardens absentmindedly, walk around in them having no particular purpose, no clear goal yet.
         p It is especially vexing to try to decode and understand Japanese gardens. One can certainly read symbolic or functional meanings into them. And yet, they are only a small fraction of the experience gardens offer. For gardens are also something you do not quite understand, or something you cannot seize on. Looking at or listening to the garden spread in front of you with no particular intention, or absentmindedly—those semi-rational, or semi-conscious acts seem to be unique to the experience of garden.
         p If a new kind of archives of gardens seeks to be open to many possibilities as gardens themselves, it means that those archives will be like a garden, that is, something one can look at and listen to absentmindedly. Such an archive system will not merely provide information according to users’ needs but can also be employed aimlessly and played around with like a game. If users so wished, the sound and video recordings could serve as an unobtrusive accompaniment to some other activities they are engaged in. Such seems to be the most lasting kind of archive system.
 
-    section.visual
+    section.visual(data-fuwa)
       Img2X(src='plan-view.jpg')
 
     article
-      section
+      section(data-fuwa)
         h4 Toward “Incomplete Niwa Archives”
 
         p Thus we have come to name the archives this project aims at “Incomplete Niwa Archives.” At the back of our mind was the phrase “never-ending garden,” employed by the writer Mishima Yukio in an essay he penned after visiting the garden at Kyoto Sentō Imperial Palace. In this text Mishima compares the Western formal garden, exemplified by the Versailles, and the Japanese garden. Whereas the former is oriented toward “completion,” seeking to purge itself of temporality, Mishima argues that the singularity of the latter consists exactly in incorporating temporal elements. For this reason he dabs the Japanese kind “garden of time.” If the French gardens are hostile to the passage of time, “aging” is given a positive meaning in their Japanese counterparts. Mishima writes:
         blockquote
           | Perhaps the secret of Japanese gardens resides in its invention of “never-ending” and “infinite” gardens, thereby introducing the flow of time into gardens. … We can experience a Japanese garden just like music or life itself. Or we can be deceived by a Japanese garden just like we are deceived by life.<Footnote num="9" />
         p The “garden-like” archives this project is working toward, too, will be similarly “never-ending” and “infinite.” These “archives of never-ending gardens” are not only of “never-ending gardens,” in Japan, but like Japanese gardens, thus themselves “never-ending.” Here is the conflict between gardens and archives. With these in mind, we will launch the full version of “Incomplete Niwa Archives” on the internet in the fall of this final year of our project, as well as mount an exhibit specific to the YCAM site.
-      section.footnotes
+      section.footnotes(data-fuwa)
         ol.footnotes-list(start="9")
           li#fn9.footnote-item
             p
@@ -438,9 +438,9 @@ main(:data-lang="this.$i18n.locale")
 
     article#credit
 
-      h2 Credit
+      h2(data-fuwa) Credit
 
-      section
+      section(data-fuwa)
 
         p
           | 科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
@@ -488,7 +488,7 @@ main(:data-lang="this.$i18n.locale")
           | 京都市<br>
           | 無鄰菴管理事務所<br>
           | 植彌加藤造園株式会社
-    article
+    article(data-fuwa)
       footer
         | 科学研究費 基盤研究 (B)<br>
         | 「日本庭園の総合的アーカイヴの開発をめぐる研究」<br>
@@ -624,6 +624,8 @@ export default {
   },
   mounted() {
     FONTPLUS.reload()
+    this.updateGoogleAnalyticsTitle()
+    setTimeout(this.initFuwa, 1000)
   }
 }
 </script>
