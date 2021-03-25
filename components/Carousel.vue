@@ -26,6 +26,8 @@ swiper.carousel(ref="mySwiper" :options="options")
     line-height: 1
     line-height: 23px
     text-shadow: 0px 0px 4px black
+    +sp
+      display: none
 </style>
 
 <script>

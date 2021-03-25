@@ -484,16 +484,24 @@ main(:data-lang="this.$i18n.locale")
 @import '~/assets/style/const'
 main
   padding-top: 10px
+  +sp
+    padding-top: 4px
 section.mv
   margin: 64px 50px 0
   display: flex
   flex-direction: column
   align-items: center
+  +sp
+    margin: 0
   > img.mv-text
     width: calc(100% - 5vw)
     margin: 0 auto -1vw
+    +sp
+      width: calc(100% - 12vw)
 section.visual
   margin: 0 50px
+  +sp
+    margin: 0 25px
   > img
     width: 100%
     height: auto
@@ -506,29 +514,44 @@ article
   line-height: 2
   +sp
     width: calc(100% - 50px)
-    margin-left: 25px
-    margin-right: 25px
+    margin: 0 25px 120px
+    font-size: 13px
+    line-height: 22px
+    letter-spacing: -0.03em
   &:last-child
     margin-bottom: 56px
+    +sp
+      margin-bottom: 25px
 main[data-lang='en']
  article
     font-family: 'K2-v1-Light', $helvetica
+    +sp
+      letter-spacing: 0
 h2
   font-family: 'K2-v1-Light', $helvetica
   font-size: 15px
   font-weight: normal
   letter-spacing: 0.05em
   margin: 70px 0
+  +sp
+    font-size: 13px
+    margin: 40px 0
 h3
   font-size: 24px
   letter-spacing: 0.032em
   line-height: 1.5
   margin: 88px 0
+  +sp
+    font-size: 16px
+    margin: 44px 0
 h4
   font-size: 20px
   letter-spacing: 0.032em
   line-height: 2
   margin: 70px 0
+  +sp
+    font-size: 16px
+    margin: 35px 0
 p + p
   margin-top: 2em
 sup
@@ -541,6 +564,9 @@ ul
   @extend %font_tsukuaold_r
   font-size: 12px
   line-height: 23px
+  +sp
+    font-size: 10px
+    line-height: 2
 main[data-lang='en']
  .footnotes
     font-family: 'K2-v1-Light', $helvetica
@@ -549,11 +575,17 @@ blockquote
   font-size: 14px
   line-height: 2
   margin: 34px 0 34px 51px
+  +sp
+    font-size: 13px
+    line-height: 22px
+    margin: 50px 0 50px 30px
 main[data-lang='en']
  blockquote
     font-family: 'K2-v1-Light', $helvetica
 section + section:not(.footnotes)
   margin-top: 200px
+  +sp
+    margin-top: 150px
 figure
   margin: 32px 0 26px
   img
@@ -567,14 +599,23 @@ figcaption
   line-height: 23px
   margin-top: 7px
   opacity: 0.8
+  +sp
+    font-size: 10px
 main[data-lang='en']
  figcaption
     font-family: 'K2-v1-Light', $helvetica
 #murin-an-fig1
   vertical-align: bottom
   margin-bottom: 2px
+  width: 100%
+  height: auto
 #murin-an-fig2
   margin-right: 2px
+  width: calc(50% - 1px)
+  height: auto
+#murin-an-fig3
+  width: calc(50% - 1px)
+  height: auto
 dl
   display: flex
   flex-wrap: wrap
@@ -582,10 +623,17 @@ dl
   dt
     width: $width
     margin-bottom: 0.5em
+    +sp
+      width: 100% !important
+      margin-bottom: 0 !important
   dd
     width: calc(100% - #{$width + 4em})
     margin-left: 2em
     margin-bottom: 0.5em
+    +sp
+      width: 100% !important
+      margin-left: 0 !important
+      margin-bottom: 1em !important
 main[data-lang='en']
   #credit
     p,
