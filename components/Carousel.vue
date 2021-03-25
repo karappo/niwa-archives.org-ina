@@ -2,7 +2,7 @@
 swiper.carousel(ref="mySwiper" :options="options")
   swiper-slide(v-for="(i, index) in [1,2,3,4]" :key="i")
     Img2X(:src="`mv-${i}.jpg`")
-    .caption {{ slides[index].caption }}
+    .caption {{ $t(`carouselCaptions[${index}]`) }}
 </template>
 
 <style lang="sass" scoped>
@@ -14,6 +14,7 @@ swiper.carousel(ref="mySwiper" :options="options")
     width: 100%
     height: auto
   .caption
+    opacity: 0.8
     position: absolute
     right: 20px
     bottom: 10px
@@ -31,12 +32,6 @@ swiper.carousel(ref="mySwiper" :options="options")
 export default {
   data() {
     return {
-      slides: [
-        { caption: '3D scanning data of Sessyu-tei' },
-        { caption: '3D scanning data of Sessyu-tei' },
-        { caption: '3D scanning data of Murin-an' },
-        { caption: '3D scanning data of Murin-an' }
-      ],
       options: {
         autoplay: true,
         allowTouchMove: false,
