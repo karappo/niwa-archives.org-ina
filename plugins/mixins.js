@@ -34,17 +34,8 @@ Vue.mixin({
     },
     _head() {
       const _class = []
-      // let title = this.$t('title') TODO
-      const title = '終わらない庭のアーカイヴ - Incomplete Niwa Archives'
+      const title = this.$t('title')
       const titleTemplate = `%s | ${title}`
-      // noScroll
-      if (this.noScroll) {
-        _class.push('noScroll')
-      }
-      if (this.$ua.is.ie) {
-        _class.push('ie')
-      }
-      // Canonical
       return {
         htmlAttrs: { lang: this.$i18n.locale },
         bodyAttrs: { class: _class },
