@@ -511,6 +511,8 @@ article
   font-size: 15px
   letter-spacing: 0
   line-height: 2
+  &:last-child
+    margin-bottom: 56px
 main[data-lang='en']
  article
     font-family: 'K2-v1-Light', $helvetica
