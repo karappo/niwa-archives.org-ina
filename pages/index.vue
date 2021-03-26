@@ -563,6 +563,7 @@ h2
     margin: 40px 0
 h3
   font-size: 24px
+  font-weight: normal
   letter-spacing: 0.032em
   line-height: 1.5
   margin: 88px 0
@@ -571,6 +572,7 @@ h3
     margin: 44px 0
 h4
   font-size: 20px
+  font-weight: normal
   letter-spacing: 0.032em
   line-height: 2
   margin: 70px 0
