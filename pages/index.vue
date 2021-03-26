@@ -3,7 +3,7 @@ main(:data-lang="this.$i18n.locale")
   section.mv(data-fuwa)
     img.mv-text(src='~/assets/image/mv-text.svg')
     Carousel
-    .scrollGuide.sp
+    .scrollGuide
       span Scroll
       i
 
@@ -504,6 +504,8 @@ section.mv
     z-index: 10
     display: flex
     flex-direction: column
+    +pc
+      display: none
     span
       font-size: 13px
       letter-spacing: 0.07em
