@@ -479,7 +479,7 @@ main(:data-lang="this.$i18n.locale")
         | Grant-in-Aid for Scientific Research (B) <br>
         | “Research and Development of Comprehensive Archives of Japanese Gardens” <br>
         | (JSPS KAKENHI Grant Number JP19H01225, Principal Investigator: Rurihiko Hara) <br>
-        | contact: <MailLink to="niwaarchive@rurihikohara.com">niwaarchive@rurihikohara.com</MailLink>
+        | contact: <MailLink class="mail" to="niwaarchive@rurihikohara.com">niwaarchive[at]rurihikohara.com</MailLink>
 </template>
 
 <style lang="sass" scoped>
@@ -694,6 +694,8 @@ footer
 main[data-lang='en']
   footer
     font-size: 13px
+  .mail
+    font-family: $helvetica
 </style>
 
 <script>
