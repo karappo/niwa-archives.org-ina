@@ -567,6 +567,11 @@ h3
   letter-spacing: 0.032em
   line-height: 1.5
   margin: 88px 0
+  main[data-lang=en] &
+    font-size: 21px
+    letter-spacing: .012em
+    +sp
+      font-size: 15px
   +sp
     font-size: 16px
     margin: 44px 0
@@ -576,9 +581,17 @@ h4
   letter-spacing: 0.032em
   line-height: 2
   margin: 70px 0
+  main[data-lang=en] &
+    font-size: 20px
+    letter-spacing: .012em
+    +sp
+      font-size: 15px
   +sp
     font-size: 16px
     margin: 35px 0
+p
+  main[data-lang=en] &
+    letter-spacing: .02em
 p + p
   margin-top: 2em
 sup
