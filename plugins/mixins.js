@@ -35,11 +35,11 @@ Vue.mixin({
     _head() {
       const _class = []
       const title = this.$t('title')
-      const titleTemplate = `%s | ${title}`
+      // const titleTemplate = `%s | ${title}`
       return {
         htmlAttrs: { lang: this.$i18n.locale },
         bodyAttrs: { class: _class },
-        titleTemplate,
+        // titleTemplate,
         title,
         meta: [
           {
