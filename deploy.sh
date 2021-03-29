@@ -3,9 +3,11 @@ echo "Deploy to '$1'"
 if [ $1 = 'production' ]; then
   DEPLOY_ENV='PRODUCTION'
   # DEPLOY_DIR='TODO'
+  API_URL='https://special.ycam.jp/niwa/'
 elif [ $1 = 'test' ]; then
   DEPLOY_ENV='TEST'
   DEPLOY_DIR='sites/niwa-teaser.karappo.net/niwa'
+  API_URL='https://niwa-teaser.karappo.net/niwa/'
 else
   echo "Target is not defined."
   exit 1
