@@ -56,9 +56,6 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log(this.$el.offsetTop)
-  },
   methods: {
     style(i) {
       return {
