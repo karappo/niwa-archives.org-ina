@@ -24,11 +24,11 @@ export default {
       { hid: 'og:url', property: 'og:url', content: site_url },
       { hid: 'og:title', property: 'og:title', content: site_title },
       { hid: 'og:description', property: 'og:description', content: site_description },
-      { hid: 'og:image', property: 'og:image', content: `${site_url}/share.png` },
+      { hid: 'og:image', property: 'og:image', content: `${site_url}/mv-1@2x.jpg` },
       { hid: 'twitter:title', property: 'twitter:title', content: site_title },
       { hid: 'twitter:url', property: 'twitter:url', content: site_url },
       { hid: 'twitter:description', property: 'twitter:description', content: site_description },
-      { hid: 'twitter:image', property: 'twitter:image', content: `${site_url}/share.png` },
+      { hid: 'twitter:image', property: 'twitter:image', content: `${site_url}/mv-1@2x.jpg` },
       { hid: 'twitter:card', property: 'twitter:card', content: 'summary_large_image' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
