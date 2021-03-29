@@ -485,6 +485,15 @@ main(:data-lang="this.$i18n.locale")
 <style lang="sass" scoped>
 @import '~/assets/style/general/const'
 @import '~/assets/style/const'
+@keyframes scroll_guide_animation
+  0%
+    transform: translate3d(0, -100%, 0)
+  15%
+    transform: translate3d(0, -98%, 0)
+  85%
+    transform: translate3d(0, 98%, 0)
+  100%
+    transform: translate3d(0, 100%, 0)
 main
   padding-top: 10px
   +sp
@@ -513,11 +522,23 @@ section.mv
       transform: rotate(90deg) translate(-40px, -10px)
       transform-origin: left top
     i
-      margin-top: 45px
       display: block
-      height: 100px
       width: 1px
+      height: 45px
+      margin-top: 45px
       background-color: #A9BCB6
+      overflow: hidden
+      position: relative
+      &:before
+        display: block
+        content: ''
+        width: 100%
+        height: 100%
+        background-color: #ffffff
+        position: absolute
+        top: 0
+        left: 0
+        animation: scroll_guide_animation 2s infinite normal
   > img.mv-text
     width: calc(100% - 5vw)
     margin: 0 auto -1vw
