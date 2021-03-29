@@ -1,7 +1,7 @@
 
 module.exports = {
   ja: {
-    title: '終わらない庭のアーカイヴ',
+    title: 'Incomplete Niwa Archives 終らない庭のアーカイヴ',
     description: '2019年4月より始動した庭園アーカイヴ・プロジェクトは、現代のテクノロジーを駆使して、日本庭園の多様な側面をデータ化した新しい総合的アーカイヴを研究開発するものです。',
     carouselCaptions: [
       '常栄寺庭園の3Dスキャン',
