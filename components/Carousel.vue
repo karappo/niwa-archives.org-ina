@@ -16,7 +16,7 @@ swiper.carousel(ref="mySwiper" :options="options")
     background-size: cover
     +sp
       width: 100%
-      height: calc( var(--vh, 100vh) - 250px) // ブラウザのUIを考慮した高さを取得
+      height: calc( var(--vh, 100vh) - 277px) // ブラウザのUIを考慮した高さを取得
   img.aspect
     width: 100%
     height: auto
