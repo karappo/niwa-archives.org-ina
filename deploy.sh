@@ -3,8 +3,8 @@ echo "Deploy to '$1'"
 if [ $1 = 'production' ]; then
   DEPLOY_ENV='PRODUCTION'
   # DEPLOY_DIR='TODO'
-elif [ $1 = 'staging' ]; then
-  DEPLOY_ENV='STAGING'
+elif [ $1 = 'test' ]; then
+  DEPLOY_ENV='TEST'
   DEPLOY_DIR='sites/niwa-teaser.karappo.net'
 else
   echo "Target is not defined."

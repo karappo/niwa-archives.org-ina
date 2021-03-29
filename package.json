@@ -10,7 +10,7 @@
     "generate": "nuxt generate",
     "rename": "mv ./dist/htaccess ./dist/.htaccess; mv ./dist/htpasswd ./dist/.htpasswd",
     "rename-back": "mv ./dist/.htaccess ./dist/htaccess; mv ./dist/.htpasswd ./dist/htpasswd",
-    "deploy:staging": "sh deploy.sh staging",
+    "deploy:test": "sh deploy.sh test",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "yarn lint:js"
   },
