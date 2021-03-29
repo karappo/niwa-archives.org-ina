@@ -762,7 +762,7 @@ export default {
     },
     openSound() {
       window.open(
-        'https://www.dropbox.com/s/8lmowlcl5blo3nv/6%E6%9C%8811%E6%97%A5_4%E6%99%8250%E5%88%86.wav?dl=0',
+        'https://www.dropbox.com/s/fecknd6dxvk3uo4/J%C5%8Dei-ji_Garden_%28June_11_2020_stereo_ver%29..wav?dl=0',
         'DescriptiveWindowName',
         'resizable,scrollbars,status'
       )
