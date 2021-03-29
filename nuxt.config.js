@@ -57,6 +57,10 @@ export default {
   plugins: [
     '~plugins/mixins',
     {
+      src: '~plugins/gtag.js',
+      mode: 'client'
+    },
+    {
       src: '@/plugins/vue-awesome-swiper',
       ssr: false
     }
