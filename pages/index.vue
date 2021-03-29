@@ -404,7 +404,7 @@ main(:data-lang="this.$i18n.locale")
               FootnoteBackref(num="7")
           li#fn8.footnote-item
             p
-              | Abe Kazunao develops the concept of “the optical unconscious” into “mediated unconscious.” See “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017), 188, 189.
+              | Abe Kazunao develops the concept of “the optical unconscious” into “mediated unconscious.” See “Parks as a Visionary Device: Extensive Readings and Reminiscence in Contemporary Art History,” Promise Park (Seoul: Workroom Press, 2017), 188-189.
               FootnoteBackref(num="8")
 
       section(data-fuwa)
