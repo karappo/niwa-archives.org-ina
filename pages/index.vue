@@ -216,7 +216,7 @@ main(:data-lang="this.$i18n.locale")
             | 伊藤隆之（YCAM InterLab）<br>
             | 高原文江（YCAM Inter Lab）<br>
             | 城一裕（九州大学准教授、YCAM専門委員）<br>
-            | 津田和俊（京都工芸繊維大学 KYOTO Design Lab 講師、YCAM専門委員）
+            | 津田和俊（京都工芸繊維大学講師、YCAM専門委員）
         p 研究協力者：<br>
         dl.wide
           dt ウェブデザイン・開発
@@ -450,7 +450,7 @@ main(:data-lang="this.$i18n.locale")
             | Itō Takayuki (YCAM InterLab), <br>
             | Takahara Fumie (YCAM InterLab), <br>
             | Jō Kazuhiro (Associate Professor at Kyushu University, Expert Advisor of YCAM), <br>
-            | Tsuda Kazutoshi (Lecturer at KYOTO Design Lab, Kyoto Institute of Technology, Senior Research Fellow of YCAM)
+            | Tsuda Kazutoshi (Junior Associate Professor at Kyoto Institute of Technology, Senior Research Fellow of YCAM)
         p Research Collaborators:<br>
         dl
           dt UI Design and Development
