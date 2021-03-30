@@ -11,3 +11,7 @@
 
 - 秀英明朝
   - Karappo名義（info@karappo.net）のFontPlus
+
+```
+yarn generate
+```

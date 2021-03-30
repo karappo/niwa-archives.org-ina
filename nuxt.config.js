@@ -3,7 +3,8 @@ import messages from './assets/messages.js'
 const site_title = `${messages.ja.title}`
 const site_description = `${messages.ja.description}`
 // const site_url = process.env.API_URL
-const site_url = 'https://niwa-teaser.karappo.net/niwa/'
+// const site_url = 'https://niwa-teaser.karappo.net/niwa/'
+const site_url = 'https://special.ycam.jp/niwa/'
 
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
@@ -32,7 +33,7 @@ export default {
       { hid: 'twitter:image', property: 'twitter:image', content: `${site_url}/share.jpg` },
       { hid: 'twitter:card', property: 'twitter:card', content: 'summary_large_image' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    // link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
       { src: "//webfont.fontplus.jp/accessor/script/fontplus.js?Kda7jDZHaBw%3D&box=tTklazNwpV4%3D&aa=1&ab=2", defer: true},
     ],
