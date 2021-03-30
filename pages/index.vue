@@ -145,7 +145,7 @@ main(:data-lang="this.$i18n.locale")
         h4 庭園をデータ化するということ
 
         p こうした試行錯誤のなか、徐々に、本プロジェクトが目指すべきアーカイヴのかたちが明確になってきた。とくに、実際に、庭園の録音データや撮影データを多数収集することで見えてくることは多かった。
-        p なかでも6月11日に録音したおよそ1時間30分におよぶ常栄寺庭園の早朝の<a @click="openSound()">立体音響録音データ</a>は、メンバー一同が驚くものであった。そこには早朝の庭の饗宴というべきか、無数の野鳥と昆虫、そしてモリアオガエルが庭のそこかしこで鳴き続けていた。まるであらかじめパート分けされているかのように、ヒヨドリたちが全面に聴こえることもあれば、モリアオガエルが一斉に鳴きだすこともあり、また、両者が鳴き交わすこともある。途中からはやがて雨が降り出すが、その音も決して均一ではなく、葉に落ちるとき、水面に落ちるとき、地面に落ちるときで異なり、その強弱から降り方の変化が分かる。
+        p なかでも6月11日に録音したおよそ1時間30分におよぶ常栄寺庭園の早朝の立体音響録音データは、メンバー一同が驚くものであった。そこには早朝の庭の饗宴というべきか、無数の野鳥と昆虫、そしてモリアオガエルが庭のそこかしこで鳴き続けていた。まるであらかじめパート分けされているかのように、ヒヨドリたちが全面に聴こえることもあれば、モリアオガエルが一斉に鳴きだすこともあり、また、両者が鳴き交わすこともある。途中からはやがて雨が降り出すが、その音も決して均一ではなく、葉に落ちるとき、水面に落ちるとき、地面に落ちるときで異なり、その強弱から降り方の変化が分かる。
         p 「まるで映画のよう」というのが、メンバー一同の率直な感想だった。庭の音は刻一刻と変化してゆき、二つとして同じ音が再生されることはない。それは当たり前のことではあるのだが、しかし、庭にいて同じ時間を過ごすよりも、そこから音だけを切り出す、つまりそこで起きていることの情報を削減することで、より露わになる。
         figure(data-fuwa)
           Img2X(src="sessyu-tei-photo.jpg" alt="2020年9月21日、早朝の常栄寺庭園")
@@ -383,7 +383,7 @@ main(:data-lang="this.$i18n.locale")
       section(data-fuwa)
         h4 Digitizing the Gardens
 
-        p These trials and errors gradually brought into focus the shape of archives for this project to work toward. The experience of producing a large amount of video and audio recordings on the ground was especially instructive. In particular, the almost one-hour-and-a-half long <a @click="openSound()">Ambisonics at Jōei-ji Garden</a>, made early in the morning of June 11, was a true revelation to the entire team. Countless wild birds and insects as well as forest green tree frogs keep singing everywhere in what might be called a morning garden symphony. As though each group were assigned a part in advance, sometimes brown-eared bulbuls dominate the entire scene, sometimes forest green tree frogs begin singing all at once, sometimes they sing to each other. Similarly, when rain starts to fall later in the recording, the sound varies depending on whether rain hits leaves, water surface or the ground, indexing the fluctuation in the intensity of the rainfall. “It’s exactly like a movie!” was our unanimous, spontaneous response. The soundscape in a garden changes minute by minute, with no two sounds ever similar. If that is a common knowledge, isolating sound from its environment, thereby reducing the information as to things happening there, makes that knowledge even more evident than when one is in the Garden, spending time in it.
+        p These trials and errors gradually brought into focus the shape of archives for this project to work toward. The experience of producing a large amount of video and audio recordings on the ground was especially instructive. In particular, the almost one-hour-and-a-half long Ambisonics at Jōei-ji Garden, made early in the morning of June 11, was a true revelation to the entire team. Countless wild birds and insects as well as forest green tree frogs keep singing everywhere in what might be called a morning garden symphony. As though each group were assigned a part in advance, sometimes brown-eared bulbuls dominate the entire scene, sometimes forest green tree frogs begin singing all at once, sometimes they sing to each other. Similarly, when rain starts to fall later in the recording, the sound varies depending on whether rain hits leaves, water surface or the ground, indexing the fluctuation in the intensity of the rainfall. “It’s exactly like a movie!” was our unanimous, spontaneous response. The soundscape in a garden changes minute by minute, with no two sounds ever similar. If that is a common knowledge, isolating sound from its environment, thereby reducing the information as to things happening there, makes that knowledge even more evident than when one is in the Garden, spending time in it.
         figure(data-fuwa)
           Img2X(src="sessyu-tei-photo.jpg" alt="Jôei-ji Garden in the early morning, September 21, 2020")
           figcaption Jôei-ji Garden in the early morning, September 21, 2020
@@ -760,13 +760,6 @@ export default {
         FONTPLUS.reload()
         clearInterval(this.fontPlusTimer)
       }
-    },
-    openSound() {
-      window.open(
-        'https://www.dropbox.com/s/fecknd6dxvk3uo4/J%C5%8Dei-ji_Garden_%28June_11_2020_stereo_ver%29..wav?dl=0',
-        'DescriptiveWindowName',
-        'resizable,scrollbars,status'
-      )
     }
   }
 }
