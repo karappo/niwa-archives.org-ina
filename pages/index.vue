@@ -417,21 +417,21 @@ main(:data-lang="this.$i18n.locale")
     section.visual(data-fuwa)
       Img2X(src='plan-view.jpg')
 
-    article
-      section(data-fuwa)
+    article(data-fuwa)
+      section
         h4 Toward “Incomplete Niwa Archives”
 
         p Thus we have come to name the archives this project aims at “Incomplete Niwa Archives.” At the back of our mind was the phrase “never-ending garden,” employed by the writer Mishima Yukio in an essay he penned after visiting the garden at Kyoto Sentō Imperial Palace. In this text Mishima compares the Western formal garden, exemplified by the Versailles, and the Japanese garden. Whereas the former is oriented toward “completion,” seeking to purge itself of temporality, Mishima argues that the singularity of the latter consists exactly in incorporating temporal elements. For this reason he dabs the Japanese kind “garden of time.” If the French gardens are hostile to the passage of time, “aging” is given a positive meaning in their Japanese counterparts. Mishima writes:
         blockquote
           | Perhaps the secret of Japanese gardens resides in its invention of “never-ending” and “infinite” gardens, thereby introducing the flow of time into gardens. … We can experience a Japanese garden just like music or life itself. Or we can be deceived by a Japanese garden just like we are deceived by life.<Footnote num="9" />
         p The “garden-like” archives this project is working toward, too, will be similarly “never-ending” and “infinite.” These “archives of never-ending gardens” are not only of “never-ending gardens,” in Japan, but like Japanese gardens, thus themselves “never-ending.” Here is the conflict between gardens and archives. With these in mind, we will launch the full version of “Incomplete Niwa Archives” on the internet in the fall of this final year of our project, as well as mount an exhibit specific to the YCAM site.
-      section.footnotes(data-fuwa)
+      section.footnotes
         ol.footnotes-list(start="9")
           li#fn9.footnote-item
             p
-              | Mishima Yukio, “‘Sentō Gosho’ jobun,” in Ketteiban Mishima Yukio zenshū 34 (Shinchō-sha, 2003), 467, 469.<br>
-              | (Translation: Kondō Gaku)
+              | Mishima Yukio, “‘Sentō Gosho’ jobun,” in Ketteiban Mishima Yukio zenshū 34 (Shinchō-sha, 2003), 467, 469.
               FootnoteBackref(num="9")
+      p.translatioCredit (Translation: Kondō Gaku)
 
     article#credit
 
@@ -614,7 +614,8 @@ h4
 p
   main[data-lang=en] &
     letter-spacing: .02em
-p + p
+p + p,
+p.translatioCredit
   margin-top: 2em
 sup
   font-size: 0.5em
