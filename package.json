@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nuxt",
+    "dev": "nuxt",
     "prebuild": "rm -rf dist",
     "build": "nuxt build",
+    "start": "nuxt start",
     "pregenerate": "rm -rf dist",
     "generate": "nuxt generate",
     "rename": "mv ./dist/htaccess ./dist/.htaccess; mv ./dist/htpasswd ./dist/.htpasswd",
