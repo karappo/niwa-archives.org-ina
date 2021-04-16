@@ -1,9 +1,13 @@
 <template lang="pug">
-div
+.potree_container
+  .potree_render_area(ref="potree_render_area")
 </template>
 
 <style lang="sass" scoped>
-div
+.potree_container
+  width: 100%
+  height: 100%
+.potree_render_area
   width: 100%
   height: 100%
   /deep/ canvas
@@ -20,7 +24,7 @@ export default {
     }
   },
   async mounted() {
-    const viewer = new Potree.Viewer(this.$el)
+    const viewer = new Potree.Viewer(this.$refs.potree_render_area)
     viewer.setFOV(60)
     viewer.setPointBudget(2_000_000)
     viewer.loadSettingsFromURL()
