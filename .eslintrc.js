@@ -28,6 +28,7 @@ module.exports = {
     'unicorn/number-literal-case': 'off'
   },
   globals: {
+    '$': true,
     'Potree': true
   }
 }

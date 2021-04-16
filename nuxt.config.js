@@ -12,7 +12,10 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', type: 'text/css', href: '/build/potree/potree.css' },
+    ],
     script: [
       { src: "/libs/jquery/jquery-3.1.1.min.js", defer: true},
       { src: "/libs/spectrum/spectrum.js", defer: true},

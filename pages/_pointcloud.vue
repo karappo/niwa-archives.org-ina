@@ -1,13 +1,14 @@
 <template lang="pug">
-.potree_container
-  .potree_render_area(ref="potree_render_area")
+#potree_container
+  #potree_render_area(ref="potree_render_area")
+  #potree_sidebar_container
 </template>
 
 <style lang="sass" scoped>
-.potree_container
+#potree_container
   width: 100%
   height: 100%
-.potree_render_area
+#potree_render_area
   width: 100%
   height: 100%
   /deep/ canvas
@@ -28,6 +29,13 @@ export default {
     viewer.setFOV(60)
     viewer.setPointBudget(2_000_000)
     viewer.loadSettingsFromURL()
+
+    viewer.loadGUI(() => {
+      viewer.setLanguage('en')
+      $('#menu_tools').next().show()
+      $('#menu_scene').next().show()
+      viewer.toggleSidebar()
+    })
 
     const file = `/pointclouds/${this.$route.params.pointcloud}/metadata.json`
     const { pointcloud } = await Potree.loadPointCloud(file)
