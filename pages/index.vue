@@ -754,9 +754,7 @@ export default {
   },
   methods: {
     loadFont() {
-      console.log('loadFont...')
       if (FONTPLUS) {
-        console.log('FONTPLUS.reload() OK!')
         FONTPLUS.reload()
         clearInterval(this.fontPlusTimer)
       }
