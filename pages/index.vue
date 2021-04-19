@@ -377,7 +377,7 @@ main(:data-lang="this.$i18n.locale")
         ol.footnotes-list(start="6")
           li#fn6.footnote-item
             p
-              | KARAPPO Inc., has designed the website of Mori no DNA zukan, an important precedent for our project.
+              | KARAPPO Inc., has designed the website of Field Guide “DNA of Forests”, an important precedent for our project.
               FootnoteBackref(num="6")
 
       section(data-fuwa)
