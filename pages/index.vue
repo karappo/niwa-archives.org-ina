@@ -43,7 +43,7 @@ main(:data-lang="this.$i18n.locale")
           | 2019年に始動した庭園アーカイヴ・プロジェクトの基本的な背景と目的については、
           a(href="#" v-scroll-to="'#about'") ステートメント
           | 、ならびに
-          a(href="./doc/Towards_a_New_Archive_of_Gardens.pdf" target="_blank") 「庭の新しいアーカイヴをめざして」
+          a(href="./assets/Towards_a_New_Archive_of_Gardens.pdf" target="_blank") 「庭の新しいアーカイヴをめざして」
           | を参照されたい。2019年度は、本プロジェクトの主な拠点、山口情報芸術センター（YCAM）にほど近い常栄寺庭園（通称:雪舟庭）を対象に、様々な実験と試行錯誤を重ねた。これらを踏まえ、2020年度は、対象となる庭園を新たに増やすとともに、具体的な庭園アーカイヴのUIを構築してゆく予定であった。が、言うまでもなく、2020年度は、本プロジェクトもCOVID-19の大きな影響を被ることとなった。研究メンバーの拠点はそれぞれ東京、山口、京都であるが、各地域間の移動もままならず、本プロジェクトに関してもリモートベースでの研究活動を余儀なくされた。
         p しかしながら、そうした制約のなかでも、本プロジェクトの活動はおおむね順調に進行することができた。また、制約ゆえに見出すことのできた可能性も多かったといえる。非常事態宣言が出され、庭園にすら気軽に赴けない状況のなか、本プロジェクトのように庭園のアーカイヴをウェブ上で公開することに新たな意義が賦与されたとも考えられる。
         p 本年度の活動の要点は、大方、以下のように整理される。
@@ -286,7 +286,7 @@ main(:data-lang="this.$i18n.locale")
         p As to the general background and aims of the Garden Archives Project, inaugurated in 2019, kindly refer to
         a(href="#" v-scroll-to="'#about'") the Mission Statement
         |  as well as
-        a(href="./doc/Towards_a_New_Archive_of_Gardens.pdf" target="_blank")  Hara Rurihiko’s “Towards New Archives of Gardens.”
+        a(href="./assets/Towards_a_New_Archive_of_Gardens.pdf" target="_blank")  Hara Rurihiko’s “Towards New Archives of Gardens.”
         |  We devoted our first year to different experimentations on our selected subject, Jōei-ji temple near our base, the Yamaguchi Center of Arts and Media (YCAM). Building on these trials and errors, we intended to spend the academic year 2020 expanding our scope to include a new garden and commencing the construction of an actual user interface for our archives. These plans were deeply affected by COVID-19. Based respectively in Tokyo, Yamaguchi and Kyoto, we had trouble travelling to see each other in person and had to continue our research on a remote basis.
         p All in all, however, we believe that the project has achieved good progress. In fact, these hindrances often opened up new possibilities for us. If with the declaration of the state of emergency even the simplest garden visit became a complicated affair, the same situation can also be understood as conferring a new relevance on our attempt to publish and share our archival effort on the internet.
         p Our activities in 2020 can be summarized as follows:
