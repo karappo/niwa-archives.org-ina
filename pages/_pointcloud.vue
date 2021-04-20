@@ -66,8 +66,22 @@ export default {
       // viewer.fitToScreen()
       viewer.scene.view.position.set(-45.509, 48.096, 26.978)
       viewer.scene.view.lookAt(new THREE.Vector3(-34.27, 25.369, -2.105))
+    } else {
+      // viewer.fitToScreen()
+      viewer.scene.view.position.set(-13.397, 8.883, 27.045)
+      viewer.scene.view.lookAt(new THREE.Vector3(-10.916, 6.771, -2.138))
+    }
 
-      const animation = new Potree.CameraAnimation(viewer)
+    this.$nuxt.$on('settingUpdated', config)
+    this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
+    config()
+  },
+  beforeDestroy() {
+    this.$nuxt.$off('startCameraAnimation')
+  },
+  methods: {
+    startCameraAnimation() {
+      const animation = new Potree.CameraAnimation(window.viewer)
       const positions = [
         [-45.509, 48.096, 26.978],
         [-45.705, 13.655, -1.111],
@@ -85,15 +99,9 @@ export default {
         cp.position.set(...positions[i])
         cp.target.set(...targets[i])
       }
-      viewer.scene.addCameraAnimation(animation)
-    } else {
-      // viewer.fitToScreen()
-      viewer.scene.view.position.set(-13.397, 8.883, 27.045)
-      viewer.scene.view.lookAt(new THREE.Vector3(-10.916, 6.771, -2.138))
+      // viewer.scene.addCameraAnimation(animation)
+      animation.play()
     }
-
-    this.$nuxt.$on('settingUpdated', config)
-    config()
   }
 }
 </script>

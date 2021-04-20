@@ -18,6 +18,7 @@
     input#strength(type="number" @change="updateEDLStrength" :value="$store.state.EDLStrength" step="0.1" :disabled="!$store.state.EDLEnabled")
     label(for='opacity') 透明度:
     input#opacity(type="number" @change="updateEDLOpacity" :value="$store.state.EDLOpacity" step="0.1" :disabled="!$store.state.EDLEnabled")
+    button.animation(@click="$nuxt.$emit('startCameraAnimation')") Start Tour
 </template>
 
 <style lang="sass" scoped>
@@ -55,7 +56,6 @@ main
   flex-grow: 2
   position: relative
 footer
-  width: 100%
   flex-basis: 50px
   background-color: black
   display: flex
@@ -76,6 +76,9 @@ footer
       width: 4em
     &#edl
       margin-left: 40px
+  button.animation
+    margin-left: auto
+    margin-right: 0
 </style>
 
 <script>
