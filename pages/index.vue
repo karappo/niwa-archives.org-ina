@@ -210,7 +210,7 @@ main(:data-lang="this.$i18n.locale")
         p 科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」
         dl
           dt 研究代表者：
-          dd 原瑠璃彦（青山学院大学客員研究員）
+          dd 原瑠璃彦（静岡大学講師）
           dt 研究分担者：
           dd
             | 伊藤隆之（YCAM InterLab）<br>
