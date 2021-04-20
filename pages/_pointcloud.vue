@@ -1,7 +1,7 @@
 <template lang="pug">
 #potree_container
   #potree_render_area(ref="potree_render_area")
-  #potree_sidebar_container(v-if="process.env.NODE_ENV === 'development'")
+  #potree_sidebar_container
 </template>
 
 <style lang="sass" scoped>
@@ -30,14 +30,12 @@ export default {
     viewer.setPointBudget(2_000_000)
     viewer.loadSettingsFromURL()
 
-    if (process.env.NODE_ENV === 'development') {
-      viewer.loadGUI(() => {
-        viewer.setLanguage('en')
-        $('#menu_tools').next().show()
-        $('#menu_scene').next().show()
-        viewer.toggleSidebar()
-      })
-    }
+    viewer.loadGUI(() => {
+      viewer.setLanguage('en')
+      $('#menu_tools').next().show()
+      $('#menu_scene').next().show()
+      viewer.toggleSidebar()
+    })
 
     const file = `/pointclouds/${this.$route.params.pointcloud}/metadata.json`
     const { pointcloud } = await Potree.loadPointCloud(file)
