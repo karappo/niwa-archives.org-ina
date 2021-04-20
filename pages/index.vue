@@ -214,7 +214,7 @@ main(:data-lang="this.$i18n.locale")
           dt 研究分担者：
           dd
             | 伊藤隆之（YCAM InterLab）<br>
-            | 高原文江（YCAM Inter Lab）<br>
+            | 高原文江（YCAM InterLab）<br>
             | 城一裕（九州大学准教授、YCAM専門委員）<br>
             | 津田和俊（京都工芸繊維大学講師、YCAM専門委員）
         p 研究協力者：<br>
