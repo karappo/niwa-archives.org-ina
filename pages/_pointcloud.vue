@@ -53,9 +53,6 @@ export default {
     }
 
     window.viewer.scene.addPointCloud(pointcloud)
-    // window.viewer.fitToScreen()
-    window.viewer.scene.view.position.set(-41.287, 31.136, -0.427)
-    window.viewer.scene.view.lookAt(new THREE.Vector3(-34.27, 25.369, -2.105))
 
     if (/sessyu-tei-.*/.test(this.$route.params.pointcloud)) {
       const images = await Potree.OrientedImageLoader.load(
@@ -64,6 +61,14 @@ export default {
         window.viewer
       )
       window.viewer.scene.addOrientedImages(images)
+
+      // window.viewer.fitToScreen()
+      window.viewer.scene.view.position.set(-41.287, 31.136, -0.427)
+      window.viewer.scene.view.lookAt(new THREE.Vector3(-34.27, 25.369, -2.105))
+    } else {
+      // window.viewer.fitToScreen()
+      window.viewer.scene.view.position.set(-8.967, 18.538, -1.725)
+      window.viewer.scene.view.lookAt(new THREE.Vector3(-4.973, 12.468, -1.986))
     }
 
     this.$nuxt.$on('settingUpdated', config)
