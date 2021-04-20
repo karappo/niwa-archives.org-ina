@@ -53,7 +53,9 @@ export default {
     }
 
     window.viewer.scene.addPointCloud(pointcloud)
-    window.viewer.fitToScreen()
+    // window.viewer.fitToScreen()
+    window.viewer.scene.view.position.set(-41.287, 31.136, -0.427)
+    window.viewer.scene.view.lookAt(new THREE.Vector3(-34.27, 25.369, -2.105))
 
     if (/sessyu-tei-.*/.test(this.$route.params.pointcloud)) {
       const images = await Potree.OrientedImageLoader.load(
