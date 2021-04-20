@@ -12,6 +12,10 @@
 - 秀英明朝
   - Karappo名義（info@karappo.net）のFontPlus
 
+# 納品
+
 ```
 yarn generate
 ```
+↓
+distフォルダをniwaにリネームした状態で納品
