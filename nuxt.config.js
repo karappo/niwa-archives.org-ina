@@ -15,6 +15,8 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', type: 'text/css', href: '/build/potree/potree.css' },
+      { rel: 'stylesheet', type: 'text/css', href: '/libs/jstree/themes/mixed/style.css' },
+      { rel: 'stylesheet', type: 'text/css', href: '/libs/jquery-ui/jquery-ui.css' },
     ],
     script: [
       { src: "/libs/jquery/jquery-3.1.1.min.js", defer: true},
