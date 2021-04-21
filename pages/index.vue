@@ -15,7 +15,7 @@ main
   align-items: center
 nav
   width: 100%
-  min-width: 600px
+  min-width: 300px
   flex-basis: 50px
   display: flex
   align-items: center
