@@ -14,20 +14,22 @@ export default {
   },
   initAnnotations() {
     const root = window.viewer.scene.annotations
-    const ishi = new Potree.Annotation({
-      title: 'とある石',
-      position: [-29.256, 30.302, -1.795],
-      cameraPosition: [-34.003, 34.255, -1.351],
-      cameraTarget: [-29.256, 30.302, -1.795]
-    })
-    const hitobito = new Potree.Annotation({
-      title: '人々',
-      position: [-41.541, 23.433, -1.902],
-      cameraPosition: [-35.968, 26.991, 1.812],
-      cameraTarget: [-41.541, 23.433, -1.902]
-    })
-    root.add(ishi)
-    root.add(hitobito)
+    root.add(
+      new Potree.Annotation({
+        title: '珪質片岩',
+        position: [-29.256, 30.302, -1.795],
+        cameraPosition: [-34.003, 34.255, -1.351],
+        cameraTarget: [-29.256, 30.302, -1.795]
+      })
+    )
+    root.add(
+      new Potree.Annotation({
+        title: '人々',
+        position: [-41.541, 23.433, -1.902],
+        cameraPosition: [-35.968, 26.991, 1.812],
+        cameraTarget: [-41.541, 23.433, -1.902]
+      })
+    )
   },
   positions: [
     [-45.509, 48.096, 26.978],
