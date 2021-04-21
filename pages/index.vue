@@ -1,8 +1,10 @@
 <template lang="pug">
 main
-  nav
-    nuxt-link(v-for="(c, i) in clouds" :key="i" :to="`/${c.alias}/`" :class="_class(c.alias)")
-      | {{ c.label }}<br>{{ c.size }}
+  .wrap
+    h1 Incomplete Niwa Archives <br>終らない庭のアーカイヴ
+    nav
+      nuxt-link(v-for="(c, i) in clouds" :key="i" :to="`/${c.alias}/`" :class="_class(c.alias)")
+        | {{ c.label }}<br>{{ c.size }}
 </template>
 
 <style lang="sass" scoped>
@@ -13,10 +15,17 @@ main
   display: flex
   justify-content: center
   align-items: center
-nav
+  flex-direction: column
+.wrap
   width: 100%
-  min-width: 300px
+  max-width: 300px
+h1
+  font-size: 18px
+  color: white
+  text-align: center
+nav
   flex-basis: 50px
+  width: 100%
   display: flex
   align-items: center
   flex-wrap: wrap
