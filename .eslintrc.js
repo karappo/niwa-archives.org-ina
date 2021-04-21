@@ -29,6 +29,7 @@ module.exports = {
   },
   globals: {
     '$': true,
-    'Potree': true
+    'Potree': true,
+    'THREE': true
   }
 }
