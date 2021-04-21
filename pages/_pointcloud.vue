@@ -26,12 +26,21 @@ main
 </style>
 
 <script>
+import JoeijiData from '~/gardens/joei-ji.js'
+import MurinanData from '~/gardens/murin-an.js'
 export default {
   props: {
     file: {
       type: String,
       require: true,
       default: null
+    }
+  },
+  data() {
+    return {
+      garden: /joei-ji/.test(this.$route.params.pointcloud)
+        ? JoeijiData
+        : MurinanData
     }
   },
   async mounted() {
@@ -66,22 +75,8 @@ export default {
 
     viewer.scene.addPointCloud(pointcloud)
 
-    if (/joei-ji/.test(this.$route.params.pointcloud)) {
-      const images = await Potree.OrientedImageLoader.load(
-        '/orientedImage/cameraParams.xml',
-        '/orientedImage/imageParams.txt',
-        viewer
-      )
-      viewer.scene.addOrientedImages(images)
-
-      // viewer.fitToScreen()
-      viewer.scene.view.position.set(-45.509, 48.096, 26.978)
-      viewer.scene.view.lookAt(new THREE.Vector3(-34.27, 25.369, -2.105))
-    } else {
-      // viewer.fitToScreen()
-      viewer.scene.view.position.set(-13.397, 8.883, 27.045)
-      viewer.scene.view.lookAt(new THREE.Vector3(-10.916, 6.771, -2.138))
-    }
+    await this.garden.addImages()
+    this.garden.initCamera()
 
     this.$nuxt.$on('settingUpdated', config)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
@@ -93,42 +88,11 @@ export default {
   methods: {
     startCameraAnimation() {
       const animation = new Potree.CameraAnimation(window.viewer)
-      let positions = null
-      let targets = null
-      if (/joei-ji/.test(this.$route.params.pointcloud)) {
-        positions = [
-          [-45.509, 48.096, 26.978],
-          [-45.705, 13.655, -1.111],
-          [-43.002, 7.955, -1.188],
-          [5.121, -6.388, 10.691]
-        ]
-        targets = [
-          [-34.27, 25.369, -2.105],
-          [-44.209, 10.512, -2.616],
-          [-41.335, 7.212, -1.703],
-          [-23.185, 22.343, -13.972]
-        ]
-      } else {
-        positions = [
-          [-17.371, 14.113, 6.617],
-          [-21.396, 6.723, 7.492],
-          [-16.811, -0.786, 7.492],
-          [-8.041, -1.491, 7.492],
-          [-2.316, 5.19, 7.492]
-        ]
-        targets = [
-          [-11.611, 7.547, -0.679],
-          [-12.019, 6.813, -0.533],
-          [-11.56, 6.062, -0.533],
-          [-10.683, 5.991, -0.533],
-          [-10.111, 6.659, -0.533]
-        ]
-      }
 
-      for (let i = 0; i < positions.length; i++) {
+      for (let i = 0; i < this.garden.positions.length; i++) {
         const cp = animation.createControlPoint()
-        cp.position.set(...positions[i])
-        cp.target.set(...targets[i])
+        cp.position.set(...this.garden.positions[i])
+        cp.target.set(...this.garden.targets[i])
       }
       // viewer.scene.addCameraAnimation(animation)
       animation.play()
