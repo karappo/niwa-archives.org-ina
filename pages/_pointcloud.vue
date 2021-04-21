@@ -38,9 +38,8 @@ export default {
   },
   data() {
     return {
-      garden: /joei-ji/.test(this.$route.params.pointcloud)
-        ? JoeijiData
-        : MurinanData
+      garden:
+        this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData
     }
   },
   async mounted() {
