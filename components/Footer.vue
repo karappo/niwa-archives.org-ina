@@ -1,5 +1,6 @@
 <template lang="pug">
 footer
+  nuxt-link.backTop(to="/") Back to Top
   label(for='shape') Point Shape:
   ShapeSelect#shape
   label(for='size') Size:
@@ -24,6 +25,12 @@ footer
   padding: 0 20px
   color: white
   font-size: 12px
+  .backTop
+    display: block
+    background: white
+    color: black
+    padding: 1px 5px
+    letter-spacing: 0
   label
     margin-left: 20px
     margin-right: 10px
