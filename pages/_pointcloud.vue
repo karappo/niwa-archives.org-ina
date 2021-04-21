@@ -21,8 +21,34 @@ main
 #potree_render_area
   width: 100%
   height: 100%
-  /deep/ canvas
-    outline: none
+  /deep/
+    canvas
+      outline: none
+    .annotation
+      transform: translate(-50%, 0)
+      opacity: 0.8 !important
+      &:hover
+        opacity: 1 !important
+      &:before
+        $size: 6px
+        content: ''
+        display: block
+        position: absolute
+        width: #{$size}
+        height: #{$size}
+        top: #{$size / -2}
+        left: calc(50% - #{$size / 2})
+        background-color: #38ED69
+        border-radius: 5px
+      .annotation-titlebar
+        border: 0
+        border-radius: 4px
+        padding: 0 12px
+        box-shadow: none !important
+        .annotation-label
+          color: #696969
+          font-size: 12px
+          line-height: 2.2
 </style>
 
 <script>

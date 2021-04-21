@@ -30,6 +30,22 @@ export default {
         cameraTarget: [-41.541, 23.433, -1.902]
       })
     )
+    root.add(
+      new Potree.Annotation({
+        title: 'テスト',
+        position: [-38.034, 27.38, -2.082],
+        cameraPosition: [-35.968, 26.991, 1.812],
+        cameraTarget: [-38.034, 27.38, -2.082]
+      })
+    )
+    root.add(
+      new Potree.Annotation({
+        title: '屋根の先ッチョ',
+        position: [-41.515, 25.681, 2.944],
+        cameraPosition: [-35.968, 26.991, 1.812],
+        cameraTarget: [-41.515, 25.681, 2.944]
+      })
+    )
   },
   positions: [
     [-45.509, 48.096, 26.978],
