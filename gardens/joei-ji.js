@@ -12,12 +12,6 @@ export default {
     window.viewer.scene.view.position.set(-45.509, 48.096, 26.978)
     window.viewer.scene.view.lookAt(new THREE.Vector3(-34.27, 25.369, -2.105))
   },
-  initAnnotations() {
-    const root = window.viewer.scene.annotations
-    this.annotations.forEach((data) => {
-      root.add(new Potree.Annotation(data))
-    })
-  },
   annotations: [
     {
       title: '珪質片岩',

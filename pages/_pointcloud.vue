@@ -104,7 +104,9 @@ export default {
 
     this.garden.initCamera()
 
-    this.garden.initAnnotations()
+    this.annotations.forEach((data) => {
+      window.viewer.scene.annotations.add(new Potree.Annotation(data))
+    })
 
     this.$nuxt.$on('settingUpdated', config)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
