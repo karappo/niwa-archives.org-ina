@@ -27,6 +27,9 @@ main
     .annotation
       transform: translate(-50%, 0)
       opacity: 0.8 !important
+      &.near
+        .annotation-titlebar
+          display: block
       &:hover
         opacity: 1 !important
       &:before
@@ -41,6 +44,7 @@ main
         background-color: #38ED69
         border-radius: 5px
       .annotation-titlebar
+        display: none
         border: 0
         border-radius: 4px
         padding: 0 12px
@@ -139,10 +143,10 @@ export default {
       this.garden.annotations.forEach((annotation) => {
         const annotationPos = new THREE.Vector3(...annotation.position)
         const distance = annotationPos.distanceTo(new THREE.Vector3(...pos)) // カメラとAnnotationとの距離
-        if (distance < 5) {
-          // console.log(annotation.title)
-          console.log(window.viewer.scene.annotations)
-        }
+        const anno = window.viewer.scene.annotations.children.filter(
+          (e) => e._title === annotation.title
+        )
+        $(anno[0].domElement[0]).toggleClass('near', distance < 8)
       })
     }
   }
