@@ -38,7 +38,7 @@ export default {
     const viewer = new Potree.Viewer(this.$refs.potree_render_area)
     window.viewer = viewer
     viewer.setFOV(60)
-    viewer.setPointBudget(2_000_000)
+    viewer.setPointBudget(this.$store.state.pointBudget)
     viewer.loadSettingsFromURL()
 
     viewer.loadGUI(() => {
@@ -59,6 +59,7 @@ export default {
       viewer.setEDLRadius(this.$store.state.EDLRadius)
       viewer.setEDLStrength(this.$store.state.EDLStrength)
       viewer.setEDLOpacity(this.$store.state.EDLOpacity)
+      viewer.setPointBudget(this.$store.state.pointBudget)
       material.shape = this.$store.state.shape
       material.size = this.$store.state.size
     }

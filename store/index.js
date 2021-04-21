@@ -4,7 +4,8 @@ export const state = () => ({
   EDLStrength: 0.1, // default: 0.4
   EDLOpacity: 1.0, // default: 1.0
   shape: 1,
-  size: 0.8
+  size: 0.8,
+  pointBudget: 2000000
 })
 
 export const mutations = {
@@ -25,6 +26,9 @@ export const mutations = {
   },
   size(state, value) {
     state.size = value
+  },
+  pointBudget(state, value) {
+    state.pointBudget = value
   }
 }
 
