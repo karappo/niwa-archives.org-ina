@@ -31,7 +31,7 @@ nav
     color: white
     font-size: 11px
     text-align: center
-    &.sessyu-tei
+    &.joei-ji
       background-color: #a5c6de
       &.current
         background-color: #73b0dc
@@ -47,12 +47,12 @@ export default {
     return {
       clouds: [
         {
-          alias: 'sessyu-tei-0.02',
-          label: '雪舟庭(0.02)',
+          alias: 'joei-ji',
+          label: '常栄寺(0.02)',
           size: '2.95GB'
         },
         {
-          alias: 'murin-an-0.02',
+          alias: 'murin-an',
           label: '無鄰菴(0.02)',
           size: '750.3MB'
         }
@@ -64,8 +64,7 @@ export default {
       const __class = {
         current: this.$route.path === `/${alias}/`
       }
-      const aliasWithoutNum = alias.match(/(.*)-[0-9.]+$/)[1]
-      __class[aliasWithoutNum] = true
+      __class[alias] = true
       return __class
     }
   }

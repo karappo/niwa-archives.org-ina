@@ -69,8 +69,8 @@ export default {
 
   generate: {
     routes: [
-      '/murin-an-0.02/',
-      '/sessyu-tei-0.02/'
+      '/murin-an/',
+      '/joei-ji/'
     ]
   }
 }

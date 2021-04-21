@@ -66,7 +66,7 @@ export default {
 
     viewer.scene.addPointCloud(pointcloud)
 
-    if (/sessyu-tei-.*/.test(this.$route.params.pointcloud)) {
+    if (/joei-ji/.test(this.$route.params.pointcloud)) {
       const images = await Potree.OrientedImageLoader.load(
         '/orientedImage/cameraParams.xml',
         '/orientedImage/imageParams.txt',
@@ -95,7 +95,7 @@ export default {
       const animation = new Potree.CameraAnimation(window.viewer)
       let positions = null
       let targets = null
-      if (/sessyu-tei-.*/.test(this.$route.params.pointcloud)) {
+      if (/joei-ji/.test(this.$route.params.pointcloud)) {
         positions = [
           [-45.509, 48.096, 26.978],
           [-45.705, 13.655, -1.111],
