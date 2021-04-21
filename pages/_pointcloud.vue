@@ -1,13 +1,23 @@
 <template lang="pug">
-#potree_container
-  #potree_render_area(ref="potree_render_area")
-  #potree_sidebar_container
+main
+  #potree_container
+    #potree_render_area(ref="potree_render_area")
+    #potree_sidebar_container
+  Footer
 </template>
 
 <style lang="sass" scoped>
+main
+  width: 100%
+  height: 100%
+  display: flex
+  flex-direction: column
+  flex-basis: auto
+  background: #000
 #potree_container
   width: 100%
   height: 100%
+  position: relative
 #potree_render_area
   width: 100%
   height: 100%
