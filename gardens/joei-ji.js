@@ -14,39 +14,36 @@ export default {
   },
   initAnnotations() {
     const root = window.viewer.scene.annotations
-    root.add(
-      new Potree.Annotation({
-        title: '珪質片岩',
-        position: [-29.256, 30.302, -1.795],
-        cameraPosition: [-34.003, 34.255, -1.351],
-        cameraTarget: [-29.256, 30.302, -1.795]
-      })
-    )
-    root.add(
-      new Potree.Annotation({
-        title: '人々',
-        position: [-41.541, 23.433, -1.902],
-        cameraPosition: [-35.968, 26.991, 1.812],
-        cameraTarget: [-41.541, 23.433, -1.902]
-      })
-    )
-    root.add(
-      new Potree.Annotation({
-        title: 'テスト',
-        position: [-38.034, 27.38, -2.082],
-        cameraPosition: [-35.968, 26.991, 1.812],
-        cameraTarget: [-38.034, 27.38, -2.082]
-      })
-    )
-    root.add(
-      new Potree.Annotation({
-        title: '屋根の先ッチョ',
-        position: [-41.515, 25.681, 2.944],
-        cameraPosition: [-35.968, 26.991, 1.812],
-        cameraTarget: [-41.515, 25.681, 2.944]
-      })
-    )
+    this.annotations.forEach((data) => {
+      root.add(new Potree.Annotation(data))
+    })
   },
+  annotations: [
+    {
+      title: '珪質片岩',
+      position: [-29.256, 30.302, -1.795],
+      cameraPosition: [-34.003, 34.255, -1.351],
+      cameraTarget: [-29.256, 30.302, -1.795]
+    },
+    {
+      title: '人々',
+      position: [-41.541, 23.433, -1.902],
+      cameraPosition: [-35.968, 26.991, 1.812],
+      cameraTarget: [-41.541, 23.433, -1.902]
+    },
+    {
+      title: 'テスト',
+      position: [-38.034, 27.38, -2.082],
+      cameraPosition: [-35.968, 26.991, 1.812],
+      cameraTarget: [-38.034, 27.38, -2.082]
+    },
+    {
+      title: '屋根の先ッチョ',
+      position: [-41.515, 25.681, 2.944],
+      cameraPosition: [-35.968, 26.991, 1.812],
+      cameraTarget: [-41.515, 25.681, 2.944]
+    }
+  ],
   positions: [
     [-45.509, 48.096, 26.978],
     [-45.705, 13.655, -1.111],
