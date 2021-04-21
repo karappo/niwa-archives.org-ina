@@ -47,29 +47,9 @@ export default {
     return {
       clouds: [
         {
-          alias: 'sessyu-tei-0.1',
-          label: '雪舟庭(0.1)',
-          size: '169MB'
-        },
-        {
-          alias: 'sessyu-tei-0.05',
-          label: '雪舟庭(0.05)',
-          size: '605.1MB'
-        },
-        {
           alias: 'sessyu-tei-0.02',
           label: '雪舟庭(0.02)',
           size: '2.95GB'
-        },
-        {
-          alias: 'murin-an-0.1',
-          label: '無鄰菴(0.1)',
-          size: '61.8MB'
-        },
-        {
-          alias: 'murin-an-0.05',
-          label: '無鄰菴(0.05)',
-          size: '195.5MB'
         },
         {
           alias: 'murin-an-0.02',
