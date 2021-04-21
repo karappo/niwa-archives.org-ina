@@ -75,7 +75,10 @@ export default {
     viewer.scene.addPointCloud(pointcloud)
 
     await this.garden.addImages()
+
     this.garden.initCamera()
+
+    this.garden.initAnnotations()
 
     this.$nuxt.$on('settingUpdated', config)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
@@ -93,7 +96,7 @@ export default {
         cp.position.set(...this.garden.positions[i])
         cp.target.set(...this.garden.targets[i])
       }
-      // viewer.scene.addCameraAnimation(animation)
+      window.viewer.scene.addCameraAnimation(animation)
       animation.play()
     }
   }

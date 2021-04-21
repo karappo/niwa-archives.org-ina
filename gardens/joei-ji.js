@@ -12,6 +12,23 @@ export default {
     window.viewer.scene.view.position.set(-45.509, 48.096, 26.978)
     window.viewer.scene.view.lookAt(new THREE.Vector3(-34.27, 25.369, -2.105))
   },
+  initAnnotations() {
+    const root = window.viewer.scene.annotations
+    const ishi = new Potree.Annotation({
+      title: 'とある石',
+      position: [-29.256, 30.302, -1.795],
+      cameraPosition: [-34.003, 34.255, -1.351],
+      cameraTarget: [-29.256, 30.302, -1.795]
+    })
+    const hitobito = new Potree.Annotation({
+      title: '人々',
+      position: [-41.541, 23.433, -1.902],
+      cameraPosition: [-35.968, 26.991, 1.812],
+      cameraTarget: [-41.541, 23.433, -1.902]
+    })
+    root.add(ishi)
+    root.add(hitobito)
+  },
   positions: [
     [-45.509, 48.096, 26.978],
     [-45.705, 13.655, -1.111],
