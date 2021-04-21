@@ -13,6 +13,8 @@ footer
   input#strength(type="number" @change="updateEDLStrength" :value="$store.state.EDLStrength" step="0.1" :disabled="!$store.state.EDLEnabled")
   label(for='opacity') 透明度:
   input#opacity(type="number" @change="updateEDLOpacity" :value="$store.state.EDLOpacity" step="0.1" :disabled="!$store.state.EDLEnabled")
+  label(for='point_budget') Point Budget:
+  input#pointBudget(type="number" @change="updatePointBudget" :value="window ? window.viewer.getPointBudget() : 2000000" step=`${100 * 1000}` min=`${100 * 1000}` max="2000000")
   button.animation(@click="$nuxt.$emit('startCameraAnimation')") Start Tour
 </template>
 
@@ -44,6 +46,8 @@ footer
       width: 4em
     &#edl
       margin-left: 40px
+    &#pointBudget
+      width: 6em
   button.animation
     margin-left: auto
     margin-right: 0
@@ -71,6 +75,9 @@ export default {
     updateSize(e) {
       this.$store.commit('size', e.target.value)
       this.$nuxt.$emit('settingUpdated')
+    },
+    updatePointBudget(e) {
+      window.viewer.setPointBudget(e.target.value)
     }
   }
 }
