@@ -104,7 +104,7 @@ export default {
 
     this.garden.initCamera()
 
-    this.annotations.forEach((data) => {
+    this.garden.annotations.forEach((data) => {
       window.viewer.scene.annotations.add(new Potree.Annotation(data))
     })
 
@@ -116,8 +116,8 @@ export default {
     config()
   },
   beforeDestroy() {
-    this.$nuxt.$off('settingUpdated', config)
-    this.$nuxt.$off('startCameraAnimation', this.startCameraAnimation)
+    this.$nuxt.$off('settingUpdated')
+    this.$nuxt.$off('startCameraAnimation')
     window.viewer.removeEventListener('camera_changed', this.update)
   },
   methods: {
@@ -140,7 +140,7 @@ export default {
         const annotationPos = new THREE.Vector3(...annotation.position)
         const distance = annotationPos.distanceTo(new THREE.Vector3(...pos)) // カメラとAnnotationとの距離
         if (distance < 5) {
-          console.log(annotation.title)
+          // console.log(annotation.title)
           console.log(window.viewer.scene.annotations)
         }
       })
