@@ -45,7 +45,7 @@ export default {
       viewer.setLanguage('en')
       $('#menu_tools').next().show()
       $('#menu_scene').next().show()
-      viewer.toggleSidebar()
+      // viewer.toggleSidebar() // Open sidebar
     })
 
     const file = `/pointclouds/${this.$route.params.pointcloud}/metadata.json`
