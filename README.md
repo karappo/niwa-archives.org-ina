@@ -6,6 +6,17 @@
 | Test        | Heteml   | https://niwa.karappo.net   | niwa:archive     |
 | Development | nuxt     | http://localhost:3000      |                  |
 
+
+Getting started
+
+```sh
+git clone --recursive git@github.com:karappo/IncompleteNiwaArchives.git
+
+# Ready potree to create build dir.
+cd static/potree
+npm i
+```
+
 ## 1. 点群データのサブサンプリング
 
 CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると重いので、CLIでやったほうがよい。
