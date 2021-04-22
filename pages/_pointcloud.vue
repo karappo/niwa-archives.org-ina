@@ -107,9 +107,11 @@ export default {
 
     this.garden.initCamera()
 
-    this.garden.annotations.forEach((data) => {
-      window.viewer.scene.annotations.add(new Potree.Annotation(data))
-    })
+    if (this.garden.annotations) {
+      this.garden.annotations.forEach((data) => {
+        window.viewer.scene.annotations.add(new Potree.Annotation(data))
+      })
+    }
 
     // Set Events
     this.$nuxt.$on('settingUpdated', config)
@@ -119,10 +121,12 @@ export default {
     config()
 
     // Cancel Potree default behavior
-    window.viewer.scene.annotations.children.forEach((a) => {
-      a.domElement.off('mouseenter')
-      a.domElement.off('mouseleave')
-    })
+    if (window.viewer.scene.annotations) {
+      window.viewer.scene.annotations.children.forEach((a) => {
+        a.domElement.off('mouseenter')
+        a.domElement.off('mouseleave')
+      })
+    }
   },
   beforeDestroy() {
     this.$nuxt.$off('settingUpdated')
@@ -144,15 +148,17 @@ export default {
     update() {
       const camera = window.viewer.scene.getActiveCamera()
       const pos = camera.position.toArray()
-      // ここでカメラポジションとの比較
-      this.garden.annotations.forEach((annotation) => {
-        const annotationPos = new THREE.Vector3(...annotation.position)
-        const distance = annotationPos.distanceTo(new THREE.Vector3(...pos)) // カメラとAnnotationとの距離
-        const anno = window.viewer.scene.annotations.children.filter(
-          (e) => e._title === annotation.title
-        )
-        $(anno[0].domElement[0]).toggleClass('near', distance < 8)
-      })
+      if (this.garden.annotations) {
+        // ここでカメラポジションとの比較
+        this.garden.annotations.forEach((annotation) => {
+          const annotationPos = new THREE.Vector3(...annotation.position)
+          const distance = annotationPos.distanceTo(new THREE.Vector3(...pos)) // カメラとAnnotationとの距離
+          const anno = window.viewer.scene.annotations.children.filter(
+            (e) => e._title === annotation.title
+          )
+          $(anno[0].domElement[0]).toggleClass('near', distance < 8)
+        })
+      }
     }
   }
 }
