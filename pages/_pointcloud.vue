@@ -117,6 +117,12 @@ export default {
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
+
+    // Cancel Potree default behavior
+    window.viewer.scene.annotations.children.forEach((a) => {
+      a.domElement.off('mouseenter')
+      a.domElement.off('mouseleave')
+    })
   },
   beforeDestroy() {
     this.$nuxt.$off('settingUpdated')
