@@ -68,7 +68,8 @@ export default {
   data() {
     return {
       garden:
-        this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData
+        this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
+      animations: null
     }
   },
   async mounted() {
@@ -107,6 +108,22 @@ export default {
 
     this.garden.initCamera()
 
+    // Set Camera Animation
+    const animations = []
+    this.garden.animations.forEach((data) => {
+      const animation = new Potree.CameraAnimation(window.viewer)
+      for (let i = 0; i < data.positions.length; i++) {
+        const cp = animation.createControlPoint()
+        cp.position.set(...data.positions[i])
+        cp.target.set(...data.targets[i])
+      }
+      window.viewer.scene.addCameraAnimation(animation)
+      animation.setVisible(false)
+      animations.push(animation)
+    })
+    this.animations = animations
+    this.$store.commit('cameraAnimationCount', animations.length)
+
     if (this.garden.annotations) {
       this.garden.annotations.forEach((data) => {
         window.viewer.scene.annotations.add(new Potree.Annotation(data))
@@ -134,17 +151,9 @@ export default {
     window.viewer.removeEventListener('camera_changed', this.update)
   },
   methods: {
-    startCameraAnimation() {
-      const animation = new Potree.CameraAnimation(window.viewer)
-
-      for (let i = 0; i < this.garden.positions.length; i++) {
-        const cp = animation.createControlPoint()
-        cp.position.set(...this.garden.positions[i])
-        cp.target.set(...this.garden.targets[i])
-      }
-      window.viewer.scene.addCameraAnimation(animation)
-      animation.setVisible(false)
-      animation.play()
+    startCameraAnimation(index) {
+      console.log('startCameraAnimation', index, this.animations)
+      this.animations[index].play()
     },
     update() {
       const camera = window.viewer.scene.getActiveCamera()

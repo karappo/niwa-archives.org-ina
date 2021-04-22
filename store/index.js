@@ -5,7 +5,8 @@ export const state = () => ({
   EDLOpacity: 1.0, // default: 1.0
   shape: 1,
   size: 0.8,
-  pointBudget: 2000000
+  pointBudget: 2000000,
+  cameraAnimationCount: 0
 })
 
 export const mutations = {
@@ -29,6 +30,9 @@ export const mutations = {
   },
   pointBudget(state, value) {
     state.pointBudget = value
+  },
+  cameraAnimationCount(state, value) {
+    state.cameraAnimationCount = value
   }
 }
 

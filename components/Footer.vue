@@ -15,7 +15,8 @@ footer
   input#opacity(type="number" @change="updateEDLOpacity" :value="$store.state.EDLOpacity" step="0.1" :disabled="!$store.state.EDLEnabled")
   label(for='point_budget') Point Budget:
   input#pointBudget(type="number" @change="updatePointBudget" :value="$store.state.pointBudget" step=`${100 * 1000}` min=`${100 * 1000}` max="2000000")
-  button.animation(@click="$nuxt.$emit('startCameraAnimation')") Start Tour
+  label(for='tour') Tour:
+  button#tour(v-for="(n, i) in $store.state.cameraAnimationCount" @click="$nuxt.$emit('startCameraAnimation', i)") {{ n }}
 </template>
 
 <style lang="sass" scoped>
@@ -41,6 +42,8 @@ footer
     &[for="edl"]
       margin-left: 5px
       margin-right: 0
+    &[for="tour"]
+      margin-left: auto
   input
     &[type="number"]
       width: 4em
