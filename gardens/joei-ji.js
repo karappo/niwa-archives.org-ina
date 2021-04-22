@@ -1,3 +1,4 @@
+import Image1 from '../assets/image/test@2x.jpg'
 export default {
   async addImages() {
     const images = await Potree.OrientedImageLoader.load(
@@ -18,6 +19,7 @@ export default {
       position: [-29.256, 30.302, -1.795],
       cameraPosition: [-34.003, 34.255, -1.351],
       cameraTarget: [-29.256, 30.302, -1.795],
+      image: Image1,
       description:
         'テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。'
     },

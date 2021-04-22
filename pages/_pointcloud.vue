@@ -27,9 +27,21 @@ main
     .annotation
       transform: translate(-50%, 0)
       opacity: 1 !important
+      display: flex
+      flex-direction: column
+      adjust-content: center
       &.near
         .annotation-titlebar
           display: block
+          text-align: center
+        .annotation-description
+          display: block
+          .annotation-description-close
+            display: none
+          .image
+            img
+              width: 100%
+              height: auto
       &:before
         $size: 6px
         content: ''
@@ -152,7 +164,6 @@ export default {
   },
   methods: {
     startCameraAnimation(index) {
-      console.log('startCameraAnimation', index, this.animations)
       this.animations[index].play()
     },
     update() {
