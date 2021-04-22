@@ -30,40 +30,79 @@ main
       display: flex
       flex-direction: column
       adjust-content: center
-      &.near
+      .annotation-titlebar
+        display: none
+        border: 0
+        border-radius: 4px
+        padding: 0 12px 0 20px
+        box-shadow: none !important
+        .annotation-label
+          color: #696969
+          font-size: 12px
+          line-height: 2.2
+      .annotation-marker
+        cursor: pointer
+      &[data-camera-dist="0"],
+      &[data-camera-dist="2"]
+        .annotation-marker
+          $size: 6px
+          content: ''
+          display: block
+          position: absolute
+          width: #{$size}
+          height: #{$size}
+          top: #{$size / -2}
+          left: calc(50% - #{$size / 2})
+          background-color: #583AFA
+          border-radius: #{$size / 2}
+          border: 1px solid white
+          > div
+            display: none
+      &[data-camera-dist="1"]
         .annotation-titlebar
           display: block
-          text-align: center
+          position: absolute
+          left: 50px
+          top: -11px
+        .annotation-marker
+          $size: 80px
+          $borderWidth: 6px
+          content: ''
+          display: block
+          position: absolute
+          width: #{$size}
+          height: #{$size}
+          top: #{$size / -2 - $borderWidth}
+          left: calc(50% - #{$size / 2})
+          background-color: black
+          border-radius: $size
+          border: $borderWidth solid #583AFA
+          overflow: hidden
+          > div
+            display: block
+            width: 100%
+            height: 100%
+            background-size: cover
+            background-position: center
+            opacity: 0.8
+            transition: opacity 0.2s
+          &:hover
+            > div
+              opacity: 1
+      &[data-camera-dist="2"]
         .annotation-description
           display: block
+          background: transparent
+          padding: 0
+          font-size: 12px
+          line-height: 2
           .annotation-description-close
             display: none
           .image
             img
               width: 100%
               height: auto
-      &:before
-        $size: 6px
-        content: ''
-        display: block
-        position: absolute
-        width: #{$size}
-        height: #{$size}
-        top: #{$size / -2}
-        left: calc(50% - #{$size / 2})
-        background-color: #FF89C0
-        border-radius: #{$size / 2}
-        border: 1px solid white
-      .annotation-titlebar
-        display: none
-        border: 0
-        border-radius: 4px
-        padding: 0 12px
-        box-shadow: none !important
-        .annotation-label
-          color: #696969
-          font-size: 12px
-          line-height: 2.2
+              border: 6px solid #583AFA
 </style>
 
 <script>
@@ -178,7 +217,13 @@ export default {
           const anno = window.viewer.scene.annotations.children.filter(
             (e) => e._title === annotation.title
           )
-          $(anno[0].domElement[0]).toggleClass('near', distance < 8)
+          let val = 1
+          if (9 < distance) {
+            val = 0
+          } else if (distance <= 6) {
+            val = 2
+          }
+          $(anno[0].domElement[0]).attr('data-camera-dist', val)
         })
       }
     }
