@@ -19,16 +19,13 @@ export default {
       position: [-29.256, 30.302, -1.795],
       cameraPosition: [-33.528, 33.86, -1.395],
       cameraTarget: [-29.256, 30.302, -1.795],
-      image: Image1,
-      description:
-        'テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。'
+      image: Image1
     },
     {
       title: '人々',
       position: [-41.541, 23.433, -1.902],
       cameraPosition: [-35.968, 26.991, 1.812],
       cameraTarget: [-41.541, 23.433, -1.902],
-      image: Image1,
       description:
         'テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。'
     },
@@ -37,7 +34,6 @@ export default {
       position: [-38.034, 27.38, -2.082],
       cameraPosition: [-35.968, 26.991, 1.812],
       cameraTarget: [-38.034, 27.38, -2.082],
-      image: Image1,
       description:
         'テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。'
     },
@@ -46,7 +42,6 @@ export default {
       position: [-41.515, 25.681, 2.944],
       cameraPosition: [-35.968, 26.991, 1.812],
       cameraTarget: [-41.515, 25.681, 2.944],
-      image: Image1,
       description:
         'テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。'
     }

@@ -103,6 +103,18 @@ main
               width: 100%
               height: auto
               border: 6px solid #583AFA
+      &[data-type="icon"]
+        &[data-camera-dist="1"]
+          .annotation-marker
+            $size: 32px
+            $borderWidth: 2px
+            width: #{$size}
+            height: #{$size}
+            top: #{$size / -2 - $borderWidth}
+            left: calc(50% - #{$size / 2})
+            border-width: $borderWidth
+          .annotation-titlebar
+            left: 18px
 </style>
 
 <script>
