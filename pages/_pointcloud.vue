@@ -26,12 +26,10 @@ main
       outline: none
     .annotation
       transform: translate(-50%, 0)
-      opacity: 0.8 !important
+      opacity: 1 !important
       &.near
         .annotation-titlebar
           display: block
-      &:hover
-        opacity: 1 !important
       &:before
         $size: 6px
         content: ''
@@ -41,8 +39,9 @@ main
         height: #{$size}
         top: #{$size / -2}
         left: calc(50% - #{$size / 2})
-        background-color: #38ED69
-        border-radius: 5px
+        background-color: #FF89C0
+        border-radius: #{$size / 2}
+        border: 1px solid white
       .annotation-titlebar
         display: none
         border: 0
