@@ -130,6 +130,7 @@ export default {
         cp.target.set(...data.targets[i])
       }
       window.viewer.scene.addCameraAnimation(animation)
+      animation.setDuration(20)
       animation.setVisible(false)
       animations.push(animation)
     })
