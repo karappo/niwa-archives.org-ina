@@ -143,6 +143,7 @@ export default {
         cp.target.set(...this.garden.targets[i])
       }
       window.viewer.scene.addCameraAnimation(animation)
+      animation.setVisible(false)
       animation.play()
     },
     update() {
