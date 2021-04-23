@@ -6,7 +6,9 @@ export const state = () => ({
   shape: 1,
   size: 0.8,
   pointBudget: 2000000,
-  cameraAnimationCount: 0
+  cameraAnimationCount: 0,
+  joeiji: null,
+  murinan: null
 })
 
 export const mutations = {
@@ -33,6 +35,12 @@ export const mutations = {
   },
   cameraAnimationCount(state, value) {
     state.cameraAnimationCount = value
+  },
+  joeiji(state, value) {
+    state.joeiji = value
+  },
+  murinan(state, value) {
+    state.murinan = value
   }
 }
 
