@@ -24,7 +24,7 @@ export default {
     {
       title: '人々',
       position: [-41.541, 23.433, -1.902],
-      cameraPosition: [-35.968, 26.991, 1.812],
+      cameraPosition: [-37.478, 26.027, 0.806],
       cameraTarget: [-41.541, 23.433, -1.902],
       description:
         'テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。テストの文章。'
