@@ -42,6 +42,12 @@ main
           line-height: 2.2
       .annotation-marker
         cursor: pointer
+      .annotation-prev,
+      .annotation-next
+        cursor: pointer
+        color: white
+        background-color: black
+        padding: 0 10px
       &[data-camera-dist="0"],
       &[data-camera-dist="2"]
         .annotation-marker
