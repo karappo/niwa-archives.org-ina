@@ -100,6 +100,7 @@ export default {
     if (this.garden.annotations) {
       this.garden.annotations.forEach((data, index) => {
         data.index = index
+        data.cameraTarget = data.position // cameraTargetを省略していたので、positionを複製しておく
         window.viewer.scene.annotations.add(new Potree.Annotation(data))
       })
     }
