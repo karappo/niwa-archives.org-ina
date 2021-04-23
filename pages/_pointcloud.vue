@@ -132,7 +132,7 @@ export default {
     startCameraAnimation(index) {
       this.animations[index].play()
     },
-    annotationByIndex(index) {
+    getAnnotationByIndex(index) {
       const annotations = window.viewer.scene.annotations.children
       if (index < 0) {
         index = annotations.length - 1
@@ -146,16 +146,16 @@ export default {
         }
       }
     },
+    getIndex(target) {
+      const anno = target.closest('.annotation')
+      return parseInt(anno.getAttribute('data-index'), 10)
+    },
     prev(e) {
-      const anno = e.target.closest('.annotation')
-      const index = parseInt(anno.getAttribute('data-index'), 10)
-      const a = this.annotationByIndex(index - 1)
+      const a = this.getAnnotationByIndex(this.getIndex(e.target) - 1)
       a.clickTitle()
     },
     next(e) {
-      const anno = e.target.closest('.annotation')
-      const index = parseInt(anno.getAttribute('data-index'), 10)
-      const a = this.annotationByIndex(index + 1)
+      const a = this.getAnnotationByIndex(this.getIndex(e.target) + 1)
       a.clickTitle()
     },
     update() {
