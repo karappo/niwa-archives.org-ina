@@ -1,9 +1,6 @@
 .annotation
   transform: translate(-50%, 0)
   opacity: 1 !important
-  display: flex
-  flex-direction: column
-  adjust-content: center
   .annotation-titlebar
     display: none
     border: 0
@@ -18,10 +15,17 @@
     cursor: pointer
   .annotation-prev,
   .annotation-next
+    display: none
     cursor: pointer
     color: white
     background-color: black
     padding: 0 10px
+    min-width: 60px
+  .annotation-prev
+    float: left
+  .annotation-next
+    float: right
+    text-align: right
   &[data-camera-dist="0"],
   &[data-camera-dist="2"]
     .annotation-marker
@@ -38,12 +42,13 @@
       border: 1px solid white
       > div
         display: none
+  // カメラが少し近づいた時
   &[data-camera-dist="1"]
     .annotation-titlebar
       display: block
       position: absolute
       left: 50px
-      top: -11px
+      top: -13px
     .annotation-marker
       $size: 80px
       $borderWidth: 6px
@@ -69,7 +74,11 @@
       &:hover
         > div
           opacity: 1
+  // カメラが最も近づいた時
   &[data-camera-dist="2"]
+    .annotation-prev,
+    .annotation-next
+      display: block
     .annotation-description
       display: block
       background: transparent
@@ -80,7 +89,7 @@
         display: none
       .image
         img
-          width: 100%
+          width: calc(100% - 12px)
           height: auto
           border: 6px solid #583AFA
   &[data-type="icon"]

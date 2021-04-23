@@ -98,7 +98,8 @@ export default {
     this.$store.commit('cameraAnimationCount', animations.length)
 
     if (this.garden.annotations) {
-      this.garden.annotations.forEach((data) => {
+      this.garden.annotations.forEach((data, index) => {
+        data.index = index
         window.viewer.scene.annotations.add(new Potree.Annotation(data))
       })
     }
@@ -106,6 +107,8 @@ export default {
     // Set Events
     this.$nuxt.$on('settingUpdated', config)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
+    $('.annotation-prev').on('click', this.prev)
+    $('.annotation-next').on('click', this.next)
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
@@ -121,30 +124,62 @@ export default {
   beforeDestroy() {
     this.$nuxt.$off('settingUpdated')
     this.$nuxt.$off('startCameraAnimation')
+    $('.annotation-prev').off('click', this.prev)
+    $('.annotation-next').off('click', this.next)
     window.viewer.removeEventListener('camera_changed', this.update)
   },
   methods: {
     startCameraAnimation(index) {
       this.animations[index].play()
     },
+    annotationByIndex(index) {
+      const annotations = window.viewer.scene.annotations.children
+      if (index < 0) {
+        index = annotations.length - 1
+      } else if (annotations.length <= index) {
+        index = 0
+      }
+      for (let i = 0; i < annotations.length; i++) {
+        const _a = annotations[i]
+        if (_a._index === index) {
+          return _a
+        }
+      }
+    },
+    prev(e) {
+      const anno = e.target.closest('.annotation')
+      const index = parseInt(anno.getAttribute('data-index'), 10)
+      const a = this.annotationByIndex(index - 1)
+      a.clickTitle()
+    },
+    next(e) {
+      const anno = e.target.closest('.annotation')
+      const index = parseInt(anno.getAttribute('data-index'), 10)
+      const a = this.annotationByIndex(index + 1)
+      a.clickTitle()
+    },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
       const pos = camera.position.toArray()
       if (this.garden.annotations) {
         // ここでカメラポジションとの比較
-        this.garden.annotations.forEach((annotation) => {
-          const annotationPos = new THREE.Vector3(...annotation.position)
+        this.garden.annotations.forEach((a) => {
+          const annotationPos = new THREE.Vector3(...a.position)
           const distance = annotationPos.distanceTo(new THREE.Vector3(...pos)) // カメラとAnnotationとの距離
-          const anno = window.viewer.scene.annotations.children.filter(
-            (e) => e._title === annotation.title
-          )
-          let val = 1
-          if (9 < distance) {
-            val = 0
-          } else if (distance <= 6) {
-            val = 2
+          const children = window.viewer.scene.annotations.children
+          for (let i = 0; i < children.length; i++) {
+            const _a = children[i]
+            if (_a._title === a.title) {
+              let val = 1
+              if (9 < distance) {
+                val = 0
+              } else if (distance <= 6) {
+                val = 2
+              }
+              $(_a.domElement[0]).attr('data-camera-dist', val)
+              break
+            }
           }
-          $(anno[0].domElement[0]).attr('data-camera-dist', val)
         })
       }
     }
