@@ -27,6 +27,7 @@ main
 </style>
 
 <script>
+import { camelCase } from 'change-case'
 import JoeijiData from '~/gardens/joei-ji.js'
 import MurinanData from '~/gardens/murin-an.js'
 export default {
@@ -38,9 +39,11 @@ export default {
     }
   },
   data() {
+    const gardenName = camelCase(this.$route.params.pointcloud)
     return {
       garden:
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
+      annotations: this.$store.state.annotations[gardenName],
       tours: null
     }
   },
@@ -97,8 +100,8 @@ export default {
     this.tours = tours
     this.$store.commit('cameraAnimationCount', tours.length)
 
-    if (this.garden.annotations) {
-      this.garden.annotations.forEach((data, index) => {
+    if (this.annotations) {
+      this.annotations.forEach((data, index) => {
         data.index = index
         data.cameraTarget = data.position // cameraTargetを省略していたので、positionを複製しておく
         window.viewer.scene.annotations.add(new Potree.Annotation(data))
@@ -162,9 +165,9 @@ export default {
     update() {
       const camera = window.viewer.scene.getActiveCamera()
       const pos = camera.position.toArray()
-      if (this.garden.annotations) {
+      if (this.annotations) {
         // ここでカメラポジションとの比較
-        this.garden.annotations.forEach((a) => {
+        this.annotations.forEach((a) => {
           const annotationPos = new THREE.Vector3(...a.position)
           const distance = annotationPos.distanceTo(new THREE.Vector3(...pos)) // カメラとAnnotationとの距離
           const children = window.viewer.scene.annotations.children
