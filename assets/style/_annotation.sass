@@ -1,3 +1,10 @@
+
+@keyframes markerAnim
+  0%
+    transform: scale(1)
+  100%
+    transform: scale(2)
+
 .annotation
   transform: translate(-50%, 0)
   opacity: 1 !important
@@ -38,7 +45,10 @@
       top: #{$size / -2}
       left: calc(50% - #{$size / 2})
       background-color: #583AFA
-      border-radius: #{$size / 2}
+      box-shadow: 0 0 3px #000000
+      animation: markerAnim 1s infinite
+      animation-direction: alternate
+      border-radius: 100px
       border: 1px solid white
       > div
         display: none
