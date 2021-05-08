@@ -16,6 +16,10 @@ export default async function ({ params, redirect, store }) {
         // 配列化
         if (['position', 'cameraPosition'].includes(key)) {
           value = value.split(',').map((v) => parseFloat(v))
+        } else if (['title', 'description'].includes(key)) {
+          value = value.replace(/(\n|\r)/g, '<br>') // nl2br
+        } else if (key === 'image') {
+          value = value.replace('dl=0', 'raw=1') // Dropboxの共有リンクを直リンクに
         }
         data[key] = value
       })
