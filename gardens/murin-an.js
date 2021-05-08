@@ -7,7 +7,7 @@ export default {
     window.viewer.scene.view.position.set(-13.397, 8.883, 27.045)
     window.viewer.scene.view.lookAt(new THREE.Vector3(-10.916, 6.771, -2.138))
   },
-  animations: [
+  tours: [
     {
       positions: [
         [-17.371, 14.113, 6.617],

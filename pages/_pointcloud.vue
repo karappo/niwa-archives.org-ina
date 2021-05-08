@@ -41,7 +41,7 @@ export default {
     return {
       garden:
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
-      animations: null
+      tours: null
     }
   },
   async mounted() {
@@ -81,8 +81,8 @@ export default {
     this.garden.initCamera()
 
     // Set Camera Animation
-    const animations = []
-    this.garden.animations.forEach((data) => {
+    const tours = []
+    this.garden.tours.forEach((data) => {
       const animation = new Potree.CameraAnimation(window.viewer)
       for (let i = 0; i < data.positions.length; i++) {
         const cp = animation.createControlPoint()
@@ -92,10 +92,10 @@ export default {
       window.viewer.scene.addCameraAnimation(animation)
       animation.setDuration(20)
       animation.setVisible(false)
-      animations.push(animation)
+      tours.push(animation)
     })
-    this.animations = animations
-    this.$store.commit('cameraAnimationCount', animations.length)
+    this.tours = tours
+    this.$store.commit('cameraAnimationCount', tours.length)
 
     if (this.garden.annotations) {
       this.garden.annotations.forEach((data, index) => {
@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     startCameraAnimation(index) {
-      this.animations[index].play()
+      this.tours[index].play()
     },
     getAnnotationByIndex(index) {
       const annotations = window.viewer.scene.annotations.children
