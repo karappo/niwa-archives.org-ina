@@ -1,4 +1,9 @@
 import { camelCase } from 'change-case'
+
+const removeParams = (url) => {
+  url = new URL(url)
+  return url.origin + url.pathname
+}
 export default async function ({ params, redirect, store }) {
   // 渡された配列を、1行目の値をキーとするCollectionに変換して返す
   const convertToCollection = (array) => {
@@ -8,7 +13,7 @@ export default async function ({ params, redirect, store }) {
       const values = array[i].values.map((x) => x.formattedValue)
       const data = {}
       values.forEach((element, index) => {
-        const key = keys[index]
+        let key = keys[index]
         let value = element
         if (!value) {
           return
@@ -18,8 +23,20 @@ export default async function ({ params, redirect, store }) {
           value = value.split(',').map((v) => parseFloat(v))
         } else if (['title', 'description'].includes(key)) {
           value = value.replace(/(\n|\r)/g, '<br>') // nl2br
-        } else if (key === 'image') {
-          value = value.replace('dl=0', 'raw=1') // Dropboxの共有リンクを直リンクに
+        } else if (key === 'attachment') {
+          // アタッチメントの種類に応じてkeyも切り替える。
+          // これにより、「image, youtubeなど、別々のキーにしてそのうちいずれか一つ」というような難しい制限と同じ効果が得られる。
+          if (/^https:\/\/www\.dropbox\.com/.test(value)) {
+            // 通常共有リンクの`?dl=0`が付いているはずなので、一旦除去し、最後に`?raw=1`をつけて直リンクにする
+            value = removeParams(value)
+            if (/\.(gif|png|jpg|jpeg)$/i.test(value)) {
+              key = 'image'
+            } else if (/\.pdf$/i.test(value)) {
+              key = 'pdf'
+            }
+            value = value + '?raw=1'
+            console.log(value)
+          }
         }
         data[key] = value
       })
