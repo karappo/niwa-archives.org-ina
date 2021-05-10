@@ -27,15 +27,17 @@ export default async function ({ params, redirect, store }) {
           // アタッチメントの種類に応じてkeyも切り替える。
           // これにより、「image, youtubeなど、別々のキーにしてそのうちいずれか一つ」というような難しい制限と同じ効果が得られる。
           if (/^https:\/\/www\.dropbox\.com/.test(value)) {
-            // 通常共有リンクの`?dl=0`が付いているはずなので、一旦除去し、最後に`?raw=1`をつけて直リンクにする
             value = removeParams(value)
             if (/\.(gif|png|jpg|jpeg)$/i.test(value)) {
               key = 'image'
             } else if (/\.pdf$/i.test(value)) {
               key = 'pdf'
             }
+            // 通常共有リンクの`?dl=0`が付いているはずなので、一旦除去し、最後に`?raw=1`をつけて直リンクにする
             value = value + '?raw=1'
-            console.log(value)
+          } else if (/^https:\/\/www\.youtube\.com/.test(value)) {
+            key = 'youtube'
+            value = new URL(value).searchParams.get('v')
           }
         }
         data[key] = value
