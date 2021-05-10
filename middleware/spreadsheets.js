@@ -43,11 +43,6 @@ export default async function ({ params, redirect, store }) {
       data = convertToCollection(data)
       // titleが空のものは削除
       data = data.filter((x) => x.title && 0 < x.title.length)
-      console.log(
-        'data',
-        `annotations/${camelCase(sheet.properties.title)}`,
-        data
-      )
       store.commit(`annotations/${camelCase(sheet.properties.title)}`, data)
     })
   }
