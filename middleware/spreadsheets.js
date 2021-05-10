@@ -26,7 +26,7 @@ export default async function ({ params, redirect, store }) {
         } else if (key === 'attachment') {
           // アタッチメントの種類に応じてkeyも切り替える。
           // これにより、「image, youtubeなど、別々のキーにしてそのうちいずれか一つ」というような難しい制限と同じ効果が得られる。
-          if (/^https:\/\/www\.dropbox\.com/.test(value)) {
+          if (/\/\/www\.dropbox\.com/.test(value)) {
             value = removeParams(value)
             if (/\.(gif|png|jpg|jpeg)$/i.test(value)) {
               key = 'image'
@@ -35,9 +35,15 @@ export default async function ({ params, redirect, store }) {
             }
             // 通常共有リンクの`?dl=0`が付いているはずなので、一旦除去し、最後に`?raw=1`をつけて直リンクにする
             value = value + '?raw=1'
-          } else if (/^https:\/\/www\.youtube\.com/.test(value)) {
+          } else if (/\/\/www\.youtube\.com/.test(value)) {
             key = 'youtube'
             value = new URL(value).searchParams.get('v')
+          } else if (/\/\/drive\.google\.com/.test(value)) {
+            // eslint-disable-next-line
+            const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
+            value = `https://drive.google.com/uc?export=view&id=${id}`
+            // TODO ファイルの種類判定
+            key = 'image'
           }
         }
         data[key] = value
