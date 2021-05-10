@@ -54,3 +54,8 @@ CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると�
 `TypeError: view.getBigInt64 is not a function. (In 'view.getBigInt64(i * bytesPerNode + 6, true)', 'view.getBigInt64' is undefined)`
 ↓
 未解決…
+
+## potreeのソースコードを修正する場合
+
+`./static/potree`にサブモジュールとして配置しているpotreeのforkを編集する場合は、`npm run start`しておくこと。
+また、編集内容が確定したら`npm run build`をして、potreeリポジトリ側をcommitし、IncompleteNiwaArchivesのリポジトリにもcommitする。
