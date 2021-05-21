@@ -44,7 +44,10 @@ export default {
       garden:
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
       annotations: this.$store.state.annotations[gardenName],
-      tours: null
+      tours: null,
+      // Controls関係
+      defaultControls: null, // デフォルトのControlsを保持
+      altControlMode: false // もう一つのControlsの有効化
     }
   },
   async mounted() {
@@ -53,6 +56,11 @@ export default {
     viewer.setFOV(60)
     viewer.setPointBudget(this.$store.state.pointBudget)
     viewer.loadSettingsFromURL()
+
+    // Controls
+    // this.defaultControls = viewer.orbitControls
+    this.defaultControls = viewer.earthControls
+    window.viewer.setControls(this.defaultControls)
 
     viewer.loadGUI(() => {
       viewer.setLanguage('en')
@@ -114,6 +122,8 @@ export default {
     $('.annotation-prev').on('click', this.prev)
     $('.annotation-next').on('click', this.next)
     window.viewer.addEventListener('camera_changed', this.update)
+    document.addEventListener('keyup', this.keyup)
+    document.addEventListener('keydown', this.keydown)
 
     config()
 
@@ -131,8 +141,23 @@ export default {
     $('.annotation-prev').off('click', this.prev)
     $('.annotation-next').off('click', this.next)
     window.viewer.removeEventListener('camera_changed', this.update)
+    document.removeEventListener('keyup', this.keyup)
+    document.removeEventListener('keydown', this.keydown)
   },
   methods: {
+    keydown(e) {
+      if (!this.altControlMode && e.code === 'Space') {
+        this.altControlMode = true
+        window.viewer.setControls(window.viewer.fpControls)
+        window.viewer.fpControls.lockElevation = false
+      }
+    },
+    keyup(e) {
+      if (this.altControlMode && e.code === 'Space') {
+        this.altControlMode = false
+        window.viewer.setControls(this.defaultControls)
+      }
+    },
     startCameraAnimation(index) {
       this.tours[index].play()
     },
