@@ -28,7 +28,7 @@ export default async function ({ params, redirect, store }) {
           // これにより、「image, youtubeなど、別々のキーにしてそのうちいずれか一つ」というような難しい制限と同じ効果が得られる。
           if (/\/\/www\.dropbox\.com/.test(value)) {
             value = removeParams(value)
-            if (/\.(gif|png|jpg|jpeg)$/i.test(value)) {
+            if (/\.(gif|png|jpe?g)$/i.test(value)) {
               key = 'image'
             } else if (/\.pdf$/i.test(value)) {
               key = 'pdf'
