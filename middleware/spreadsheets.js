@@ -12,6 +12,7 @@ export default async function ({ params, redirect, store }) {
     for (let i = 1; i < array.length; i++) {
       const values = array[i].values.map((x) => x.formattedValue)
       const data = {}
+      const valueOf = (_key) => values[keys.indexOf(_key)]
       values.forEach((element, index) => {
         let key = keys[index]
         let value = element
@@ -41,9 +42,14 @@ export default async function ({ params, redirect, store }) {
           } else if (/\/\/drive\.google\.com/.test(value)) {
             // eslint-disable-next-line
             const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
+            // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得
+            const type = valueOf('attachmentType')
             value = `https://drive.google.com/uc?export=view&id=${id}`
-            // TODO ファイルの種類判定
-            key = 'image'
+            if (!['image', 'pdf'].includes(type)) {
+              // eslint-disable-next-line
+              console.error(`Wrong "attachmentType" for ${valueOf('title')} (row:${i+1})`, type)
+            }
+            key = type
           }
         }
         data[key] = value
