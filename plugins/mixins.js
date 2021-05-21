@@ -49,10 +49,6 @@ Vue.mixin({
           }
         ],
         link: [
-          {
-            el: 'canonical',
-            href: `${process.env.siteUrl}${this.$route.path}`
-          }
         ]
       }
     }
