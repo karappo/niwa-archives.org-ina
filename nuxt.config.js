@@ -60,7 +60,8 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    'nuxt-ua'
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
