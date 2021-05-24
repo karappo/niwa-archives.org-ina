@@ -190,7 +190,7 @@ export default {
       // キーの押下状態によるモードの切り替え（優先度もここで決定）
       const mode = this.pressedMetaKey ? 2 : this.pressedSpaceKey ? 1 : 0
       // モードが変わってなければ終了
-      if (mode === this.$store.state.currentControlMode) {
+      if (mode === this.$store.state.controlMode) {
         return
       }
       switch (mode) {
@@ -210,7 +210,7 @@ export default {
       }
 
       // モードを保存
-      this.$store.commit('currentControlMode', mode)
+      this.$store.commit('controlMode', mode)
     },
     startCameraAnimation(index) {
       this.tours[index].play()

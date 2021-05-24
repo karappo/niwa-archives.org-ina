@@ -7,7 +7,7 @@ export const state = () => ({
   size: 0.8,
   pointBudget: 2000000,
   cameraAnimationCount: 0,
-  currentControlMode: null // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
+  controlMode: null // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
 })
 
 export const mutations = {
@@ -35,8 +35,8 @@ export const mutations = {
   cameraAnimationCount(state, value) {
     state.cameraAnimationCount = value
   },
-  currentControlMode(state, value) {
-    state.currentControlMode = value
+  controlMode(state, value) {
+    state.controlMode = value
   }
 }
 
