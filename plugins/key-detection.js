@@ -19,14 +19,13 @@ export default ({ app }, inject) => {
     if (e.keyCode === 13) { // 日本語変換時の確定が反応してしまわないようにkeyCodeで判定
       return 'enter'
     }
-    else if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'alt', 'meta'].includes(key)) {
-      return key
-    }
-    else if (e.keyCode === 32) {
+
+    // Space キー
+    if (e.keyCode === 32) {
       return 'space'
     }
     // Mac ==========================
-    else if (app.$ua.is.macos) {
+    if (app.$ua.is.macos) {
       // Chrome以外 ------------------
       if (!app.$ua.is.chrome) {
         if (e.code.toLowerCase() === 'space' && e.keyCode === 229 && !e.isComposing) {
@@ -43,5 +42,7 @@ export default ({ app }, inject) => {
         }
       }
     }
+
+    return key
   })
 }

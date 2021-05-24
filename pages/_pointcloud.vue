@@ -46,8 +46,8 @@ export default {
       annotations: this.$store.state.annotations[gardenName],
       tours: null,
       // Controls関係
-      pressedSpaceKey: false,
-      pressedMetaKey: false
+      fpMode: false,
+      orbitMode: false
     }
   },
   async mounted() {
@@ -146,12 +146,12 @@ export default {
     keydown(e) {
       const p = window.viewer.scene.view.position
       switch (this.$key(e)) {
-        case 'space':
-          this.pressedSpaceKey = true
+        case '1':
+          this.fpMode = true
           this.updateControlMode()
           break
-        case 'meta':
-          this.pressedMetaKey = true
+        case '2':
+          this.orbitMode = true
           this.updateControlMode()
           break
         case 'arrowup':
@@ -177,18 +177,18 @@ export default {
     },
     keyup(e) {
       switch (this.$key(e)) {
-        case 'space':
-          this.pressedSpaceKey = false
+        case '1':
+          this.fpMode = false
           break
-        case 'meta':
-          this.pressedMetaKey = false
+        case '2':
+          this.orbitMode = false
           break
       }
       this.updateControlMode()
     },
     updateControlMode() {
       // キーの押下状態によるモードの切り替え（優先度もここで決定）
-      const mode = this.pressedMetaKey ? 2 : this.pressedSpaceKey ? 1 : 0
+      const mode = this.orbitMode ? 2 : this.fpMode ? 1 : 0
       // モードが変わってなければ終了
       if (mode === this.$store.state.controlMode) {
         return
