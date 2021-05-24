@@ -46,7 +46,6 @@ export default {
       annotations: this.$store.state.annotations[gardenName],
       tours: null,
       // Controls関係
-      defaultControls: null, // デフォルトのControlsを保持
       currentControlMode: null, // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
       pressedSpaceKey: false,
       pressedMetaKey: false
@@ -198,8 +197,7 @@ export default {
       switch (modeIndex) {
         case 0:
           // Earth (Default)
-          this.defaultControls = window.viewer.earthControls
-          window.viewer.setControls(this.defaultControls)
+          window.viewer.setControls(window.viewer.earthControls)
           break
         case 1:
           // First Person
