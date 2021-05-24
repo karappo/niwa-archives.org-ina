@@ -47,7 +47,9 @@ export default {
       tours: null,
       // Controls関係
       defaultControls: null, // デフォルトのControlsを保持
-      altControlMode: false // もう一つのControlsの有効化
+      currentControlMode: null, // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
+      pressedSpaceKey: false,
+      pressedMetaKey: false
     }
   },
   async mounted() {
@@ -58,9 +60,7 @@ export default {
     viewer.loadSettingsFromURL()
 
     // Controls
-    // this.defaultControls = viewer.orbitControls
-    this.defaultControls = viewer.earthControls
-    window.viewer.setControls(this.defaultControls)
+    this.updateControlMode()
 
     viewer.loadGUI(() => {
       viewer.setLanguage('en')
@@ -146,17 +146,69 @@ export default {
   },
   methods: {
     keydown(e) {
-      if (!this.altControlMode && e.code === 'Space') {
-        this.altControlMode = true
-        window.viewer.setControls(window.viewer.fpControls)
-        window.viewer.fpControls.lockElevation = false
+      switch (this.$key(e)) {
+        case 'space':
+          this.pressedSpaceKey = true
+          this.updateControlMode()
+          break
+        case 'meta':
+          this.pressedMetaKey = true
+          this.updateControlMode()
+          break
+        case 'arrowup':
+          console.log('arrowup')
+          break
+        case 'arrowdown':
+          console.log('arrowdown')
+          break
+        case 'left':
+          console.log('left')
+          break
+        case 'right':
+          console.log('right')
+          break
+        default:
+          console.log(e)
       }
+      this.updateControlMode()
     },
     keyup(e) {
-      if (this.altControlMode && e.code === 'Space') {
-        this.altControlMode = false
-        window.viewer.setControls(this.defaultControls)
+      switch (this.$key(e)) {
+        case 'space':
+          this.pressedSpaceKey = false
+          break
+        case 'meta':
+          this.pressedMetaKey = false
+          break
       }
+      this.updateControlMode()
+    },
+    updateControlMode() {
+      // キーの押下状態によるモードの切り替え（優先度もここで決定）
+      const modeIndex = this.pressedMetaKey ? 2 : this.pressedSpaceKey ? 1 : 0
+      // モードが変わってなければ終了
+      if (modeIndex === this.currentControlMode) {
+        return
+      }
+      switch (modeIndex) {
+        case 0:
+          // Earth (Default)
+          this.defaultControls = window.viewer.earthControls
+          window.viewer.setControls(this.defaultControls)
+          break
+        case 1:
+          // First Person
+          window.viewer.setControls(window.viewer.fpControls)
+          window.viewer.fpControls.lockElevation = false
+          break
+        case 2:
+          // Orbit
+          window.viewer.setControls(window.viewer.orbitControls)
+          break
+      }
+
+      // モードを保存
+      this.currentControlMode = modeIndex
     },
     startCameraAnimation(index) {
       this.tours[index].play()
