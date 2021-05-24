@@ -54,7 +54,10 @@ export default async function ({ params, redirect, store }) {
         }
         data[key] = value
       })
-      collection.push(data)
+      // positionが未記入のものは登録しない
+      if (data.position) {
+        collection.push(data)
+      }
     }
     return collection
   }
