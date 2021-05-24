@@ -19,7 +19,7 @@ export default ({ app }, inject) => {
     if (e.keyCode === 13) { // 日本語変換時の確定が反応してしまわないようにkeyCodeで判定
       return 'enter'
     }
-    else if (['arrowup', 'arrowdown', 'alt', 'meta'].includes(key)) {
+    else if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'alt', 'meta'].includes(key)) {
       return key
     }
     else if (e.keyCode === 32) {

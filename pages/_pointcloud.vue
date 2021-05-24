@@ -146,6 +146,7 @@ export default {
   },
   methods: {
     keydown(e) {
+      const p = window.viewer.scene.view.position
       switch (this.$key(e)) {
         case 'space':
           this.pressedSpaceKey = true
@@ -156,16 +157,20 @@ export default {
           this.updateControlMode()
           break
         case 'arrowup':
-          console.log('arrowup')
+          // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
+          window.viewer.scene.view.position.set(p.x, p.y, p.z + 0.1)
           break
         case 'arrowdown':
-          console.log('arrowdown')
+          // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
+          window.viewer.scene.view.position.set(p.x, p.y, p.z - 0.1)
           break
-        case 'left':
-          console.log('left')
+        case 'arrowleft':
+          // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
+          window.viewer.scene.view.position.set(p.x, p.y + 0.1, p.z)
           break
-        case 'right':
-          console.log('right')
+        case 'arrowright':
+          // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
+          window.viewer.scene.view.position.set(p.x, p.y - 0.1, p.z)
           break
         default:
           console.log(e)
