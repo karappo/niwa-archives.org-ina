@@ -145,6 +145,7 @@ export default {
   methods: {
     keydown(e) {
       const p = window.viewer.scene.view.position
+      const unit = e.shiftKey ? 0.1 : 0.01 // Shiftキーの押下状態で移動単位を切り替え
       switch (this.$key(e)) {
         case '1':
           this.fpMode = true
@@ -156,19 +157,19 @@ export default {
           break
         case 'arrowup':
           // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
-          window.viewer.scene.view.position.set(p.x, p.y, p.z + 0.1)
+          window.viewer.scene.view.position.set(p.x, p.y, p.z + unit)
           break
         case 'arrowdown':
           // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
-          window.viewer.scene.view.position.set(p.x, p.y, p.z - 0.1)
+          window.viewer.scene.view.position.set(p.x, p.y, p.z - unit)
           break
         case 'arrowleft':
           // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
-          window.viewer.scene.view.position.set(p.x, p.y + 0.1, p.z)
+          window.viewer.scene.view.position.set(p.x, p.y + unit, p.z)
           break
         case 'arrowright':
           // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
-          window.viewer.scene.view.position.set(p.x, p.y - 0.1, p.z)
+          window.viewer.scene.view.position.set(p.x, p.y - unit, p.z)
           break
         default:
           console.log(e)
