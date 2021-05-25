@@ -39,6 +39,9 @@ export default async function ({ params, redirect, store }) {
           } else if (/\/\/www\.youtube\.com/.test(value)) {
             key = 'youtube'
             value = new URL(value).searchParams.get('v')
+          } else if (value.match(/\/\/youtu\.be\/([^/]*)/)) {
+            key = 'youtube'
+            value = value.match(/\/\/youtu\.be\/([^/]*)/)[1]
           } else if (/\/\/drive\.google\.com/.test(value)) {
             // eslint-disable-next-line
             const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
