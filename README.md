@@ -40,11 +40,6 @@ CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると�
 2. Windows上で、コマンドプロンプトを立ち上げ、`PotreeCOnverter_2.0.1_windows_x64/PotreeConverter.exec <filename>`を実行
 3. ファイルが生成される
 
-## 4. potreeの更新
-
-[本家リポジトリ](https://github.com/potree/potree))の `/libs` 及び `/build` ディレクトリをそのまま `/static` 下に複製して、読み込む。
-
-
 ## macos safari 上で表示できない
 
 `ReferenceError: Can't find variable: WebGL2RenderingContext`
