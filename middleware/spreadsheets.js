@@ -39,7 +39,7 @@ export default async function ({ params, redirect, store }) {
           } else if (/\/\/www\.youtube\.com/.test(value)) {
             key = 'youtube'
             value = new URL(value).searchParams.get('v')
-          } else if (value.match(/\/\/youtu\.be\/([^/]*)/)) {
+          } else if (/\/\/youtu\.be\/([^/]*)/.test(value)) {
             key = 'youtube'
             value = value.match(/\/\/youtu\.be\/([^/]*)/)[1]
           } else if (/\/\/drive\.google\.com/.test(value)) {
