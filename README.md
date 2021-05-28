@@ -22,11 +22,11 @@ npm i
 CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると重いので、CLIでやったほうがよい。
 
 ```sh
-/Applications/CloudCompare.app/Contents/MacOS/CloudCompare -O -GLOBAL_SHIFT AUTO /path/to/raw-data.e57  -C_EXPORT_FMT E57 -SS SPATIAL 0.2 -SAVE_CLOUDS ALL_AT_ONCE
+/Applications/CloudCompare.app/Contents/MacOS/CloudCompare -O -GLOBAL_SHIFT AUTO /path/to/raw-data.e57  -C_EXPORT_FMT E57 -SS SPATIAL 0.0725 -SAVE_CLOUDS ALL_AT_ONCE
 ```
 
-サブサンプリングの値は`0.1`から`0.725`くらいが良さそう。
-雪舟庭のデータだと、`0.7`だと処理終了前にCCが固まってしまった。
+サブサンプリングの値は`0.1`から`0.0725`くらいが良さそう。
+雪舟庭のデータだと、`0.07`だと処理終了前にCCが固まってしまった。
 
 ## 2. e57 → las 変換
 
