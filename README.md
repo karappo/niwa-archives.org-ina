@@ -19,7 +19,7 @@ npm i
 
 ## 1. 点群データのサブサンプリング
 
-CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると重いので、CLIでやったほうがよい。
+目的は、容量削減。CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると重いので、CLIでやったほうがよい。
 
 ```sh
 /Applications/CloudCompare.app/Contents/MacOS/CloudCompare -O -GLOBAL_SHIFT AUTO /path/to/raw-data.e57  -C_EXPORT_FMT E57 -SS SPATIAL 0.0725 -SAVE_CLOUDS ALL_AT_ONCE
@@ -37,7 +37,7 @@ CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると�
 ## 3. Windows上のPotreeConverterで変換
 
 1. Resilio Syncを使って、lasファイルを転送
-2. Windows上で、コマンドプロンプトを立ち上げ、`PotreeCOnverter_2.0.1_windows_x64/PotreeConverter.exec <filename>`を実行
+2. Windows上で、コマンドプロンプトを立ち上げ、`PotreeCOnverter_2.0.1_windows_x64/PotreeConverter.exec <filename>`を実行 ※ [PotreeConverter.exec](https://www.dropbox.com/sh/anvft1ce9459uil/AADVTVpd-N5yOPq33OjnvgNfa?dl=0)
 3. ファイルが生成される
 
 ## macos safari 上で表示できない
