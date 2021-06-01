@@ -24,7 +24,7 @@ if yarn generate; then
     find ./dist/ -name "*.php" -exec sed -i$ext "s|//DEP_"$DEPLOY_ENV"_RM ||" {} \;
     find ./dist/ -name "*$ext" -exec rm {} \; # delete backup files
     # Deploy
-    rsync -aIzhv --stats --delete -e "ssh -p 2222" ./dist/ karappo@ssh-karappo.heteml.net:/home/users/0/karappo/web/$DEPLOY_DIR
+    rsync -aIzhv --stats --delete -e "ssh -p 2222" "--exclude-from=$PWD/.depignore" ./dist/ karappo@ssh-karappo.heteml.net:/home/users/0/karappo/web/$DEPLOY_DIR
     npm run rename-back
   fi
 fi
