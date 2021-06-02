@@ -44,10 +44,7 @@ export default {
       garden:
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
       annotations: this.$store.state.annotations[gardenName],
-      tours: null,
-      // Controls関係
-      fpMode: false,
-      orbitMode: false
+      tours: null
     }
   },
   async mounted() {
@@ -58,7 +55,7 @@ export default {
     viewer.loadSettingsFromURL()
 
     // Controls
-    this.updateControlMode()
+    this.setControlMode(this.$store.state.controlMode)
 
     viewer.loadGUI(() => {
       viewer.setLanguage('en')
@@ -143,73 +140,35 @@ export default {
     document.removeEventListener('keydown', this.keydown)
   },
   methods: {
-    keydown(e) {
-      const p = window.viewer.scene.view.position
-      const unit = e.shiftKey ? 0.1 : 0.01 // Shiftキーの押下状態で移動単位を切り替え
-      switch (this.$key(e)) {
-        case '1':
-          this.fpMode = true
-          this.updateControlMode()
-          break
-        case '2':
-          this.orbitMode = true
-          this.updateControlMode()
-          break
-        case 'arrowup':
-          // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
-          window.viewer.scene.view.position.set(p.x, p.y, p.z + unit)
-          break
-        case 'arrowdown':
-          // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
-          window.viewer.scene.view.position.set(p.x, p.y, p.z - unit)
-          break
-        case 'arrowleft':
-          // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
-          window.viewer.scene.view.position.set(p.x, p.y + unit, p.z)
-          break
-        case 'arrowright':
-          // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
-          window.viewer.scene.view.position.set(p.x, p.y - unit, p.z)
-          break
-        default:
-          console.log(e)
-      }
-      this.updateControlMode()
-    },
     keyup(e) {
       switch (this.$key(e)) {
         case '1':
-          this.fpMode = false
+          this.setControlMode(0)
           break
         case '2':
-          this.orbitMode = false
+          this.setControlMode(1)
+          break
+        case '3':
+          this.setControlMode(2)
           break
       }
-      this.updateControlMode()
     },
-    updateControlMode() {
-      // キーの押下状態によるモードの切り替え（優先度もここで決定）
-      const mode = this.orbitMode ? 2 : this.fpMode ? 1 : 0
-      // モードが変わってなければ終了
-      if (mode === this.$store.state.controlMode) {
-        return
-      }
+    setControlMode(mode) {
       switch (mode) {
         case 0:
-          // Earth (Default)
-          window.viewer.setControls(window.viewer.earthControls)
-          break
-        case 1:
           // First Person
           window.viewer.setControls(window.viewer.fpControls)
-          window.viewer.fpControls.lockElevation = false
+          window.viewer.fpControls.lockElevation = true // 高さを維持するか否か
+          break
+        case 1:
+          // Earth
+          window.viewer.setControls(window.viewer.earthControls)
           break
         case 2:
           // Orbit
           window.viewer.setControls(window.viewer.orbitControls)
           break
       }
-
       // モードを保存
       this.$store.commit('controlMode', mode)
     },

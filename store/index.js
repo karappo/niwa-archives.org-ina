@@ -7,7 +7,7 @@ export const state = () => ({
   size: 0.8,
   pointBudget: 2000000,
   cameraAnimationCount: 0,
-  controlMode: null // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
+  controlMode: 0 // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
 })
 
 export const mutations = {
@@ -36,7 +36,12 @@ export const mutations = {
     state.cameraAnimationCount = value
   },
   controlMode(state, value) {
-    state.controlMode = value
+    // validation
+    if (0 <= value && value <= 2) {
+      state.controlMode = value
+    } else {
+      console.error('Invalid value : ' + value)
+    }
   }
 }
 

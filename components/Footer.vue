@@ -62,7 +62,7 @@ export default {
   computed: {
     controlNames() {
       // eslint-disable-next-line
-      return ['Earth (Default)', 'First Person', 'Orbit'][this.$store.state.controlMode]
+      return ['First Person', 'Earth', 'Orbit'][this.$store.state.controlMode]
     }
   },
   methods: {
