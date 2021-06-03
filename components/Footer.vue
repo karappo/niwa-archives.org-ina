@@ -15,7 +15,7 @@ footer
   input#opacity(type="number" @change="updateEDLOpacity" :value="$store.state.EDLOpacity" step="0.1" :disabled="!$store.state.EDLEnabled")
   label(for='point_budget') Point Budget:
   input#pointBudget(type="number" @change="updatePointBudget" :value="$store.state.pointBudget" step=`${100 * 1000}` min=`${100 * 1000}` max="2000000")
-  label(for='controls') Controls: {{ controlNames }}
+  label(for='controls') Controls(Press key 1,2,3): {{ controlNames }}
   label(for='tour') Tour:
   button#tour(v-for="(n, i) in $store.state.cameraAnimationCount" @click="$nuxt.$emit('startCameraAnimation', i)") {{ n }}
 </template>
