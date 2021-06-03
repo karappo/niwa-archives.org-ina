@@ -171,8 +171,6 @@ export default {
           // TODO 矢印の動く向きをcameraの方向に対する相対的なベクトルに変換して適用する
           window.viewer.scene.view.position.set(p.x, p.y - unit, p.z)
           break
-        default:
-          console.log(e)
       }
       this.updateControlMode()
     },
