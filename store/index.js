@@ -2,7 +2,7 @@ export const state = () => ({
   EDLEnabled: true,
   EDLRadius: 0.9, // default: 1.4
   EDLStrength: 0.1, // default: 0.4
-  EDLOpacity: 1.0, // default: 1.0
+  EDLOpacity: 0.8, // default: 1.0
   shape: 1,
   size: 0.8,
   pointBudget: 2000000,
