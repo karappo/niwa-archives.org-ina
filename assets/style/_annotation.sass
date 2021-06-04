@@ -33,59 +33,59 @@
   .annotation-next
     float: right
     text-align: right
-  &[data-camera-dist=far],
-  &[data-camera-dist=near]
-    .annotation-marker
-      $size: 6px
-      content: ''
-      display: block
-      position: absolute
-      width: #{$size}
-      height: #{$size}
-      top: #{$size / -2}
-      left: calc(50% - #{$size / 2})
-      background-color: #583AFA
-      box-shadow: 0 0 3px #000000
-      animation: markerAnim 1s infinite
-      animation-direction: alternate
-      border-radius: 100px
-      border: 1px solid white
-      > div
-        display: none
-  // カメラが少し近づいた時
-  &[data-camera-dist=middle]
-    .annotation-titlebar
-      display: block
-      position: absolute
-      left: 50px
-      top: -13px
-    .annotation-marker
-      $size: 80px
-      $borderWidth: 6px
-      content: ''
-      display: block
-      position: absolute
-      width: #{$size}
-      height: #{$size}
-      top: #{$size / -2 - $borderWidth}
-      left: calc(50% - #{$size / 2})
-      background-color: black
-      border-radius: $size
-      border: $borderWidth solid #583AFA
-      overflow: hidden
-      > div
+  &:not(.opened)
+    &[data-camera-dist=middle]
+      .annotation-marker
+        $size: 6px
+        content: ''
         display: block
-        width: 100%
-        height: 100%
-        background-size: cover
-        background-position: center
-        opacity: 0.8
-        transition: opacity 0.2s
-      &:hover
+        position: absolute
+        width: #{$size}
+        height: #{$size}
+        top: #{$size / -2}
+        left: calc(50% - #{$size / 2})
+        background-color: #583AFA
+        box-shadow: 0 0 3px #000000
+        animation: markerAnim 1s infinite
+        animation-direction: alternate
+        border-radius: 100px
+        border: 1px solid white
         > div
-          opacity: 1
+          display: none
+    // カメラが少し近づいた時
+    &[data-camera-dist=near]
+      .annotation-titlebar
+        display: block
+        position: absolute
+        left: 50px
+        top: -13px
+      .annotation-marker
+        $size: 80px
+        $borderWidth: 6px
+        content: ''
+        display: block
+        position: absolute
+        width: #{$size}
+        height: #{$size}
+        top: #{$size / -2 - $borderWidth}
+        left: calc(50% - #{$size / 2})
+        background-color: black
+        border-radius: $size
+        border: $borderWidth solid #583AFA
+        overflow: hidden
+        > div
+          display: block
+          width: 100%
+          height: 100%
+          background-size: cover
+          background-position: center
+          opacity: 0.8
+          transition: opacity 0.2s
+        &:hover
+          > div
+            opacity: 1
   // カメラが最も近づいた時
-  &[data-camera-dist=near]
+  &.opened
     .annotation-prev,
     .annotation-next
       display: block

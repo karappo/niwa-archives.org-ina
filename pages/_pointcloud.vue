@@ -220,7 +220,7 @@ export default {
             const _a = children[i]
             if (_a._title === a.title) {
               let val = 'middle'
-              if (9 < distance) {
+              if (30 < distance) {
                 val = 'far'
               } else if (distance <= 6) {
                 val = 'near'
