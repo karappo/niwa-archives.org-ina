@@ -3,7 +3,8 @@ main
   #potree_container
     #potree_render_area(ref="potree_render_area")
     #potree_sidebar_container
-    img.key-map(src="~/assets/image/key-map.svg" v-if="$store.state.controlMode===0")
+    KeyMap.key-map
+    //- img.key-map(src="~/assets/image/key-map.svg" v-if="$store.state.controlMode===0")
   Footer
 </template>
 
