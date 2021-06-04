@@ -213,11 +213,11 @@ export default {
           for (let i = 0; i < children.length; i++) {
             const _a = children[i]
             if (_a._title === a.title) {
-              let val = 1
+              let val = 'middle'
               if (9 < distance) {
-                val = 0
+                val = 'far'
               } else if (distance <= 6) {
-                val = 2
+                val = 'near'
               }
               $(_a.domElement[0]).attr('data-camera-dist', val)
               break
