@@ -22,6 +22,10 @@
   column-gap: 5px
   row-gap: 5px
   grid-template-areas: '. key . key' 'key key key key'
+  position: absolute
+  bottom: 20px
+  right: 20px
+  z-index: 10
 .btn
   background-color: black
   border-radius: 3px

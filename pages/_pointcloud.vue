@@ -4,19 +4,21 @@ main
     #potree_render_area(ref="potree_render_area")
     #potree_sidebar_container
     KeyMap.key-map
-    //- img.key-map(src="~/assets/image/key-map.svg" v-if="$store.state.controlMode===0")
-  Footer
+  SideBar.sideBar
+  Footer.footer
 </template>
 
 <style lang="sass" scoped>
 main
   width: 100%
   height: 100%
-  display: flex
-  flex-direction: column
-  flex-basis: auto
   background: #000
+  display: grid
+  grid-template-columns: auto 160px
+  grid-template-rows: auto 50px
+  grid-template-areas: 'potree_container sidebar' 'footer sidebar'
 #potree_container
+  grid-area: potree_container
   width: 100%
   height: 100%
   position: relative
@@ -26,11 +28,10 @@ main
   /deep/
     canvas
       outline: none
-.key-map
-  position: absolute
-  bottom: 20px
-  right: 20px
-  z-index: 10
+.sideBar
+  grid-area: sidebar
+.footer
+  grid-area: footer
 </style>
 
 <script>
