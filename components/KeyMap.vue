@@ -54,6 +54,7 @@
   background-color: black
   opacity: 0
   transition: opacity 0.2s
+  margin-top: 1px // ちょっとY軸方向のずれがあったので調整
 .forward
   grid-column-start: 2
   grid-column-end: 3
