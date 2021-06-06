@@ -64,9 +64,9 @@ export default {
   data() {
     const gardenName = camelCase(this.$route.params.pointcloud)
     return {
+      annotations: this.$store.state.annotations[gardenName],
       garden:
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
-      annotations: this.$store.state.annotations[gardenName],
       tours: null
     }
   },
