@@ -9,7 +9,6 @@ article
   color: white
   width: 430px
   height: 100%
-  float: right
 </style>
 
 <script>
