@@ -42,6 +42,7 @@ aside
 aside
   background-color: #1A1A1A
   color: #898989
+  z-index: 1
 .toggle
   display: flex
   align-items: center
