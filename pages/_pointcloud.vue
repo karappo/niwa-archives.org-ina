@@ -130,7 +130,13 @@ export default {
       this.annotations.forEach((data, index) => {
         data.index = index
         data.cameraTarget = data.position // cameraTargetを省略していたので、positionを複製しておく
-        window.viewer.scene.annotations.add(new Potree.Annotation(data))
+        const a = new Potree.Annotation(data)
+        // Cancel Potree default behavior
+        a.domElement.off('mouseenter')
+        a.domElement.off('mouseleave')
+        // クリックした時の処理
+        a.addEventListener('click', this.clickAnnotation)
+        window.viewer.scene.annotations.add(a)
       })
     }
 
@@ -144,14 +150,6 @@ export default {
     document.addEventListener('keydown', this.keydown)
 
     config()
-
-    // Cancel Potree default behavior
-    if (window.viewer.scene.annotations) {
-      window.viewer.scene.annotations.children.forEach((a) => {
-        a.domElement.off('mouseenter')
-        a.domElement.off('mouseleave')
-      })
-    }
   },
   beforeDestroy() {
     this.$nuxt.$off('settingUpdated')
@@ -161,6 +159,11 @@ export default {
     window.viewer.removeEventListener('camera_changed', this.update)
     document.removeEventListener('keyup', this.keyup)
     document.removeEventListener('keydown', this.keydown)
+    if (window.viewer.scene.annotations) {
+      window.viewer.scene.annotations.children.forEach((a) => {
+        a.removeEventListener('click', this.clickAnnotation)
+      })
+    }
   },
   methods: {
     keyup(e) {
@@ -248,6 +251,9 @@ export default {
           }
         })
       }
+    },
+    clickAnnotation(e) {
+      console.log('click Annotation!', e.target)
     }
   }
 }
