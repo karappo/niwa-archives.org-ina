@@ -4,7 +4,7 @@ main
     #potree_render_area(ref="potree_render_area")
     #potree_sidebar_container
     .layer
-      Drawer
+      Drawer(v-if="drawerData" :data="drawerData" @close="drawerData = null")
       KeyMap.keyMap
   SideBar.sideBar
   Footer.footer
@@ -67,7 +67,8 @@ export default {
       annotations: this.$store.state.annotations[gardenName],
       garden:
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
-      tours: null
+      tours: null,
+      drawerData: ''
     }
   },
   async mounted() {
@@ -227,6 +228,9 @@ export default {
       const a = this.getAnnotationByIndex(this.getIndex(e.target) + 1)
       a.clickTitle()
     },
+    clickAnnotation(e) {
+      this.drawerData = e.target.data
+    },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
       const pos = camera.position.toArray()
@@ -251,9 +255,6 @@ export default {
           }
         })
       }
-    },
-    clickAnnotation(e) {
-      console.log('click Annotation!', e.target)
     }
   }
 }
