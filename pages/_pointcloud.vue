@@ -80,7 +80,7 @@ export default {
   async mounted() {
     const viewer = new Potree.Viewer(this.$refs.potree_render_area)
     window.viewer = viewer
-    viewer.setFOV(60)
+    viewer.setFOV(75)
     viewer.setPointBudget(this.$store.state.pointBudget)
     viewer.loadSettingsFromURL()
 
