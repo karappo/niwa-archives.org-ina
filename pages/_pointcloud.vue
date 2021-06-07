@@ -83,6 +83,7 @@ export default {
     viewer.setFOV(75)
     viewer.setPointBudget(this.$store.state.pointBudget)
     viewer.loadSettingsFromURL()
+    viewer.setBackground('originalColor')
 
     // Controls
     this.setControlMode(this.$store.state.controlMode)
