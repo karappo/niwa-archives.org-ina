@@ -32,6 +32,14 @@ aside
     .btn
       input#oral(type='checkbox' checked)
       label(for="oral") Oral Archives
+  section
+    h3 Seasons
+    .btn
+      input(type="radio" id="summer" name="drone" value="summer" checked)
+      label(for="summer") Summer
+    .btn
+      input(type="radio" id="winter" name="drone" value="winter")
+      label(for="winter") Winter
   section.elements
     h3 Auto Modes
     .btn Guided Tour
@@ -66,8 +74,8 @@ h3
   align-items: center
   input[type='checkbox']
     cursor: pointer
-    margin-right: 8px
   label
+    margin-left: 8px
     cursor: pointer
 </style>
 

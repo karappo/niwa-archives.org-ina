@@ -94,7 +94,7 @@ export default {
       // viewer.toggleSidebar() // Open sidebar
     })
 
-    const file = `/pointclouds/${this.$route.params.pointcloud}/metadata.json`
+    const file = `/pointclouds/${this.$route.params.pointcloud}-summer/metadata.json`
     const { pointcloud } = await Potree.loadPointCloud(file)
     const material = pointcloud.material
     material.activeAttributeName = 'rgba'
