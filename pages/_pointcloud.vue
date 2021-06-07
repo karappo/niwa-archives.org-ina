@@ -4,7 +4,13 @@ main
     #potree_render_area(ref="potree_render_area")
     #potree_sidebar_container
     .layer
-      Drawer(v-if="drawerData" :data="drawerData" @close="drawerData = null")
+      Drawer(
+        v-if="drawerData"
+        :data="drawerData"
+        @close="drawerData = null"
+        @prev="prev"
+        @next="next"
+      )
       KeyMap.keyMap
   SideBar.sideBar
   Footer.footer
@@ -144,8 +150,6 @@ export default {
     // Set Events
     this.$nuxt.$on('settingUpdated', config)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
-    $('.annotation-prev').on('click', this.prev)
-    $('.annotation-next').on('click', this.next)
     window.viewer.addEventListener('camera_changed', this.update)
     document.addEventListener('keyup', this.keyup)
     document.addEventListener('keydown', this.keydown)
@@ -155,8 +159,6 @@ export default {
   beforeDestroy() {
     this.$nuxt.$off('settingUpdated')
     this.$nuxt.$off('startCameraAnimation')
-    $('.annotation-prev').off('click', this.prev)
-    $('.annotation-next').off('click', this.next)
     window.viewer.removeEventListener('camera_changed', this.update)
     document.removeEventListener('keyup', this.keyup)
     document.removeEventListener('keydown', this.keydown)
@@ -216,17 +218,11 @@ export default {
         }
       }
     },
-    getIndex(target) {
-      const anno = target.closest('.annotation')
-      return parseInt(anno.getAttribute('data-index'), 10)
+    prev(index) {
+      this.getAnnotationByIndex(index - 1).click()
     },
-    prev(e) {
-      const a = this.getAnnotationByIndex(this.getIndex(e.target) - 1)
-      a.clickTitle()
-    },
-    next(e) {
-      const a = this.getAnnotationByIndex(this.getIndex(e.target) + 1)
-      a.clickTitle()
+    next(index) {
+      this.getAnnotationByIndex(index + 1).click()
     },
     clickAnnotation(e) {
       this.drawerData = e.target.data

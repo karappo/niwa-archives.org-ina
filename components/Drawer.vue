@@ -14,7 +14,9 @@ article
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
   )
-
+  footer
+    a.prev(@click="$emit('prev', data.index)") ←
+    a.next(@click="$emit('next', data.index)") →
 </template>
 
 <style lang="sass" scoped>
@@ -44,18 +46,32 @@ h1
 .image
   width: 100%
   height: auto
-.download
-  padding: 20px
+%button
   background-color: #333
   color: #898989
   display: flex
   justify-content: center
   align-items: center
   border-radius: 5px
+  cursor: pointer
   &:hover
     background-color: #1A1A1A
     color: white
     transition: background-color 0.2s, color 0.2s
+.download
+  @extend %button
+  padding: 20px
+footer
+  display: flex
+  align-items: center
+  margin-top: 15px
+.prev,
+.next
+  @extend %button
+  padding: 10px
+  width: calc((100% - 15px)/2)
+.next
+  margin-left: 15px
 </style>
 
 <script>
