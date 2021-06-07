@@ -1,16 +1,16 @@
 <template lang="pug">
 .container
-  .btn.forward(@mousedown="mousedown('w', 87)" @mouseup="mouseup('w', 87)")
+  .btn.forward(@mousedown="mousedown('w', 87)")
     .key W
-  .btn.backward(@mousedown="mousedown('s', 40)" @mouseup="mouseup('s', 40)")
+  .btn.backward(@mousedown="mousedown('s', 40)")
     .key S
-  .btn.left(@mousedown="mousedown('a', 37)" @mouseup="mouseup('a', 37)")
+  .btn.left(@mousedown="mousedown('a', 37)")
     .key A
-  .btn.right(@mousedown="mousedown('d', 39)" @mouseup="mouseup('d', 39)")
+  .btn.right(@mousedown="mousedown('d', 39)")
     .key D
-  .btn.up(@mousedown="mousedown('r', 33)" @mouseup="mouseup('r', 33)")
+  .btn.up(@mousedown="mousedown('r', 33)")
     .key R
-  .btn.down(@mousedown="mousedown('f', 34)" @mouseup="mouseup('f', 34)")
+  .btn.down(@mousedown="mousedown('f', 34)")
     .key F
 </template>
 
@@ -113,8 +113,22 @@ export default {
       return document.body.querySelector('#potree_render_area canvas:not(.ol-unselectable)')
     }
   },
+  data() {
+    return {
+      currentKey: null,
+      currentKeyCode: null
+    }
+  },
+  mounted() {
+    document.addEventListener('mouseup', this.mouseup)
+  },
+  beforeDestroy() {
+    document.removeEventListener('mouseup', this.mouseup)
+  },
   methods: {
     mousedown(key, keyCode) {
+      this.currentKey = key
+      this.currentKeyCode = keyCode
       this.canvas.dispatchEvent(
         new KeyboardEvent('keydown', {
           key,
@@ -123,12 +137,12 @@ export default {
         })
       )
     },
-    mouseup(key, keyCode) {
+    mouseup() {
       this.canvas.dispatchEvent(
         new KeyboardEvent('keyup', {
-          key,
-          keyCode,
-          code: `Key${key.toUpperCase()}`
+          key: this.currentKey,
+          keyCode: this.currentKeyCode,
+          code: `Key${this.currentKey.toUpperCase()}`
         })
       )
     }
