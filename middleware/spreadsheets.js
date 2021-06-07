@@ -58,8 +58,14 @@ export default async function ({ params, redirect, store }) {
         }
         data[key] = value
       })
-      // positionが未記入のものは登録しない
-      if (data.position) {
+
+      // cameraPositionが未設定の場合真上からにする
+      if (data.position && !data.cameraPosition) {
+        // eslint-disable-next-line
+        data.cameraPosition = [data.position[0] - 1, data.position[1] - 3, data.position[2] + 1]
+      }
+
+      if (data.title && data.position) {
         collection.push(data)
       }
     }
