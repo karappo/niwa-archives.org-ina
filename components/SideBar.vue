@@ -26,6 +26,9 @@ aside
       input#creatures(type='checkbox' checked)
       label(for="creatures") Creatures
     .btn
+      input#artifacts(type='checkbox' checked)
+      label(for="artifacts") Artifacts
+    .btn
       input#dna(type='checkbox' checked)
       label(for="dna") DNA Data
   section
