@@ -114,9 +114,13 @@ class YouTube {
 
   embedUrl() {
     const params = Object.assign({}, this.#params) // 複製
+    // Remove 'v'
     delete params.v
-    params.start = params.t // Renema 't' to 'start'
+    // Renema 't' to 'start'
+    params.start = params.t
     delete params.t
+    // Add 'autoplay'
+    params.autoplay = 1
     // eslint-disable-next-line
     const query = Object.keys(params).map(key => key + '=' + params[key]).join('&')
     // eslint-disable-next-line
