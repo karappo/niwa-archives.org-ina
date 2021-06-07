@@ -36,10 +36,13 @@ export default async function ({ params, redirect, store }) {
             value = value + '?raw=1'
           } else if (/\/\/www\.youtube\.com/.test(value)) {
             key = 'youtube'
-            value = new URL(value).searchParams.get('v')
+            value = new YouTube(url2obj(value))
           } else if (/\/\/youtu\.be\/([^/]*)/.test(value)) {
             key = 'youtube'
-            value = value.match(/\/\/youtu\.be\/([^/]*)/)[1]
+            const v = value.match(/\/\/youtu\.be\/([^/?]*)/)[1] // まずid（v）だけ取得しておく
+            value = url2obj(value)
+            value.v = v // vをマージ
+            value = new YouTube(value)
           } else if (/\/\/drive\.google\.com/.test(value)) {
             // eslint-disable-next-line
             const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
@@ -61,6 +64,14 @@ export default async function ({ params, redirect, store }) {
       }
     }
     return collection
+  }
+  const url2obj = (url) => {
+    const search = new URL(url).search.substring(1)
+    if (search.length) {
+      // eslint-disable-next-line
+      return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+    }
+    return {}
   }
   if (!store.state.gss) {
     const gss = await fetch(
@@ -92,4 +103,27 @@ export default async function ({ params, redirect, store }) {
   // if (params.sheet && !params.sentence) {
   //   redirect(301, `/${params.sheet}/1/`)
   // }
+}
+
+class YouTube {
+  #params
+
+  constructor(params) {
+    this.#params = params
+  }
+
+  embedUrl() {
+    const params = Object.assign({}, this.#params) // 複製
+    delete params.v
+    params.start = params.t // Renema 't' to 'start'
+    delete params.t
+    // eslint-disable-next-line
+    const query = Object.keys(params).map(key => key + '=' + params[key]).join('&')
+    // eslint-disable-next-line
+    return `https://www.youtube.com/embed/${this.#params.v}${query.length ? '?' + query : ''}`
+  }
+
+  thumbnailUrl() {
+    return `https://img.youtube.com/vi/${this.#params.v}/1.jpg`
+  }
 }

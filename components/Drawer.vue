@@ -9,7 +9,7 @@ article
     v-if="data.youtube"
     width="400"
     height="225"
-    :src="`https://www.youtube.com/embed/${data.youtube}`"
+    :src="data.youtube.embedUrl()"
     title="YouTube video player" frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
@@ -63,7 +63,8 @@ export default {
   props: {
     data: {
       type: Object,
-      require: true
+      require: true,
+      default: null
     }
   }
 }
