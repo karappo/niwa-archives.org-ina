@@ -107,16 +107,16 @@
 
 <script>
 export default {
-  computed: {
-    canvas() {
-      // eslint-disable-next-line
-      return document.body.querySelector('#potree_render_area canvas:not(.ol-unselectable)')
-    }
-  },
   data() {
     return {
       currentKey: null,
       currentKeyCode: null
+    }
+  },
+  computed: {
+    canvas() {
+      // eslint-disable-next-line
+      return document.body.querySelector('#potree_render_area canvas:not(.ol-unselectable)')
     }
   },
   mounted() {
