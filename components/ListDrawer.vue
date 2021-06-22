@@ -44,7 +44,7 @@ article
 export default {
   props: {
     data: {
-      type: Array,
+      type: Object,
       require: true,
       default: null
     }
