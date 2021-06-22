@@ -23,7 +23,7 @@ article
 article
   background-color: rgba(0,0,0,0.8)
   color: white
-  width: 400px
+  width: calc(50% - 100px)
   height: calc(100% - 30px)
   padding: 15px
 .close
