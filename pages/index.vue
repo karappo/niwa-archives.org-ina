@@ -3,8 +3,8 @@ main
   .wrap
     h1 Incomplete Niwa Archives <br>終らない庭のアーカイヴ
     nav
-      nuxt-link(v-for="(c, i) in clouds" :key="i" :to="`/${c.alias}/`" :class="_class(c.alias)")
-        | {{ c.label }}<br>{{ c.size }}
+      nuxt-link(v-for="(c, i) in clouds" :key="i" :to="c.href" :class="c.class")
+        | {{ c.label }}
 </template>
 
 <style lang="sass" scoped>
@@ -38,16 +38,12 @@ nav
     align-items: center
     background: gray
     color: white
-    font-size: 11px
+    font-size: 15px
     text-align: center
     &.joei-ji
-      background-color: #a5c6de
-      &.current
-        background-color: #73b0dc
+      background-color: #88b5d6
     &.murin-an
-      background-color: #a5ded6
-      &.current
-        background-color: #78d4c7
+      background-color: #84c1b9
 </style>
 
 <script>
@@ -56,25 +52,21 @@ export default {
     return {
       clouds: [
         {
-          alias: 'joei-ji',
-          label: '常栄寺(0.02)',
-          size: '2.95GB'
+          href: '/joei-ji/',
+          class: 'joei-ji',
+          label: '常栄寺'
         },
         {
-          alias: 'murin-an',
-          label: '無鄰菴(0.02)',
-          size: '750.3MB'
+          href: '/murin-an/summer/',
+          class: 'murin-an',
+          label: '無鄰菴 - 夏'
+        },
+        {
+          href: '/murin-an/winter/',
+          class: 'murin-an',
+          label: '無鄰菴 - 冬'
         }
       ]
-    }
-  },
-  methods: {
-    _class(alias) {
-      const __class = {
-        current: this.$route.path === `/${alias}/`
-      }
-      __class[alias] = true
-      return __class
     }
   }
 }

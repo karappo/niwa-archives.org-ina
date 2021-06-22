@@ -94,11 +94,10 @@ export default {
       $('#menu_scene').next().show()
       // viewer.toggleSidebar() // Open sidebar
     })
-    const file =
-      this.$route.params.pointcloud === 'murin-an'
-        ? `/pointclouds/murin-an-summer/metadata.json`
-        : `/pointclouds/joei-ji/metadata.json`
-
+    const file = this.$route.params.season
+      ? `/pointclouds/${this.$route.params.pointcloud}/${this.$route.params.season}/metadata.json`
+      : `/pointclouds/${this.$route.params.pointcloud}/metadata.json`
+    console.log(file)
     const { pointcloud } = await Potree.loadPointCloud(file)
     const material = pointcloud.material
     material.activeAttributeName = 'rgba'
