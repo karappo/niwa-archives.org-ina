@@ -4,6 +4,12 @@ main
     #potree_render_area(ref="potree_render_area")
     #potree_sidebar_container
     .layer
+      ListDrawer(
+        v-if="listData && !contentData"
+        :data="listData"
+        @close="listData = null"
+        @showAnnotation="showAnnotation"
+      )
       ContentDrawer(
         v-if="contentData"
         :data="contentData"
@@ -12,7 +18,9 @@ main
         @next="next"
       )
       KeyMap.keyMap
-  SideBar.sideBar
+  SideBar.sideBar(
+    @select="selectList"
+  )
   Footer.footer
 </template>
 
@@ -74,6 +82,7 @@ export default {
       garden:
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
       tours: null,
+      listData: '',
       contentData: ''
     }
   },
@@ -227,6 +236,9 @@ export default {
     next(index) {
       this.getAnnotationByIndex(index + 1).click()
     },
+    showAnnotation(index) {
+      this.getAnnotationByIndex(index).click()
+    },
     clickAnnotation(e) {
       this.contentData = e.target.data
     },
@@ -253,6 +265,12 @@ export default {
             }
           }
         })
+      }
+    },
+    selectList(category) {
+      this.listData = {
+        title: category.split('/')[1],
+        list: this.annotations.filter((a) => a.category === category)
       }
     }
   }

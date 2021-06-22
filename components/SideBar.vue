@@ -16,21 +16,11 @@ aside
       label(for="movies") Movies
   section.elements
     h3 Elements
-    .btn
-      input#stones(type='checkbox' checked)
-      label(for="stones") Stones
-    .btn
-      input#plants(type='checkbox' checked)
-      label(for="plants") Plants
-    .btn
-      input#creatures(type='checkbox' checked)
-      label(for="creatures") Creatures
-    .btn
-      input#artifacts(type='checkbox' checked)
-      label(for="artifacts") Artifacts
-    .btn
-      input#dna(type='checkbox' checked)
-      label(for="dna") DNA Data
+    .btn(@click="$emit('select', 'Elements/Stones')") Stones
+    .btn(@click="$emit('select', 'Elements/Plants')") Plants
+    .btn(@click="$emit('select', 'Elements/Creatures')") Creatures
+    .btn(@click="$emit('select', 'Elements/Artifacts')") Artifacts
+    .btn(@click="$emit('select', 'Elements/DNA Data')") DNA Data
   section
     .btn
       input#oral(type='checkbox' checked)
@@ -71,6 +61,7 @@ h3
   margin: 0
   margin-bottom: 10px
 .btn
+  cursor: pointer
   font-size: 13px
   display: flex
   align-items: center
