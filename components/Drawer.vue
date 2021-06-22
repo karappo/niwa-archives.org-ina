@@ -5,15 +5,13 @@ article
   img.image(v-if="data.image" :src="data.image")
   .description {{ data.description }}
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
-  iframe(
-    v-if="data.youtube"
-    width="400"
-    height="225"
-    :src="data.youtube.embedUrl()"
-    title="YouTube video player" frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-  )
+  .youtube(v-if="data.youtube")
+    iframe(
+      :src="data.youtube.embedUrl()"
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    )
   footer
     a.prev(@click="$emit('prev', data.index)") ←
     a.next(@click="$emit('next', data.index)") →
@@ -61,6 +59,18 @@ h1
 .download
   @extend %button
   padding: 20px
+.youtube
+  position: relative
+  padding-top: calc(225 / 400 * 100%) // ここでアスペクト比（height / width）を設定
+  overflow: hidden
+  max-width: 100%
+  height: auto
+  iframe
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
 footer
   display: flex
   align-items: center
