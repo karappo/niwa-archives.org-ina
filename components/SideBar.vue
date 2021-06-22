@@ -35,14 +35,13 @@ aside
     .btn
       input#oral(type='checkbox' checked)
       label(for="oral") Oral Archives
-  section
+  section(v-if="this.$route.params.season")
     h3 Seasons
-    .btn
-      input(type="radio" id="summer" name="drone" value="summer" checked)
-      label(for="summer") Summer
-    .btn
-      input(type="radio" id="winter" name="drone" value="winter")
-      label(for="winter") Winter
+    a.btn(
+      v-for="season in ['summer', 'winter']"
+      :href="`../${season}/`"
+      :class="{current: $route.params.season === season}"
+    ) {{ season }}
   section.elements
     h3 Auto Modes
     .btn Guided Tour
@@ -80,6 +79,11 @@ h3
   label
     margin-left: 8px
     cursor: pointer
+a.btn
+  text-transform: capitalize
+  &.current
+    opacity: 0.5
+    pointer-events: none
 </style>
 
 <script>
