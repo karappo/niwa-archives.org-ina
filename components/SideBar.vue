@@ -37,9 +37,9 @@ aside
       label(for="oral") Oral Archives
   section(v-if="this.$route.params.season")
     h3 Seasons
-    a.btn(
+    nuxt-link.btn(
       v-for="season in ['summer', 'winter']"
-      :href="`../${season}/`"
+      :to="`../${season}/`"
       :class="{current: $route.params.season === season}"
     ) {{ season }}
   section.elements
