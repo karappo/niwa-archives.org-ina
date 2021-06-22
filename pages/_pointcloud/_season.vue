@@ -4,10 +4,10 @@ main
     #potree_render_area(ref="potree_render_area")
     #potree_sidebar_container
     .layer
-      Drawer(
-        v-if="drawerData"
-        :data="drawerData"
-        @close="drawerData = null"
+      ContentDrawer(
+        v-if="contentData"
+        :data="contentData"
+        @close="contentData = null"
         @prev="prev"
         @next="next"
       )
@@ -74,7 +74,7 @@ export default {
       garden:
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
       tours: null,
-      drawerData: ''
+      contentData: ''
     }
   },
   async mounted() {
@@ -228,7 +228,7 @@ export default {
       this.getAnnotationByIndex(index + 1).click()
     },
     clickAnnotation(e) {
-      this.drawerData = e.target.data
+      this.contentData = e.target.data
     },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
