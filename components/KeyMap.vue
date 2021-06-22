@@ -127,6 +127,9 @@ export default {
   },
   methods: {
     mousedown(key, keyCode) {
+      if (!(key && keyCode)) {
+        return
+      }
       this.currentKey = key
       this.currentKeyCode = keyCode
       this.canvas.dispatchEvent(
@@ -138,6 +141,9 @@ export default {
       )
     },
     mouseup() {
+      if (!(this.currentKey && this.currentKeyCode)) {
+        return
+      }
       this.canvas.dispatchEvent(
         new KeyboardEvent('keyup', {
           key: this.currentKey,
