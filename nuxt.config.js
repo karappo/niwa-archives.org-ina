@@ -78,7 +78,8 @@ export default {
 
   generate: {
     routes: [
-      '/murin-an/',
+      '/murin-an/summer/',
+      '/murin-an/winter/',
       '/joei-ji/'
     ]
   }
