@@ -8,12 +8,8 @@ aside
     .btn 3D Data
   section.viewpoints
     h3 Viewpoints
-    .btn
-      input#photos(type='checkbox' checked)
-      label(for="photos") Photos
-    .btn
-      input#movies(type='checkbox' checked)
-      label(for="movies") Movies
+    .btn(@click="$emit('select', 'Viewpoints/Photos')") Photos
+    .btn(@click="$emit('select', 'Viewpoints/Photos')") Movies
   section.elements
     h3 Elements
     .btn(@click="$emit('select', 'Elements/Stones')") Stones
@@ -22,9 +18,7 @@ aside
     .btn(@click="$emit('select', 'Elements/Artifacts')") Artifacts
     .btn(@click="$emit('select', 'Elements/DNA Data')") DNA Data
   section
-    .btn
-      input#oral(type='checkbox' checked)
-      label(for="oral") Oral Archives
+    .btn(@click="$emit('select', 'Oral Archives')") Oral Archives
   section(v-if="this.$route.params.season")
     h3 Seasons
     nuxt-link.btn(

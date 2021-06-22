@@ -269,7 +269,7 @@ export default {
     },
     selectList(category) {
       this.listData = {
-        title: category.split('/')[1],
+        title: category.split('/').pop(),
         list: this.annotations.filter((a) => a.category === category)
       }
     }
