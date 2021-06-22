@@ -74,7 +74,3 @@ a.btn
     opacity: 0.5
     pointer-events: none
 </style>
-
-<script>
-export default {}
-</script>
