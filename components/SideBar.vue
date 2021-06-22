@@ -3,9 +3,9 @@ aside
   .toggle Menu
   section.outlines
     h3 Outlines
-    .btn History
-    .btn Plans
-    .btn 3D Data
+    .btn.disabled History
+    .btn.disabled Plans
+    .btn.disabled 3D Data
   section.viewpoints
     h3 Viewpoints
     .btn(@click="$emit('select', 'Viewpoints/Photos')") Photos
@@ -28,8 +28,8 @@ aside
     ) {{ season }}
   section.elements
     h3 Auto Modes
-    .btn Guided Tour
-    .btn Random Tour
+    .btn.disabled Guided Tour
+    .btn.disabled Random Tour
 </template>
 
 <style lang="sass" scoped>
@@ -64,6 +64,10 @@ h3
   label
     margin-left: 8px
     cursor: pointer
+.disabled
+  &:hover
+    text-decoration: line-through
+    cursor: default
 a.btn
   text-transform: capitalize
   &.current
