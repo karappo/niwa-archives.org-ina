@@ -10,7 +10,7 @@ main
         @close="listData = null"
         @showAnnotation="showAnnotation"
       )
-      ContentDrawer(
+      AnnotationDrawer(
         v-if="contentData"
         :data="contentData"
         @close="contentData = null"
