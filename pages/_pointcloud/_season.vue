@@ -7,14 +7,14 @@ main
       ListDrawer(
         v-if="listData && !annotationData"
         :data="listData"
-        @close="listData = null"
+        @close="closeList"
         @showAnnotation="showAnnotation"
       )
       AnnotationDrawer(
         v-if="annotationData"
         :data="annotationData"
         :annotations="annotations"
-        @close="annotationData = null"
+        @close="closeAnnotation"
         @showAnnotation="showAnnotation"
         @prev="prev"
         @next="next"
@@ -262,6 +262,8 @@ export default {
     },
     clickAnnotation(e) {
       this.annotationData = e.target.data
+      // eslint-disable-next-line
+      e.target.domElement.get(0).querySelectorAll('.annotation-marker')[0].classList.add('highlighted')
     },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
@@ -289,11 +291,19 @@ export default {
       }
     },
     selectList(category) {
-      this.annotationData = null
+      this.closeAnnotation()
       this.listData = {
         title: category.split('/').pop(),
         list: this.annotations.filter((a) => a.category === category)
       }
+    },
+    closeAnnotation() {
+      this.annotationData = null
+      // eslint-disable-next-line
+      document.querySelectorAll('.annotation-marker').forEach((m) => m.classList.remove('highlighted'))
+    },
+    closeList() {
+      this.listData = null
     }
   }
 }

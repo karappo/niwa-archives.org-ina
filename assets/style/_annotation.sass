@@ -1,9 +1,9 @@
 
 @keyframes markerAnim
   0%
-    transform: scale(1)
+    border-color: #583AFA
   100%
-    transform: scale(2)
+    border-color: #7760fc
 
 .annotation
   transform: translate(-50%, 0)
@@ -36,7 +36,7 @@
   &:not(.opened)
     &[data-camera-dist=middle]
       .annotation-marker
-        $size: 6px
+        $size: 10px
         content: ''
         display: block
         position: absolute
@@ -46,8 +46,6 @@
         left: calc(50% - #{$size / 2})
         background-color: #583AFA
         box-shadow: 0 0 3px #000000
-        animation: markerAnim 1s infinite
-        animation-direction: alternate
         border-radius: 100px
         border: 1px solid white
         > div
@@ -73,6 +71,9 @@
         border-radius: $size
         border: $borderWidth solid #583AFA
         overflow: hidden
+        &.highlighted
+          animation: markerAnim 0.5s infinite
+          animation-direction: alternate
         > div
           display: block
           width: 100%
@@ -84,24 +85,6 @@
         &:hover
           > div
             opacity: 1
-  // カメラが最も近づいた時
-  &.opened
-    .annotation-prev,
-    .annotation-next
-      display: block
-    .annotation-description
-      display: block
-      background: transparent
-      padding: 0
-      font-size: 12px
-      line-height: 2
-      .annotation-description-close
-        cursor: pointer
-      .image
-        img
-          width: calc(100% - 12px)
-          height: auto
-          border: 6px solid #583AFA
   &[data-type="icon"]
     &[data-camera-dist=middle]
       .annotation-marker
