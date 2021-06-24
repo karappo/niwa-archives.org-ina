@@ -1,7 +1,11 @@
 <template lang="pug">
 .container
+  .btn.panLeft(@mousedown="mousedown('Q')")
+    .key Q
   .btn.forward(@mousedown="mousedown('W')")
     .key W
+  .btn.panRight(@mousedown="mousedown('E')")
+    .key E
   .btn.backward(@mousedown="mousedown('S')")
     .key S
   .btn.left(@mousedown="mousedown('A')")
@@ -12,16 +16,20 @@
     .key R
   .btn.down(@mousedown="mousedown('F')")
     .key F
+  .btn.tiltUp(@mousedown="mousedown('T')")
+    .key T
+  .btn.tiltDown(@mousedown="mousedown('G')")
+    .key G
 </template>
 
 <style lang="sass" scoped>
 .container
   display: grid
-  grid-template-columns: 20px 20px 20px 20px
+  grid-template-columns: 20px 20px 20px 20px 20px
   grid-template-rows: 20px 20px
   column-gap: 5px
   row-gap: 5px
-  grid-template-areas: '. key . key' 'key key key key'
+  grid-template-areas: 'key key key key key' 'key key key key key'
   position: absolute
   bottom: 20px
   right: 20px
@@ -59,6 +67,38 @@
   opacity: 0
   transition: opacity 0.2s
   margin-top: 1px // ちょっとY軸方向のずれがあったので調整
+.panLeft
+  grid-column-start: 1
+  grid-column-end: 2
+  grid-row-start: 1
+  grid-row-end: 2
+  &:before
+    content: url(~assets/image/pan.svg)
+    transform: translateY(-2px) translateX(-1px)
+.panRight
+  grid-column-start: 3
+  grid-column-end: 4
+  grid-row-start: 1
+  grid-row-end: 2
+  &:before
+    content: url(~assets/image/pan.svg)
+    transform: translateY(2px) translateX(1px) rotate(180deg)
+.tiltUp
+  grid-column-start: 5
+  grid-column-end: 6
+  grid-row-start: 1
+  grid-row-end: 2
+  &:before
+    content: url(~assets/image/pan.svg)
+    transform: translateY(-1px) translateX(3px) rotate(90deg)
+.tiltDown
+  grid-column-start: 5
+  grid-column-end: 6
+  grid-row-start: 2
+  grid-row-end: 3
+  &:before
+    content: url(~assets/image/pan.svg)
+    transform: translateY(1px) translateX(-3px) rotate(-90deg)
 .forward
   grid-column-start: 2
   grid-column-end: 3
