@@ -12,7 +12,7 @@ article
   background-color: #111
   color: white
   width: calc(100% - 30px)
-  height: calc(100% - 30px)
+  min-height: calc(100% - 30px)
   padding: 15px
 .close
   float: right

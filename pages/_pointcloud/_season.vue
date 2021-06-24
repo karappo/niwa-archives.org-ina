@@ -5,13 +5,13 @@
       #potree_render_area(ref="potree_render_area")
       #potree_sidebar_container
       KeyMap.keyMap
-    pane(v-if="listData && !annotationData" min-size="25")
+    pane.drawer(v-if="listData && !annotationData" min-size="25")
       ListDrawer(
         :data="listData"
         @close="closeList"
         @showAnnotation="showAnnotation"
       )
-    pane(v-if="annotationData" min-size="25")
+    pane.drawer(v-if="annotationData" min-size="25")
       AnnotationDrawer(
         :data="annotationData"
         :annotations="annotations"
@@ -49,6 +49,10 @@
   /deep/
     canvas
       outline: none
+.splitpanes
+  overflow: hidden
+.splitpanes__pane
+  overflow-y: auto
 .sideBar
   grid-area: sidebar
 .footer
