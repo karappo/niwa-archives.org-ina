@@ -5,13 +5,13 @@
       #potree_render_area(ref="potree_render_area")
       #potree_sidebar_container
       KeyMap.keyMap
-    pane.drawer(v-if="listData && !annotationData" min-size="25")
+    pane.drawer(v-if="listData && !annotationData" min-size="25" max-size="75")
       ListDrawer(
         :data="listData"
         @close="closeList"
         @showAnnotation="showAnnotation"
       )
-    pane.drawer(v-if="annotationData" min-size="25")
+    pane.drawer(v-if="annotationData" min-size="25" max-size="75")
       AnnotationDrawer(
         :data="annotationData"
         :annotations="annotations"
