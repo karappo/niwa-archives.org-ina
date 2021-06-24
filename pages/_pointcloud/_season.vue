@@ -5,16 +5,16 @@ main
     #potree_sidebar_container
     .layer
       ListDrawer(
-        v-if="listData && !contentData"
+        v-if="listData && !annotationData"
         :data="listData"
         @close="listData = null"
         @showAnnotation="showAnnotation"
       )
       AnnotationDrawer(
-        v-if="contentData"
-        :data="contentData"
+        v-if="annotationData"
+        :data="annotationData"
         :annotations="annotations"
-        @close="contentData = null"
+        @close="annotationData = null"
         @showAnnotation="showAnnotation"
         @prev="prev"
         @next="next"
@@ -85,7 +85,7 @@ export default {
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
       tours: null,
       listData: '',
-      contentData: ''
+      annotationData: ''
     }
   },
   async mounted() {
@@ -243,7 +243,7 @@ export default {
       this.getAnnotationByIndex(index).click()
     },
     clickAnnotation(e) {
-      this.contentData = e.target.data
+      this.annotationData = e.target.data
     },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
