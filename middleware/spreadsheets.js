@@ -65,6 +65,11 @@ export default async function ({ params, redirect, store }) {
         data.cameraPosition = [data.position[0] - 1, data.position[1] - 3, data.position[2] + 1]
       }
 
+      if (data.tags) {
+        data.tags = data.tags.split(',').map((t) => t.trim())
+      }
+
+      // データを格納
       if (data.title && data.position) {
         collection.push(data)
       }

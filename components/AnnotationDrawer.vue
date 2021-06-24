@@ -3,7 +3,6 @@ article
   .close(@click="$emit('close')") Close
   h1 {{ data.title }}
   img.image(v-if="data.image" :src="data.image")
-  .description {{ data.description }}
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
   .youtube(v-if="data.youtube")
     iframe(
@@ -12,6 +11,9 @@ article
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
     )
+  .person(v-if="data.person") 話者: {{ data.person }}
+  .description(v-if="data.description") {{ data.description }}
+  .tags(v-if="data.tags") タグ: {{ data.tags }}
   footer
     a.prev(@click="$emit('prev', data.index)") ←
     a.next(@click="$emit('next', data.index)") →
