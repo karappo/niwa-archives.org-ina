@@ -9,9 +9,9 @@ article
 
 <style lang="sass" scoped>
 article
-  background-color: rgba(0,0,0,0.8)
+  background-color: #111
   color: white
-  width: 30%
+  width: calc(100% - 30px)
   height: calc(100% - 30px)
   padding: 15px
 .close

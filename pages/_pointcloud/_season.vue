@@ -1,17 +1,18 @@
 <template lang="pug">
-main
-  #potree_container
-    #potree_render_area(ref="potree_render_area")
-    #potree_sidebar_container
-    .layer
+.root
+  splitpanes.default-theme
+    pane#potree_container
+      #potree_render_area(ref="potree_render_area")
+      #potree_sidebar_container
+      KeyMap.keyMap
+    pane(v-if="listData && !annotationData" min-size="25")
       ListDrawer(
-        v-if="listData && !annotationData"
         :data="listData"
         @close="closeList"
         @showAnnotation="showAnnotation"
       )
+    pane(v-if="annotationData" min-size="25")
       AnnotationDrawer(
-        v-if="annotationData"
         :data="annotationData"
         :annotations="annotations"
         @close="closeAnnotation"
@@ -19,7 +20,6 @@ main
         @prev="prev"
         @next="next"
       )
-      KeyMap.keyMap
   SideBar.sideBar(
     @select="selectList"
   )
@@ -27,14 +27,17 @@ main
 </template>
 
 <style lang="sass" scoped>
-main
+.root
   width: 100%
   height: 100%
   background: #000
   display: grid
   grid-template-columns: auto 160px
   grid-template-rows: auto 50px
-  grid-template-areas: 'potree_container sidebar' 'footer sidebar'
+  grid-template-areas: "potree_container sidebar" "footer sidebar"
+  /deep/ .splitpanes__splitter
+    background-color: #111
+    border-right: 1px solid #222
 #potree_container
   grid-area: potree_container
   width: 100%
@@ -50,19 +53,6 @@ main
   grid-area: sidebar
 .footer
   grid-area: footer
-.layer
-  width: 100%
-  height: 100%
-  position: absolute
-  z-index: 2
-  display: flex
-  flex-direction: row-reverse
-  align-items: flex-end
-  pointer-events: none
-  *
-    pointer-events: auto
-  .keyMap
-    margin: 0 20px 20px auto
 </style>
 
 <script>
