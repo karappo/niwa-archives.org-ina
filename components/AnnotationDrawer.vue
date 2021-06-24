@@ -13,7 +13,16 @@ article
     )
   .person(v-if="data.person") 話者: {{ data.person }}
   .description(v-if="data.description") {{ data.description }}
-  .tags(v-if="data.tags") タグ: {{ data.tags }}
+  .tags(v-if="data.tags")
+    label Tags
+    .tag(v-for="tag in data.tags")
+      span \#{{ tag }}
+      ul
+        // TODO: data.index != _a.index のところ、Annotation.id が導入されたらidで比較する方が良さそう
+        li(
+          v-for="a in annotations.filter((_a) => _a.tags && _a.tags.includes(tag) && data.index != _a.index )"
+          @click="$emit('showAnnotation', a.index)"
+        ) {{ a.title }}
   footer
     a.prev(@click="$emit('prev', data.index)") ←
     a.next(@click="$emit('next', data.index)") →
@@ -73,6 +82,16 @@ h1
     left: 0
     width: 100%
     height: 100%
+.tags
+  font-size: 12px
+  line-height: 2
+  ul
+    margin: 0
+  li
+    text-decoration: underline
+    cursor: pointer
+    &:hover
+      opacity: 0.5
 footer
   display: flex
   align-items: center
@@ -91,6 +110,11 @@ export default {
   props: {
     data: {
       type: Object,
+      require: true,
+      default: null
+    },
+    annotations: {
+      type: Array,
       require: true,
       default: null
     }

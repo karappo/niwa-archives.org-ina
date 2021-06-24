@@ -13,7 +13,9 @@ main
       AnnotationDrawer(
         v-if="contentData"
         :data="contentData"
+        :annotations="annotations"
         @close="contentData = null"
+        @showAnnotation="showAnnotation"
         @prev="prev"
         @next="next"
       )
@@ -237,6 +239,7 @@ export default {
       this.getAnnotationByIndex(index + 1).click()
     },
     showAnnotation(index) {
+      console.log(';index', index)
       this.getAnnotationByIndex(index).click()
     },
     clickAnnotation(e) {
