@@ -23,6 +23,7 @@ article
           v-for="a in annotations.filter((_a) => _a.tags && _a.tags.includes(tag) && data.index != _a.index )"
           @click="$emit('showAnnotation', a.index)"
         ) {{ a.title }}
+  .dateTime(v-if="data.dateTime") {{ showDateTime(data.dateTime) }}
   footer
     a.prev(@click="$emit('prev', data.index)") ←
     a.next(@click="$emit('next', data.index)") →
@@ -92,6 +93,9 @@ h1
     cursor: pointer
     &:hover
       opacity: 0.5
+.dateTime
+  font-size: 12px
+  margin-top: 50px
 footer
   display: flex
   align-items: center
@@ -106,6 +110,7 @@ footer
 </style>
 
 <script>
+import dayjs from 'dayjs'
 export default {
   props: {
     data: {
@@ -117,6 +122,16 @@ export default {
       type: Array,
       require: true,
       default: null
+    }
+  },
+  methods: {
+    showDateTime(dateTime) {
+      const d = dayjs(dateTime)
+      let format = 'YYYY/MM/DD'
+      if (!(d.hour() === 0 && d.minute() === 0 && d.second() === 0)) {
+        format += ' HH:mm'
+      }
+      return d.format(format)
     }
   }
 }

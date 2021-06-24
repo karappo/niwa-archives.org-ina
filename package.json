@@ -28,6 +28,7 @@
     "@nuxtjs/pwa": "^3.0.2",
     "change-case": "^4.1.2",
     "core-js": "^3.6.5",
+    "dayjs": "^1.10.5",
     "node-sass": "^5.0.0",
     "nuxt": "^2.14.6",
     "nuxt-ua": "^1.0.6",
