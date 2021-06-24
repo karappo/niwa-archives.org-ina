@@ -66,6 +66,7 @@ main
 </style>
 
 <script>
+import dayjs from 'dayjs'
 import { camelCase } from 'change-case'
 import JoeijiData from '~/gardens/joei-ji.js'
 import MurinanData from '~/gardens/murin-an.js'
@@ -79,8 +80,25 @@ export default {
   },
   data() {
     const gardenName = camelCase(this.$route.params.pointcloud)
+
+    // Annotationを季節でフィルタリング
+    let annotations = this.$store.state.annotations[gardenName]
+    const isSummer = (date) => {
+      const m = dayjs(date).month()
+      return 4 <= m && m <= 9
+    }
+    if (this.$route.params.season === 'summer') {
+      annotations = annotations.filter((a) => {
+        return !a.dateTime || isSummer(a.dateTime) // dateTimeが未定義なら表示
+      })
+    } else if (this.$route.params.season === 'winter') {
+      annotations = annotations.filter((a) => {
+        return !a.dateTime || !isSummer(a.dateTime) // dateTimeが未定義なら表示
+      })
+    }
+
     return {
-      annotations: this.$store.state.annotations[gardenName],
+      annotations,
       garden:
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
       tours: null,
