@@ -1,16 +1,16 @@
 <template lang="pug">
 .container
-  .btn.forward(@mousedown="mousedown('w', 87)")
+  .btn.forward(@mousedown="mousedown('W')")
     .key W
-  .btn.backward(@mousedown="mousedown('s', 40)")
+  .btn.backward(@mousedown="mousedown('S')")
     .key S
-  .btn.left(@mousedown="mousedown('a', 37)")
+  .btn.left(@mousedown="mousedown('A')")
     .key A
-  .btn.right(@mousedown="mousedown('d', 39)")
+  .btn.right(@mousedown="mousedown('D')")
     .key D
-  .btn.up(@mousedown="mousedown('r', 33)")
+  .btn.up(@mousedown="mousedown('R')")
     .key R
-  .btn.down(@mousedown="mousedown('f', 34)")
+  .btn.down(@mousedown="mousedown('F')")
     .key F
 </template>
 
@@ -130,16 +130,16 @@ export default {
     document.removeEventListener('mouseup', this.mouseup)
   },
   methods: {
-    mousedown(key, keyCode) {
-      if (!(key && keyCode)) {
+    mousedown(key) {
+      if (!key) {
         return
       }
       this.currentKey = key
-      this.currentKeyCode = keyCode
+      this.currentKeyCode = key.charCodeAt(0)
       this.canvas.dispatchEvent(
         new KeyboardEvent('keydown', {
           key,
-          keyCode,
+          keyCode: this.currentKeyCode,
           code: `Key${key.toUpperCase()}`
         })
       )
