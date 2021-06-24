@@ -271,6 +271,7 @@ export default {
       }
     },
     selectList(category) {
+      this.annotationData = null
       this.listData = {
         title: category.split('/').pop(),
         list: this.annotations.filter((a) => a.category === category)
