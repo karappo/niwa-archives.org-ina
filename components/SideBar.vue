@@ -23,6 +23,7 @@ aside
     h3 Seasons
     nuxt-link.btn(
       v-for="season in ['summer', 'winter']"
+      :key="season"
       :to="`../${season}/`"
       :class="{current: $route.params.season === season}"
     ) {{ season }}
