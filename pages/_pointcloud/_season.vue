@@ -3,7 +3,9 @@
   splitpanes.main.default-theme
     pane.potree_container
       #potree_render_area(ref="potree_render_area")
-        KeyMap.keyMap
+        .controls
+          KeyMap
+          AudioBar(v-if="this.$route.params.pointcloud === 'joei-ji'")
       #potree_sidebar_container
     pane(
       v-if="listData && !annotationData"
@@ -29,7 +31,7 @@
         @next="next"
       )
   SideBar.sideBar(@select="selectList")
-  Footer.footer
+  //- Footer.footer
 </template>
 
 <style lang="sass" scoped>
@@ -40,7 +42,7 @@
   display: grid
   grid-template-columns: auto 160px
   grid-template-rows: auto 50px
-  grid-template-areas: "main sidebar" "footer sidebar"
+  grid-template-areas: "main sidebar" "main sidebar"
   /deep/ .splitpanes__splitter
     background-color: #111
     border-right: 1px solid #222
@@ -56,6 +58,16 @@
   /deep/
     canvas
       outline: none
+.controls
+  position: absolute
+  z-index: 2
+  width: 100%
+  height: 100%
+  display: flex
+  flex-direction: column
+  pointer-events: none
+  > *
+    pointer-events: auto
 .splitpanes
   overflow: hidden
 .splitpanes__pane
