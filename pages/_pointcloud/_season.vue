@@ -4,6 +4,10 @@
     pane.potree_container
       #potree_render_area(ref="potree_render_area")
         .controls
+          nuxt-link.logo(to="/")
+            small Incomplete Niwa Archives
+            span(v-if="this.$route.params.pointcloud === 'joei-ji'") Joei-ji Sesshu Garden
+            span(v-else) Murin-an Garden
           KeyMap
           AudioBar(v-if="this.$route.params.pointcloud === 'joei-ji'")
       #potree_sidebar_container
@@ -48,6 +52,16 @@
     border-right: 1px solid #222
 .main
   grid-area: main
+.logo
+  margin-top: 20px
+  margin-left: 20px
+  color: white
+  small
+    display: block
+    font-size: 10px
+  span
+    display: block
+    font-size: 25px
 .potree_container
   width: 100%
   height: 100%
