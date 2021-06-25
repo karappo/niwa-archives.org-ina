@@ -1,24 +1,24 @@
 <template lang="pug">
 .container
-  .btn.panLeft(@mousedown="mousedown('Q')")
+  .btn.panLeft(@mousedown="mousedown('Q')" title="Pan Left")
     .key Q
-  .btn.forward(@mousedown="mousedown('W')")
+  .btn.forward(@mousedown="mousedown('W')" title="Forward")
     .key W
-  .btn.panRight(@mousedown="mousedown('E')")
+  .btn.panRight(@mousedown="mousedown('E')" title="Pan Right")
     .key E
-  .btn.backward(@mousedown="mousedown('S')")
+  .btn.backward(@mousedown="mousedown('S')" title="Backward")
     .key S
-  .btn.left(@mousedown="mousedown('A')")
+  .btn.left(@mousedown="mousedown('A')" title="Left")
     .key A
-  .btn.right(@mousedown="mousedown('D')")
+  .btn.right(@mousedown="mousedown('D')" title="Right")
     .key D
-  .btn.up(@mousedown="mousedown('R')")
+  .btn.up(@mousedown="mousedown('R')" title="Up")
     .key R
-  .btn.down(@mousedown="mousedown('F')")
+  .btn.down(@mousedown="mousedown('F')" title="Down")
     .key F
-  .btn.tiltUp(@mousedown="mousedown('T')")
+  .btn.tiltUp(@mousedown="mousedown('T')" title="Tilt Up")
     .key T
-  .btn.tiltDown(@mousedown="mousedown('G')")
+  .btn.tiltDown(@mousedown="mousedown('G')" title="Tilt Down")
     .key G
 </template>
 
