@@ -74,7 +74,7 @@
   grid-row-end: 2
   &:before
     content: url(~assets/image/pan.svg)
-    transform: translateY(-2px) translateX(-1px)
+    transform: translateY(-3px)
 .panRight
   grid-column-start: 3
   grid-column-end: 4
@@ -82,7 +82,7 @@
   grid-row-end: 2
   &:before
     content: url(~assets/image/pan.svg)
-    transform: translateY(2px) translateX(1px) rotate(180deg)
+    transform: translateY(3px) rotate(180deg)
 .tiltUp
   grid-column-start: 5
   grid-column-end: 6
@@ -90,7 +90,7 @@
   grid-row-end: 2
   &:before
     content: url(~assets/image/pan.svg)
-    transform: translateY(-1px) translateX(3px) rotate(90deg)
+    transform: translateX(3px) rotate(90deg)
 .tiltDown
   grid-column-start: 5
   grid-column-end: 6
@@ -98,7 +98,7 @@
   grid-row-end: 3
   &:before
     content: url(~assets/image/pan.svg)
-    transform: translateY(1px) translateX(-3px) rotate(-90deg)
+    transform: translateX(-3px) rotate(-90deg)
 .forward
   grid-column-start: 2
   grid-column-end: 3

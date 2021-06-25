@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="11.885" height="6.707" viewBox="0 0 11.885 6.707">
-  <g id="pan" transform="translate(-5.25 -8.476)">
-    <path id="パス_1742" data-name="パス 1742" d="M23,16H17V10h6Z" transform="translate(-6.115 -1.17)" fill="rgba(255,255,255,0)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <path id="パス_1743" data-name="パス 1743" d="M6,9,3,12l3,3" transform="translate(2.5 -0.17)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="10.25" height="6.5" viewBox="0 0 10.25 6.5">
+  <g id="pan" transform="translate(-6.75 -8.25)">
+    <path id="パス_1744" data-name="パス 1744" d="M6,15.25a.249.249,0,0,1-.177-.073l-3-3a.25.25,0,0,1,0-.354l3-3a.25.25,0,0,1,.354.354L3.354,12l2.823,2.823A.25.25,0,0,1,6,15.25Z" transform="translate(4 -0.5)" fill="#fff"/>
+    <path id="線_31" data-name="線 31" d="M9,.25H0A.25.25,0,0,1-.25,0,.25.25,0,0,1,0-.25H9A.25.25,0,0,1,9.25,0,.25.25,0,0,1,9,.25Z" transform="translate(7.5 11.5)" fill="#fff"/>
+    <circle id="楕円形_94" data-name="楕円形 94" cx="1.5" cy="1.5" r="1.5" transform="translate(14 10)" fill="#fff"/>
   </g>
 </svg>
