@@ -44,6 +44,8 @@ $bgColor: rgba(0,0,0,0.75)
     padding: 20px
     &:not(.visible)
       display: none
+    /deep/ audio
+      width: 100%
 </style>
 
 <script>
