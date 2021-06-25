@@ -49,7 +49,6 @@ $bgColor: rgba(0,0,0,0.75)
 <script>
 export default {
   data() {
-    console.log('data!', this.$el)
     return {
       padding: 20,
       visible: true,
