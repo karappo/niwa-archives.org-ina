@@ -201,7 +201,6 @@ export default {
   },
   methods: {
     setControlMode(mode) {
-      console.log('setControlMode', mode)
       switch (mode) {
         case 0:
           // First Person
