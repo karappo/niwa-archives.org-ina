@@ -202,6 +202,7 @@ export default {
     }
   },
   methods: {
+    // TODO "controlMode"関係を削除
     keyup(e) {
       switch (this.$key(e)) {
         case '1':
