@@ -1,7 +1,10 @@
 <template lang="pug">
 article
   .close(@click="$emit('close')") Close
-  h1 {{ data.title }}
+  h1
+    span.icon {{ icon }}
+    | {{ title }}
+
   ul.list(v-if="data.list.length")
     li(v-for="o in data.list" @click="$emit('showAnnotation', o.index)") {{ o.title }}
   .empty(v-else) データがありません
@@ -22,6 +25,13 @@ article
   transition: color 0.2s
   &:hover
     color: white
+h1
+  display: flex
+  align-items: center
+  .icon
+    font-family: 'Font Awesome 5 Pro-Light-300'
+    font-size: 50px
+    margin-right: 0.5em
 .list
   display: block
   padding: 0
@@ -47,6 +57,32 @@ export default {
       type: Object,
       require: true,
       default: null
+    }
+  },
+  computed: {
+    title() {
+      return this.data.category.split('/').pop()
+    },
+    icon() {
+      switch (this.data.category) {
+        case 'Viewpoints/Photos':
+          return ''
+        case 'Viewpoints/Movies':
+          return ''
+        case 'Elements/Stones':
+          return ''
+        case 'Elements/Plants':
+          return ''
+        case 'Elements/Creatures':
+          return ''
+        case 'Elements/Artifacts':
+          return ''
+        case 'Elements/DNA Data':
+          return ''
+        case 'Oral Archives':
+          return ''
+      }
+      return ''
     }
   }
 }

@@ -305,7 +305,7 @@ export default {
     selectList(category) {
       this.closeAnnotation()
       this.listData = {
-        title: category.split('/').pop(),
+        category,
         list: this.annotations.filter((a) => a.category === category)
       }
     },

@@ -9,7 +9,7 @@ aside
   section.viewpoints
     h3 Viewpoints
     .btn(@click="$emit('select', 'Viewpoints/Photos')") Photos
-    .btn(@click="$emit('select', 'Viewpoints/Photos')") Movies
+    .btn(@click="$emit('select', 'Viewpoints/Movies')") Movies
   section.elements
     h3 Elements
     .btn(@click="$emit('select', 'Elements/Stones')") Stones
