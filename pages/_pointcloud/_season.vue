@@ -182,19 +182,17 @@ export default {
 
     // Set Events
     this.$nuxt.$on('settingUpdated', config)
+    this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
     window.viewer.addEventListener('camera_changed', this.update)
-    document.addEventListener('keyup', this.keyup)
-    document.addEventListener('keydown', this.keydown)
 
     config()
   },
   beforeDestroy() {
     this.$nuxt.$off('settingUpdated')
+    this.$nuxt.$off('setControlMode')
     this.$nuxt.$off('startCameraAnimation')
     window.viewer.removeEventListener('camera_changed', this.update)
-    document.removeEventListener('keyup', this.keyup)
-    document.removeEventListener('keydown', this.keydown)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
         a.removeEventListener('click', this.clickAnnotation)
@@ -202,21 +200,8 @@ export default {
     }
   },
   methods: {
-    // TODO "controlMode"関係を削除
-    keyup(e) {
-      switch (this.$key(e)) {
-        case '1':
-          this.setControlMode(0)
-          break
-        case '2':
-          this.setControlMode(1)
-          break
-        case '3':
-          this.setControlMode(2)
-          break
-      }
-    },
     setControlMode(mode) {
+      console.log('setControlMode', mode)
       switch (mode) {
         case 0:
           // First Person

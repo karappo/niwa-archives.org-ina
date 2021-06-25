@@ -65,7 +65,27 @@ export default {
       return ['First Person', 'Earth', 'Orbit'][this.$store.state.controlMode]
     }
   },
+  mounted() {
+    document.addEventListener('keyup', this.keyup)
+  },
+  beforeDestroy() {
+    document.removeEventListener('keyup', this.keyup)
+  },
   methods: {
+    // TODO "controlMode"関係を削除
+    keyup(e) {
+      switch (this.$key(e)) {
+        case '1':
+          this.$nuxt.$emit('setControlMode', 0)
+          break
+        case '2':
+          this.$nuxt.$emit('setControlMode', 1)
+          break
+        case '3':
+          this.$nuxt.$emit('setControlMode', 2)
+          break
+      }
+    },
     updateEDL(e) {
       this.$store.commit('EDLEnabled', e.target.checked)
       this.$nuxt.$emit('settingUpdated')
