@@ -1,17 +1,25 @@
 <template lang="pug">
 .root
-  splitpanes.default-theme
-    pane#potree_container
+  splitpanes.main.default-theme
+    pane.potree_container
       #potree_render_area(ref="potree_render_area")
+        KeyMap.keyMap
       #potree_sidebar_container
-      KeyMap.keyMap
-    pane.drawer(v-if="listData && !annotationData" min-size="25" max-size="75")
+    pane(
+      v-if="listData && !annotationData"
+      min-size="25"
+      max-size="75"
+    )
       ListDrawer(
         :data="listData"
         @close="closeList"
         @showAnnotation="showAnnotation"
       )
-    pane.drawer(v-if="annotationData" min-size="25" max-size="75")
+    pane(
+      v-if="annotationData"
+      min-size="25"
+      max-size="75"
+    )
       AnnotationDrawer(
         :data="annotationData"
         :annotations="annotations"
@@ -20,9 +28,7 @@
         @prev="prev"
         @next="next"
       )
-  SideBar.sideBar(
-    @select="selectList"
-  )
+  SideBar.sideBar(@select="selectList")
   Footer.footer
 </template>
 
@@ -34,12 +40,13 @@
   display: grid
   grid-template-columns: auto 160px
   grid-template-rows: auto 50px
-  grid-template-areas: "potree_container sidebar" "footer sidebar"
+  grid-template-areas: "main sidebar" "footer sidebar"
   /deep/ .splitpanes__splitter
     background-color: #111
     border-right: 1px solid #222
-#potree_container
-  grid-area: potree_container
+.main
+  grid-area: main
+.potree_container
   width: 100%
   height: 100%
   position: relative
