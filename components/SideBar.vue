@@ -30,7 +30,7 @@ aside
   section.elements
     h3 Auto Modes
     .btn.disabled Guided Tour
-    .btn.disabled Random Tour
+    .btn.disabled Ramble Tour
 </template>
 
 <style lang="sass" scoped>

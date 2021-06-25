@@ -1,6 +1,6 @@
 <template lang="pug">
 .audioBar
-  .toggleBtn(@click="toggle") {{ toggleButtonText }} Sound
+  .toggleBtn(@click="toggle") {{ toggleButtonText }} Sounds
   av-waveform.waveform(
     v-if="width"
     :class="{visible}"
