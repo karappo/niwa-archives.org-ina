@@ -11,7 +11,7 @@ article
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
     )
-  .person(v-if="data.person") 話者: {{ data.person }}
+  .person(v-if="data.person") Speaker: {{ data.person }}
   .description(v-if="data.description") {{ data.description }}
   .tags(v-if="data.tags")
     label Tags

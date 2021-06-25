@@ -1,6 +1,6 @@
 <template lang="pug">
 .audioBar
-  .toggleBtn(@click="toggle") {{ toggleButtonText }}
+  .toggleBtn(@click="toggle") {{ toggleButtonText }} Sound
   av-waveform.waveform(
     v-if="width"
     :class="{visible}"
@@ -29,7 +29,7 @@ $bgColor: rgba(0,0,0,0.75)
     display: flex
     justify-content: center
     align-items: center
-    width: 50px
+    width: 80px
     height: 20px
     background-color: $bgColor
     top: -20px
