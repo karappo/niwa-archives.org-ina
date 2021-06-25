@@ -13,3 +13,10 @@ $weights: 'Heavy','Bold','Regular','Light','XLight','Thin','Hairline'
     font-family: 'K2-v1-#{$weight}'
     font-weight: normal
     src: url('~assets/font/k2/K2-v1-#{$weight}.woff') format('woff'), url('~assets/font/K2-v1-#{$weight}.otf') format('opentype')
+
+$weights: 'Pro-Solid-900','Pro-Regular-400','Pro-Light-300', 'Brands-Regular-400', 'Duotone-Solid-900'
+@each $weight in $weights
+  @font-face
+    font-family: 'Font Awesome 5 #{$weight}'
+    font-weight: normal
+    src: url('~assets/font/Font Awesome 5 #{$weight}.otf') format('opentype')
