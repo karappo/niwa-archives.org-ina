@@ -21,10 +21,10 @@ aside
     .btn(@click="$emit('selectList', 'Oral Archives')") Oral Archives
   section(v-if="this.$route.params.season")
     h3 Seasons
-    nuxt-link.btn(
+    .btn(
       v-for="season in [{label: 'Summer', alias: 'summer'}, {label: 'Winter', alias: 'winter'}, {label: 'Winter (snowing)', alias: 'winter-snow'}]"
       :key="season.alias"
-      :to="`../${season.alias}/`"
+      @click="goTo(`../${season.alias}/`)"
       :class="{current: $route.params.season === season.alias}"
     ) {{ season.label }}
   section.elements
@@ -60,6 +60,9 @@ h3
   font-size: 13px
   display: flex
   align-items: center
+  &.current
+    opacity: 0.5
+    pointer-events: none
   input[type='checkbox']
     cursor: pointer
   label
@@ -69,8 +72,15 @@ h3
   &:hover
     text-decoration: line-through
     cursor: default
-a.btn
-  &.current
-    opacity: 0.5
-    pointer-events: none
 </style>
+
+<script>
+export default {
+  methods: {
+    goTo(path) {
+      this.$emit('saveCameraInfo')
+      this.$router.push(path)
+    }
+  }
+}
+</script>

@@ -1,4 +1,7 @@
 export const state = () => ({
+  cameraPosition: null,
+  cameraTarget: null,
+  //
   EDLEnabled: true,
   EDLRadius: 0, // default: 1.4
   EDLStrength: 0, // default: 0.4
@@ -11,6 +14,12 @@ export const state = () => ({
 })
 
 export const mutations = {
+  cameraPosition(state, value) {
+    state.cameraPosition = value
+  },
+  cameraTarget(state, value) {
+    state.cameraTarget = value
+  },
   EDLEnabled(state, value) {
     state.EDLEnabled = value
   },

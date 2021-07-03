@@ -34,7 +34,7 @@
         @prev="prev"
         @next="next"
       )
-  SideBar.sideBar(@selectList="selectList")
+  SideBar.sideBar(@selectList="selectList" @saveCameraInfo="saveCameraInfo")
   //- Footer.footer
 </template>
 
@@ -182,7 +182,14 @@ export default {
 
     await this.garden.addImages()
 
-    this.garden.initCamera()
+    if (this.$store.state.cameraPosition && this.$store.state.cameraTarget) {
+      window.viewer.scene.view.position.set(...this.$store.state.cameraPosition)
+      window.viewer.scene.view.lookAt(
+        new THREE.Vector3(...this.$store.state.cameraTarget)
+      )
+    } else {
+      this.garden.initCamera()
+    }
 
     // Set Camera Animation
     const tours = []
@@ -325,6 +332,11 @@ export default {
     },
     closeList() {
       this.listData = null
+    },
+    saveCameraInfo() {
+      // const camera = window.viewer.scene.getActiveCamera()
+      // this.$store.commit('cameraPosition', camera.position.toArray())
+      // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     }
   }
 }
