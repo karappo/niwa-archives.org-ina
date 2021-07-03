@@ -32,6 +32,7 @@ npm i
 ### サブサンプリングの値
 
 常栄寺 : `0.005`
+無鄰菴 : `0.001`
 
 ## 2. e57 → las 変換
 
@@ -42,7 +43,7 @@ npm i
 ## 3. Windows上のPotreeConverterで変換
 
 1. Resilio Syncを使って、lasファイルを転送
-2. Windows上で、コマンドプロンプトを立ち上げ、`PotreeCOnverter_2.0.1_windows_x64/PotreeConverter.exec <filename>`を実行 ※ [PotreeConverter.exec](https://www.dropbox.com/sh/anvft1ce9459uil/AADVTVpd-N5yOPq33OjnvgNfa?dl=0)
+2. Windows上で、コマンドプロンプトを立ち上げ、`PotreeCOnverter_2.0.1_windows_x64/PotreeConverter.exe <filename>`を実行 ※ [PotreeConverter.exec](https://www.dropbox.com/sh/anvft1ce9459uil/AADVTVpd-N5yOPq33OjnvgNfa?dl=0)
 3. ファイルが生成される
 
 ## macos safari 上で表示できない
