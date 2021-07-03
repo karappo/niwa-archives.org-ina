@@ -322,7 +322,7 @@ export default {
       this.closeAnnotation()
       this.listData = {
         category,
-        list: this.annotations.filter((a) => a.category === category)
+        list: this.annotations.filter((a) => a.category.indexOf(category))
       }
     },
     closeAnnotation() {

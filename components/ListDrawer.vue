@@ -2,11 +2,13 @@
 article
   .close(@click="$emit('close')") Close
   h1
-    span.icon {{ icon }}
+    span.icon(v-if="icon") {{ icon }}
     | {{ title }}
 
   ul.list(v-if="data.list.length")
-    li(v-for="o in data.list" @click="$emit('showAnnotation', o.index)") {{ o.title }}
+    li(v-for="o in data.list" @click="$emit('showAnnotation', o.index)")
+      span.icon(v-if="!icon") {{ getIcon(o.category) }}
+      | {{ o.title }}
   .empty(v-else) データがありません
 </template>
 
@@ -25,11 +27,12 @@ article
   transition: color 0.2s
   &:hover
     color: white
+.icon
+  font-family: 'Font Awesome 5 Pro-Light-300'
 h1
   display: flex
   align-items: center
   .icon
-    font-family: 'Font Awesome 5 Pro-Light-300'
     font-size: 50px
     margin-right: 0.5em
 .list
@@ -42,6 +45,8 @@ h1
     border-top: 1px solid #555
     color: #898989
     cursor: pointer
+    .icon
+      margin-right: 0.5em
     &:hover
       color: white
   li:last-child
@@ -64,7 +69,12 @@ export default {
       return this.data.category.split('/').pop()
     },
     icon() {
-      switch (this.data.category) {
+      return this.getIcon(this.data.category)
+    }
+  },
+  methods: {
+    getIcon(category) {
+      switch (category) {
         case 'Viewpoints/Photos':
           return ''
         case 'Viewpoints/Movies':
@@ -82,7 +92,7 @@ export default {
         case 'Oral Archives':
           return ''
       }
-      return ''
+      return null
     }
   }
 }
