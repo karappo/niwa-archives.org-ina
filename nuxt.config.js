@@ -82,6 +82,7 @@ export default {
     routes: [
       '/murin-an/summer/',
       '/murin-an/winter/',
+      '/murin-an/winter-snow/',
       '/joei-ji/'
     ]
   }
