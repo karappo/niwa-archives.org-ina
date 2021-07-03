@@ -4,8 +4,8 @@ export default {
   },
   initCamera() {
     // viewer.fitToScreen()
-    window.viewer.scene.view.position.set(26.762, -8.002, -30.053)
-    window.viewer.scene.view.lookAt(new THREE.Vector3(28.687, -5.704, -29.948))
+    window.viewer.scene.view.position.set(171.85, -48.743, -4.652)
+    window.viewer.scene.view.lookAt(new THREE.Vector3(170.578, -51.43, -5.052))
   },
   tours: [
     {

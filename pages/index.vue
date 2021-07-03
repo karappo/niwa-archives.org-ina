@@ -65,6 +65,11 @@ export default {
           href: '/murin-an/winter/',
           class: 'murin-an',
           label: '無鄰菴 - 冬'
+        },
+        {
+          href: '/murin-an/winter-snow/',
+          class: 'murin-an',
+          label: '無鄰菴 - 冬（雪化粧）'
         }
       ]
     }

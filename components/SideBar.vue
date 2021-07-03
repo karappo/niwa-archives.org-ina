@@ -22,11 +22,11 @@ aside
   section(v-if="this.$route.params.season")
     h3 Seasons
     nuxt-link.btn(
-      v-for="season in ['summer', 'winter']"
-      :key="season"
-      :to="`../${season}/`"
-      :class="{current: $route.params.season === season}"
-    ) {{ season }}
+      v-for="season in [{label: 'Summer', alias: 'summer'}, {label: 'Winter', alias: 'winter'}, {label: 'Winter (snowing)', alias: 'winter-snow'}]"
+      :key="season.alias"
+      :to="`../${season.alias}/`"
+      :class="{current: $route.params.season === season.alias}"
+    ) {{ season.label }}
   section.elements
     h3 Auto Modes
     .btn.disabled Guided Tour
@@ -70,7 +70,6 @@ h3
     text-decoration: line-through
     cursor: default
 a.btn
-  text-transform: capitalize
   &.current
     opacity: 0.5
     pointer-events: none

@@ -150,9 +150,18 @@ export default {
       $('#menu_scene').next().show()
       // viewer.toggleSidebar() // Open sidebar
     })
-    const file = this.$route.params.season
-      ? `/pointclouds/${this.$route.params.pointcloud}/${this.$route.params.season}/metadata.json`
-      : `/pointclouds/${this.$route.params.pointcloud}/metadata.json`
+    let file = null
+    if (this.$route.params.pointcloud === 'joei-ji') {
+      file = '/pointclouds/Sesshutei.las_converted/metadata.json'
+    } else if (this.$route.params.season === 'summer') {
+      file = '/pointclouds/MurinanS_0.01.las_converted/metadata.json'
+    } else if (this.$route.params.season === 'winter') {
+      file = '/pointclouds/MurinanW_0.01.las_converted/metadata.json'
+    } else if (this.$route.params.season === 'winter-snow') {
+      file = '/pointclouds/MurinanWS_0.01.las_converted/metadata.json'
+    } else {
+      console.error('Not Found Point cloud file...')
+    }
     console.log(file)
     const { pointcloud } = await Potree.loadPointCloud(file)
     const material = pointcloud.material
