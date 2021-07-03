@@ -34,7 +34,7 @@
         @prev="prev"
         @next="next"
       )
-  SideBar.sideBar(@select="selectList")
+  SideBar.sideBar(@selectList="selectList")
   //- Footer.footer
 </template>
 

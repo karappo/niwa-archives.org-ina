@@ -8,17 +8,17 @@ aside
     .btn.disabled 3D Data
   section.viewpoints
     h3 Viewpoints
-    .btn(@click="$emit('select', 'Viewpoints/Photos')") Photos
-    .btn(@click="$emit('select', 'Viewpoints/Movies')") Movies
+    .btn(@click="$emit('selectList', 'Viewpoints/Photos')") Photos
+    .btn(@click="$emit('selectList', 'Viewpoints/Movies')") Movies
   section.elements
     h3 Elements
-    .btn(@click="$emit('select', 'Elements/Stones')") Stones
-    .btn(@click="$emit('select', 'Elements/Plants')") Plants
-    .btn(@click="$emit('select', 'Elements/Creatures')") Creatures
-    .btn(@click="$emit('select', 'Elements/Artifacts')") Artifacts
-    .btn(@click="$emit('select', 'Elements/DNA Data')") DNA Data
+    .btn(@click="$emit('selectList', 'Elements/Stones')") Stones
+    .btn(@click="$emit('selectList', 'Elements/Plants')") Plants
+    .btn(@click="$emit('selectList', 'Elements/Creatures')") Creatures
+    .btn(@click="$emit('selectList', 'Elements/Artifacts')") Artifacts
+    .btn(@click="$emit('selectList', 'Elements/DNA Data')") DNA Data
   section
-    .btn(@click="$emit('select', 'Oral Archives')") Oral Archives
+    .btn(@click="$emit('selectList', 'Oral Archives')") Oral Archives
   section(v-if="this.$route.params.season")
     h3 Seasons
     nuxt-link.btn(
