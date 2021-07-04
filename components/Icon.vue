@@ -14,6 +14,11 @@ span.icon(v-if="icon" :data-category="category") {{ icon }}
   justify-content: center
   align-items: center
   margin-right: 0.5em
+  background-color: $color_annotation_default
+  &[data-category='Viewpoints/Photos']
+    background-color: $color_photos
+  &[data-category='Viewpoints/Movies']
+    background-color: $color_movies
   &[data-category='Elements/Stones']
     background-color: $color_stones
   &[data-category='Elements/Plants']
@@ -24,10 +29,6 @@ span.icon(v-if="icon" :data-category="category") {{ icon }}
     background-color: $color_artifacts
   &[data-category='Elements/DNA Data']
     background-color: $color_dna
-  &[data-category='Viewpoints/Photos']
-    background-color: $color_photos
-  &[data-category='Viewpoints/Movies']
-    background-color: $color_movies
 </style>
 
 <script>
