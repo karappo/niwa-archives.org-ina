@@ -2,20 +2,22 @@
 .audioBar
   .toggleBtn(@click="toggle") {{ toggleButtonText }} Sounds
   .wrap
+    audio(controls)
+      source(src="/audio/joei-ji.mp3" type="audio/mpeg")
     .link TODO: Ambisonicで聞く？
-    av-waveform.waveform(
-      v-if="width"
-      :class="{visible}"
-      audio-src="/audio/joei-ji.mp3"
-      range="100"
-      :canv-height="60"
-      :canv-width="width"
-      played-line-color="white"
-      :noplayed-line-width='1'
-      noplayed-line-color="gray"
-      playtime-font-color="white"
-      playtime-slider-color="yellow"
-    )
+    //- av-waveform.waveform(
+    //-   v-if="width"
+    //-   :class="{visible}"
+    //-   audio-src="/audio/joei-ji.mp3"
+    //-   range="100"
+    //-   :canv-height="60"
+    //-   :canv-width="width"
+    //-   played-line-color="white"
+    //-   :noplayed-line-width='1'
+    //-   noplayed-line-color="gray"
+    //-   playtime-font-color="white"
+    //-   playtime-slider-color="yellow"
+    //- )
 </template>
 
 <style lang="sass" scoped>
@@ -43,7 +45,12 @@ $bgColor: rgba(0,0,0,0.75)
     &:hover
       color: white
   .wrap
-
+    padding: 20px
+  audio
+    width: 100%
+  .link
+    margin-top: 10px
+    text-align: right
   .waveform
     padding: 20px
     &:not(.visible)
