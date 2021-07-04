@@ -7,11 +7,11 @@ aside
     .btn.disabled Plans
     .btn.disabled 3D Data
   section.viewpoints
-    h3.btn(@click="$emit('selectList', 'Viewpoints')") Viewpoints
+    h3.btn(@click="$emit('selectList', 'Viewpoints/')") Viewpoints
     .btn(@click="$emit('selectList', 'Viewpoints/Photos')") Photos
     .btn(@click="$emit('selectList', 'Viewpoints/Movies')") Movies
   section.elements
-    h3.btn(@click="$emit('selectList', 'Elements')") Elements
+    h3.btn(@click="$emit('selectList', 'Elements/')") Elements
     .btn(@click="$emit('selectList', 'Elements/Stones')") Stones
     .btn(@click="$emit('selectList', 'Elements/Plants')") Plants
     .btn(@click="$emit('selectList', 'Elements/Creatures')") Creatures

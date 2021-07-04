@@ -64,7 +64,10 @@ export default {
   },
   computed: {
     title() {
-      return this.data.category.split('/').pop()
+      return this.data.category
+        .split('/')
+        .filter((a) => a.length) // ''を削除
+        .pop()
     },
     icon() {
       return this.$getIcon(this.data.category)
