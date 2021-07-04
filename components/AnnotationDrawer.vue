@@ -1,7 +1,9 @@
 <template lang="pug">
 article
   .close(@click="$emit('close')") Close
-  h1 {{ data.title }}
+  h1
+    span.icon(v-if="icon") {{ icon }}
+    | {{ data.title }}
   img.image(v-if="data.image" :src="data.image")
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
   .youtube(v-if="data.youtube")
@@ -45,9 +47,13 @@ article
   &:hover
     color: white
 h1
-  font-size: 15px
   margin: 0
   margin-bottom: 15px
+  display: flex
+  align-items: center
+  .icon
+    font-size: 50px
+    margin-right: 0.5em
 .description
   font-size: 12px
   line-height: 2
@@ -122,6 +128,11 @@ export default {
       type: Array,
       require: true,
       default: null
+    }
+  },
+  computed: {
+    icon() {
+      return this.$getIcon(this.data.category)
     }
   },
   methods: {
