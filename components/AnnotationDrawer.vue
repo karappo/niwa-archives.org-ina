@@ -60,8 +60,7 @@ h1
   display: flex
   align-items: center
   .icon
-    font-size: 50px
-    margin-right: 0.5em
+    font-size: 30px
 .description
   font-size: 12px
   line-height: 2
