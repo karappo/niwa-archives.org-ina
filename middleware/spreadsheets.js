@@ -53,10 +53,17 @@ export default async function ({ params, redirect, store }) {
             const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
             // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得
             const type = valueOf('attachmentType')
-            value = `https://drive.google.com/uc?export=view&id=${id}`
-            if (!['image', 'pdf', 'movie'].includes(type)) {
-              // eslint-disable-next-line
-              console.error(`"${valueOf('title')}"(${i+1}行目)の"attachmentType"が間違っています`, type)
+            switch (type) {
+              case 'image':
+              case 'pdf':
+                value = `https://drive.google.com/uc?export=view&id=${id}`
+                break
+              case 'movie':
+                value = `https://drive.google.com/file/d/${id}/preview`
+                break
+              default:
+                // eslint-disable-next-line
+                console.error(`"${valueOf('title')}"(${i+1}行目)の"attachmentType"が間違っています`, type)
             }
             key = type
           }

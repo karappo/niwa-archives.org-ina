@@ -9,7 +9,15 @@ article
   .youtube(v-if="data.youtube")
     iframe(
       :src="data.youtube.embedUrl()"
-      title="YouTube video player" frameborder="0"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    )
+  .movie(v-if="data.movie")
+    iframe(
+      :src="data.movie"
+      frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
     )
@@ -77,7 +85,8 @@ h1
 .download
   @extend %button
   padding: 20px
-.youtube
+.youtube,
+.movie
   position: relative
   padding-top: calc(225 / 400 * 100%) // ここでアスペクト比（height / width）を設定
   overflow: hidden
