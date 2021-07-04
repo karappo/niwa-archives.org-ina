@@ -91,4 +91,7 @@ sw.*
 
 .vscode
 
-static/pointclouds/
+static/pointclouds/*
+!static/pointclouds/.gitkeep
+static/audio/*
+!static/audio/.gitkeep
