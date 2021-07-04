@@ -45,13 +45,18 @@ export default async function ({ params, redirect, store }) {
             value = new YouTube(value)
           } else if (/\/\/drive\.google\.com/.test(value)) {
             // eslint-disable-next-line
+            if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.test(value)) {
+              // eslint-disable-next-line
+              console.error(`"${valueOf('title')}"(${i+1}行目)の"attachment"の値が不正です。"//drive.google.com/file/d/xxxx" の形式である必要があります。`, value)
+            }
+            // eslint-disable-next-line
             const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
             // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得
             const type = valueOf('attachmentType')
             value = `https://drive.google.com/uc?export=view&id=${id}`
-            if (!['image', 'pdf'].includes(type)) {
+            if (!['image', 'pdf', 'movie'].includes(type)) {
               // eslint-disable-next-line
-              console.error(`Wrong "attachmentType" for ${valueOf('title')} (row:${i+1})`, type)
+              console.error(`"${valueOf('title')}"(${i+1}行目)の"attachmentType"が間違っています`, type)
             }
             key = type
           }
