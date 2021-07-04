@@ -74,7 +74,7 @@
       outline: none
 .controls
   position: absolute
-  z-index: 2
+  z-index: 999999
   width: 100%
   height: 100%
   display: flex
