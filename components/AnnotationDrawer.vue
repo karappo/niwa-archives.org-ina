@@ -2,7 +2,7 @@
 article
   .close(@click="$emit('close')") Close
   h1
-    span.icon(v-if="icon") {{ icon }}
+    Icon(:category="data.category")
     | {{ data.title }}
   img.image(v-if="data.image" :src="data.image")
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる

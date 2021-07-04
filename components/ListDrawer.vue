@@ -2,12 +2,11 @@
 article
   .close(@click="$emit('close')") Close
   h1
-    span.icon(v-if="icon") {{ icon }}
+    Icon(:category="data.category")
     | {{ title }}
-
   ul.list(v-if="data.list.length")
     li(v-for="o in data.list" @click="$emit('showAnnotation', o.index)")
-      span.icon(v-if="!icon") {{ $getIcon(o.category) }}
+      Icon(v-if="!icon" :category="o.category")
       | {{ o.title }}
   .empty(v-else) データがありません
 </template>

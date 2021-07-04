@@ -58,6 +58,12 @@
         transition: width .5s, height .5s
         > div
           display: none
+      &[data-category='Viewpoints/Photos']
+        .annotation-marker
+          background-color: $color_photos
+      &[data-category='Viewpoints/Movies']
+        .annotation-marker
+          background-color: $color_movies
       &[data-category='Elements/Stones']
         .annotation-marker
           background-color: $color_stones
@@ -105,6 +111,12 @@
         &:hover
           > div
             opacity: 1 !important
+      &[data-category='Viewpoints/Photos']
+        .annotation-marker
+          border-color: $color_photos
+      &[data-category='Viewpoints/Movies']
+        .annotation-marker
+          border-color: $color_movies
       &[data-category='Elements/Stones']
         .annotation-marker
           border-color: $color_stones
