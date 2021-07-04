@@ -289,9 +289,10 @@ export default {
       this.getAnnotationByIndex(index).click()
     },
     clickAnnotation(e) {
+      this.closeAnnotation()
       this.annotationData = e.target.data
       // eslint-disable-next-line
-      e.target.domElement.get(0).querySelectorAll('.annotation-marker')[0].classList.add('highlighted')
+      e.target.domElement.get(0).classList.add('highlighted')
     },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
@@ -330,7 +331,7 @@ export default {
     closeAnnotation() {
       this.annotationData = null
       // eslint-disable-next-line
-      document.querySelectorAll('.annotation-marker').forEach((m) => m.classList.remove('highlighted'))
+      document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
     },
     closeList() {
       this.listData = null

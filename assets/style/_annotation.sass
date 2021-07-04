@@ -1,9 +1,9 @@
 
 @keyframes markerAnim
   0%
-    border-color: #583AFA
+    opacity: 1
   100%
-    border-color: #7760fc
+    opacity: 0.8
 
 .annotation
   transform: translate(-50%, 0)
@@ -33,6 +33,13 @@
   .annotation-next
     float: right
     text-align: right
+  &.highlighted
+    .annotation-marker
+      > div
+        animation: markerAnim 0.4s infinite
+        animation-direction: alternate
+    .annotation-label
+      color: white
   &:not(.opened)
     &[data-camera-dist=middle]
       .annotation-marker
@@ -44,12 +51,28 @@
         height: #{$size}
         top: #{$size / -2}
         left: calc(50% - #{$size / 2})
-        background-color: #583AFA
         box-shadow: 0 0 3px #000000
         border-radius: 100px
         border: 1px solid white
+        background-color: $color_annotation_default
+        transition: width .5s, height .5s
         > div
           display: none
+      &[data-category='Elements/Stones']
+        .annotation-marker
+          background-color: $color_stones
+      &[data-category='Elements/Plants']
+        .annotation-marker
+          background-color: $color_plants
+      &[data-category='Elements/Creatures']
+        .annotation-marker
+          background-color: $color_creatures
+      &[data-category='Elements/Artifacts']
+        .annotation-marker
+          background-color: $color_artifacts
+      &[data-category='Elements/DNA Data']
+        .annotation-marker
+          background-color: $color_dna
     // カメラが少し近づいた時
     &[data-camera-dist=near]
       .annotation-titlebar
@@ -69,11 +92,8 @@
         left: calc(50% - #{$size / 2})
         background-color: black
         border-radius: $size
-        border: $borderWidth solid #583AFA
+        border: $borderWidth solid $color_annotation_default
         overflow: hidden
-        &.highlighted
-          animation: markerAnim 0.5s infinite
-          animation-direction: alternate
         > div
           display: block
           width: 100%
@@ -84,7 +104,22 @@
           transition: opacity 0.2s
         &:hover
           > div
-            opacity: 1
+            opacity: 1 !important
+      &[data-category='Elements/Stones']
+        .annotation-marker
+          border-color: $color_stones
+      &[data-category='Elements/Plants']
+        .annotation-marker
+          border-color: $color_plants
+      &[data-category='Elements/Creatures']
+        .annotation-marker
+          border-color: $color_creatures
+      &[data-category='Elements/Artifacts']
+        .annotation-marker
+          border-color: $color_artifacts
+      &[data-category='Elements/DNA Data']
+        .annotation-marker
+          border-color: $color_dna
   &[data-type="icon"]
     &[data-camera-dist=middle]
       .annotation-marker
