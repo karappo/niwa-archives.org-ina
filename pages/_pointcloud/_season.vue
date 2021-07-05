@@ -166,7 +166,6 @@ export default {
     } else {
       console.error('Not Found Point cloud file...')
     }
-    console.log(file)
     const { pointcloud } = await Potree.loadPointCloud(file)
     const material = pointcloud.material
     material.activeAttributeName = 'rgba'
