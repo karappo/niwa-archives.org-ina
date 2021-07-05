@@ -337,6 +337,7 @@ export default {
       document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
     },
     closeList() {
+      this.$store.commit('selectedCategory', '')
       this.listData = null
     },
     saveCameraInfo() {
