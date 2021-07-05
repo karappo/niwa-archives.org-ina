@@ -35,7 +35,7 @@
         @next="next"
       )
   SideBar.sideBar(
-    :selectedListCategory="listData.category"
+    :selectedListCategory="listData ? listData.category : ''"
     @selectList="selectList"
     @saveCameraInfo="saveCameraInfo"
   )
