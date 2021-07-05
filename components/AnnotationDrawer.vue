@@ -4,7 +4,8 @@ article
     h1
       Icon(:category="data.category")
       | {{ data.title }}
-    template(v-if="$store.state.selectedCategory")
+    //- selectedCategoryが「Elements」などのときは表示しない。「Elements/xxx」のときのみ表示
+    template(v-if="$store.state.selectedCategory.includes('/') || $store.state.selectedCategory === 'Oral Archives'")
       a.prev(@click="$emit('prev', data.index)" :title="`Previus ${$getTitle($store.state.selectedCategory)}`") &lt;
       a.next(@click="$emit('next', data.index)" :title="`Next ${$getTitle($store.state.selectedCategory)}`") &gt;
     a.close(@click="$emit('close')" title="Close") X

@@ -203,6 +203,7 @@ export default {
       }
       window.viewer.scene.addCameraAnimation(animation)
       animation.setDuration(20)
+
       animation.setVisible(false)
       tours.push(animation)
     })
@@ -267,28 +268,43 @@ export default {
     startCameraAnimation(index) {
       this.tours[index].play()
     },
-    getAnnotationByIndex(index) {
-      const annotations = window.viewer.scene.annotations.children
+    getAnnotationByIndex(index, annotations) {
       if (index < 0) {
         index = annotations.length - 1
       } else if (annotations.length <= index) {
         index = 0
       }
-      for (let i = 0; i < annotations.length; i++) {
-        const _a = annotations[i]
-        if (_a._index === index) {
-          return _a
-        }
+      return annotations[index]
+    },
+    getFilteredAnnotationsAndIndex(globalIndex) {
+      let annotations = window.viewer.scene.annotations.children
+      let index = globalIndex
+      // eslint-disable-next-line
+      if (this.$store.state.selectedCategory) {
+        // eslint-disable-next-line
+        annotations = window.viewer.scene.annotations.children.filter((a) => a.data.category === this.$store.state.selectedCategory)
+        index = annotations.findIndex((a) => a._index === globalIndex)
+      }
+      return {
+        annotations,
+        index
       }
     },
-    prev(index) {
-      this.getAnnotationByIndex(index - 1).click()
+    prev(globalIndex) {
+      const res = this.getFilteredAnnotationsAndIndex(globalIndex)
+      const annotations = res.annotations
+      const index = res.index
+      this.getAnnotationByIndex(index - 1, annotations).click()
     },
-    next(index) {
-      this.getAnnotationByIndex(index + 1).click()
+    next(globalIndex) {
+      const res = this.getFilteredAnnotationsAndIndex(globalIndex)
+      const annotations = res.annotations
+      const index = res.index
+      this.getAnnotationByIndex(index + 1, annotations).click()
     },
-    showAnnotation(index) {
-      this.getAnnotationByIndex(index).click()
+    showAnnotation(globalIndex) {
+      const annotations = window.viewer.scene.annotations.children
+      this.getAnnotationByIndex(globalIndex, annotations).click()
     },
     clickAnnotation(e) {
       this.closeAnnotation()
