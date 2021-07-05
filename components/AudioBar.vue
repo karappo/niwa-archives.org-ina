@@ -37,7 +37,7 @@ $bgColor: rgba(0,0,0,0.75)
     height: 20px
     background-color: $bgColor
     top: -20px
-    left: 0
+    left: 10px
     border-radius: 6px 6px 0 0
     font-size: 10px
     color: rgba(255,255,255,0.5)
