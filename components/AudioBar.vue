@@ -1,7 +1,7 @@
 <template lang="pug">
 .audioBar
   .toggleBtn(@click="toggle") {{ toggleButtonText }} Sounds
-  .wrap
+  .wrap(:class="{visible}")
     audio(controls)
       source(src="/audio/joei-ji.mp3" type="audio/mpeg")
     .link TODO: Ambisonicで聞く？
@@ -46,6 +46,8 @@ $bgColor: rgba(0,0,0,0.75)
       color: white
   .wrap
     padding: 20px
+    &:not(.visible)
+      display: none
   audio
     width: 100%
   .link
@@ -53,8 +55,6 @@ $bgColor: rgba(0,0,0,0.75)
     text-align: right
   .waveform
     padding: 20px
-    &:not(.visible)
-      display: none
     /deep/ audio
       width: 100%
 </style>
@@ -80,6 +80,7 @@ export default {
     toggle() {
       this.visible = !this.visible
       this.toggleButtonText = this.visible ? '▼' : '▲'
+      console.log(this.visible)
     },
     resize() {
       // TODO リサイズ野正しいやり方わからず、再作成している。もっと良い方法ないか…
