@@ -4,6 +4,10 @@ export default {
 
   ssr: false,
 
+  manifest: {
+    crossorigin: 'use-credentials'
+  },
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'Incomplete Niwa Archives 終らない庭のアーカイヴ',
