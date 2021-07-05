@@ -288,7 +288,6 @@ export default {
       this.getAnnotationByIndex(index + 1).click()
     },
     showAnnotation(index) {
-      console.log(';index', index)
       this.getAnnotationByIndex(index).click()
     },
     clickAnnotation(e) {

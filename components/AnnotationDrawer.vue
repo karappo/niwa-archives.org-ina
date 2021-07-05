@@ -1,9 +1,13 @@
 <template lang="pug">
 article
-  .close(@click="$emit('close')") Close
-  h1
-    Icon(:category="data.category")
-    | {{ data.title }}
+  header
+    h1
+      Icon(:category="data.category")
+      | {{ data.title }}
+    template(v-if="$store.state.selectedCategory")
+      a.prev(@click="$emit('prev', data.index)" :title="`Previus ${$getTitle($store.state.selectedCategory)}`") &lt;
+      a.next(@click="$emit('next', data.index)" :title="`Next ${$getTitle($store.state.selectedCategory)}`") &gt;
+    a.close(@click="$emit('close')" title="Close") X
   img.image(v-if="data.image" :src="data.image")
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
   .youtube(v-if="data.youtube")
@@ -34,9 +38,6 @@ article
           @click="$emit('showAnnotation', a.index)"
         ) {{ a.title }}
   .dateTime(v-if="data.dateTime") {{ showDateTime(data.dateTime) }}
-  footer
-    a.prev(@click="$emit('prev', data.index)") ←
-    a.next(@click="$emit('next', data.index)") →
 </template>
 
 <style lang="sass" scoped>
@@ -46,21 +47,41 @@ article
   width: calc(100% - 30px)
   min-height: calc(100% - 30px)
   padding: 15px
+header
+  display: flex
+  height: 65px
+  align-items: center
+  margin-bottom: 15px
 .close
-  float: right
-  cursor: pointer
+  @extend %button
+  height: 32px
+  width: 32px
   font-size: 12px
   color: #898989
   transition: color 0.2s
+  margin-left: 10px
+  margin-right: 0
   &:hover
     color: white
+.prev,
+.next
+  @extend %button
+  font-size: 12px
+  height: 32px
+  width: 32px
+.next
+  margin-left: 5px
 h1
   margin: 0
-  margin-bottom: 15px
+  margin-right: auto
   display: flex
   align-items: center
+  text-overflow: ellipsis
+  white-space: nowrap
+  font-size: 18px
   .icon
-    font-size: 30px
+    font-size: 25px
+    flex-shrink: 0
 .description
   font-size: 12px
   line-height: 2
@@ -77,6 +98,7 @@ h1
   align-items: center
   border-radius: 5px
   cursor: pointer
+  flex-shrink: 0
   &:hover
     background-color: #1A1A1A
     color: white
@@ -110,17 +132,6 @@ h1
 .dateTime
   font-size: 12px
   margin-top: 50px
-footer
-  display: flex
-  align-items: center
-  margin-top: 15px
-.prev,
-.next
-  @extend %button
-  padding: 10px
-  width: calc((100% - 15px)/2)
-.next
-  margin-left: 15px
 </style>
 
 <script>
