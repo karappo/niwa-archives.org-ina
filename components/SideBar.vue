@@ -60,8 +60,10 @@ h3
   font-size: 13px
   display: flex
   align-items: center
+  &:hover
+    color: rgba(255,255,255,0.8)
   &.current
-    opacity: 0.5
+    color: white
     pointer-events: none
   input[type='checkbox']
     cursor: pointer
