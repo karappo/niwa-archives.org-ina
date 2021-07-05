@@ -34,4 +34,10 @@ export default ({ app }, inject) => {
     }
     return null
   })
+  inject('getTitle', (category) => {
+    return category
+      .split('/')
+      .filter((a) => a.length) // ''を削除
+      .pop()
+  })
 }

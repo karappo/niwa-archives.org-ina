@@ -36,7 +36,6 @@
       )
   SideBar.sideBar(
     :selectedListCategory="listData ? listData.category : ''"
-    @selectList="selectList"
     @saveCameraInfo="saveCameraInfo"
   )
   //- Footer.footer
@@ -229,6 +228,7 @@ export default {
     this.$nuxt.$on('settingUpdated', config)
     this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
+    this.$nuxt.$on('selectList', this.selectList)
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
@@ -237,6 +237,7 @@ export default {
     this.$nuxt.$off('settingUpdated')
     this.$nuxt.$off('setControlMode')
     this.$nuxt.$off('startCameraAnimation')
+    this.$nuxt.$off('selectList')
     window.viewer.removeEventListener('camera_changed', this.update)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {

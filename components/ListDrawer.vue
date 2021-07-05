@@ -63,10 +63,7 @@ export default {
   },
   computed: {
     title() {
-      return this.data.category
-        .split('/')
-        .filter((a) => a.length) // ''を削除
-        .pop()
+      return this.$getTitle(this.data.category)
     },
     icon() {
       return this.$getIcon(this.data.category)

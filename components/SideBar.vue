@@ -7,18 +7,18 @@ aside
     .btn.disabled Plans
     .btn.disabled 3D Data
   section.viewpoints
-    h3.btn(@click="$emit('selectList', 'Viewpoints')" :class="{current: selectedListCategory === 'Viewpoints'}") Viewpoints
-    .btn(@click="$emit('selectList', 'Viewpoints/Photos')" :class="{current: selectedListCategory === 'Viewpoints/Photos'}") Photos
-    .btn(@click="$emit('selectList', 'Viewpoints/Movies')" :class="{current: selectedListCategory === 'Viewpoints/Movies'}") Movies
+    h3.btn(@click="$nuxt.$emit('selectList', 'Viewpoints')" :class="{current: selectedListCategory === 'Viewpoints'}") Viewpoints
+    SideBarLink(:category="'Viewpoints/Photos'" :selectedListCategory="selectedListCategory")
+    SideBarLink(:category="'Viewpoints/Movies'" :selectedListCategory="selectedListCategory")
   section.elements
-    h3.btn(@click="$emit('selectList', 'Elements')" :class="{current: selectedListCategory === 'Elements'}") Elements
-    .btn(@click="$emit('selectList', 'Elements/Stones')" :class="{current: selectedListCategory === 'Elements/Stones'}") Stones
-    .btn(@click="$emit('selectList', 'Elements/Plants')" :class="{current: selectedListCategory === 'Elements/Plants'}") Plants
-    .btn(@click="$emit('selectList', 'Elements/Creatures')" :class="{current: selectedListCategory === 'Elements/Creatures'}") Creatures
-    .btn(@click="$emit('selectList', 'Elements/Artifacts')" :class="{current: selectedListCategory === 'Elements/Artifacts'}") Artifacts
-    .btn(@click="$emit('selectList', 'Elements/DNA Data')" :class="{current: selectedListCategory === 'Elements/DNA Data'}") DNA Data
+    h3.btn(@click="$nuxt.$emit('selectList', 'Elements')" :class="{current: selectedListCategory === 'Elements'}") Elements
+    SideBarLink(:category="'Elements/Stones'" :selectedListCategory="selectedListCategory")
+    SideBarLink(:category="'Elements/Plants'" :selectedListCategory="selectedListCategory")
+    SideBarLink(:category="'Elements/Creatures'" :selectedListCategory="selectedListCategory")
+    SideBarLink(:category="'Elements/Artifacts'" :selectedListCategory="selectedListCategory")
+    SideBarLink(:category="'Elements/DNA Data'" :selectedListCategory="selectedListCategory")
   section
-    .btn(@click="$emit('selectList', 'Oral Archives')" :class="{current: selectedListCategory === 'Oral Archives'}") Oral Archives
+    SideBarLink(:category="'Oral Archives'" :selectedListCategory="selectedListCategory")
   section(v-if="this.$route.params.season")
     h3 Seasons
     .btn(
@@ -65,11 +65,6 @@ h3
   &.current
     color: white
     pointer-events: none
-  input[type='checkbox']
-    cursor: pointer
-  label
-    margin-left: 8px
-    cursor: pointer
 .disabled
   &:hover
     text-decoration: line-through
