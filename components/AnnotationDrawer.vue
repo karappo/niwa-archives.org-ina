@@ -18,7 +18,7 @@ article
     iframe(
       :src="data.movie"
       frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allow="autoplay"
       allowfullscreen
     )
   .person(v-if="data.person") Speaker: {{ data.person }}
