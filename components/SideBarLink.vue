@@ -2,7 +2,7 @@
 .btn(
   @click="$nuxt.$emit('selectList', category)"
   :data-category="category"
-  :class="{current: selectedListCategory === category}"
+  :class="{current: $store.state.selectedCategory === category}"
 ) {{ title }}
 </template>
 
@@ -51,11 +51,6 @@
 export default {
   props: {
     category: {
-      type: String,
-      required: true,
-      default: ''
-    },
-    selectedListCategory: {
       type: String,
       required: true,
       default: ''

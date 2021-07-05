@@ -7,18 +7,18 @@ aside
     .btn.disabled Plans
     .btn.disabled 3D Data
   section.viewpoints
-    h3.btn(@click="$nuxt.$emit('selectList', 'Viewpoints')" :class="{current: selectedListCategory === 'Viewpoints'}") Viewpoints
-    SideBarLink(:category="'Viewpoints/Photos'" :selectedListCategory="selectedListCategory")
-    SideBarLink(:category="'Viewpoints/Movies'" :selectedListCategory="selectedListCategory")
+    h3.btn(@click="$nuxt.$emit('selectList', 'Viewpoints')" :class="{current: $store.state.selectedListCategory === 'Viewpoints'}") Viewpoints
+    SideBarLink(:category="'Viewpoints/Photos'")
+    SideBarLink(:category="'Viewpoints/Movies'")
   section.elements
-    h3.btn(@click="$nuxt.$emit('selectList', 'Elements')" :class="{current: selectedListCategory === 'Elements'}") Elements
-    SideBarLink(:category="'Elements/Stones'" :selectedListCategory="selectedListCategory")
-    SideBarLink(:category="'Elements/Plants'" :selectedListCategory="selectedListCategory")
-    SideBarLink(:category="'Elements/Creatures'" :selectedListCategory="selectedListCategory")
-    SideBarLink(:category="'Elements/Artifacts'" :selectedListCategory="selectedListCategory")
-    SideBarLink(:category="'Elements/DNA Data'" :selectedListCategory="selectedListCategory")
+    h3.btn(@click="$nuxt.$emit('selectList', 'Elements')" :class="{current: $store.state.selectedListCategory === 'Elements'}") Elements
+    SideBarLink(:category="'Elements/Stones'")
+    SideBarLink(:category="'Elements/Plants'")
+    SideBarLink(:category="'Elements/Creatures'")
+    SideBarLink(:category="'Elements/Artifacts'")
+    SideBarLink(:category="'Elements/DNA Data'")
   section
-    SideBarLink(:category="'Oral Archives'" :selectedListCategory="selectedListCategory")
+    SideBarLink(:category="'Oral Archives'")
   section(v-if="this.$route.params.season")
     h3 Seasons
     .btn(
@@ -73,13 +73,6 @@ h3
 
 <script>
 export default {
-  props: {
-    selectedListCategory: {
-      type: String,
-      required: true,
-      default: ''
-    }
-  },
   methods: {
     goTo(path) {
       this.$emit('saveCameraInfo')

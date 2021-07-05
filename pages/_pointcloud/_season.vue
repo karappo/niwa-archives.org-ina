@@ -35,7 +35,6 @@
         @next="next"
       )
   SideBar.sideBar(
-    :selectedListCategory="listData ? listData.category : ''"
     @saveCameraInfo="saveCameraInfo"
   )
   //- Footer.footer
@@ -325,6 +324,7 @@ export default {
     },
     selectList(category) {
       this.closeAnnotation()
+      this.$store.commit('selectedCategory', category)
       this.listData = {
         category,
         list: this.annotations.filter((a) => {
