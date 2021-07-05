@@ -34,7 +34,11 @@
         @prev="prev"
         @next="next"
       )
-  SideBar.sideBar(@selectList="selectList" @saveCameraInfo="saveCameraInfo")
+  SideBar.sideBar(
+    :selectedListCategory="listData.category"
+    @selectList="selectList"
+    @saveCameraInfo="saveCameraInfo"
+  )
   //- Footer.footer
 </template>
 

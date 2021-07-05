@@ -7,18 +7,18 @@ aside
     .btn.disabled Plans
     .btn.disabled 3D Data
   section.viewpoints
-    h3.btn(@click="$emit('selectList', 'Viewpoints/')") Viewpoints
-    .btn(@click="$emit('selectList', 'Viewpoints/Photos')") Photos
-    .btn(@click="$emit('selectList', 'Viewpoints/Movies')") Movies
+    h3.btn(@click="$emit('selectList', 'Viewpoints')" :class="{current: selectedListCategory === 'Viewpoints'}") Viewpoints
+    .btn(@click="$emit('selectList', 'Viewpoints/Photos')" :class="{current: selectedListCategory === 'Viewpoints/Photos'}") Photos
+    .btn(@click="$emit('selectList', 'Viewpoints/Movies')" :class="{current: selectedListCategory === 'Viewpoints/Movies'}") Movies
   section.elements
-    h3.btn(@click="$emit('selectList', 'Elements/')") Elements
-    .btn(@click="$emit('selectList', 'Elements/Stones')") Stones
-    .btn(@click="$emit('selectList', 'Elements/Plants')") Plants
-    .btn(@click="$emit('selectList', 'Elements/Creatures')") Creatures
-    .btn(@click="$emit('selectList', 'Elements/Artifacts')") Artifacts
-    .btn(@click="$emit('selectList', 'Elements/DNA Data')") DNA Data
+    h3.btn(@click="$emit('selectList', 'Elements')" :class="{current: selectedListCategory === 'Elements'}") Elements
+    .btn(@click="$emit('selectList', 'Elements/Stones')" :class="{current: selectedListCategory === 'Elements/Stones'}") Stones
+    .btn(@click="$emit('selectList', 'Elements/Plants')" :class="{current: selectedListCategory === 'Elements/Plants'}") Plants
+    .btn(@click="$emit('selectList', 'Elements/Creatures')" :class="{current: selectedListCategory === 'Elements/Creatures'}") Creatures
+    .btn(@click="$emit('selectList', 'Elements/Artifacts')" :class="{current: selectedListCategory === 'Elements/Artifacts'}") Artifacts
+    .btn(@click="$emit('selectList', 'Elements/DNA Data')" :class="{current: selectedListCategory === 'Elements/DNA Data'}") DNA Data
   section
-    .btn(@click="$emit('selectList', 'Oral Archives')") Oral Archives
+    .btn(@click="$emit('selectList', 'Oral Archives')" :class="{current: selectedListCategory === 'Oral Archives'}") Oral Archives
   section(v-if="this.$route.params.season")
     h3 Seasons
     .btn(
@@ -76,6 +76,13 @@ h3
 
 <script>
 export default {
+  props: {
+    selectedListCategory: {
+      type: String,
+      required: true,
+      default: ''
+    }
+  },
   methods: {
     goTo(path) {
       this.$emit('saveCameraInfo')
