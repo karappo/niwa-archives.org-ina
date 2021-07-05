@@ -279,6 +279,7 @@ export default {
     getFilteredAnnotationsAndIndex(globalIndex) {
       let annotations = window.viewer.scene.annotations.children
       let index = globalIndex
+      // カテゴリーが絞り込まれていたら
       // eslint-disable-next-line
       if (this.$store.state.selectedCategory) {
         // eslint-disable-next-line
