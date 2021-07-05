@@ -30,7 +30,7 @@ h1
   display: flex
   align-items: center
   .icon
-    font-size: 50px
+    font-size: 30px
     margin-right: 0.5em
 .list
   display: block
