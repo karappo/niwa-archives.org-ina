@@ -8,6 +8,23 @@
 .annotation
   transform: translate(-50%, 0)
   opacity: 1 !important
+
+  --category-color: #{$color_annotation_default}
+  &[data-category='Viewpoints/Photos']
+    --category-color: #{$color_photos}
+  &[data-category='Viewpoints/Movies']
+    --category-color: #{$color_movies}
+  &[data-category='Elements/Stones']
+    --category-color: #{$color_stones}
+  &[data-category='Elements/Plants']
+    --category-color: #{$color_plants}
+  &[data-category='Elements/Creatures']
+    --category-color: #{$color_creatures}
+  &[data-category='Elements/Artifacts']
+    --category-color: #{$color_artifacts}
+  &[data-category='Elements/DNA Data']
+    --category-color: #{$color_dna}
+
   .annotation-titlebar
     display: none
     border: 0
@@ -53,84 +70,42 @@
       box-shadow: 0 0 3px #000000
       border-radius: 100px
       border: 1px solid white
-      background-color: $color_annotation_default
+      background-color: var(--category-color)
       transition: width .5s, height .5s
       > div
         display: none
-    &[data-category='Viewpoints/Photos']
-      .annotation-marker
-        background-color: $color_photos
-    &[data-category='Viewpoints/Movies']
-      .annotation-marker
-        background-color: $color_movies
-    &[data-category='Elements/Stones']
-      .annotation-marker
-        background-color: $color_stones
-    &[data-category='Elements/Plants']
-      .annotation-marker
-        background-color: $color_plants
-    &[data-category='Elements/Creatures']
-      .annotation-marker
-        background-color: $color_creatures
-    &[data-category='Elements/Artifacts']
-      .annotation-marker
-        background-color: $color_artifacts
-    &[data-category='Elements/DNA Data']
-      .annotation-marker
-        background-color: $color_dna
   // カメラが少し近づいた時
   &[data-camera-dist=near]
-      .annotation-titlebar
+    .annotation-titlebar
+      display: block
+      position: absolute
+      left: 50px
+      top: -13px
+    .annotation-marker
+      $size: 80px
+      $borderWidth: 6px
+      content: ''
+      display: block
+      position: absolute
+      width: #{$size}
+      height: #{$size}
+      top: #{$size / -2 - $borderWidth}
+      left: calc(50% - #{$size / 2})
+      background-color: black
+      border-radius: $size
+      border: $borderWidth solid var(--category-color)
+      overflow: hidden
+      > div
         display: block
-        position: absolute
-        left: 50px
-        top: -13px
-      .annotation-marker
-        $size: 80px
-        $borderWidth: 6px
-        content: ''
-        display: block
-        position: absolute
-        width: #{$size}
-        height: #{$size}
-        top: #{$size / -2 - $borderWidth}
-        left: calc(50% - #{$size / 2})
-        background-color: black
-        border-radius: $size
-        border: $borderWidth solid $color_annotation_default
-        overflow: hidden
+        width: 100%
+        height: 100%
+        background-size: cover
+        background-position: center
+        opacity: 0.8
+        transition: opacity 0.2s
+      &:hover
         > div
-          display: block
-          width: 100%
-          height: 100%
-          background-size: cover
-          background-position: center
-          opacity: 0.8
-          transition: opacity 0.2s
-        &:hover
-          > div
-            opacity: 1 !important
-      &[data-category='Viewpoints/Photos']
-        .annotation-marker
-          border-color: $color_photos
-      &[data-category='Viewpoints/Movies']
-        .annotation-marker
-          border-color: $color_movies
-      &[data-category='Elements/Stones']
-        .annotation-marker
-          border-color: $color_stones
-      &[data-category='Elements/Plants']
-        .annotation-marker
-          border-color: $color_plants
-      &[data-category='Elements/Creatures']
-        .annotation-marker
-          border-color: $color_creatures
-      &[data-category='Elements/Artifacts']
-        .annotation-marker
-          border-color: $color_artifacts
-      &[data-category='Elements/DNA Data']
-        .annotation-marker
-          border-color: $color_dna
+          opacity: 1 !important
   &[data-type="icon"]
     &[data-camera-dist=middle]
       .annotation-marker
