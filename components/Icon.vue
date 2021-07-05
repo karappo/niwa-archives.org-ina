@@ -6,7 +6,7 @@ span.icon(v-if="icon" :data-category="category") {{ icon }}
 @import ../assets/style/const
 .icon
   font-family: 'Font Awesome 5 Pro-Light-300'
-  color: white
+  color: black
   width: 2em
   height: 2em
   border-radius: 50%
