@@ -40,47 +40,46 @@
         animation-direction: alternate
     .annotation-label
       color: white
-  &:not(.opened)
-    &[data-camera-dist=middle]
+  &[data-camera-dist=middle]
+    .annotation-marker
+      $size: 10px
+      content: ''
+      display: block
+      position: absolute
+      width: #{$size}
+      height: #{$size}
+      top: #{$size / -2}
+      left: calc(50% - #{$size / 2})
+      box-shadow: 0 0 3px #000000
+      border-radius: 100px
+      border: 1px solid white
+      background-color: $color_annotation_default
+      transition: width .5s, height .5s
+      > div
+        display: none
+    &[data-category='Viewpoints/Photos']
       .annotation-marker
-        $size: 10px
-        content: ''
-        display: block
-        position: absolute
-        width: #{$size}
-        height: #{$size}
-        top: #{$size / -2}
-        left: calc(50% - #{$size / 2})
-        box-shadow: 0 0 3px #000000
-        border-radius: 100px
-        border: 1px solid white
-        background-color: $color_annotation_default
-        transition: width .5s, height .5s
-        > div
-          display: none
-      &[data-category='Viewpoints/Photos']
-        .annotation-marker
-          background-color: $color_photos
-      &[data-category='Viewpoints/Movies']
-        .annotation-marker
-          background-color: $color_movies
-      &[data-category='Elements/Stones']
-        .annotation-marker
-          background-color: $color_stones
-      &[data-category='Elements/Plants']
-        .annotation-marker
-          background-color: $color_plants
-      &[data-category='Elements/Creatures']
-        .annotation-marker
-          background-color: $color_creatures
-      &[data-category='Elements/Artifacts']
-        .annotation-marker
-          background-color: $color_artifacts
-      &[data-category='Elements/DNA Data']
-        .annotation-marker
-          background-color: $color_dna
-    // カメラが少し近づいた時
-    &[data-camera-dist=near]
+        background-color: $color_photos
+    &[data-category='Viewpoints/Movies']
+      .annotation-marker
+        background-color: $color_movies
+    &[data-category='Elements/Stones']
+      .annotation-marker
+        background-color: $color_stones
+    &[data-category='Elements/Plants']
+      .annotation-marker
+        background-color: $color_plants
+    &[data-category='Elements/Creatures']
+      .annotation-marker
+        background-color: $color_creatures
+    &[data-category='Elements/Artifacts']
+      .annotation-marker
+        background-color: $color_artifacts
+    &[data-category='Elements/DNA Data']
+      .annotation-marker
+        background-color: $color_dna
+  // カメラが少し近づいた時
+  &[data-camera-dist=near]
       .annotation-titlebar
         display: block
         position: absolute
