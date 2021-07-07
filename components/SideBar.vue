@@ -1,6 +1,6 @@
 <template lang="pug">
 aside
-  .toggle Menu
+  .menu Menu
   section.outlines
     h3 Outlines
     .btn.disabled History
@@ -17,9 +17,9 @@ aside
     SideBarLink(:category="'Elements/Creatures'")
     SideBarLink(:category="'Elements/Artifacts'")
     SideBarLink(:category="'Elements/DNA Data'")
-  section
+  section.orals
     SideBarLink(:category="'Oral Archives'")
-  section(v-if="this.$route.params.season")
+  section.seasons(v-if="this.$route.params.season")
     h3 Seasons
     .btn(
       v-for="season in [{label: 'Summer', alias: 'summer'}, {label: 'Winter', alias: 'winter'}, {label: 'Winter (snowing)', alias: 'winter-snow'}]"
@@ -27,7 +27,7 @@ aside
       @click="goTo(`../${season.alias}/`)"
       :class="{current: $route.params.season === season.alias}"
     ) {{ season.label }}
-  section.elements
+  section.autos
     h3 Auto Modes
     .btn.disabled Guided Tour
     .btn.disabled Ramble Tour
@@ -38,11 +38,10 @@ aside
   background-color: #1A1A1A
   color: #898989
   z-index: 1
-.toggle
+.menu
   display: flex
   align-items: center
   padding: 20px 15px
-  border-bottom: 1px solid #3C3C3C
   cursor: pointer
   &:after
     content: url(~assets/image/ham.svg)
@@ -50,7 +49,13 @@ aside
     margin-right: 0
 section
   padding: 20px 15px
-  border-bottom: 1px solid #3C3C3C
+  border-top: 1px solid #3C3C3C
+  &:last-child
+    border-bottom: 1px solid #3C3C3C
+  &.outlines,
+  &.viewpoints,
+  &.autos
+    border-top: 5px solid #3C3C3C
 h3
   font-size: 13px
   margin: 0
