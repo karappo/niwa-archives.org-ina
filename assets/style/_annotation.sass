@@ -5,6 +5,50 @@
   100%
     opacity: 0.8
 
+%titlebar
+  display: block
+  position: absolute
+%marker_dot
+  $size: 10px
+  content: ''
+  display: block
+  position: absolute
+  width: #{$size}
+  height: #{$size}
+  top: #{$size / -2}
+  left: calc(50% - #{$size / 2})
+  box-shadow: 0 0 3px #000000
+  border-radius: 100px
+  border: 1px solid white
+  background-color: var(--category-color)
+  > div
+    display: none
+%marker_thumb
+  $size: 80px
+  $borderWidth: 6px
+  content: ''
+  display: block
+  position: absolute
+  width: #{$size}
+  height: #{$size}
+  top: #{$size / -2 - $borderWidth}
+  left: calc(50% - #{$size / 2})
+  background-color: black
+  border-radius: $size
+  border: $borderWidth solid var(--category-color)
+  overflow: hidden
+  > div
+    display: block
+    width: 100%
+    height: 100%
+    background-size: cover
+    background-position: center
+    opacity: 0.8
+    transition: opacity 0.2s
+  &:hover
+    > div
+      opacity: 1 !important
+
 .annotation
   transform: translate(-50%, 0)
   opacity: 1 !important
@@ -31,8 +75,9 @@
     display: none
     border: 0
     border-radius: 4px
-    padding: 0 12px 0 20px
+    padding: 0 12px
     box-shadow: none !important
+    top: -13px
     .annotation-label
       color: #696969
       font-size: 12px
@@ -59,64 +104,37 @@
         animation-direction: alternate
     .annotation-label
       color: white
+  &[data-camera-dist=further]
+    // 非表示
+  &[data-camera-dist=far]
+    .annotation-marker
+      @extend %marker_dot
+      opacity: 0.5
   &[data-camera-dist=middle]
     .annotation-marker
-      $size: 10px
-      content: ''
-      display: block
-      position: absolute
-      width: #{$size}
-      height: #{$size}
-      top: #{$size / -2}
-      left: calc(50% - #{$size / 2})
-      box-shadow: 0 0 3px #000000
-      border-radius: 100px
-      border: 1px solid white
-      background-color: var(--category-color)
-      transition: width .5s, height .5s
-      > div
-        display: none
-  // カメラが少し近づいた時
+      @extend %marker_dot
   &[data-camera-dist=near]
     .annotation-titlebar
-      display: block
-      position: absolute
-      left: 50px
-      top: -13px
+      @extend %titlebar
+      padding-left: 15px
     .annotation-marker
-      $size: 80px
-      $borderWidth: 6px
-      content: ''
-      display: block
-      position: absolute
-      width: #{$size}
-      height: #{$size}
-      top: #{$size / -2 - $borderWidth}
-      left: calc(50% - #{$size / 2})
-      background-color: black
-      border-radius: $size
-      border: $borderWidth solid var(--category-color)
-      overflow: hidden
-      > div
-        display: block
-        width: 100%
-        height: 100%
-        background-size: cover
-        background-position: center
-        opacity: 0.8
-        transition: opacity 0.2s
-      &:hover
-        > div
-          opacity: 1 !important
-  &[data-type="icon"]
-    &[data-camera-dist=middle]
-      .annotation-marker
-        $size: 32px
-        $borderWidth: 2px
-        width: #{$size}
-        height: #{$size}
-        top: #{$size / -2 - $borderWidth}
-        left: calc(50% - #{$size / 2})
-        border-width: $borderWidth
-      .annotation-titlebar
-        left: 18px
+      @extend %marker_dot
+  &[data-camera-dist=nearer]
+    .annotation-titlebar
+      @extend %titlebar
+      padding-left: 20px
+      left: 50px
+    .annotation-marker
+      @extend %marker_thumb
+  // &[data-type="icon"]
+  //   &[data-camera-dist=middle]
+  //     .annotation-marker
+  //       $size: 32px
+  //       $borderWidth: 2px
+  //       width: #{$size}
+  //       height: #{$size}
+  //       top: #{$size / -2 - $borderWidth}
+  //       left: calc(50% - #{$size / 2})
+  //       border-width: $borderWidth
+  //     .annotation-titlebar
+  //       left: 18px
