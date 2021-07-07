@@ -3,7 +3,7 @@
   @click="$nuxt.$emit('selectList', category)"
   :data-category="category"
   :class="{current: $store.state.selectedCategory === category}"
-) {{ title }}
+) {{ title }} - {{ belongingList.length }}
 </template>
 
 <style lang="sass" scoped>
@@ -59,6 +59,10 @@ export default {
   computed: {
     title() {
       return this.$getTitle(this.category)
+    },
+    belongingList() {
+      // eslint-disable-next-line
+      return window.viewer.scene.annotations.children.filter((a) => a.data.category === this.category)
     }
   }
 }
