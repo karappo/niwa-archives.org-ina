@@ -4,10 +4,16 @@ article
     h1
       Icon(:category="data.category")
       | {{ data.title }}
-    //- selectedCategoryが「Elements」などのときは表示しない。「Elements/xxx」のときのみ表示
-    template(v-if="$store.state.selectedCategory.includes('/') || $store.state.selectedCategory === 'Oral Archives'")
-      a.prev(@click="$emit('prev', data.index)" :title="`Previus ${$getTitle($store.state.selectedCategory)}`") &lt;
-      a.next(@click="$emit('next', data.index)" :title="`Next ${$getTitle($store.state.selectedCategory)}`") &gt;
+    a.prev(
+      @click="$emit('prev', data.index)"
+      :title="`Previus ${$getTitle(data.category)}`"
+      :disabled="belongingList.length <= 1"
+    ) &lt;
+    a.next(
+      @click="$emit('next', data.index)"
+      :title="`Next ${$getTitle(data.category)}`"
+      :disabled="belongingList.length <= 1"
+    ) &gt;
     a.close(@click="$emit('close')" title="Close") X
   img.image(v-if="data.image" :src="data.image")
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
@@ -100,10 +106,13 @@ h1
   border-radius: 5px
   cursor: pointer
   flex-shrink: 0
-  &:hover
+  &:not([disabled]):hover
     background-color: #1A1A1A
     color: white
     transition: background-color 0.2s, color 0.2s
+  &[disabled]
+    cursor: not-allowed
+    opacity: 0.5
 .download
   @extend %button
   padding: 20px
@@ -153,6 +162,10 @@ export default {
   computed: {
     icon() {
       return this.$getIcon(this.data.category)
+    },
+    belongingList() {
+      // eslint-disable-next-line
+      return window.viewer.scene.annotations.children.filter((a) => a.data.category === this.data.category)
     }
   },
   methods: {
