@@ -29,7 +29,7 @@
       AnnotationDrawer(
         :data="annotationData"
         :annotations="annotations"
-        @close="closeAnnotation"
+        @close="clearSelectedAnnotation"
         @showAnnotation="showAnnotation"
         @prev="prev"
         @next="next"
@@ -132,7 +132,8 @@ export default {
         this.$route.params.pointcloud === 'joei-ji' ? JoeijiData : MurinanData,
       tours: null,
       listData: '',
-      annotationData: ''
+      annotationData: '',
+      drawerAlreadyOpened: false
     }
   },
   async mounted() {
@@ -220,6 +221,7 @@ export default {
         a.domElement.off('mouseleave')
         // クリックした時の処理
         a.addEventListener('click', this.clickAnnotation)
+        a.addEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
         window.viewer.scene.annotations.add(a)
       })
     }
@@ -242,6 +244,7 @@ export default {
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
         a.removeEventListener('click', this.clickAnnotation)
+        a.removeEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
       })
     }
   },
@@ -308,9 +311,22 @@ export default {
       this.getAnnotationByIndex(globalIndex, annotations).click()
     },
     clickAnnotation(e) {
-      this.closeAnnotation()
+      if (this.annotationData || this.listData) {
+        this.drawerAlreadyOpened = true // あとで開く処理はスキップ
+        this.clearSelectedAnnotation()
+        this.annotationData = e.target.data
+        e.target.domElement.get(0).classList.add('highlighted')
+      } else {
+        this.drawerAlreadyOpened = false // あとで開くのでここでは何もしない
+      }
+    },
+    onCameraAnimationComplete(e) {
+      if (this.drawerAlreadyOpened) {
+        // 既にdrawerが開いているのでなにもしない
+        return
+      }
+      this.clearSelectedAnnotation()
       this.annotationData = e.target.data
-      // eslint-disable-next-line
       e.target.domElement.get(0).classList.add('highlighted')
     },
     update() {
@@ -343,7 +359,7 @@ export default {
       }
     },
     selectList(category) {
-      this.closeAnnotation()
+      this.clearSelectedAnnotation()
       this.$store.commit('selectedCategory', category)
       this.listData = {
         category,
@@ -352,7 +368,7 @@ export default {
         })
       }
     },
-    closeAnnotation() {
+    clearSelectedAnnotation() {
       this.annotationData = null
       // eslint-disable-next-line
       document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
