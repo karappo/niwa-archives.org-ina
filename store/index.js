@@ -1,7 +1,7 @@
 export const state = () => ({
   cameraPosition: null,
   cameraTarget: null,
-  selectedCategory: null,
+  selectedCategory: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
   //
   EDLEnabled: true,
   EDLRadius: 0, // default: 1.4
