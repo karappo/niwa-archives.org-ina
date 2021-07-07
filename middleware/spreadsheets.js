@@ -21,7 +21,12 @@ export default async function ({ params, redirect, store }) {
         }
         // 配列化
         if (['position', 'cameraPosition'].includes(key)) {
-          value = value.split(',').map((v) => parseFloat(v))
+          // 数値以外の文字列が入っていたら無効化
+          if (/^[-0-9., ]+$/.test(value)) {
+            value = value.split(',').map((v) => parseFloat(v))
+          } else {
+            value = null
+          }
         } else if (key === 'attachment') {
           // アタッチメントの種類に応じてkeyも切り替える。
           // これにより、「image, youtubeなど、別々のキーにしてそのうちいずれか一つ」というような難しい制限と同じ効果が得られる。
