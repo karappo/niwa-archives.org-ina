@@ -6,7 +6,7 @@
         .controls
           nuxt-link.logo(to="/")
             small Incomplete Niwa Archives
-            span(v-if="this.$route.params.pointcloud === 'joei-ji'") Joei-ji Sesshu Garden
+            span(v-if="this.$route.params.pointcloud === 'joei-ji'") Joei-ji Garden
             span(v-else) Murin-an Garden
           KeyMap
           AudioBar(v-if="this.$route.params.pointcloud === 'joei-ji'")
