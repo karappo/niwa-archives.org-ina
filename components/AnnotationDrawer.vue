@@ -48,6 +48,7 @@ article
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/const
 article
   background-color: #111
   color: white
@@ -97,22 +98,6 @@ h1
 .image
   width: 100%
   height: auto
-%button
-  background-color: #333
-  color: #898989
-  display: flex
-  justify-content: center
-  align-items: center
-  border-radius: 5px
-  cursor: pointer
-  flex-shrink: 0
-  &:not([disabled]):hover
-    background-color: #1A1A1A
-    color: white
-    transition: background-color 0.2s, color 0.2s
-  &[disabled]
-    cursor: not-allowed
-    opacity: 0.5
 .download
   @extend %button
   padding: 20px
