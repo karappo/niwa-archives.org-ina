@@ -18,14 +18,9 @@ article
   img.image(v-if="data.image" :src="data.image")
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
   .youtube(v-if="data.youtube")
-    iframe(
-      :src="data.youtube.embedUrl()"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    )
+    youtube(ref="youtube" :video-id="data.youtube.id()" :player-vars="playerVars" @ended="youtubeEnded")
   .movie(v-if="data.movie")
+    //- GoogleDrive上のビデオ
     iframe(
       :src="data.movie"
       frameborder="0"
@@ -108,7 +103,7 @@ h1
   overflow: hidden
   max-width: 100%
   height: auto
-  iframe
+  /deep/ iframe
     position: absolute
     top: 0
     left: 0
@@ -144,6 +139,13 @@ export default {
       default: null
     }
   },
+  data() {
+    const playerVars = this.data.youtube.getParams()
+    playerVars.autoplay = 1
+    return {
+      playerVars
+    }
+  },
   computed: {
     icon() {
       return this.$getIcon(this.data.category)
@@ -151,6 +153,9 @@ export default {
     belongingList() {
       // eslint-disable-next-line
       return window.viewer.scene.annotations.children.filter((a) => a.data.category === this.data.category)
+    },
+    player() {
+      return this.$refs.youtube.player
     }
   },
   methods: {
@@ -161,6 +166,10 @@ export default {
         format += ' HH:mm'
       }
       return d.format(format)
+    },
+    youtubeEnded() {
+      this.player.seekTo(this.playerVars.start)
+      this.player.pauseVideo()
     }
   }
 }

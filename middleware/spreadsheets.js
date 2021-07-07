@@ -140,7 +140,7 @@ class YouTube {
     this.#params = params
   }
 
-  embedUrl() {
+  getParams(dontShowLog) {
     let params = { autoplay: 1 }
     params = Object.assign(params, this.#params) // 複製（autoplayを追加）
     // Remove 'v'
@@ -150,10 +150,19 @@ class YouTube {
       params.start = params.t
       delete params.t
     }
+    return params
+  }
+
+  embedUrl() {
+    const params = this.getParams(true)
     // eslint-disable-next-line
     const query = Object.keys(params).map(key => key + '=' + params[key]).join('&')
     // eslint-disable-next-line
     return `https://www.youtube.com/embed/${this.#params.v}${query.length ? '?' + query : ''}`
+  }
+
+  id() {
+    return this.#params.v
   }
 
   thumbnailUrl() {
