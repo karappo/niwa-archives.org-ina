@@ -314,7 +314,7 @@ export default {
       if (this.annotationData || this.listData) {
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
         this.clearSelectedAnnotation()
-        // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
+        // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）prev
         this.$nextTick(() => {
           this.annotationData = e.target.data
           e.target.domElement.get(0).classList.add('highlighted')

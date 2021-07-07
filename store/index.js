@@ -2,6 +2,7 @@ export const state = () => ({
   cameraPosition: null,
   cameraTarget: null,
   selectedCategory: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
+  autoPlayNextVideo: false,
   //
   EDLEnabled: true,
   EDLRadius: 0, // default: 1.4
@@ -23,6 +24,9 @@ export const mutations = {
   },
   selectedCategory(state, value) {
     state.selectedCategory = value
+  },
+  autoPlayNextVideo(state, value) {
+    state.autoPlayNextVideo = value
   },
   EDLEnabled(state, value) {
     state.EDLEnabled = value

@@ -4,6 +4,11 @@ article
     h1
       Icon(:category="data.category")
       | {{ data.title }}
+    a.autoplay(
+      v-if="autoplayAvailable"
+      @click="$store.commit('autoPlayNextVideo', !$store.state.autoPlayNextVideo)"
+      :class="{enabled: $store.state.autoPlayNextVideo}"
+    ) Autoplay Next
     a.prev(
       @click="$emit('prev', data.index)"
       :title="`Previus ${$getTitle(data.category)}`"
@@ -19,6 +24,12 @@ article
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
   .youtube(v-if="data.youtube")
     youtube(ref="youtube" :video-id="data.youtube.id()" :player-vars="playerVars" @ended="youtubeEnded")
+    .cover(
+      ref="cover"
+      :class="{hidden: !cover}"
+      @click="replayVideo()"
+    )
+      .icon 
   .movie(v-if="data.movie")
     //- GoogleDrive上のビデオ
     iframe(
@@ -57,8 +68,8 @@ header
   margin-bottom: 15px
 .close
   @extend %button
-  height: 32px
-  width: 32px
+  height: 26px
+  width: 26px
   font-size: 12px
   color: #898989
   transition: color 0.2s
@@ -66,12 +77,18 @@ header
   margin-right: 0
   &:hover
     color: white
-.prev,
-.next
+a
   @extend %button
   font-size: 12px
-  height: 32px
-  width: 32px
+  height: 26px
+.autoplay
+  padding: 0 10px
+  margin-right: 10px
+  &.enabled
+    border-color: white
+.prev,
+.next
+  width: 26px
 .next
   margin-left: 5px
 h1
@@ -103,12 +120,33 @@ h1
   overflow: hidden
   max-width: 100%
   height: auto
+  margin-bottom: 20px
+  .cover,
   /deep/ iframe
     position: absolute
     top: 0
     left: 0
     width: 100%
     height: 100%
+    z-index: 1
+  .cover
+    font-family: 'Font Awesome 5 Pro-Light-300'
+    font-size: 50px
+    color: white
+    background: black
+    z-index: 2
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    .icon
+      opacity: 0.5
+      transition: opacity 0.2s
+    &:hover
+      .icon
+        opacity: 1
+    &.hidden
+      display: none
 .tags
   font-size: 12px
   line-height: 2
@@ -143,7 +181,8 @@ export default {
     const playerVars = this.data.youtube.getParams()
     playerVars.autoplay = 1
     return {
-      playerVars
+      playerVars,
+      cover: false
     }
   },
   computed: {
@@ -156,6 +195,9 @@ export default {
     },
     player() {
       return this.$refs.youtube.player
+    },
+    autoplayAvailable() {
+      return this.data.category === 'Oral Archives'
     }
   },
   methods: {
@@ -168,8 +210,17 @@ export default {
       return d.format(format)
     },
     youtubeEnded() {
-      this.player.seekTo(this.playerVars.start)
-      this.player.pauseVideo()
+      if (this.autoplayAvailable && this.$store.state.autoPlayNextVideo) {
+        this.$emit('next', this.data.index)
+      } else {
+        this.cover = true
+        this.player.seekTo(this.playerVars.start || 0)
+        this.player.pauseVideo()
+      }
+    },
+    replayVideo() {
+      this.cover = false
+      this.player.playVideo()
     }
   }
 }
