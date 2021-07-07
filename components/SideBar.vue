@@ -55,7 +55,7 @@ section
   &.outlines,
   &.viewpoints,
   &.autos
-    border-top: 5px solid #3C3C3C
+    border-top: 4px solid #3C3C3C
 h3
   font-size: 13px
   margin: 0
