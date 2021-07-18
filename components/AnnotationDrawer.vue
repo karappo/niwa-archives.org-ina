@@ -85,7 +85,7 @@ a
   padding: 0 10px
   margin-right: 10px
   &.enabled
-    border-color: white
+    border-color: white !important
 .prev,
 .next
   width: 26px
