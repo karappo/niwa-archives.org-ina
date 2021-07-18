@@ -29,6 +29,7 @@
       AnnotationDrawer(
         :data="annotationData"
         :annotations="annotations"
+        :prevNextVisibility="prevNextVisibility"
         @close="clearSelectedAnnotation"
         @showAnnotation="showAnnotation"
         @prev="prev"
@@ -134,6 +135,15 @@ export default {
       listData: '',
       annotationData: '',
       drawerAlreadyOpened: false
+    }
+  },
+  computed: {
+    prevNextVisibility() {
+      console.log('prevNextVisibility-----')
+      console.log(this.listData.category)
+      console.log(this.annotationData.category)
+      console.log(this.listData.category === this.annotationData.category)
+      return this.listData.category === this.annotationData.category
     }
   },
   async mounted() {

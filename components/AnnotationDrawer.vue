@@ -10,14 +10,14 @@ article
       :class="{enabled: $store.state.autoPlayNextVideo}"
     ) Autoplay Next
     a.prev(
+      v-if="prevNextVisibility"
       @click="$emit('prev', data.index)"
       :title="`Previus ${$getTitle(data.category)}`"
-      :disabled="belongingList.length <= 1"
     ) &lt;
     a.next(
+      v-if="prevNextVisibility"
       @click="$emit('next', data.index)"
       :title="`Next ${$getTitle(data.category)}`"
-      :disabled="belongingList.length <= 1"
     ) &gt;
     a.close(@click="$emit('close')" title="Close") X
   img.image(v-if="data.image" :src="data.image")
@@ -175,6 +175,11 @@ export default {
       type: Array,
       require: true,
       default: null
+    },
+    prevNextVisibility: {
+      type: Boolean,
+      require: true,
+      default: false
     }
   },
   data() {
