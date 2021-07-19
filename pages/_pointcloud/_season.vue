@@ -18,7 +18,7 @@
     )
       ListDrawer(
         :data="listData"
-        @close="closeList"
+        @close="clickDrawerClose"
         @showAnnotation="showAnnotation"
       )
     pane(
@@ -30,7 +30,8 @@
         :data="annotationData"
         :annotations="annotations"
         :prevNextVisibility="prevNextVisibility"
-        @close="clearSelectedAnnotation"
+        @backToList="clearSelectedAnnotation"
+        @close="clickDrawerClose"
         @showAnnotation="showAnnotation"
         @prev="prev"
         @next="next"
@@ -389,9 +390,12 @@ export default {
       // eslint-disable-next-line
       document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
     },
-    closeList() {
+    clickDrawerClose() {
+      // clear List
       this.$store.commit('selectedCategory', '')
       this.listData = null
+
+      this.clearSelectedAnnotation()
     },
     saveCameraInfo() {
       // const camera = window.viewer.scene.getActiveCamera()

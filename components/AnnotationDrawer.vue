@@ -20,6 +20,13 @@ article
       @click="$emit('next', data.index)"
       :title="`Next ${$getTitle(data.category)}`"
     ) &gt;
+    a.backTolist(
+      v-if="prevNextVisibility"
+      @click="$emit('backToList')"
+      :title="`Back to ${$getTitle(data.category)} list`"
+    )
+      | &lt;
+      Icon(:category="data.category")
     a.close(@click="$emit('close')" title="Close") X
   img.image(v-if="data.image" :src="data.image")
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
@@ -87,6 +94,16 @@ a
   margin-right: 10px
   &.enabled
     border-color: white !important
+.backTolist
+  margin-left: 10px
+  padding-left: 5px
+  /deep/ .icon
+    background-color: transparent
+    color: #898989
+    margin: 0
+  &:hover
+    /deep/ .icon
+      color: white
 .prev,
 .next
   width: 26px
