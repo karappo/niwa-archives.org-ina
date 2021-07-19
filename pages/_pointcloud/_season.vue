@@ -139,11 +139,11 @@ export default {
   },
   computed: {
     prevNextVisibility() {
-      console.log('prevNextVisibility-----')
-      console.log(this.listData.category)
-      console.log(this.annotationData.category)
-      console.log(this.listData.category === this.annotationData.category)
-      return this.listData.category === this.annotationData.category
+      return (
+        this.listData.category &&
+        this.annotationData.category &&
+        this.listData.category === this.annotationData.category
+      )
     }
   },
   async mounted() {
