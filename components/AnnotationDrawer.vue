@@ -8,7 +8,8 @@ article
       v-if="autoplayAvailable"
       @click="$store.commit('autoPlayNextVideo', !$store.state.autoPlayNextVideo)"
       :class="{enabled: $store.state.autoPlayNextVideo}"
-    ) Autoplay Next
+      title="オートプレイ：自動的に次の動画を再生します"
+    ) Autoplay
     a.prev(
       v-if="prevNextVisibility"
       @click="$emit('prev', data.index)"
