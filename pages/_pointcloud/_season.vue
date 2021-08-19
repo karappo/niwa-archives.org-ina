@@ -225,7 +225,7 @@ export default {
     if (this.annotations) {
       this.annotations.forEach((data, index) => {
         data.index = index
-        data.cameraTarget = data.position // cameraTargetを省略していたので、positionを複製しておく
+        data.cameraTarget = data.position // cameraTargetをpositionで代替
         const a = new Potree.Annotation(data)
         // Cancel Potree default behavior
         a.domElement.off('mouseenter')
