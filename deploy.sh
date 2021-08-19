@@ -2,7 +2,7 @@
 echo "Deploy to '$1'"
 if [ $1 = 'production' ]; then
   DEP_ENV='PRODUCTION'
-  DEP_TARGET='www@niwa2.ycam.jp:/home/www/html/niwa2'
+  DEP_TARGET='niwa:/home/www/html/niwa2'
   DEP_PORT='10022'
 elif [ $1 = 'test' ]; then
   DEP_ENV='TEST'
