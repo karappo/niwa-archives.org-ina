@@ -5,19 +5,8 @@
     audio(controls)
       source(src="/audio/joei-ji.mp3" type="audio/mpeg")
     .link TODO: Ambisonicで聞く？
-    //- av-waveform.waveform(
-    //-   v-if="width"
-    //-   :class="{visible}"
-    //-   audio-src="/audio/joei-ji.mp3"
-    //-   range="100"
-    //-   :canv-height="60"
-    //-   :canv-width="width"
-    //-   played-line-color="white"
-    //-   :noplayed-line-width='1'
-    //-   noplayed-line-color="gray"
-    //-   playtime-font-color="white"
-    //-   playtime-slider-color="yellow"
-    //- )
+    svg.waveform(viewBox="0 -1 6000 2" preserveAspectRatio="none")
+      path#waveformPath
 </template>
 
 <style lang="sass" scoped>
@@ -54,12 +43,14 @@ $bgColor: rgba(0,0,0,0.75)
     margin-top: 10px
     text-align: right
   .waveform
-    padding: 20px
-    /deep/ audio
-      width: 100%
+    width: 100%
+    height: 60px
+  #waveformPath
+    stroke: #07f
 </style>
 
 <script>
+import AudioSVGWaveform from 'audio-waveform-svg-path'
 export default {
   data() {
     return {
@@ -72,6 +63,14 @@ export default {
   mounted() {
     window.addEventListener('resize', this.resize)
     this.resize()
+
+    const trackWaveform = new AudioSVGWaveform({
+      url: '/audio/joei-ji.mp3'
+    })
+    trackWaveform.loadFromUrl().then(() => {
+      const path = trackWaveform.getPath()
+      document.getElementById('waveformPath').setAttribute('d', path)
+    })
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resize)
