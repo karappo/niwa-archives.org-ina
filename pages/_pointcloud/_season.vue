@@ -2,7 +2,7 @@
 .root
   splitpanes.main.default-theme
     pane.potree_container
-      #potree_render_area(ref="potree_render_area")
+      #potree_render_area(ref="potree_render_area" :class="{loading}")
         .controls
           nuxt-link.logo(to="/")
             small Incomplete Niwa Archives
@@ -73,6 +73,25 @@
 #potree_render_area
   width: 100%
   height: 100%
+  &::before
+    content: 'Loading...'
+    font-size: 30px
+    color: white
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100%
+    height: 100%
+    background: black
+    position: absolute
+    z-index: 99999999
+    opacity: 0
+    pointer-events: none
+    transition: opacity 3s
+  &.loading
+    &::before
+      opacity: 1
+      pointer-events: auto
   /deep/
     canvas
       outline: none
@@ -135,7 +154,8 @@ export default {
       tours: null,
       listData: '',
       annotationData: '',
-      drawerAlreadyOpened: false
+      drawerAlreadyOpened: false,
+      loading: true
     }
   },
   computed: {
@@ -245,6 +265,10 @@ export default {
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
+
+    setTimeout(() => {
+      this.loading = false
+    }, 1000)
   },
   beforeDestroy() {
     this.$nuxt.$off('settingUpdated')
