@@ -2,12 +2,16 @@
 .root
   splitpanes.main.default-theme
     pane.potree_container
-      #potree_render_area(ref="potree_render_area" :class="{loading}")
+      #potree_render_area(ref="potree_render_area" :class="{loading, annotationVisibility}")
         .controls
           nuxt-link.logo(to="/")
             small Incomplete Niwa Archives
             span(v-if="this.$route.params.pointcloud === 'joei-ji'") Joei-ji Garden
             span(v-else) Murin-an Garden
+          .toggleAnnotationVisibility(
+            @click="annotationVisibility = !annotationVisibility"
+            :class="{active: annotationVisibility}"
+          )
           KeyMap
           AudioBar(v-if="this.$route.params.pointcloud === 'joei-ji'")
       #potree_sidebar_container
@@ -96,6 +100,11 @@
   /deep/
     canvas
       outline: none
+  &:not(.annotationVisibility)
+    /deep/
+      #potree_annotation_container
+        display: none
+
 .controls
   position: absolute
   z-index: 999999
@@ -106,6 +115,28 @@
   pointer-events: none
   > *
     pointer-events: auto
+.toggleAnnotationVisibility
+  margin: auto 20px 0 auto
+  justify-self: flex-end
+  background-color: black
+  border-radius: 3px
+  height: 20px
+  width: 120px
+  display: flex
+  justify-content: center
+  align-items: center
+  font-size: 10px
+  line-height: 1
+  color: #898989
+  cursor: pointer
+  &:before
+    content: 'Hide Annotations'
+  &.active
+    &:before
+      content: 'Show Annotations'
+  &:hover
+    color: rgba(255, 255, 255, 0.8)
+
 .splitpanes
   overflow: hidden
 .splitpanes__pane
@@ -156,7 +187,8 @@ export default {
       listData: '',
       annotationData: '',
       drawerAlreadyOpened: false,
-      loading: true
+      loading: true,
+      annotationVisibility: false
     }
   },
   computed: {

@@ -30,7 +30,7 @@
   column-gap: 5px
   row-gap: 5px
   grid-template-areas: 'key key key key key' 'key key key key key'
-  margin: auto 20px 20px auto
+  margin: 20px 20px 20px auto
 .btn
   background-color: black
   border-radius: 3px
