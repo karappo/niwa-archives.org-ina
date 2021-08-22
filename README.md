@@ -60,3 +60,11 @@ npm i
 
 `./static/potree`にサブモジュールとして配置しているpotreeのforkを編集する場合は、`npm run start`しておくこと。
 また、編集内容が確定したら`npm run build`をして、potreeリポジトリ側をcommitし、IncompleteNiwaArchivesのリポジトリにもcommitする。
+
+## アノテーションに紐付ける画像のサイズはFullHD（1920x1080）とする
+
+GoogleDriveをFinderにローカル同期し、下記実行すると大きいものはリサイズされる
+
+```sh
+for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
+```
