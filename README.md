@@ -68,3 +68,4 @@ GoogleDriveをFinderにローカル同期し、下記実行すると大きいも
 ```sh
 for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
 ```
+※ imagemagicが必要
