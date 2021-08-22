@@ -7,8 +7,10 @@ article
     a.close(@click="$emit('close')" title="Close") X
   ul.list(v-if="data.list.length")
     li(v-for="o in data.list" @click="$emit('showAnnotation', o.index)")
-      Icon(v-if="!icon" :category="o.category")
-      | {{ o.title }}
+      Icon(v-if="!icon" :category="o.category" :data-hoge="o.youtube.thumbnailUrl()")
+      .thumb(v-if="o.image" :style="`background-image: url(${o.image});`")
+      .thumb(v-else-if="o.youtube" :style="`background-image: url(${o.youtube.thumbnailUrl()});`")
+      span {{ o.title }}
   .empty(v-else) データがありません
 </template>
 
@@ -49,15 +51,23 @@ h1
   padding: 0
   margin: 0
   li
-    display: block
-    padding: 0.5em 0
+    display: flex
+    align-items: center
+    padding: 0.2em 0
     border-top: 1px solid #555
     color: #898989
     cursor: pointer
-    .icon
-      margin-right: 0.5em
     &:hover
       color: white
+    .icon
+      margin-right: 0.5em
+    .thumb
+      width: 40px
+      height: 40px
+      border-radius: 5px
+      background-size: cover
+      background-position: center
+      margin-right: 10px
   li:last-child
     border-bottom: 1px solid #555
 .empty
