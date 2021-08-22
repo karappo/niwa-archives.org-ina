@@ -167,6 +167,8 @@ class YouTube {
   }
 
   thumbnailUrl() {
-    return `https://img.youtube.com/vi/${this.#params.v}/1.jpg`
+    // 1,2,3は自動作成されるサムネイルで、0はカスタムサムネイル（未設定の場合は1-3のうち選択された画像）
+    // 0が一番解像度高いので0にする
+    return `https://img.youtube.com/vi/${this.#params.v}/0.jpg`
   }
 }
