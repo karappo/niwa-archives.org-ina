@@ -188,7 +188,7 @@ export default {
       annotationData: '',
       drawerAlreadyOpened: false,
       loading: true,
-      annotationVisibility: false
+      annotationVisibility: true
     }
   },
   computed: {
