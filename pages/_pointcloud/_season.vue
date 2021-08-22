@@ -74,7 +74,7 @@
   width: 100%
   height: 100%
   &::before
-    content: 'Loading...'
+    content: ''
     font-size: 30px
     color: white
     display: flex
@@ -90,6 +90,7 @@
     transition: opacity 3s
   &.loading
     &::before
+      content: 'Loading...'
       opacity: 1
       pointer-events: auto
   /deep/
