@@ -201,12 +201,15 @@ export default {
     }
   },
   data() {
-    const playerVars = this.data.youtube.getParams()
-    playerVars.autoplay = 1
-    return {
-      playerVars,
-      cover: false
+    if (this.data.youtube) {
+      const playerVars = this.data.youtube.getParams()
+      playerVars.autoplay = 1
+      return {
+        playerVars,
+        cover: false
+      }
     }
+    return {}
   },
   computed: {
     icon() {
