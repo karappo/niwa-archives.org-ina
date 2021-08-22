@@ -9,7 +9,7 @@ elif [ $1 = 'test' ]; then
   DEP_TARGET='karappo@ssh-karappo.heteml.net:/home/users/0/karappo/web/sites/niwa.karappo.net'
   DEP_PORT='2222'
 else
-  echo "Target is not defined."
+  echo "引数にデプロイ先( production | test )を指定してください。"
   exit 1
 fi
 
