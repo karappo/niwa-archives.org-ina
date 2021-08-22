@@ -10,7 +10,7 @@
             span(v-else) Murin-an Garden
           .toggleAnnotationVisibility(
             @click="annotationVisibility = !annotationVisibility"
-            :class="{active: annotationVisibility}"
+            :class="{active: !annotationVisibility}"
           )
           KeyMap
           AudioBar(v-if="this.$route.params.pointcloud === 'joei-ji'")
