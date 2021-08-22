@@ -87,7 +87,8 @@ export default async function ({ params, redirect, store }) {
       }
 
       // データを格納
-      if (data.title && data.position) {
+      // TODO: ここ最初にやった方が無駄な処理しなくてよいかも
+      if (data.title && data.position && data.category) {
         collection.push(data)
       }
     }
