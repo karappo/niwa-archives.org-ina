@@ -194,9 +194,10 @@ export default {
   computed: {
     prevNextVisibility() {
       return (
+        this.listData &&
         this.listData.category &&
-        this.annotationData.category &&
-        this.listData.category === this.annotationData.category
+        this.listData.category === this.annotationData.category &&
+        this.annotationData.category
       )
     }
   },
