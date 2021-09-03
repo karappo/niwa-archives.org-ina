@@ -10,6 +10,7 @@ export default async function ({ params, redirect, store }) {
     const collection = []
     const keys = array[0].values.map((x) => x.formattedValue)
     for (let i = 1; i < array.length; i++) {
+      // ===== データ整形 =====
       const values = array[i].values.map((x) => x.formattedValue)
       const data = {}
       const valueOf = (_key) => values[keys.indexOf(_key)]
@@ -20,7 +21,7 @@ export default async function ({ params, redirect, store }) {
           return
         }
         // 配列化
-        if (['position', 'cameraPosition'].includes(key)) {
+        if (['position', 'cameraPosition', 'cameraTarget'].includes(key)) {
           // 数値以外の文字列が入っていたら無効化
           if (/^[-0-9., ]+$/.test(value)) {
             value = value.split(',').map((v) => parseFloat(v))
@@ -75,22 +76,24 @@ export default async function ({ params, redirect, store }) {
         }
         data[key] = value
       })
-
-      // cameraPositionが未設定の場合真上からにする
-      if (data.position && !data.cameraPosition) {
-        // eslint-disable-next-line
-        data.cameraPosition = [data.position[0] - 1, data.position[1] - 3, data.position[2] + 1]
+      // ===== /データ整形 =====
+      // ===== バリデーション（この時点で要件を満たさないものはふるい落とす） =====
+      if (!(data.title && data.position && data.category)) {
+        continue
       }
-
+      // ===== 追加のデータ整形 =====
       if (data.tags) {
         data.tags = data.tags.split(',').map((t) => t.trim())
       }
-
-      // データを格納
-      // TODO: ここ最初にやった方が無駄な処理しなくてよいかも
-      if (data.title && data.position && data.category) {
-        collection.push(data)
+      if (data.cameraTarget) {
+        data.cameraPosition = data.position
+      } else if (!data.cameraPosition) {
+        // cameraPositionが未設定の場合、決め打ちのcameraPositionを設定
+        // eslint-disable-next-line
+        data.cameraPosition = [data.position[0] - 1, data.position[1] - 3, data.position[2] + 1]
       }
+      // ===== データ格納 =====
+      collection.push(data)
     }
     return collection
   }
