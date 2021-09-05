@@ -1,44 +1,45 @@
 <template lang="pug">
 .root
-  splitpanes.main.default-theme
-    pane.potree_container
-      #potree_render_area(ref="potree_render_area" :class="{loading, annotationVisibility}")
-        .controls
-          .title
-            small Incomplete Niwa Archives
-            span {{ data.title }}
-          .toggleAnnotationVisibility(
-            @click="annotationVisibility = !annotationVisibility"
-            :class="{active: !annotationVisibility}"
-          )
-          KeyMap
-          AudioBar(v-if="$route.params.alias === 'joei_ji'")
-      #potree_sidebar_container
-    pane(
-      v-if="listData && !annotationData"
-      min-size="25"
-      max-size="75"
-    )
-      ListDrawer(
-        :data="listData"
-        @close="clickDrawerClose"
-        @showAnnotation="showAnnotation"
+  main
+    splitpanes.default-theme
+      pane.potree_container
+        #potree_render_area(ref="potree_render_area" :class="{loading, annotationVisibility}")
+          .controls
+            .title
+              small Incomplete Niwa Archives
+              span {{ data.title }}
+            .toggleAnnotationVisibility(
+              @click="annotationVisibility = !annotationVisibility"
+              :class="{active: !annotationVisibility}"
+            )
+            KeyMap
+        #potree_sidebar_container
+      pane(
+        v-if="listData && !annotationData"
+        min-size="25"
+        max-size="75"
       )
-    pane(
-      v-if="annotationData"
-      min-size="25"
-      max-size="75"
-    )
-      AnnotationDrawer(
-        :data="annotationData"
-        :annotations="annotations"
-        :prevNextVisibility="prevNextVisibility"
-        @backToList="clearSelectedAnnotation"
-        @close="clickDrawerClose"
-        @showAnnotation="showAnnotation"
-        @prev="prev"
-        @next="next"
+        ListDrawer(
+          :data="listData"
+          @close="clickDrawerClose"
+          @showAnnotation="showAnnotation"
+        )
+      pane(
+        v-if="annotationData"
+        min-size="25"
+        max-size="75"
       )
+        AnnotationDrawer(
+          :data="annotationData"
+          :annotations="annotations"
+          :prevNextVisibility="prevNextVisibility"
+          @backToList="clearSelectedAnnotation"
+          @close="clickDrawerClose"
+          @showAnnotation="showAnnotation"
+          @prev="prev"
+          @next="next"
+        )
+    AudioBar
   SideBar.sideBar(
     @saveCameraInfo="saveCameraInfo"
   )
@@ -50,15 +51,15 @@
   width: 100%
   height: 100%
   background: #000
-  display: grid
-  grid-template-columns: auto 160px
-  grid-template-rows: auto 50px
-  grid-template-areas: "main sidebar" "main sidebar"
-  /deep/ .splitpanes__splitter
-    background-color: #111
-    border-right: 1px solid #222
-.main
-  grid-area: main
+  display: flex
+main
+  display: flex
+  flex-direction: column
+  width: calc(100% - 160px)
+.sideBar
+  width: 160px
+  height: 100%
+  margin: 0
 .title
   margin-top: 20px
   margin-left: 20px
@@ -73,6 +74,9 @@
   width: 100%
   height: 100%
   position: relative
+  /deep/ .splitpanes__splitter
+    background-color: #111
+    border-right: 1px solid #222
 #potree_render_area
   width: 100%
   height: 100%
@@ -142,8 +146,6 @@
   overflow-y: auto
 .sideBar
   grid-area: sidebar
-.footer
-  grid-area: footer
 </style>
 
 <script>
