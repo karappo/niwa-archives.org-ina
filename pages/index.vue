@@ -40,10 +40,12 @@ nav
     color: white
     font-size: 15px
     text-align: center
-    &.joei-ji
+    &.joei_ji
       background-color: #88b5d6
-    &.murin-an
+    &.murin_an
       background-color: #84c1b9
+    &.ryogen_in
+      background-color: #6dd261
 </style>
 
 <script>
@@ -52,24 +54,29 @@ export default {
     return {
       clouds: [
         {
-          href: '/joei-ji/',
-          class: 'joei-ji',
+          href: '/joei_ji/',
+          class: 'joei_ji',
           label: '常栄寺'
         },
         {
-          href: '/murin-an/summer/',
-          class: 'murin-an',
+          href: '/murin_an-summer/',
+          class: 'murin_an',
           label: '無鄰菴 - 夏'
         },
         {
-          href: '/murin-an/winter/',
-          class: 'murin-an',
+          href: '/murin_an-winter/',
+          class: 'murin_an',
           label: '無鄰菴 - 冬'
         },
         {
-          href: '/murin-an/winter-snow/',
-          class: 'murin-an',
-          label: '無鄰菴 - 冬（雪化粧）'
+          href: '/murin_an-snow/',
+          class: 'murin_an',
+          label: '無鄰菴 - 雪化粧'
+        },
+        {
+          href: '/ryogen_in/',
+          class: 'ryogen_in',
+          label: '龍源院'
         }
       ]
     }

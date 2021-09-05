@@ -1,4 +1,6 @@
 export default {
+  title: 'Joei Ji',
+  pointcloud: '/pointclouds/Sesshutei.las_converted/metadata.json',
   async addImages() {
     const images = await Potree.OrientedImageLoader.load(
       '/orientedImage/cameraParams.xml',

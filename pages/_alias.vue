@@ -6,14 +6,13 @@
         .controls
           nuxt-link.logo(to="/")
             small Incomplete Niwa Archives
-            span(v-if="this.$route.params.pointcloud === 'joei-ji'") Joei-ji Garden
-            span(v-else) Murin-an Garden
+            span {{ data.title }}
           .toggleAnnotationVisibility(
             @click="annotationVisibility = !annotationVisibility"
             :class="{active: !annotationVisibility}"
           )
           KeyMap
-          AudioBar(v-if="this.$route.params.pointcloud === 'joei-ji'")
+          AudioBar(v-if="this.$route.params.alias === 'joei-ji'")
       #potree_sidebar_container
     pane(
       v-if="listData && !annotationData"
@@ -148,7 +147,6 @@
 </style>
 
 <script>
-import dayjs from 'dayjs'
 import { camelCase } from 'change-case'
 export default {
   props: {
@@ -160,27 +158,13 @@ export default {
   },
   async asyncData({ route, store }) {
     // Annotationを季節でフィルタリング
-    let annotations =
-      store.state.annotations[camelCase(route.params.pointcloud)]
-    const isSummer = (date) => {
-      const m = dayjs(date).month()
-      return 4 <= m && m <= 9
-    }
-    if (route.params.season === 'summer') {
-      annotations = annotations.filter((a) => {
-        return !a.dateTime || isSummer(a.dateTime) // dateTimeが未定義なら表示
-      })
-    } else if (route.params.season === 'winter') {
-      annotations = annotations.filter((a) => {
-        return !a.dateTime || !isSummer(a.dateTime) // dateTimeが未定義なら表示
-      })
-    }
-    const mod = await import(`~/gardens/${route.params.pointcloud}.js`)
-    const garden = mod.default
+    const annotations = store.state.annotations[camelCase(route.params.alias)]
+    let data = await import(`~/data/${route.params.alias}.js`)
+    data = data.default
 
     return {
       annotations,
-      garden,
+      data,
       tours: null,
       listData: '',
       annotationData: '',
@@ -216,19 +200,7 @@ export default {
       $('#menu_scene').next().show()
       // viewer.toggleSidebar() // Open sidebar
     })
-    let file = null
-    if (this.$route.params.pointcloud === 'joei-ji') {
-      file = '/pointclouds/Sesshutei.las_converted/metadata.json'
-    } else if (this.$route.params.season === 'summer') {
-      file = '/pointclouds/MurinanS_0.01.las_converted/metadata.json'
-    } else if (this.$route.params.season === 'winter') {
-      file = '/pointclouds/MurinanW_0.01.las_converted/metadata.json'
-    } else if (this.$route.params.season === 'winter-snow') {
-      file = '/pointclouds/MurinanWS_0.01.las_converted/metadata.json'
-    } else {
-      console.error('Not Found Point cloud file...')
-    }
-    const { pointcloud } = await Potree.loadPointCloud(file)
+    const { pointcloud } = await Potree.loadPointCloud(this.data.pointcloud)
     const material = pointcloud.material
     material.activeAttributeName = 'rgba'
     material.pointSizeType = Potree.PointSizeType.ADAPTIVE
@@ -245,7 +217,8 @@ export default {
 
     viewer.scene.addPointCloud(pointcloud)
 
-    await this.garden.addImages()
+    // TODO Viewpointsに変更する
+    await this.data.addImages()
 
     if (this.$store.state.cameraPosition && this.$store.state.cameraTarget) {
       window.viewer.scene.view.position.set(...this.$store.state.cameraPosition)
@@ -253,12 +226,12 @@ export default {
         new THREE.Vector3(...this.$store.state.cameraTarget)
       )
     } else {
-      this.garden.initCamera()
+      this.data.initCamera()
     }
 
     // Set Camera Animation
     const tours = []
-    this.garden.tours.forEach((data) => {
+    this.data.tours.forEach((data) => {
       const animation = new Potree.CameraAnimation(window.viewer)
       for (let i = 0; i < data.positions.length; i++) {
         const cp = animation.createControlPoint()

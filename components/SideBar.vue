@@ -19,13 +19,13 @@ aside
     SideBarLink(:category="'Elements/DNA Data'")
   section.orals
     SideBarLink(:category="'Oral Archives'")
-  section.seasons(v-if="this.$route.params.season")
+  section.seasons(v-if="$variation($route)")
     h3 Seasons
     .btn(
-      v-for="season in [{label: 'Summer', alias: 'summer'}, {label: 'Winter', alias: 'winter'}, {label: 'Winter (snowing)', alias: 'winter-snow'}]"
+      v-for="season in [{label: 'Summer', alias: 'summer'}, {label: 'Winter', alias: 'winter'}, {label: 'Snow', alias: 'snow'}]"
       :key="season.alias"
-      @click="goTo(`../${season.alias}/`)"
-      :class="{current: $route.params.season === season.alias}"
+      @click="goTo(`../${$garden($route)}-${season.alias}/`)"
+      :class="{current: $variation($route) === season.alias}"
     ) {{ season.label }}
   section.autos
     h3 Auto Modes
@@ -80,7 +80,7 @@ h3
 export default {
   methods: {
     goTo(path) {
-      this.$emit('saveCameraInfo')
+      this.$emit('saveCameraInfo') // TODO 機能していない？？
       this.$router.push(path)
     }
   }

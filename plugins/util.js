@@ -39,5 +39,23 @@ export default ({ app }, inject) => {
       .split('/')
       .filter((a) => a.length) // ''を削除
       .pop()
+  }),
+  inject('garden', (route) => {
+    // 'joei_ji', 'murin_an' などを返す
+    const arr = route.params.alias.split('-')
+    if (2 <= arr.length) {
+      return arr[0]
+    } else {
+      return route.params.alias
+    }
+  }),
+  inject('variation', (route) => {
+    // 'summer', 'snow' などを返す
+    const arr = route.params.alias.split('-')
+    if (2 <= arr.length) {
+      return arr[1]
+    } else {
+      return null
+    }
   })
 }

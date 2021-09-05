@@ -86,10 +86,11 @@ export default {
 
   generate: {
     routes: [
-      '/murin-an/summer/',
-      '/murin-an/winter/',
-      '/murin-an/winter-snow/',
-      '/joei-ji/'
+      '/murin_an-snow/',
+      '/murin_an-summer/',
+      '/murin_an-winter/',
+      '/ryogen_in/',
+      '/joei_ji/'
     ]
   }
 }
