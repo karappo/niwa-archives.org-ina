@@ -16,7 +16,7 @@ import AudioSVGWaveform from 'audio-waveform-svg-path'
 export default {
   mounted() {
     const trackWaveform = new AudioSVGWaveform({
-      url: '/audio/joei-ji.mp3'
+      url: '/audio/joei_ji.mp3'
       // url: '/audio/chikatetsu_train.mp3'
     })
     trackWaveform.loadFromUrl().then(() => {

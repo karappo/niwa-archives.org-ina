@@ -3,10 +3,10 @@
   .toggleBtn(@click="toggle") {{ toggleButtonText }} Sounds
   .wrap(:class="{visible}")
     audio(controls)
-      source(src="/audio/joei-ji.mp3" type="audio/mpeg")
+      source(src="/audio/joei_ji.mp3" type="audio/mpeg")
     .link TODO: Ambisonicで聞く？
     //- WaveformDynamic
-    //- img(src="/waveform-joei-ji.svg")
+    //- img(src="/waveform-joei_ji.svg")
 </template>
 
 <style lang="sass" scoped>
