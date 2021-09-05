@@ -12,7 +12,7 @@
             :class="{active: !annotationVisibility}"
           )
           KeyMap
-          AudioBar(v-if="this.$route.params.alias === 'joei-ji'")
+          AudioBar(v-if="$route.params.alias === 'joei_ji'")
       #potree_sidebar_container
     pane(
       v-if="listData && !annotationData"
