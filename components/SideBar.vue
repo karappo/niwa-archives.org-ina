@@ -22,11 +22,11 @@ aside
   section.seasons(v-if="$variation($route)")
     h3 Seasons
     .btn(
-      v-for="season in [{label: 'Summer', alias: 'summer'}, {label: 'Winter', alias: 'winter'}, {label: 'Snow', alias: 'snow'}]"
-      :key="season.alias"
-      @click="goTo(`../${$garden($route)}-${season.alias}/`)"
-      :class="{current: $variation($route) === season.alias}"
-    ) {{ season.label }}
+      v-for="season in ['summer', 'winter', 'snow']"
+      :key="season"
+      @click="goTo(`../${$garden($route)}-${season}/`)"
+      :class="{current: $variation($route) === season}"
+    ) {{ capitalCase(season) }}
   section.autos
     h3 Auto Modes
     .btn.disabled Guided Tour
@@ -75,11 +75,15 @@ h3
 </style>
 
 <script>
+import { capitalCase } from 'change-case'
 export default {
   methods: {
     goTo(path) {
       this.$emit('saveCameraInfo') // TODO 機能していない？？
       this.$router.push(path)
+    },
+    capitalCase(str) {
+      return capitalCase(str)
     }
   }
 }
