@@ -1,6 +1,6 @@
 <template lang="pug">
 aside
-  .menu Menu
+  nuxt-link.menu(to="/") Back to Top
   section.outlines
     h3 Outlines
     .btn.disabled History
@@ -43,10 +43,8 @@ aside
   align-items: center
   padding: 20px 15px
   cursor: pointer
-  &:after
-    content: url(~assets/image/ham.svg)
-    margin-left: auto
-    margin-right: 0
+  &:hover
+    color: white
 section
   padding: 20px 15px
   border-top: 1px solid #3C3C3C

@@ -4,7 +4,7 @@
     pane.potree_container
       #potree_render_area(ref="potree_render_area" :class="{loading, annotationVisibility}")
         .controls
-          nuxt-link.logo(to="/")
+          .title
             small Incomplete Niwa Archives
             span {{ data.title }}
           .toggleAnnotationVisibility(
@@ -59,7 +59,7 @@
     border-right: 1px solid #222
 .main
   grid-area: main
-.logo
+.title
   margin-top: 20px
   margin-left: 20px
   color: white
