@@ -1,19 +1,43 @@
 export const state = () => ({
   joeiJi: null,
-  murinAn: null
+  murinAnSnow: null,
+  murinAnSummer: null,
+  murinAnWinter: null,
+  ryogenIn: null
 })
 
 export const mutations = {
   joeiJi(state, value) {
     state.joeiJi = value
   },
-  murinAn(state, value) {
-    state.murinAn = value
+  murinAnSnow(state, value) {
+    state.murinAnSnow = value
+  },
+  murinAnSummer(state, value) {
+    state.murinAnSummer = value
+  },
+  murinAnWinter(state, value) {
+    state.murinAnWinter = value
+  },
+  ryogenIn(state, value) {
+    state.ryogenIn = value
   }
 }
 
-// export const getters = {
-//   foo(state) {
-//     return state.bar
-//   }
-// }
+export const getters = {
+  joeiJi(state) {
+    return state.joeiJi
+  },
+  murinAnSnow(state) {
+    return state.murinAnSnow
+  },
+  murinAnSummer(state) {
+    return state.murinAnSummer
+  },
+  murinAnWinter(state) {
+    return state.murinAnWinter
+  },
+  ryogenIn(state) {
+    return state.ryogenIn
+  }
+}
