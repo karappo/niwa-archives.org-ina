@@ -1,5 +1,5 @@
 <template lang="pug">
-.audioBar(v-if="audioList" :class="{visible}")
+.soundBar(v-if="list" :class="{visible}")
   .toggleBtn(@click="toggle")
     span.text Sounds
     TriangleArrow.icon
@@ -9,7 +9,7 @@
         .selectBox
           select(v-model="selectedAudioIndex")
             option(
-              v-for="(item, index) in audioList"
+              v-for="(item, index) in list"
               :key="index"
               :label="item.title"
               :value="index"
@@ -19,7 +19,7 @@
           .icon
             TriangleArrow
         //- audio(controls)
-        //-   source(src="/audio/joei_ji.mp3" type="audio/mpeg")
+        //-   source(src="/sound/joei_ji.mp3" type="sound/mpeg")
         .playPauseBtn
           Pause
         .seekBar
@@ -44,7 +44,7 @@
 </template>
 
 <style lang="sass" scoped>
-.audioBar
+.soundBar
   --background-color: black
   --button-bg-color: #242424
   --textbox-bg-color: #151515
@@ -211,9 +211,9 @@
 
 <script>
 import { ExternalLink } from '@karappo-inc/vue-components'
-import _data from '~/data/audio.js'
-import TriangleArrow from '~/assets/image/AudioBar/triangle-arrow-down.svg?inline'
-import Pause from '~/assets/image/AudioBar/pause.svg?inline'
+import _data from '~/data/sound.js'
+import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg?inline'
+import Pause from '~/assets/image/SoundBar/pause.svg?inline'
 export default {
   components: {
     ExternalLink,
@@ -221,12 +221,12 @@ export default {
     Pause
   },
   data() {
-    const audioList = _data[this.$garden(this.$route)] || null
+    const list = _data[this.$garden(this.$route)] || null
     return {
       visible: true,
       width: null,
       selectedAudioIndex: 0,
-      audioList
+      list
     }
   },
   mounted() {

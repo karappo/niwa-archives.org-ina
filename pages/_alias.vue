@@ -39,7 +39,7 @@
           @prev="prev"
           @next="next"
         )
-    AudioBar
+    SoundBar
   SideBar.sideBar(
     @saveCameraInfo="saveCameraInfo"
   )

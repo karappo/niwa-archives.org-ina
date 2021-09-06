@@ -93,5 +93,5 @@ sw.*
 
 static/pointclouds/*
 !static/pointclouds/.gitkeep
-static/audio/*
-!static/audio/.gitkeep
+static/sound/*
+!static/sound/.gitkeep
