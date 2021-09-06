@@ -22,6 +22,7 @@
     }
   },
   "dependencies": {
+    "@karappo-inc/vue-components": "^0.3.1",
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/pwa": "^3.0.2",

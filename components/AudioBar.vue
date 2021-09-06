@@ -5,28 +5,49 @@
     TriangleArrow.icon
   .content
     .wrap
-      .selectBox
-        select(v-model="selectedAudioIndex")
-          option(
-            v-for="(item, index) in audioList"
-            :key="index"
-            :label="item.title"
-            :value="index"
-          )
-            span(style="float: left") {{ item.title }}
-            span(style="float: right; color: #8492a6; font-size: 13px") {{ item.file }}
-        .icon
-          TriangleArrow
-      //- audio(controls)
-      //-   source(src="/audio/joei_ji.mp3" type="audio/mpeg")
-      .link TODO: Ambisonicで聞く？
-      //- WaveformDynamic
-      //- img(src="/waveform-joei_ji.svg")
+      .row
+        .selectBox
+          select(v-model="selectedAudioIndex")
+            option(
+              v-for="(item, index) in audioList"
+              :key="index"
+              :label="item.title"
+              :value="index"
+            )
+              span(style="float: left") {{ item.title }}
+              span(style="float: right; color: #8492a6; font-size: 13px") {{ item.file }}
+          .icon
+            TriangleArrow
+        //- audio(controls)
+        //-   source(src="/audio/joei_ji.mp3" type="audio/mpeg")
+        .playPauseBtn
+          Pause
+        .seekBar
+        .time 21:34 / 62:03
+        nux-link(to='TODO').link.movie
+          | Movie
+          span.icon 
+        ExternalLink.link.ambisonics
+          | Ambisonics
+          span.icon 
+      .row
+        dl
+          dt Place
+          dd
+            nuxt-link(to='TODO') 聴松軒
+        dl
+          dt Tags
+          dd
+            nuxt-link(to='TODO') カエル
+            nuxt-link(to='TODO') イノシシ
+            nuxt-link(to='TODO') 猿
 </template>
 
 <style lang="sass" scoped>
 .audioBar
   --background-color: black
+  --button-bg-color: #242424
+  --textbox-bg-color: #151515
   background-color: var(--background-color)
   color: white
   font-size: 12px
@@ -63,8 +84,80 @@
   .content
     transition: height 0.5s
     .wrap
-      height: 30px
-      padding: 15px 24px
+      .row
+        height: 30px
+        margin: 15px 18px 15px 24px
+        display: flex
+        align-items: center
+        .playPauseBtn
+          width: 110px
+          height: 100%
+          display: flex
+          justify-content: center
+          align-items: center
+          cursor: pointer
+          &:hover
+            svg
+              rect
+                fill: white
+        .seekBar
+          width: 100%
+          height: 4px
+          background-color: #272727
+          margin-right: 12px
+        .time
+          white-space: nowrap
+          margin-left: 12px
+          margin-right: 12px
+          color: #898989
+        .link
+          margin-left: 8px
+          color: #ADADAD
+          background: var(--button-bg-color)
+          border-radius: 5px
+          white-space: nowrap
+          width: 96px
+          flex-shrink: 0
+          padding: 7px 10px
+          display: flex
+          .icon
+            margin-left: auto
+            margin-right: 0
+            font-family: 'Font Awesome 5 Pro-Solid-900'
+        dl + dl
+          margin-left: 20px
+        dl
+          color: #898989
+          background-color: var(--textbox-bg-color)
+          border-radius: 5px
+          display: flex
+          align-items: center
+          &:first-child
+            width: 188px
+            flex-shrink: 0
+          &:nth-child(2)
+            width: 100%
+          dt,dd
+            padding-top: 6px
+            padding-bottom: 6px
+          dt
+            padding-left: 12px
+            padding-right: 12px
+            font-family: 'K2-v1-Bold'
+            font-size: 12px
+            border-right: 1px solid var(--background-color)
+          dd
+            padding-left: 12px
+            padding-right: 12px
+            font-size: 11px
+            width: 100%
+            margin-left: 0
+            margin-right: 0
+            a + a
+              margin-left: 1.5em
+            a:hover
+              color: white
+
   &.visible
     .toggleBtn
       .icon
@@ -75,16 +168,14 @@
       display: none
   audio
     width: 100%
-  .link
-    margin-top: 10px
-    text-align: right
 
 .selectBox
   width: 188px
   height: 30px
-  background: #242424
+  background: var(--button-bg-color)
   position: relative
   border-radius: 5px
+  flex-shrink: 0
   select
     cursor: pointer
     -webkit-appearance: none
@@ -119,11 +210,15 @@
 </style>
 
 <script>
+import { ExternalLink } from '@karappo-inc/vue-components'
 import _data from '~/data/audio.js'
-import TriangleArrow from '~/assets/image/triangle-arrow-down.svg?inline'
+import TriangleArrow from '~/assets/image/AudioBar/triangle-arrow-down.svg?inline'
+import Pause from '~/assets/image/AudioBar/pause.svg?inline'
 export default {
   components: {
-    TriangleArrow
+    ExternalLink,
+    TriangleArrow,
+    Pause
   },
   data() {
     const audioList = _data[this.$garden(this.$route)] || null
