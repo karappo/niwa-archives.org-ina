@@ -70,10 +70,11 @@ main
   span
     display: block
     font-size: 25px
-.potree_container
-  width: 100%
-  height: 100%
-  position: relative
+.splitpanes.default-theme
+  .potree_container
+    width: 100%
+    height: 100%
+    position: relative
   /deep/ .splitpanes__splitter
     background-color: #111
     border-right: 1px solid #222
