@@ -7,7 +7,7 @@
     .wrap
       .row
         .selectBox
-          select(v-model="selectedAudioIndex")
+          select(v-model="selectedIndex")
             option(
               v-for="(item, index) in list"
               :key="index"
@@ -221,11 +221,10 @@ export default {
     Pause
   },
   data() {
-    const list = _data[this.$garden(this.$route)] || null
     return {
       visible: false,
-      selectedAudioIndex: 0,
-      list
+      selectedIndex: 0,
+      list: _data[this.$garden(this.$route)] || null
     }
   },
   methods: {
