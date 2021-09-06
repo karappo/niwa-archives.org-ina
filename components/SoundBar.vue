@@ -223,29 +223,14 @@ export default {
   data() {
     const list = _data[this.$garden(this.$route)] || null
     return {
-      visible: true,
-      width: null,
+      visible: false,
       selectedAudioIndex: 0,
       list
     }
   },
-  mounted() {
-    window.addEventListener('resize', this.resize)
-    this.resize()
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.resize)
-  },
   methods: {
     toggle() {
       this.visible = !this.visible
-    },
-    resize() {
-      // TODO リサイズ野正しいやり方わからず、再作成している。もっと良い方法ないか…
-      this.width = null
-      this.$nextTick(() => {
-        this.width = this.$el.clientWidth - 40
-      })
     }
   }
 }
