@@ -1,6 +1,6 @@
 <template lang="pug">
 .soundBar(v-if="list" :class="{visible}")
-  .toggleBtn(@click="toggle")
+  .toggleBtn(@click="visible = !visible")
     span.text Sounds
     TriangleArrow.icon
   .content
@@ -225,11 +225,6 @@ export default {
       visible: false,
       selectedIndex: 0,
       list: _data[this.$garden(this.$route)] || null
-    }
-  },
-  methods: {
-    toggle() {
-      this.visible = !this.visible
     }
   }
 }
