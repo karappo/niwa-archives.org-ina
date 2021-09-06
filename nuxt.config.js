@@ -48,7 +48,6 @@ export default {
     '~plugins/util',
     '~plugins/key-detection',
     '~plugins/splitpanes',
-    '~plugins/vue-audio-visual',
     '~plugins/vue-youtube'
   ],
 
