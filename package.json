@@ -26,7 +26,6 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/pwa": "^3.0.2",
     "@nuxtjs/svg": "^0.2.0",
-    "audio-waveform-svg-path": "^1.0.2",
     "change-case": "^4.1.2",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.6",
