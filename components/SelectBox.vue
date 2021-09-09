@@ -4,6 +4,7 @@
     :value="value"
     @change="$emit('update:value', $event.target.value)"
   )
+    option(v-if="allowEmpty")
     option(
       v-for="(item, index) in options"
       :key="index"
@@ -73,6 +74,11 @@ export default {
       default() {
         return []
       }
+    },
+    allowEmpty: {
+      type: Boolean,
+      require: false,
+      defatul: false
     }
   }
 }

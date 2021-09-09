@@ -4,7 +4,7 @@ export default {
       label: '2021.08.08 05:00-06:32',
       src: '/sound/0808_0500-0632.mp3',
       place: '聴松軒',
-      tags: ['カエル', '猿'],
+      tags: ['カルガモ', 'セグロセキレイ'],
       movieId: '7ggb5p',
       ambisonicsUrl: 'https://youtu.be/pBPv6wsc9nw'
     },
@@ -12,7 +12,7 @@ export default {
       label: '2021.08.08 15:18-17:04',
       src: '/sound/0808_1518-1704.mp3',
       place: '聴松軒',
-      tags: ['カエル', '鳥'],
+      tags: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -20,7 +20,7 @@ export default {
       label: '2021.08.09 04:39-06:32',
       src: '/sound/0809_0439-0632.mp3',
       place: '聴松軒',
-      tags: ['鳥'],
+      tags: [],
       movieId: null,
       ambisonicsUrl: null
     },
