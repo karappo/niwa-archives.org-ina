@@ -191,7 +191,7 @@ export default {
   data() {
     return {
       visible: true,
-      index: 0,
+      index: '0', // SelectBoxに渡す関係でStringにしておく必要がある
       list: AllData[this.$garden(this.$route)] || null,
       currentTime: '00:00',
       totalTime: '00:00',
@@ -202,7 +202,7 @@ export default {
   },
   computed: {
     data() {
-      return this.list[this.index]
+      return this.list[parseInt(this.index, 10)]
     },
     file() {
       return this.data.src
