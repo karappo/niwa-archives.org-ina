@@ -104,6 +104,7 @@
               path
                 fill: white
         .seekBarHitArea
+          cursor: pointer
           width: 100%
           height: 100%
           margin-right: 12px
