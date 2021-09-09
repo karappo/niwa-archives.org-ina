@@ -262,7 +262,7 @@ export default {
     }
   },
   watch: {
-    index(val) {
+    index() {
       if (!this.paused) {
         this.pause()
       }
@@ -274,6 +274,7 @@ export default {
     this.player.addEventListener('playing', this.playing)
     this.player.addEventListener('pause', this.pause)
     this.player.addEventListener('timeupdate', this.timeupdate)
+    this.player.addEventListener('loadedmetadata', this.loadedmetadata)
     this.player.src = this.data.src
     this.player.load()
   },
@@ -281,6 +282,7 @@ export default {
     this.player.removeEventListener('playing', this.playing)
     this.player.removeEventListener('pause', this.pause)
     this.player.removeEventListener('timeupdate', this.timeupdate)
+    this.player.removeEventListener('loadedmetadata', this.loadedmetadata)
   },
   methods: {
     playing() {
@@ -300,6 +302,12 @@ export default {
       const current = this.player.currentTime
       const duration = this.player.duration
       this.percent = (current / duration) * 100
+      this.currentTime = current ? this.playTime(current) : '00:00'
+    },
+    loadedmetadata() {
+      const current = this.player.currentTime
+      const duration = this.player.duration
+      this.percent = 0
       this.currentTime = current ? this.playTime(current) : '00:00'
       this.totalTime = duration ? this.playTime(duration) : '00:00'
     },
