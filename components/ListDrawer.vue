@@ -4,8 +4,9 @@ article
     h1
       Icon(:category="data.category")
       | {{ title }}
-    label Filter:
-    SelectBox(v-if="tags.length" :options="tags" :value.sync="tagIndexStr" :allowEmpty="true")
+    template(v-if="tags.length" )
+      label Filter:
+      SelectBox(:options="tags" :value.sync="tagIndexStr" :allowEmpty="true")
     a.close(@click="$emit('close')" title="Close") X
   ul.list(v-if="filteredList.length")
     li(v-for="o in filteredList" @click="$emit('showAnnotation', o.index)")
