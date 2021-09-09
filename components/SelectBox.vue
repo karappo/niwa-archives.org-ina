@@ -7,7 +7,7 @@
     option(
       v-for="(item, index) in options"
       :key="index"
-      :label="item.label"
+      :label="item.label || item"
       :value="index"
     )
   .icon

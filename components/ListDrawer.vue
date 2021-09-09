@@ -4,6 +4,7 @@ article
     h1
       Icon(:category="data.category")
       | {{ title }}
+    SelectBox(v-if="tags.length" :options="tags" :value.sync="index")
     a.close(@click="$emit('close')" title="Close") X
   ul.list(v-if="data.list.length")
     li(v-for="o in data.list" @click="$emit('showAnnotation', o.index)")
@@ -89,6 +90,9 @@ h1
 </style>
 
 <script>
+import _flattenDeep from 'lodash/flattenDeep'
+import _map from 'lodash/map'
+import _uniq from 'lodash/uniq'
 export default {
   props: {
     data: {
@@ -103,6 +107,11 @@ export default {
     },
     icon() {
       return this.$getIcon(this.data.category)
+    },
+    tags() {
+      return _uniq(_flattenDeep(_map(this.data.list, (item) => item.tags)))
+        .filter((i) => i)
+        .sort()
     }
   }
 }
