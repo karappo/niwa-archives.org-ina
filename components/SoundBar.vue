@@ -1,5 +1,6 @@
 <template lang="pug">
 .soundBar(v-if="list" :class="{visible}")
+  audio(ref='player')
   .toggleBtn(@click="visible = !visible")
     span.text Sounds
     TriangleArrow.icon
@@ -7,7 +8,7 @@
     .wrap
       .row
         .selectBox
-          select(v-model="selectedIndex")
+          select(v-model="index")
             option(
               v-for="(item, index) in list"
               :key="index"
@@ -18,16 +19,17 @@
               span(style="float: right; color: #8492a6; font-size: 13px") {{ item.file }}
           .icon
             TriangleArrow
-        //- audio(controls)
-        //-   source(src="/sound/joei_ji.mp3" type="sound/mpeg")
-        .playPauseBtn
-          Pause
-        .seekBar
-        .time 21:34 / 62:03
-        nux-link(to='TODO').link.movie
+        .playPauseBtn(@click="togglePlay()")
+          Play(v-if="paused")
+          Pause(v-else)
+        .seekBarHitArea(ref='seekBarHitArea' @click.stop="seekBarClick")
+          .seekBar
+            .progress(:style="progressStyle()")
+        .time {{ currentTime }} / {{ totalTime }}
+        nuxt-link(v-if="data.movie" :to="data.movie").link.movie
           | Movie
           span.icon 
-        ExternalLink.link.ambisonics
+        ExternalLink.link.ambisonics(v-if="data.ambisonics" :href="data.ambisonics")
           | Ambisonics
           span.icon 
       .row
@@ -98,17 +100,29 @@
           cursor: pointer
           &:hover
             svg
-              rect
+              rect,
+              path
                 fill: white
-        .seekBar
+        .seekBarHitArea
           width: 100%
-          height: 4px
-          background-color: #272727
+          height: 100%
           margin-right: 12px
+          display: flex
+          align-items: center
+          .seekBar
+            width: 100%
+            height: 4px
+            background-color: #272727
+            .progress
+              height: 100%
+              max-width: 100%
+              background-color: #3e3e3e
+              background-color: white
+
         .time
+          min-width: 100px
+          text-align: right
           white-space: nowrap
-          margin-left: 12px
-          margin-right: 12px
           color: #898989
         .link
           margin-left: 8px
@@ -210,21 +224,110 @@
 </style>
 
 <script>
+// import dayjs from 'dayjs'
 import { ExternalLink } from '@karappo-inc/vue-components'
-import _data from '~/data/sound.js'
+import AllData from '~/data/sound.js'
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg?inline'
+import Play from '~/assets/image/SoundBar/play.svg?inline'
 import Pause from '~/assets/image/SoundBar/pause.svg?inline'
 export default {
   components: {
     ExternalLink,
     TriangleArrow,
+    Play,
     Pause
   },
   data() {
     return {
-      visible: false,
-      selectedIndex: 0,
-      list: _data[this.$garden(this.$route)] || null
+      visible: true,
+      index: 0,
+      list: AllData[this.$garden(this.$route)] || null,
+      currentTime: '00:00',
+      totalTime: '00:00',
+      paused: true,
+      duration: 0,
+      percent: 0 // Number: 0 ~ 100
+    }
+  },
+  computed: {
+    data() {
+      return this.list[this.index]
+    },
+    file() {
+      return this.data.src
+    },
+    player() {
+      return this.$refs.player
+    }
+  },
+  watch: {
+    index(val) {
+      if (!this.paused) {
+        this.pause()
+      }
+      this.player.src = this.data.src
+      this.player.load()
+    }
+  },
+  mounted() {
+    this.player.addEventListener('playing', this.playing)
+    this.player.addEventListener('pause', this.pause)
+    this.player.addEventListener('timeupdate', this.timeupdate)
+    this.player.src = this.data.src
+    this.player.load()
+  },
+  beforeDestroy() {
+    this.player.removeEventListener('playing', this.playing)
+    this.player.removeEventListener('pause', this.pause)
+    this.player.removeEventListener('timeupdate', this.timeupdate)
+  },
+  methods: {
+    playing() {
+      this.paused = false
+    },
+    pause() {
+      this.paused = true
+    },
+    togglePlay() {
+      if (this.player.paused) {
+        this.player.play()
+      } else {
+        this.player.pause()
+      }
+    },
+    timeupdate() {
+      const current = this.player.currentTime
+      const duration = this.player.duration
+      this.percent = (current / duration) * 100
+      this.currentTime = current ? this.playTime(current) : '00:00'
+      this.totalTime = duration ? this.playTime(duration) : '00:00'
+    },
+    playTime(t) {
+      let hms = ''
+      const h = (t / 3600) | 0
+      const m = ((t % 3600) / 60) | 0
+      const s = t % 60
+      const z2 = (v) => {
+        const s = '00' + v
+        return s.substr(s.length - 2, 2)
+      }
+      if (h !== 0) {
+        hms = h + ':' + z2(m) + ':' + z2(s)
+      } else if (m !== 0) {
+        hms = z2(m) + ':' + z2(s)
+      } else {
+        hms = '00:' + z2(s)
+      }
+      return hms
+    },
+    progressStyle() {
+      return {
+        width: `${this.percent}%`
+      }
+    },
+    seekBarClick(e) {
+      // eslint-disable-next-line
+      this.player.currentTime = this.player.duration * (e.offsetX / this.$refs.seekBarHitArea.offsetWidth)
     }
   }
 }
