@@ -249,14 +249,14 @@ export default {
       }
     },
     timeupdate() {
-      const current = this.player.currentTime
-      const duration = this.player.duration
+      const current = Math.floor(this.player.currentTime)
+      const duration = Math.floor(this.player.duration)
       this.percent = (current / duration) * 100
       this.currentTime = current ? this.playTime(current) : '00:00'
     },
     loadedmetadata() {
-      const current = this.player.currentTime
-      const duration = this.player.duration
+      const current = Math.floor(this.player.currentTime)
+      const duration = Math.floor(this.player.duration)
       this.percent = 0
       this.currentTime = current ? this.playTime(current) : '00:00'
       this.totalTime = duration ? this.playTime(duration) : '00:00'
