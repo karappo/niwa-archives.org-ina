@@ -1,5 +1,5 @@
 export default {
-  title: 'Ryogen In',
+  title: 'Ryōgen-in Garden',
   pointcloud: '/pointclouds/ryogen-in_210903_0.005.las_converted/metadata.json',
   async addImages() {
     // do nothing

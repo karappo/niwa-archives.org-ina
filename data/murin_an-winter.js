@@ -1,5 +1,5 @@
 export default {
-  title: 'Murin An - Winter',
+  title: 'Murin-an Garden - Winter',
   pointcloud: '/pointclouds/MurinanW_0.01.las_converted/metadata.json',
   addImages() {
     // do nothing
