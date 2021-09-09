@@ -2,7 +2,7 @@
 .btn(
   @click="$nuxt.$emit('selectList', category)"
   :data-category="category"
-  :class="{current: $store.state.selectedCategory === category}"
+  :class="{current: $store.getters.selectedCategory === category}"
 ) {{ title }}
 </template>
 

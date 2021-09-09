@@ -1,6 +1,6 @@
 <template lang="pug">
 select(@change="updateShape")
-  option(v-for="(v, k) in options" :value="v" :selected="$store.state.shape === v") {{ k }}
+  option(v-for="(v, k) in options" :value="v" :selected="$store.getters.shape === v") {{ k }}
 </template>
 
 <script>

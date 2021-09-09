@@ -208,12 +208,12 @@ export default {
     const viewer = new Potree.Viewer(this.$refs.potree_render_area)
     window.viewer = viewer
     viewer.setFOV(75)
-    viewer.setPointBudget(this.$store.state.pointBudget)
+    viewer.setPointBudget(this.$store.getters.pointBudget)
     viewer.loadSettingsFromURL()
     viewer.setBackground('originalColor')
 
     // Controls
-    this.setControlMode(this.$store.state.controlMode)
+    this.setControlMode(this.$store.getters.controlMode)
 
     viewer.loadGUI(() => {
       viewer.setLanguage('en')
@@ -227,13 +227,13 @@ export default {
     material.pointSizeType = Potree.PointSizeType.ADAPTIVE
 
     const config = () => {
-      viewer.setEDLEnabled(this.$store.state.EDLEnabled)
-      viewer.setEDLRadius(this.$store.state.EDLRadius)
-      viewer.setEDLStrength(this.$store.state.EDLStrength)
-      viewer.setEDLOpacity(this.$store.state.EDLOpacity)
-      viewer.setPointBudget(this.$store.state.pointBudget)
-      material.shape = this.$store.state.shape
-      material.size = this.$store.state.size
+      viewer.setEDLEnabled(this.$store.getters.EDLEnabled)
+      viewer.setEDLRadius(this.$store.getters.EDLRadius)
+      viewer.setEDLStrength(this.$store.getters.EDLStrength)
+      viewer.setEDLOpacity(this.$store.getters.EDLOpacity)
+      viewer.setPointBudget(this.$store.getters.pointBudget)
+      material.shape = this.$store.getters.shape
+      material.size = this.$store.getters.size
     }
 
     viewer.scene.addPointCloud(pointcloud)
@@ -241,10 +241,15 @@ export default {
     // TODO Viewpointsに変更する
     await this.data.addImages()
 
-    if (this.$store.state.cameraPosition && this.$store.state.cameraTarget) {
-      window.viewer.scene.view.position.set(...this.$store.state.cameraPosition)
+    if (
+      this.$store.getters.cameraPosition &&
+      this.$store.getters.cameraTarget
+    ) {
+      window.viewer.scene.view.position.set(
+        ...this.$store.getters.cameraPosition
+      )
       window.viewer.scene.view.lookAt(
-        new THREE.Vector3(...this.$store.state.cameraTarget)
+        new THREE.Vector3(...this.$store.getters.cameraTarget)
       )
     } else {
       this.data.initCamera()
@@ -345,9 +350,9 @@ export default {
       let index = globalIndex
       // カテゴリーが絞り込まれていたら
       // eslint-disable-next-line
-      if (this.$store.state.selectedCategory) {
+      if (this.$store.getters.selectedCategory) {
         // eslint-disable-next-line
-        annotations = window.viewer.scene.annotations.children.filter((a) => a.data.category === this.$store.state.selectedCategory)
+        annotations = window.viewer.scene.annotations.children.filter((a) => a.data.category === this.$store.getters.selectedCategory)
         index = annotations.findIndex((a) => a._index === globalIndex)
       }
       return {

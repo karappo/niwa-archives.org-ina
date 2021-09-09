@@ -63,7 +63,43 @@ export const mutations = {
 }
 
 export const getters = {
+  cameraPosition(state) {
+    return state.cameraPosition
+  },
+  cameraTarget(state) {
+    return state.cameraTarget
+  },
   selectedCategory(state) {
     return state.selectedCategory
+  },
+  autoPlayNextVideo(state) {
+    return state.autoPlayNextVideo
+  },
+  EDLEnabled(state) {
+    return state.EDLEnabled
+  },
+  EDLRadius(state) {
+    return state.EDLRadius
+  },
+  EDLStrength(state) {
+    return state.EDLStrength
+  },
+  EDLOpacity(state) {
+    return state.EDLOpacity
+  },
+  shape(state) {
+    return state.shape
+  },
+  size(state) {
+    return state.size
+  },
+  pointBudget(state) {
+    return state.pointBudget
+  },
+  cameraAnimationCount(state) {
+    return state.cameraAnimationCount
+  },
+  controlMode(state) {
+    return state.controlMode
   }
 }

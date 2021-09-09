@@ -6,8 +6,8 @@ article
       | {{ data.title }}
     a.autoplay(
       v-if="autoplayAvailable"
-      @click="$store.commit('autoPlayNextVideo', !$store.state.autoPlayNextVideo)"
-      :class="{enabled: $store.state.autoPlayNextVideo}"
+      @click="$store.commit('autoPlayNextVideo', !$store.getters.autoPlayNextVideo)"
+      :class="{enabled: $store.getters.autoPlayNextVideo}"
       title="オートプレイ：自動的に次の動画を再生します"
     ) Autoplay
     a.prev(
@@ -236,7 +236,7 @@ export default {
       return d.format(format)
     },
     youtubeEnded() {
-      if (this.autoplayAvailable && this.$store.state.autoPlayNextVideo) {
+      if (this.autoplayAvailable && this.$store.getters.autoPlayNextVideo) {
         this.$emit('next', this.data.index)
       } else {
         this.cover = true

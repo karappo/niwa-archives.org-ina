@@ -4,20 +4,20 @@ footer
   label(for='shape') Point Shape:
   ShapeSelect#shape
   label(for='size') Size:
-  input#size(type="number" @change="updateSize" :value="$store.state.size" step="0.01")
-  input#edl(type="checkbox" @change="updateEDL" :checked="$store.state.EDLEnabled")
+  input#size(type="number" @change="updateSize" :value="$store.getters.size" step="0.01")
+  input#edl(type="checkbox" @change="updateEDL" :checked="$store.getters.EDLEnabled")
   label(for='edl' title="Eye-Dome Lighting") EDL
   label(for='radius') 太さ:
-  input#radius(type="number" @change="updateEDLRadius" :value="$store.state.EDLRadius" step="0.1" :disabled="!$store.state.EDLEnabled")
+  input#radius(type="number" @change="updateEDLRadius" :value="$store.getters.EDLRadius" step="0.1" :disabled="!$store.getters.EDLEnabled")
   label(for='strength') 強さ:
-  input#strength(type="number" @change="updateEDLStrength" :value="$store.state.EDLStrength" step="0.1" :disabled="!$store.state.EDLEnabled")
+  input#strength(type="number" @change="updateEDLStrength" :value="$store.getters.EDLStrength" step="0.1" :disabled="!$store.getters.EDLEnabled")
   label(for='opacity') 透明度:
-  input#opacity(type="number" @change="updateEDLOpacity" :value="$store.state.EDLOpacity" step="0.1" :disabled="!$store.state.EDLEnabled")
+  input#opacity(type="number" @change="updateEDLOpacity" :value="$store.getters.EDLOpacity" step="0.1" :disabled="!$store.getters.EDLEnabled")
   label(for='point_budget') Point Budget:
-  input#pointBudget(type="number" @change="updatePointBudget" :value="$store.state.pointBudget" step=`${100 * 1000}` min=`${100 * 1000}` max="2000000")
+  input#pointBudget(type="number" @change="updatePointBudget" :value="$store.getters.pointBudget" step=`${100 * 1000}` min=`${100 * 1000}` max="2000000")
   label(for='controls') Controls(Press key 1,2,3): {{ controlNames }}
   label(for='tour') Tour:
-  button#tour(v-for="(n, i) in $store.state.cameraAnimationCount" @click="$nuxt.$emit('startCameraAnimation', i)") {{ n }}
+  button#tour(v-for="(n, i) in $store.getters.cameraAnimationCount" @click="$nuxt.$emit('startCameraAnimation', i)") {{ n }}
 </template>
 
 <style lang="sass" scoped>
@@ -62,7 +62,7 @@ export default {
   computed: {
     controlNames() {
       // eslint-disable-next-line
-      return ['First Person', 'Earth', 'Orbit'][this.$store.state.controlMode]
+      return ['First Person', 'Earth', 'Orbit'][this.$store.getters.controlMode]
     }
   },
   mounted() {

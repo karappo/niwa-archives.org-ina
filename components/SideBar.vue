@@ -7,11 +7,11 @@ aside
     .btn.disabled Plans
     .btn.disabled 3D Data
   section.viewpoints
-    h3.btn(@click="$nuxt.$emit('selectList', 'Viewpoints')" :class="{current: $store.state.selectedCategory === 'Viewpoints'}") Viewpoints
+    h3.btn(@click="$nuxt.$emit('selectList', 'Viewpoints')" :class="{current: $store.getters.selectedCategory === 'Viewpoints'}") Viewpoints
     SideBarLink(:category="'Viewpoints/Photos'")
     SideBarLink(:category="'Viewpoints/Movies'")
   section.elements
-    h3.btn(@click="$nuxt.$emit('selectList', 'Elements')" :class="{current: $store.state.selectedCategory === 'Elements'}") Elements
+    h3.btn(@click="$nuxt.$emit('selectList', 'Elements')" :class="{current: $store.getters.selectedCategory === 'Elements'}") Elements
     SideBarLink(:category="'Elements/Stones'")
     SideBarLink(:category="'Elements/Plants'")
     SideBarLink(:category="'Elements/Creatures'")
