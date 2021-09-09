@@ -7,18 +7,7 @@
   .content
     .wrap
       .row
-        .selectBox
-          select(v-model="index")
-            option(
-              v-for="(item, index) in list"
-              :key="index"
-              :label="item.title"
-              :value="index"
-            )
-              span(style="float: left") {{ item.title }}
-              span(style="float: right; color: #8492a6; font-size: 13px") {{ item.file }}
-          .icon
-            TriangleArrow
+        SelectBox(:options="list" :value.sync="index")
         .playPauseBtn(@click="togglePlay()")
           Play(v-if="paused")
           Pause(v-else)
@@ -183,45 +172,6 @@
         transform: rotate(0deg)
   audio
     width: 100%
-
-.selectBox
-  width: 188px
-  height: 30px
-  background: var(--button-bg-color)
-  position: relative
-  border-radius: 5px
-  flex-shrink: 0
-  select
-    cursor: pointer
-    -webkit-appearance: none
-    appearance: none
-    padding: 0
-    outline: 0
-    background: transparent
-    border: 0
-    width: 100%
-    height: 100%
-    color: #ADADAD
-    font-size: 12px
-    padding: 7px 10px 8px
-  .icon
-    pointer-events: none
-    position: absolute
-    top: 0
-    right: 0
-    height: 100%
-    width: 28px
-    border-left: 1px solid black
-    display: flex
-    justify-content: center
-    align-items: center
-  &:hover
-    select
-      color: white
-    .icon
-      svg
-        path
-          fill: white
 </style>
 
 <script>
