@@ -293,6 +293,7 @@ export default {
     this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$on('selectList', this.selectList)
+    this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
@@ -306,6 +307,7 @@ export default {
     this.$nuxt.$off('setControlMode')
     this.$nuxt.$off('startCameraAnimation')
     this.$nuxt.$off('selectList')
+    this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
     window.viewer.removeEventListener('camera_changed', this.update)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
@@ -336,6 +338,13 @@ export default {
     },
     startCameraAnimation(index) {
       this.tours[index].play()
+    },
+    getAnnotationById(id, annotations) {
+      const list = annotations.filter((a) => a.data.id === id)
+      if (list.length) {
+        return list[0]
+      }
+      console.error(`id=${id} のアノテーションが見つかりませんでした`)
     },
     getAnnotationByIndex(index, annotations) {
       if (index < 0) {
@@ -375,6 +384,10 @@ export default {
     showAnnotation(globalIndex) {
       const annotations = window.viewer.scene.annotations.children
       this.getAnnotationByIndex(globalIndex, annotations).click()
+    },
+    showAnnotationById(id) {
+      const annotations = window.viewer.scene.annotations.children
+      this.getAnnotationById(id, annotations).click()
     },
     clickAnnotation(e) {
       if (this.annotationData || this.listData) {

@@ -149,7 +149,12 @@ export default {
       this.setTag(tag)
     },
     setTag(tag) {
-      this.tagIndexStr = this.tags.indexOf(tag) + ''
+      const index = this.tags.indexOf(tag)
+      if (0 <= index) {
+        this.tagIndexStr = this.tags.indexOf(tag) + ''
+      } else {
+        console.error(`「${tag}」というタグは見つかりませんでした`)
+      }
     }
   }
 }

@@ -25,7 +25,7 @@
         dl
           dt Place
           dd
-            a(@click="placeClick(data.place)") {{ data.place }}
+            a(@click="placeClick(data.place.annotation)") {{ data.place.label }}
         dl
           dt Tags
           dd
@@ -288,8 +288,8 @@ export default {
       // eslint-disable-next-line
       this.player.currentTime = this.player.duration * (e.offsetX / this.$refs.seekBarHitArea.offsetWidth)
     },
-    placeClick(place) {
-      console.log(place)
+    placeClick(annotationId) {
+      this.$nuxt.$emit('showAnnotationById', annotationId)
     },
     tagClick(tag) {
       this.$nuxt.$emit('selectList', 'Elements')
