@@ -43,6 +43,7 @@ aside
   align-items: center
   padding: 20px 15px
   cursor: pointer
+  font-size: 13px
   &:hover
     color: white
 section
