@@ -26,10 +26,10 @@
           .seekBar
             .progress(:style="progressStyle()")
         .time {{ currentTime }} / {{ totalTime }}
-        nuxt-link(v-if="data.movie" :to="data.movie").link.movie
+        nuxt-link(v-if="data.movieId" to='TODO').link.movie
           | Movie
           span.icon 
-        ExternalLink.link.ambisonics(v-if="data.ambisonics" :href="data.ambisonics")
+        ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl")
           | Ambisonics
           span.icon 
       .row
@@ -137,6 +137,8 @@
             margin-left: auto
             margin-right: 0
             font-family: 'Font Awesome 5 Pro-Solid-900'
+        .time + .link
+          margin-left: 12px
         dl + dl
           margin-left: 20px
         dl
