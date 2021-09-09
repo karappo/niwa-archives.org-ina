@@ -35,8 +35,6 @@
 <style lang="sass" scoped>
 .soundBar
   --background-color: black
-  --button-bg-color: #242424
-  --textbox-bg-color: #151515
   background-color: var(--background-color)
   color: white
   font-size: 12px
