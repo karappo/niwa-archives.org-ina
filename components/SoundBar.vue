@@ -36,13 +36,11 @@
         dl
           dt Place
           dd
-            nuxt-link(to='TODO') 聴松軒
+            nuxt-link(to='TODO') {{ data.place }}
         dl
           dt Tags
           dd
-            nuxt-link(to='TODO') カエル
-            nuxt-link(to='TODO') イノシシ
-            nuxt-link(to='TODO') 猿
+            nuxt-link(v-for="tag in data.tags" to='TODO') {{ tag }}
 </template>
 
 <style lang="sass" scoped>
