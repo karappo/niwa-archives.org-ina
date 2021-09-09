@@ -53,10 +53,11 @@
   background-color: var(--background-color)
   color: white
   font-size: 12px
-  margin-bottom: 0
   position: relative
   width: 100%
   font-family: 'K2-v1-Bold'
+  margin-bottom: -100%
+  transition: margin 0.8s
   .toggleBtn
     --height: 24px
     position: absolute
@@ -84,7 +85,6 @@
     &:hover
       color: white
   .content
-    transition: height 0.5s
     .wrap
       .row
         height: 30px
@@ -173,13 +173,13 @@
               color: white
 
   &.visible
+    margin-bottom: -44px
+    &:hover
+      margin-bottom: 0
+      transition: margin 0.08s
     .toggleBtn
       .icon
         transform: rotate(0deg)
-  &:not(.visible)
-    .content
-      height: 0
-      display: none
   audio
     width: 100%
 
