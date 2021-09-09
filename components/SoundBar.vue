@@ -25,11 +25,11 @@
         dl
           dt Place
           dd
-            nuxt-link(to='TODO') {{ data.place }}
+            a(@click="placeClick(data.place)") {{ data.place }}
         dl
           dt Tags
           dd
-            nuxt-link(v-for="tag in data.tags" to='TODO') {{ tag }}
+            a(v-for="tag in data.tags" @click="tagClick(tag)") {{ tag }}
 </template>
 
 <style lang="sass" scoped>
@@ -155,6 +155,8 @@
             width: 100%
             margin-left: 0
             margin-right: 0
+            a
+              cursor: pointer
             a + a
               margin-left: 1.5em
             a:hover
@@ -285,6 +287,13 @@ export default {
     seekBarClick(e) {
       // eslint-disable-next-line
       this.player.currentTime = this.player.duration * (e.offsetX / this.$refs.seekBarHitArea.offsetWidth)
+    },
+    placeClick(place) {
+      console.log(place)
+    },
+    tagClick(tag) {
+      this.$nuxt.$emit('selectList', 'Elements')
+      this.$nuxt.$emit('setTagIndexStr', tag)
     }
   }
 }

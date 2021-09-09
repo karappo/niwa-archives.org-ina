@@ -137,6 +137,20 @@ export default {
       }
       return this.data.list
     }
+  },
+  mounted() {
+    this.$nuxt.$on('setTagIndexStr', this.setTagIndexStr)
+  },
+  beforeDestroy() {
+    this.$nuxt.$off('setTagIndexStr', this.setTagIndexStr)
+  },
+  methods: {
+    setTagIndexStr(tag) {
+      this.setTag(tag)
+    },
+    setTag(tag) {
+      this.tagIndexStr = this.tags.indexOf(tag) + ''
+    }
   }
 }
 </script>
