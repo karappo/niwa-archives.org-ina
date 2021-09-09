@@ -7,7 +7,7 @@ article
     a.close(@click="$emit('close')" title="Close") X
   ul.list(v-if="data.list.length")
     li(v-for="o in data.list" @click="$emit('showAnnotation', o.index)")
-      Icon(v-if="!icon" :category="o.category" :data-hoge="o.youtube.thumbnailUrl()")
+      Icon(v-if="!icon" :category="o.category")
       .thumb(v-if="o.image" :style="`background-image: url(${o.image});`")
       .thumb(v-if="o.youtube" :style="`background-image: url(${o.youtube.thumbnailUrl()});`")
       span.title {{ o.title }}
