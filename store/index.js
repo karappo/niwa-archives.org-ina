@@ -62,8 +62,8 @@ export const mutations = {
   }
 }
 
-// export const getters = {
-//   foo(state) {
-//     return state.bar
-//   }
-// }
+export const getters = {
+  selectedCategory(state) {
+    return state.selectedCategory
+  }
+}

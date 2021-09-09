@@ -169,7 +169,6 @@ export default {
       annotations,
       data,
       tours: null,
-      listData: '',
       annotationData: '',
       drawerAlreadyOpened: false,
       loading: true,
@@ -184,6 +183,25 @@ export default {
         this.listData.category === this.annotationData.category &&
         this.annotationData.category
       )
+    },
+    listData() {
+      const category = this.$store.getters.selectedCategory
+      if (!category) {
+        return null
+      }
+      return {
+        category,
+        list: this.annotations.filter((a) => {
+          return a.category.includes(category)
+        })
+      }
+    }
+  },
+  watch: {
+    listData() {
+      this.$nextTick(() => {
+        console.log('変更されました')
+      })
     }
   },
   async mounted() {
@@ -410,12 +428,6 @@ export default {
     selectList(category) {
       this.clearSelectedAnnotation()
       this.$store.commit('selectedCategory', category)
-      this.listData = {
-        category,
-        list: this.annotations.filter((a) => {
-          return a.category.includes(category)
-        })
-      }
     },
     clearSelectedAnnotation() {
       this.annotationData = null
@@ -425,8 +437,6 @@ export default {
     clickDrawerClose() {
       // clear List
       this.$store.commit('selectedCategory', '')
-      this.listData = null
-
       this.clearSelectedAnnotation()
     },
     saveCameraInfo() {
