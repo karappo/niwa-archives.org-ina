@@ -28,7 +28,7 @@ aside
       :class="{current: $variation($route) === season}"
     ) {{ capitalCase(season) }}
   section.autos
-    h3 Auto Modes
+    h3 Tour Modes
     .btn.disabled Guided Tour
     .btn.disabled Ramble Tour
 </template>
@@ -54,7 +54,7 @@ section
   &.outlines,
   &.viewpoints,
   &.autos
-    border-top: 4px solid #3C3C3C
+    border-top: 1px solid #3C3C3C
 h3
   font-size: 13px
   margin: 0
