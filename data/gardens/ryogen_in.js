@@ -6,8 +6,8 @@ export default {
   },
   initCamera() {
     // viewer.fitToScreen()
-    window.viewer.scene.view.position.set(-15.27, -1.775, 83.132)
-    window.viewer.scene.view.lookAt(new THREE.Vector3(-15.11, -2.305, 82.901))
+    window.viewer.scene.view.position.set(-7.155, 0.893, 82.685)
+    window.viewer.scene.view.lookAt(new THREE.Vector3(-7.481, 0.39, 82.691))
   },
   tours: []
 }
