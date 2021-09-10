@@ -162,7 +162,7 @@ export default {
   async asyncData({ route, store }) {
     // Annotationを季節でフィルタリング
     const annotations = store.state.annotations[camelCase(route.params.alias)]
-    let data = await import(`~/data/${route.params.alias}.js`)
+    let data = await import(`~/data/gardens/${route.params.alias}.js`)
     data = data.default
 
     return {

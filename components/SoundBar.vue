@@ -177,7 +177,7 @@
 <script>
 // import dayjs from 'dayjs'
 import { ExternalLink } from '@karappo-inc/vue-components'
-import AllData from '~/data/sound.js'
+import AllData from '~/data/sounds.js'
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg?inline'
 import Play from '~/assets/image/SoundBar/play.svg?inline'
 import Pause from '~/assets/image/SoundBar/pause.svg?inline'
