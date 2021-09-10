@@ -2,7 +2,7 @@
 .btn(
   @click="$nuxt.$emit('selectList', category)"
   :data-category="category"
-  :class="{current: $store.getters.selectedCategory === category}"
+  :class="{current: $store.getters.selectedCategory === category, dot}"
 ) {{ title }}
 </template>
 
@@ -32,7 +32,7 @@
   &[data-category='Oral Archives']
     --category-color: #{$color_oral}
 
-  &:before
+  &.dot:before
     content: ''
     display: inline-block
     width: 8px
@@ -54,6 +54,10 @@ export default {
       type: String,
       required: true,
       default: ''
+    },
+    dot: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {

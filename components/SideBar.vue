@@ -4,7 +4,7 @@ aside
   section.outlines
     h3 Outlines
     .btn.disabled History
-    .btn.disabled Plans
+    SideBarLink(:category="'Plans'" :dot="false") Plans
     .btn.disabled 3D Data
   section.viewpoints
     h3.btn(@click="$nuxt.$emit('selectList', 'Viewpoints')" :class="{current: $store.getters.selectedCategory === 'Viewpoints'}") Viewpoints
