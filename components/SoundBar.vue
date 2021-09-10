@@ -293,7 +293,9 @@ export default {
     },
     tagClick(tag) {
       this.$nuxt.$emit('selectList', 'Elements')
-      this.$nuxt.$emit('setTagIndexStr', tag)
+      this.$nextTick(function () {
+        this.$nuxt.$emit('setTagIndexStr', tag)
+      })
     }
   }
 }
