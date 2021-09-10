@@ -47,7 +47,7 @@ article
       allowfullscreen
     )
   .person(v-if="data.person") Speaker: {{ data.person }}
-  .description(v-if="data.description") {{ data.description }}
+  .description(v-if="data.description" v-html="data.description")
   .tags(v-if="data.tags")
     label Tags
     .tag(v-for="tag in data.tags")
@@ -125,6 +125,8 @@ h1
   line-height: 2
   margin-bottom: 15px
   white-space: pre-wrap // nl2br
+  /deep/ a
+    color: #A452E0
 .image
   width: 100%
   height: auto
