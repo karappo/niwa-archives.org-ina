@@ -12,6 +12,7 @@
           Play(v-if="paused")
           Pause(v-else)
         .seekBarHitArea(ref='seekBarHitArea' @click.stop="seekBarClick")
+          .return(ref='return')
           .seekBar
             .progress(:style="progressStyle()")
         .time {{ currentTime }} / {{ totalTime }}
@@ -95,10 +96,19 @@
           margin-right: 12px
           display: flex
           align-items: center
+          position: relative
+          .return
+            position: absolute
+            top: 0
+            left: 0
+            height: 100%
+            width: 4px
+            z-index: 2
           .seekBar
             width: 100%
             height: 4px
             background-color: #272727
+            z-index: 1
             .progress
               height: 100%
               max-width: 100%
@@ -285,8 +295,12 @@ export default {
       }
     },
     seekBarClick(e) {
-      // eslint-disable-next-line
-      this.player.currentTime = this.player.duration * (e.offsetX / this.$refs.seekBarHitArea.offsetWidth)
+      if (e.target === this.$refs.return) {
+        this.player.currentTime = 0
+      } else {
+        // eslint-disable-next-line
+        this.player.currentTime = this.player.duration * (e.offsetX / this.$refs.seekBarHitArea.offsetWidth)
+      }
     },
     placeClick(annotationId) {
       this.$nuxt.$emit('showAnnotationById', annotationId)
