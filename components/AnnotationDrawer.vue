@@ -28,6 +28,8 @@ article
       | &lt;
       Icon(:category="data.category")
     a.close(@click="$emit('close')" title="Close") X
+  // TODO GuidedTourのときのみ表示する
+  .commentForGuidedTour(v-if="data.commentForGuidedTour" v-html="data.commentForGuidedTour")
   img.image(v-if="data.image" :src="data.image")
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
   .youtube(v-if="data.youtube")
@@ -121,12 +123,18 @@ h1
     font-size: 25px
     flex-shrink: 0
 .description
-  font-size: 12px
-  line-height: 2
+.commentForGuidedTour,
+  font-size: 14px
+  line-height: calc(29 / 14)
   margin-bottom: 15px
   white-space: pre-wrap // nl2br
   /deep/ a
     color: #A452E0
+.commentForGuidedTour
+  background-color: #05211A
+  color: white
+  padding: 20px 23px
+  border-radius: 10px
 .image
   width: 100%
   height: auto
