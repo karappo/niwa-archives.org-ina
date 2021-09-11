@@ -231,18 +231,22 @@ export default {
     }
   },
   mounted() {
-    this.player.addEventListener('playing', this.playing)
-    this.player.addEventListener('pause', this.pause)
-    this.player.addEventListener('timeupdate', this.timeupdate)
-    this.player.addEventListener('loadedmetadata', this.loadedmetadata)
-    this.player.src = this.data.src
-    this.player.load()
+    if (this.list) {
+      this.player.addEventListener('playing', this.playing)
+      this.player.addEventListener('pause', this.pause)
+      this.player.addEventListener('timeupdate', this.timeupdate)
+      this.player.addEventListener('loadedmetadata', this.loadedmetadata)
+      this.player.src = this.data.src
+      this.player.load()
+    }
   },
   beforeDestroy() {
-    this.player.removeEventListener('playing', this.playing)
-    this.player.removeEventListener('pause', this.pause)
-    this.player.removeEventListener('timeupdate', this.timeupdate)
-    this.player.removeEventListener('loadedmetadata', this.loadedmetadata)
+    if (this.list) {
+      this.player.removeEventListener('playing', this.playing)
+      this.player.removeEventListener('pause', this.pause)
+      this.player.removeEventListener('timeupdate', this.timeupdate)
+      this.player.removeEventListener('loadedmetadata', this.loadedmetadata)
+    }
   },
   methods: {
     playing() {
