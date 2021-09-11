@@ -122,8 +122,8 @@ h1
   .icon
     font-size: 25px
     flex-shrink: 0
-.description
-.commentForGuidedTour,
+.description,
+.commentForGuidedTour
   font-size: 14px
   line-height: calc(29 / 14)
   margin-bottom: 15px
