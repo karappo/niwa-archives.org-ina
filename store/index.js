@@ -3,7 +3,7 @@ export const state = () => ({
   cameraTarget: null,
   selectedCategory: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
   autoPlayNextVideo: false,
-  //
+  // TODO ここ以降おそらく不要なので消す。合わせてFooter.vueも消す
   EDLEnabled: true,
   EDLRadius: 0, // default: 1.4
   EDLStrength: 0, // default: 0.4
