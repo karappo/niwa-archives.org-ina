@@ -420,6 +420,10 @@ export default {
       if (this.annotations) {
         // ここでカメラポジションとの比較
         this.annotations.forEach((a) => {
+          if (a.category === 'Plans') {
+            // Plansのものは描画しない
+            return
+          }
           const annotationPos = new THREE.Vector3(...a.position)
           const distance = annotationPos.distanceTo(new THREE.Vector3(...pos)) // カメラとAnnotationとの距離
           const children = window.viewer.scene.annotations.children
