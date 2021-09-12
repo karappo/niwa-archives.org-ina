@@ -9,6 +9,7 @@ export default {
     window.viewer.scene.view.position.set(171.85, -48.743, -4.652)
     window.viewer.scene.view.lookAt(new THREE.Vector3(170.578, -51.43, -5.052))
   },
+  guidedTour: [],
   tours: [
     {
       positions: [

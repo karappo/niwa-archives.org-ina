@@ -29,7 +29,7 @@ aside
     ) {{ capitalCase(season) }}
   section.autos
     h3 Tour Modes
-    .btn.disabled Guided Tour
+    .btn(@click="$nuxt.$emit('showGuidedTour')") Guided Tour
     .btn.disabled Ramble Tour
 </template>
 

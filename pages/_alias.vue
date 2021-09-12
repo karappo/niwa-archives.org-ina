@@ -170,6 +170,7 @@ export default {
       data,
       tours: null,
       annotationData: '',
+      customAnnotationListData: null,
       drawerAlreadyOpened: false,
       loading: true,
       annotationVisibility: true
@@ -186,22 +187,17 @@ export default {
     },
     listData() {
       const category = this.$store.getters.selectedCategory
-      if (!category) {
-        return null
+      if (category) {
+        return {
+          name: category,
+          list: this.annotations.filter((a) => {
+            return a.category.includes(category)
+          })
+        }
       }
-      return {
-        name: category,
-        list: this.annotations.filter((a) => {
-          return a.category.includes(category)
-        })
-      }
-    }
-  },
-  watch: {
-    listData() {
-      this.$nextTick(() => {
-        console.log('変更されました')
-      })
+      // customAnnotationListDataはnullかも知れないが、その場合も、結局nullを返す必要があり条件分岐しても同じことなのでこう書いている。
+      // 更に条件が増える場合は考慮すること。
+      return this.customAnnotationListData
     }
   },
   async mounted() {
@@ -294,6 +290,7 @@ export default {
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$on('selectList', this.selectList)
     this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
+    this.$nuxt.$on('showGuidedTour', this.showGuidedTour)
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
@@ -308,6 +305,7 @@ export default {
     this.$nuxt.$off('startCameraAnimation')
     this.$nuxt.$off('selectList')
     this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
+    this.$nuxt.$off('showGuidedTour', this.showGuidedTour)
     window.viewer.removeEventListener('camera_changed', this.update)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
@@ -388,6 +386,22 @@ export default {
     showAnnotationById(id) {
       const annotations = window.viewer.scene.annotations.children
       this.getAnnotationById(id, annotations).click()
+    },
+    showGuidedTour() {
+      // guidedTourの順でannotationをリスト化する
+      const list = []
+      this.data.guidedTour.forEach((id) => {
+        for (const a of this.annotations) {
+          if (a.id === id) {
+            list.push(a)
+            return
+          }
+        }
+      })
+      this.customAnnotationListData = {
+        name: 'Guided Tour',
+        list
+      }
     },
     clickAnnotation(e) {
       if (this.annotationData || this.listData) {
