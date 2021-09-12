@@ -114,10 +114,10 @@ export default {
   },
   computed: {
     title() {
-      return this.$getTitle(this.data.category)
+      return this.$getTitle(this.data.name)
     },
     icon() {
-      return this.$getIcon(this.data.category)
+      return this.$getIcon(this.data.name)
     },
     tags() {
       return _uniq(_flattenDeep(_map(this.data.list, (o) => o.tags)))

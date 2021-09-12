@@ -179,8 +179,8 @@ export default {
     prevNextVisibility() {
       return (
         this.listData &&
-        this.listData.category &&
-        this.listData.category === this.annotationData.category &&
+        this.listData.name &&
+        this.listData.name === this.annotationData.category &&
         this.annotationData.category
       )
     },
@@ -190,7 +190,7 @@ export default {
         return null
       }
       return {
-        category,
+        name: category,
         list: this.annotations.filter((a) => {
           return a.category.includes(category)
         })
