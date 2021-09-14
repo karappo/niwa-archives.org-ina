@@ -10,21 +10,21 @@ article
       :class="{enabled: $store.getters.autoPlayNextVideo}"
       title="オートプレイ：自動的に次の動画を再生します"
     ) Autoplay
-    a.prev(
-      v-if="prevNextVisibility"
-      @click="$emit('prev', data.index)"
-      :title="`Previus`"
-    ) &lt;
-    a.next(
-      v-if="prevNextVisibility"
-      @click="$emit('next', data.index)"
-      :title="`Next`"
-    ) &gt;
-    a.backTolist(
-      v-if="prevNextVisibility"
-      @click="$emit('backToList')"
-      :title="`Back to list`"
-    ) 
+    template(v-if="prevNextVisibility")
+      a.prev(
+        @click="$emit('prev', data.index)"
+        :title="`Previus`"
+        :class="{disabled: prevDisabled}"
+      ) &lt;
+      a.next(
+        @click="$emit('next', data.index)"
+        :title="`Next`"
+        :class="{disabled: nextDisabled}"
+      ) &gt;
+      a.backTolist(
+        @click="$emit('backToList')"
+        :title="`Back to list`"
+      ) 
     a.close(@click="$emit('close')" title="Close") X
   // TODO GuidedTourのときのみ表示する
   .commentForGuidedTour(v-if="data.commentForGuidedTour" v-html="data.commentForGuidedTour")
@@ -101,6 +101,9 @@ a
 .prev,
 .next
   width: 26px
+  &.disabled
+    opacity: 0.5
+    pointer-events: none
 .next
   margin-left: 5px
 h1
@@ -199,6 +202,14 @@ export default {
     prevNextVisibility: {
       type: Boolean,
       require: true,
+      default: false
+    },
+    prevDisabled: {
+      type: Boolean,
+      default: false
+    },
+    nextDisabled: {
+      type: Boolean,
       default: false
     }
   },

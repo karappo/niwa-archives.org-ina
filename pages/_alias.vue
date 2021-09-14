@@ -30,6 +30,8 @@
           :data="annotationData"
           :annotations="annotations"
           :prevNextVisibility="prevNextVisibility"
+          :prevDisabled="prevDisabled"
+          :nextDisabled="nextDisabled"
           @backToList="clearSelectedAnnotation"
           @close="closeDrawer"
           @showAnnotation="showAnnotation"
@@ -176,6 +178,21 @@ export default {
   computed: {
     prevNextVisibility() {
       return this.listData !== null
+    },
+    listDataIndexArray() {
+      // eslint-disable-next-line
+      const arr = this.listData.list.map((a) => a.index)
+      console.log('listDataIndexArray', arr)
+      return this.listData.list.map((a) => a.index)
+    },
+    currentIndex() {
+      return this.listDataIndexArray.indexOf(this.annotationData.index)
+    },
+    prevDisabled() {
+      return this.currentIndex <= 0
+    },
+    nextDisabled() {
+      return this.listDataIndexArray.length - 1 <= this.currentIndex
     }
   },
   async mounted() {
@@ -320,44 +337,16 @@ export default {
       }
       console.error(`id=${id} のアノテーションが見つかりませんでした`)
     },
-    getAnnotationByIndex(index, annotations) {
-      if (index < 0) {
-        index = annotations.length - 1
-      } else if (annotations.length <= index) {
-        index = 0
-      }
-      return annotations[index]
-    },
-    getFilteredAnnotationsAndIndex(globalIndex) {
-      let annotations = window.viewer.scene.annotations.children
-      let index = globalIndex
-      // カテゴリーが絞り込まれていたら
-      // eslint-disable-next-line
-      if (this.$store.getters.listName) {
-        // eslint-disable-next-line
-        annotations = window.viewer.scene.annotations.children.filter((a) => a.data.category === this.$store.getters.listName)
-        index = annotations.findIndex((a) => a._index === globalIndex)
-      }
-      return {
-        annotations,
-        index
-      }
-    },
     prev(globalIndex) {
-      const res = this.getFilteredAnnotationsAndIndex(globalIndex)
-      const annotations = res.annotations
-      const index = res.index
-      this.getAnnotationByIndex(index - 1, annotations).click()
+      const currentIndex = this.listDataIndexArray.indexOf(globalIndex)
+      this.showAnnotation(this.listDataIndexArray[currentIndex - 1])
     },
     next(globalIndex) {
-      const res = this.getFilteredAnnotationsAndIndex(globalIndex)
-      const annotations = res.annotations
-      const index = res.index
-      this.getAnnotationByIndex(index + 1, annotations).click()
+      const currentIndex = this.listDataIndexArray.indexOf(globalIndex)
+      this.showAnnotation(this.listDataIndexArray[currentIndex + 1])
     },
     showAnnotation(globalIndex) {
-      const annotations = window.viewer.scene.annotations.children
-      this.getAnnotationByIndex(globalIndex, annotations).click()
+      window.viewer.scene.annotations.children[globalIndex].click()
     },
     showAnnotationById(id) {
       const annotations = window.viewer.scene.annotations.children
