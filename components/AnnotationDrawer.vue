@@ -26,8 +26,7 @@ article
         :title="`Back to list`"
       ) 
     a.close(@click="$emit('close')" title="Close") X
-  // TODO GuidedTourのときのみ表示する
-  .commentForGuidedTour(v-if="data.commentForGuidedTour" v-html="data.commentForGuidedTour")
+  .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
   img.image(v-if="data.image" :src="data.image")
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
   .youtube(v-if="data.youtube")
@@ -239,6 +238,9 @@ export default {
       return ['Oral Archives', 'Guided Tour'].includes(
         this.$store.getters.listName
       )
+    },
+    isGuidedTour() {
+      return this.$store.getters.listName === 'Guided Tour'
     }
   },
   mounted() {
