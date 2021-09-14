@@ -4,7 +4,7 @@ aside
   section.outlines
     h3 Outlines
     .btn.disabled History
-    SideBarLink(:category="'Plans'" :dot="false") Plans
+    ListLink(:listName="'Plans'" :dot="false") Plans
     .btn.disabled 3D Data
     SelectBox.variations(
       v-if="$variation($route)"
@@ -13,20 +13,20 @@ aside
     )
   section.viewpoints
     h3.btn(@click="$nuxt.$emit('selectList', 'Viewpoints')" :class="{current: $store.getters.listName === 'Viewpoints'}") Viewpoints
-    SideBarLink(:category="'Viewpoints/Photos'")
-    SideBarLink(:category="'Viewpoints/Movies'")
+    ListLink(:listName="'Viewpoints/Photos'")
+    ListLink(:listName="'Viewpoints/Movies'")
   section.elements
     h3.btn(@click="$nuxt.$emit('selectList', 'Elements')" :class="{current: $store.getters.listName === 'Elements'}") Elements
-    SideBarLink(:category="'Elements/Stones'")
-    SideBarLink(:category="'Elements/Plants'")
-    SideBarLink(:category="'Elements/Creatures'")
-    SideBarLink(:category="'Elements/Artifacts'")
-    SideBarLink(:category="'Elements/DNA Data'")
+    ListLink(:listName="'Elements/Stones'")
+    ListLink(:listName="'Elements/Plants'")
+    ListLink(:listName="'Elements/Creatures'")
+    ListLink(:listName="'Elements/Artifacts'")
+    ListLink(:listName="'Elements/DNA Data'")
   section.orals
-    SideBarLink(:category="'Oral Archives'")
+    ListLink(:listName="'Oral Archives'")
   section.autos
     h3 Tour Modes
-    SideBarLink(:category="'Guided Tour'" :dot="false")
+    ListLink(:listName="'Guided Tour'" :dot="false")
     .btn.disabled Ramble Tour
 </template>
 
