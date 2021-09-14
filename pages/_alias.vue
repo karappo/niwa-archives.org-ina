@@ -180,9 +180,6 @@ export default {
       return this.listData !== null
     },
     listDataIndexArray() {
-      // eslint-disable-next-line
-      const arr = this.listData.list.map((a) => a.index)
-      console.log('listDataIndexArray', arr)
       return this.listData.list.map((a) => a.index)
     },
     currentIndex() {
