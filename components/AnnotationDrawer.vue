@@ -13,20 +13,18 @@ article
     a.prev(
       v-if="prevNextVisibility"
       @click="$emit('prev', data.index)"
-      :title="`Previus ${$getTitle(data.category)}`"
+      :title="`Previus`"
     ) &lt;
     a.next(
       v-if="prevNextVisibility"
       @click="$emit('next', data.index)"
-      :title="`Next ${$getTitle(data.category)}`"
+      :title="`Next`"
     ) &gt;
     a.backTolist(
       v-if="prevNextVisibility"
       @click="$emit('backToList')"
-      :title="`Back to ${$getTitle(data.category)} list`"
-    )
-      | &lt;
-      Icon(:category="data.category")
+      :title="`Back to list`"
+    ) 
     a.close(@click="$emit('close')" title="Close") X
   // TODO GuidedTourのときのみ表示する
   .commentForGuidedTour(v-if="data.commentForGuidedTour" v-html="data.commentForGuidedTour")
@@ -97,15 +95,9 @@ a
   &.enabled
     border-color: white !important
 .backTolist
+  font-family: 'Font Awesome 5 Pro-Light-300'
+  width: 26px
   margin-left: 10px
-  padding-left: 5px
-  /deep/ .icon
-    background-color: transparent
-    color: #898989
-    margin: 0
-  &:hover
-    /deep/ .icon
-      color: white
 .prev,
 .next
   width: 26px
