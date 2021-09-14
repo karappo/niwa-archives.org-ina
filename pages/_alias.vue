@@ -424,28 +424,26 @@ export default {
     selectList(name) {
       this.clearSelectedAnnotation()
       this.$store.commit('listName', name)
-      if (name === 'Guided Tour') {
-        // guidedTourの順でannotationをリスト化する
-        const list = []
-        this.data.guidedTour.forEach((id) => {
-          for (const a of this.annotations) {
-            if (a.id === id) {
-              list.push(a)
-              return
+      let list = []
+      switch (name) {
+        case 'Guided Tour':
+          // guidedTourの順でannotationをリスト化する
+          this.data.guidedTour.forEach((id) => {
+            for (const a of this.annotations) {
+              if (a.id === id) {
+                list.push(a)
+                return
+              }
             }
-          }
-        })
-        this.listData = {
-          name,
-          list
-        }
-      } else {
-        this.listData = {
-          name,
-          list: this.annotations.filter((a) => {
-            return a.category.includes(name)
           })
-        }
+          break
+        default:
+          list = this.annotations.filter((a) => a.category.includes(name))
+          break
+      }
+      this.listData = {
+        name,
+        list
       }
     },
     clearSelectedAnnotation() {
