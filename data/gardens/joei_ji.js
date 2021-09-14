@@ -21,7 +21,6 @@ export default {
     'zfdjlo',
     '4bmhwg',
     '74wek8',
-    '6n2t47',
     '8bzmha'
   ],
   tours: [
