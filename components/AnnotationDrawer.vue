@@ -8,7 +8,7 @@ article
       v-if="autoplayAvailable"
       @click="clickAutoplay"
       :class="{enabled: $store.getters.autoplay}"
-      title="オートプレイ：自動的に次の動画を再生します"
+      title="オートプレイ：自動的に次のアノテーションを表示・再生します"
     ) Autoplay
     template(v-if="prevNextVisibility")
       a.prev(
