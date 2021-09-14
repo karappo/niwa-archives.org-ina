@@ -310,7 +310,7 @@ export default {
       this.$nuxt.$emit('showAnnotationById', annotationId)
     },
     tagClick(tag) {
-      this.$nuxt.$emit('selectList', 'Elements')
+      this.$nuxt.$emit('selectCategory', 'Elements')
       this.$nextTick(function () {
         this.$nuxt.$emit('setTagIndexStr', tag)
       })

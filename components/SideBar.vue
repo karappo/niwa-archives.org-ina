@@ -7,11 +7,11 @@ aside
     SideBarLink(:category="'Plans'" :dot="false") Plans
     .btn.disabled 3D Data
   section.viewpoints
-    h3.btn(@click="$nuxt.$emit('selectList', 'Viewpoints')" :class="{current: $store.getters.selectedCategory === 'Viewpoints'}") Viewpoints
+    h3.btn(@click="$nuxt.$emit('selectCategory', 'Viewpoints')" :class="{current: $store.getters.selectedCategory === 'Viewpoints'}") Viewpoints
     SideBarLink(:category="'Viewpoints/Photos'")
     SideBarLink(:category="'Viewpoints/Movies'")
   section.elements
-    h3.btn(@click="$nuxt.$emit('selectList', 'Elements')" :class="{current: $store.getters.selectedCategory === 'Elements'}") Elements
+    h3.btn(@click="$nuxt.$emit('selectCategory', 'Elements')" :class="{current: $store.getters.selectedCategory === 'Elements'}") Elements
     SideBarLink(:category="'Elements/Stones'")
     SideBarLink(:category="'Elements/Plants'")
     SideBarLink(:category="'Elements/Creatures'")
@@ -29,7 +29,7 @@ aside
     ) {{ capitalCase(season) }}
   section.autos
     h3 Tour Modes
-    .btn(@click="$nuxt.$emit('showGuidedTour')") Guided Tour
+    .btn(@click="$nuxt.$emit('selectGuidedTour')") Guided Tour
     .btn.disabled Ramble Tour
 </template>
 

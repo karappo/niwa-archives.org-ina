@@ -269,9 +269,9 @@ export default {
     this.$nuxt.$on('settingUpdated', config)
     this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
-    this.$nuxt.$on('selectList', this.selectList)
+    this.$nuxt.$on('selectCategory', this.selectCategory)
     this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
-    this.$nuxt.$on('showGuidedTour', this.showGuidedTour)
+    this.$nuxt.$on('selectGuidedTour', this.selectGuidedTour)
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
@@ -284,9 +284,9 @@ export default {
     this.$nuxt.$off('settingUpdated')
     this.$nuxt.$off('setControlMode')
     this.$nuxt.$off('startCameraAnimation')
-    this.$nuxt.$off('selectList')
+    this.$nuxt.$off('selectCategory')
     this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
-    this.$nuxt.$off('showGuidedTour', this.showGuidedTour)
+    this.$nuxt.$off('selectGuidedTour', this.selectGuidedTour)
     window.viewer.removeEventListener('camera_changed', this.update)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
@@ -368,22 +368,6 @@ export default {
       const annotations = window.viewer.scene.annotations.children
       this.getAnnotationById(id, annotations).click()
     },
-    showGuidedTour() {
-      // guidedTourの順でannotationをリスト化する
-      const list = []
-      this.data.guidedTour.forEach((id) => {
-        for (const a of this.annotations) {
-          if (a.id === id) {
-            list.push(a)
-            return
-          }
-        }
-      })
-      this.listData = {
-        name: 'Guided Tour',
-        list
-      }
-    },
     clickAnnotation(e) {
       if (this.annotationData || this.listData) {
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
@@ -442,7 +426,24 @@ export default {
         })
       }
     },
-    selectList(category) {
+    selectGuidedTour() {
+      // guidedTourの順でannotationをリスト化する
+      const list = []
+      this.data.guidedTour.forEach((id) => {
+        for (const a of this.annotations) {
+          if (a.id === id) {
+            list.push(a)
+            return
+          }
+        }
+      })
+      this.listData = {
+        name: 'Guided Tour',
+        list
+      }
+    },
+    selectCategory(category) {
+      console.log('selectCategory', category)
       this.clearSelectedAnnotation()
       this.$store.commit('selectedCategory', category)
       this.listData = {

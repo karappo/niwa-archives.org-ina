@@ -1,6 +1,6 @@
 <template lang="pug">
 .btn(
-  @click="$nuxt.$emit('selectList', category)"
+  @click="$nuxt.$emit('selectCategory', category)"
   :data-category="category"
   :class="{current: $store.getters.selectedCategory === category, dot}"
 ) {{ title }}
