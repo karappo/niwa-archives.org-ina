@@ -15,21 +15,18 @@
             KeyMap
         #potree_sidebar_container
       pane(
-        v-if="listData && !annotationData"
+        v-if="listData || annotationData"
         min-size="25"
         max-size="75"
       )
         ListDrawer(
+          v-if="listData && !annotationData"
           :data="listData"
           @close="closeDrawer"
           @showAnnotation="showAnnotation"
         )
-      pane(
-        v-if="annotationData"
-        min-size="25"
-        max-size="75"
-      )
         AnnotationDrawer(
+          v-if="annotationData"
           :data="annotationData"
           :annotations="annotations"
           :prevNextVisibility="prevNextVisibility"
@@ -269,9 +266,8 @@ export default {
     this.$nuxt.$on('settingUpdated', config)
     this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
-    this.$nuxt.$on('selectCategory', this.selectCategory)
+    this.$nuxt.$on('selectList', this.selectList)
     this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
-    this.$nuxt.$on('selectGuidedTour', this.selectGuidedTour)
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
@@ -282,11 +278,10 @@ export default {
   },
   beforeDestroy() {
     this.$nuxt.$off('settingUpdated')
-    this.$nuxt.$off('setControlMode')
-    this.$nuxt.$off('startCameraAnimation')
-    this.$nuxt.$off('selectCategory')
+    this.$nuxt.$off('setControlMode', this.setControlMode)
+    this.$nuxt.$off('startCameraAnimation', this.startCameraAnimation)
+    this.$nuxt.$off('selectList', this.selectList)
     this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
-    this.$nuxt.$off('selectGuidedTour', this.selectGuidedTour)
     window.viewer.removeEventListener('camera_changed', this.update)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
@@ -426,32 +421,31 @@ export default {
         })
       }
     },
-    selectGuidedTour() {
-      // guidedTourの順でannotationをリスト化する
-      const list = []
-      this.data.guidedTour.forEach((id) => {
-        for (const a of this.annotations) {
-          if (a.id === id) {
-            list.push(a)
-            return
-          }
-        }
-      })
-      this.$store.commit('listName', 'Guided Tour')
-      this.listData = {
-        name: 'Guided Tour',
-        list
-      }
-    },
-    selectCategory(category) {
-      console.log('selectCategory', category)
+    selectList(name) {
       this.clearSelectedAnnotation()
-      this.$store.commit('listName', category)
-      this.listData = {
-        name: category,
-        list: this.annotations.filter((a) => {
-          return a.category.includes(category)
+      this.$store.commit('listName', name)
+      if (name === 'Guided Tour') {
+        // guidedTourの順でannotationをリスト化する
+        const list = []
+        this.data.guidedTour.forEach((id) => {
+          for (const a of this.annotations) {
+            if (a.id === id) {
+              list.push(a)
+              return
+            }
+          }
         })
+        this.listData = {
+          name,
+          list
+        }
+      } else {
+        this.listData = {
+          name,
+          list: this.annotations.filter((a) => {
+            return a.category.includes(name)
+          })
+        }
       }
     },
     clearSelectedAnnotation() {
