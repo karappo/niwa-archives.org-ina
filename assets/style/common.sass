@@ -14,6 +14,27 @@ body
   --button-bg-color: #242424
   --textbox-bg-color: #151515
 
+
+  // デザイン的に .splitpanes__splitter 内に入れるしかなかったので、bodyの属性で切り替える
+  --drawer-header-color: transparent
+  &[data-drawer-header-color='Photos']
+    --drawer-header-color: #{$color_photos}
+  &[data-drawer-header-color='Movies']
+    --drawer-header-color: #{$color_movies}
+  &[data-drawer-header-color='Stones']
+    --drawer-header-color: #{$color_stones}
+  &[data-drawer-header-color='Plants']
+    --drawer-header-color: #{$color_plants}
+  &[data-drawer-header-color='Creatures']
+    --drawer-header-color: #{$color_creatures}
+  &[data-drawer-header-color='Artifacts']
+    --drawer-header-color: #{$color_artifacts}
+  &[data-drawer-header-color='DNA Data']
+    --drawer-header-color: #{$color_dna}
+  &[data-drawer-header-color='Oral Archives']
+    --drawer-header-color: #{$color_oral}
+
+
 a[href]
   color: inherit
   text-decoration: none

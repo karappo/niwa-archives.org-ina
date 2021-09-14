@@ -1,9 +1,7 @@
 <template lang="pug">
 article
   header
-    h1
-      Icon(:category="data.category")
-      | {{ data.title }}
+    h2.category {{ category }}
     a.autoplay(
       v-if="autoplayAvailable"
       @click="clickAutoplay"
@@ -26,53 +24,55 @@ article
         :title="`Back to list`"
       ) 
     a.close(@click="$emit('close')" title="Close") X
-  .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
-  img.image(v-if="data.image" :src="data.image")
-  a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
-  .youtube(v-if="data.youtube")
-    youtube(ref="youtube" :video-id="data.youtube.id()" :player-vars="playerVars" @ended="goToNextAnnotation")
-    .cover(
-      ref="cover"
-      :class="{hidden: !cover}"
-      @click="replayVideo()"
-    )
-      .icon 
-  .movie(v-if="data.movie")
-    //- GoogleDrive上のビデオ
-    iframe(
-      :src="data.movie"
-      frameborder="0"
-      allow="autoplay"
-      allowfullscreen
-    )
-  .person(v-if="data.person") Speaker: {{ data.person }}
-  .description(v-if="data.description" v-html="data.description")
-  .tags(v-if="data.tags")
-    label Tags
-    .tag(v-for="tag in data.tags")
-      span \#{{ tag }}
-      ul
-        // TODO: data.index != _a.index のところ、Annotation.id が導入されたらidで比較する方が良さそう
-        li(
-          v-for="a in annotations.filter((_a) => _a.tags && _a.tags.includes(tag) && data.index != _a.index )"
-          @click="$emit('showAnnotation', a.index)"
-        ) {{ a.title }}
-  .dateTime(v-if="data.dateTime") {{ showDateTime(data.dateTime) }}
+  .content
+    .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
+    img.image(v-if="data.image" :src="data.image")
+    a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
+    .youtube(v-if="data.youtube")
+      youtube(ref="youtube" :video-id="data.youtube.id()" :player-vars="playerVars" @ended="goToNextAnnotation")
+      .cover(
+        ref="cover"
+        :class="{hidden: !cover}"
+        @click="replayVideo()"
+      )
+        .icon 
+    .movie(v-if="data.movie")
+      //- GoogleDrive上のビデオ
+      iframe(
+        :src="data.movie"
+        frameborder="0"
+        allow="autoplay"
+        allowfullscreen
+      )
+    h1 {{ data.title }}
+    .person(v-if="data.person") Speaker: {{ data.person }}
+    .description(v-if="data.description" v-html="data.description")
+    .tags(v-if="data.tags")
+      label Tags
+      .tag(v-for="tag in data.tags")
+        span \#{{ tag }}
+        ul
+          // TODO: data.index != _a.index のところ、Annotation.id が導入されたらidで比較する方が良さそう
+          li(
+            v-for="a in annotations.filter((_a) => _a.tags && _a.tags.includes(tag) && data.index != _a.index )"
+            @click="$emit('showAnnotation', a.index)"
+          ) {{ a.title }}
+    .dateTime(v-if="data.dateTime") {{ showDateTime(data.dateTime) }}
 </template>
 
 <style lang="sass" scoped>
 @import ~/assets/style/const
 article
-  background-color: #111
   color: white
-  width: calc(100% - 30px)
-  min-height: calc(100% - 30px)
-  padding: 15px
+  padding: 0
 header
   display: flex
-  height: 65px
+  height: 40px
   align-items: center
   margin-bottom: 15px
+  padding: 28px 25px
+.content
+  padding: 0 25px
 .close
   @extend %button
   height: 26px
@@ -105,7 +105,7 @@ a
     pointer-events: none
 .next
   margin-left: 5px
-h1
+h2.category
   margin: 0
   margin-right: auto
   display: flex
@@ -113,9 +113,15 @@ h1
   text-overflow: ellipsis
   white-space: nowrap
   font-size: 18px
-  .icon
-    font-size: 25px
-    flex-shrink: 0
+  position: relative
+h1
+  margin: 0
+  margin-right: auto
+  display: flex
+  align-items: center
+  text-overflow: ellipsis
+  white-space: nowrap
+  font-size: 21px
 .description,
 .commentForGuidedTour
   font-size: 14px
@@ -224,8 +230,11 @@ export default {
     return {}
   },
   computed: {
+    category() {
+      return this.$getTitle(this.data.category)
+    },
     icon() {
-      return this.$getIcon(this.data.category)
+      return this.$getIcon(this.this.$getTitle(this.listName))
     },
     belongingList() {
       // eslint-disable-next-line
@@ -244,6 +253,7 @@ export default {
     }
   },
   mounted() {
+    document.body.setAttribute('data-drawer-header-color', this.category)
     if (
       !this.data.youtube &&
       !this.data.movie &&

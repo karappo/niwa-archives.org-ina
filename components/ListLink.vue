@@ -35,8 +35,8 @@
   &.dot:before
     content: ''
     display: inline-block
-    width: 8px
-    height: 8px
+    width: 6px
+    height: 6px
     background-color: var(--bg-color)
     margin-right: 0.5em
     border-radius: 50%

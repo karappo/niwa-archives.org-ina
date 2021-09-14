@@ -75,8 +75,26 @@ main
     height: 100%
     position: relative
   /deep/ .splitpanes__splitter
-    background-color: #111
-    border-right: 1px solid #222
+    background-color: transparent
+    border: 0
+    width: 5px
+    position: relative
+    &:before
+      position: absolute
+      display: block
+      content: ''
+      width: 100%
+      height: 40px
+      background-color: var(--drawer-header-color)
+      margin: 0
+      transform: none
+      top: 28px
+      left: 1px // 親の margin-left: -1px を考慮
+  .splitpanes
+    overflow: hidden
+  .splitpanes__pane
+    overflow-y: auto
+    background-color: black
 #potree_render_area
   width: 100%
   height: 100%
@@ -140,10 +158,6 @@ main
   &:hover
     color: rgba(255, 255, 255, 0.8)
 
-.splitpanes
-  overflow: hidden
-.splitpanes__pane
-  overflow-y: auto
 .sideBar
   grid-area: sidebar
 </style>

@@ -164,7 +164,13 @@ export default {
       return this.data.list
     }
   },
+  watch: {
+    data() {
+      document.body.setAttribute('data-drawer-header-color', this.title)
+    }
+  },
   mounted() {
+    document.body.setAttribute('data-drawer-header-color', this.title)
     this.$nuxt.$on('setTagIndexStr', this.setTagIndexStr)
   },
   beforeDestroy() {
