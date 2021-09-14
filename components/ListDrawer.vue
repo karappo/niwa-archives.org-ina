@@ -180,7 +180,7 @@ export default {
       }
     },
     startTour() {
-      this.$store.commit('autoPlayNextVideo', true)
+      this.$store.commit('autoplay', true)
       this.$nextTick(() => {
         this.$emit('showAnnotation', this.filteredList[0].index)
       })

@@ -7,7 +7,7 @@ article
     a.autoplay(
       v-if="autoplayAvailable"
       @click="clickAutoplay"
-      :class="{enabled: $store.getters.autoPlayNextVideo}"
+      :class="{enabled: $store.getters.autoplay}"
       title="オートプレイ：自動的に次の動画を再生します"
     ) Autoplay
     template(v-if="prevNextVisibility")
@@ -246,7 +246,7 @@ export default {
       !this.data.youtube &&
       !this.data.movie &&
       this.autoplayAvailable &&
-      this.$store.getters.autoPlayNextVideo
+      this.$store.getters.autoplay
     ) {
       this.startTimer()
     }
@@ -263,7 +263,7 @@ export default {
     goToNextAnnotation() {
       if (
         this.autoplayAvailable &&
-        this.$store.getters.autoPlayNextVideo &&
+        this.$store.getters.autoplay &&
         !this.nextDisabled
       ) {
         this.$emit('next', this.data.index)
@@ -278,11 +278,8 @@ export default {
       this.player.playVideo()
     },
     clickAutoplay() {
-      this.$store.commit(
-        'autoPlayNextVideo',
-        !this.$store.getters.autoPlayNextVideo
-      )
-      if (this.$store.getters.autoPlayNextVideo) {
+      this.$store.commit('autoplay', !this.$store.getters.autoplay)
+      if (this.$store.getters.autoplay) {
         this.startTimer()
       }
     },

@@ -2,7 +2,7 @@ export const state = () => ({
   cameraPosition: null,
   cameraTarget: null,
   listName: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
-  autoPlayNextVideo: false,
+  autoplay: false,
   // TODO ここ以降おそらく不要なので消す。合わせてFooter.vueも消す
   EDLEnabled: true,
   EDLRadius: 0, // default: 1.4
@@ -25,8 +25,8 @@ export const mutations = {
   listName(state, value) {
     state.listName = value
   },
-  autoPlayNextVideo(state, value) {
-    state.autoPlayNextVideo = value
+  autoplay(state, value) {
+    state.autoplay = value
   },
   EDLEnabled(state, value) {
     state.EDLEnabled = value
@@ -72,8 +72,8 @@ export const getters = {
   listName(state) {
     return state.listName
   },
-  autoPlayNextVideo(state) {
-    return state.autoPlayNextVideo
+  autoplay(state) {
+    return state.autoplay
   },
   EDLEnabled(state) {
     return state.EDLEnabled
