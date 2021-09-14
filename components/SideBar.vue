@@ -6,6 +6,11 @@ aside
     .btn.disabled History
     SideBarLink(:category="'Plans'" :dot="false") Plans
     .btn.disabled 3D Data
+    SelectBox.variations(
+      v-if="$variation($route)"
+      :options="variations"
+      :value.sync="variationIndex"
+    )
   section.viewpoints
     h3.btn(@click="$nuxt.$emit('selectCategory', 'Viewpoints')" :class="{current: $store.getters.selectedCategory === 'Viewpoints'}") Viewpoints
     SideBarLink(:category="'Viewpoints/Photos'")
@@ -19,14 +24,6 @@ aside
     SideBarLink(:category="'Elements/DNA Data'")
   section.orals
     SideBarLink(:category="'Oral Archives'")
-  section.seasons(v-if="$variation($route)")
-    h3 Seasons
-    .btn(
-      v-for="season in ['summer', 'winter', 'snow']"
-      :key="season"
-      @click="goTo(`../${$garden($route)}-${season}/`)"
-      :class="{current: $variation($route) === season}"
-    ) {{ capitalCase(season) }}
   section.autos
     h3 Tour Modes
     .btn(@click="$nuxt.$emit('selectGuidedTour')") Guided Tour
@@ -55,6 +52,11 @@ section
   &.viewpoints,
   &.autos
     border-top: 1px solid #3C3C3C
+.variations
+  margin-top: 10px
+  width: 130px
+  /deep/ select
+    text-transform: capitalize
 h3
   font-size: 13px
   margin: 0
@@ -76,15 +78,22 @@ h3
 </style>
 
 <script>
-import { capitalCase } from 'change-case'
 export default {
-  methods: {
-    goTo(path) {
+  data() {
+    const variations = ['summer', 'winter', 'snow']
+    let variationIndex = variations.indexOf(this.$variation(this.$route))
+    console.log('variationIndex', variationIndex, this.$variation(this.$route))
+    variationIndex += '' // SelectBoxに渡す関係でvariationIndexはStringにしておく必要がある
+    return {
+      variations,
+      variationIndex
+    }
+  },
+  watch: {
+    variationIndex(val) {
       this.$emit('saveCameraInfo') // TODO 機能していない？？
-      this.$router.push(path)
-    },
-    capitalCase(str) {
-      return capitalCase(str)
+      const varStr = this.variations[parseInt(val, 10)].toLowerCase()
+      this.$router.push(`../${this.$garden(this.$route)}-${varStr}/`)
     }
   }
 }
