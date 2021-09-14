@@ -21,7 +21,7 @@
       )
         ListDrawer(
           :data="listData"
-          @close="clickDrawerClose"
+          @close="closeDrawer"
           @showAnnotation="showAnnotation"
         )
       pane(
@@ -34,7 +34,7 @@
           :annotations="annotations"
           :prevNextVisibility="prevNextVisibility"
           @backToList="clearSelectedAnnotation"
-          @close="clickDrawerClose"
+          @close="closeDrawer"
           @showAnnotation="showAnnotation"
           @prev="prev"
           @next="next"
@@ -170,7 +170,7 @@ export default {
       data,
       tours: null,
       annotationData: '',
-      customAnnotationListData: null,
+      listData: null,
       drawerAlreadyOpened: false,
       loading: true,
       annotationVisibility: true
@@ -178,26 +178,7 @@ export default {
   },
   computed: {
     prevNextVisibility() {
-      return (
-        this.listData &&
-        this.listData.name &&
-        this.listData.name === this.annotationData.category &&
-        this.annotationData.category
-      )
-    },
-    listData() {
-      const category = this.$store.getters.selectedCategory
-      if (category) {
-        return {
-          name: category,
-          list: this.annotations.filter((a) => {
-            return a.category.includes(category)
-          })
-        }
-      }
-      // customAnnotationListDataはnullかも知れないが、その場合も、結局nullを返す必要があり条件分岐しても同じことなのでこう書いている。
-      // 更に条件が増える場合は考慮すること。
-      return this.customAnnotationListData
+      return this.listData !== null
     }
   },
   async mounted() {
@@ -398,7 +379,7 @@ export default {
           }
         }
       })
-      this.customAnnotationListData = {
+      this.listData = {
         name: 'Guided Tour',
         list
       }
@@ -464,16 +445,23 @@ export default {
     selectList(category) {
       this.clearSelectedAnnotation()
       this.$store.commit('selectedCategory', category)
+      this.listData = {
+        name: category,
+        list: this.annotations.filter((a) => {
+          return a.category.includes(category)
+        })
+      }
     },
     clearSelectedAnnotation() {
       this.annotationData = null
       // eslint-disable-next-line
       document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
     },
-    clickDrawerClose() {
+    closeDrawer() {
       // clear List
       this.$store.commit('selectedCategory', '')
       this.clearSelectedAnnotation()
+      this.listData = null
     },
     saveCameraInfo() {
       // const camera = window.viewer.scene.getActiveCamera()
