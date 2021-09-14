@@ -8,6 +8,9 @@ article
       label Filter:
       SelectBox(:options="tags" :value.sync="tagIndexStr" :allowEmpty="true")
     a.close(@click="$emit('close')" title="Close") X
+  template(v-if="data.name === 'Guided Tour'")
+    .description Guided Tourでは、庭園をひとめぐりしながら、INAの全体が把握できるような自動モードです。
+    .bigBtn Start Tour
   ul.list(v-if="filteredList.length")
     li(v-for="o in filteredList" @click="$emit('showAnnotation', o.index)")
       Icon(v-if="!icon" :category="o.category")
@@ -22,7 +25,7 @@ article
 <style lang="sass" scoped>
 @import ~/assets/style/const
 article
-  background-color: #111
+  background-color: #000
   color: white
   width: calc(100% - 30px)
   min-height: calc(100% - 30px)
@@ -55,6 +58,25 @@ h1
   .icon
     font-size: 30px
     margin-right: 0.5em
+.description
+  font-size: 14px
+  line-height: 2
+  color: #898989
+.bigBtn
+  font-size: 17px
+  font-family: 'K2-v1-Bold'
+  color: white
+  background-color: #084033
+  display: flex
+  justify-content: center
+  align-items: center
+  margin: 30px 0
+  padding: 20px
+  border-radius: 5px
+  cursor: pointer
+  transition: background-color .1s
+  &:hover
+    background-color: lighten(#084033, 5%)
 .list
   display: block
   padding: 0
