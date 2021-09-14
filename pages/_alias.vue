@@ -180,7 +180,10 @@ export default {
       return this.listData !== null
     },
     listDataIndexArray() {
-      return this.listData.list.map((a) => a.index)
+      if (this.listData) {
+        return this.listData.list.map((a) => a.index)
+      }
+      return []
     },
     currentIndex() {
       return this.listDataIndexArray.indexOf(this.annotationData.index)
@@ -343,7 +346,12 @@ export default {
       this.showAnnotation(this.listDataIndexArray[currentIndex + 1])
     },
     showAnnotation(globalIndex) {
-      window.viewer.scene.annotations.children[globalIndex].click()
+      const annotation = window.viewer.scene.annotations.children[globalIndex]
+      if (this.$store.getters.listName === 'Guided Tour') {
+        annotation.click_inTour()
+      } else {
+        annotation.click()
+      }
     },
     showAnnotationById(id) {
       const annotations = window.viewer.scene.annotations.children
