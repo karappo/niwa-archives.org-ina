@@ -1,7 +1,7 @@
 export const state = () => ({
   cameraPosition: null,
   cameraTarget: null,
-  selectedCategory: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
+  listName: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
   autoPlayNextVideo: false,
   // TODO ここ以降おそらく不要なので消す。合わせてFooter.vueも消す
   EDLEnabled: true,
@@ -22,8 +22,8 @@ export const mutations = {
   cameraTarget(state, value) {
     state.cameraTarget = value
   },
-  selectedCategory(state, value) {
-    state.selectedCategory = value
+  listName(state, value) {
+    state.listName = value
   },
   autoPlayNextVideo(state, value) {
     state.autoPlayNextVideo = value
@@ -69,8 +69,8 @@ export const getters = {
   cameraTarget(state) {
     return state.cameraTarget
   },
-  selectedCategory(state) {
-    return state.selectedCategory
+  listName(state) {
+    return state.listName
   },
   autoPlayNextVideo(state) {
     return state.autoPlayNextVideo

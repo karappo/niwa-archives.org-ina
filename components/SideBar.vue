@@ -12,11 +12,11 @@ aside
       :value.sync="variationIndex"
     )
   section.viewpoints
-    h3.btn(@click="$nuxt.$emit('selectCategory', 'Viewpoints')" :class="{current: $store.getters.selectedCategory === 'Viewpoints'}") Viewpoints
+    h3.btn(@click="$nuxt.$emit('selectCategory', 'Viewpoints')" :class="{current: $store.getters.listName === 'Viewpoints'}") Viewpoints
     SideBarLink(:category="'Viewpoints/Photos'")
     SideBarLink(:category="'Viewpoints/Movies'")
   section.elements
-    h3.btn(@click="$nuxt.$emit('selectCategory', 'Elements')" :class="{current: $store.getters.selectedCategory === 'Elements'}") Elements
+    h3.btn(@click="$nuxt.$emit('selectCategory', 'Elements')" :class="{current: $store.getters.listName === 'Elements'}") Elements
     SideBarLink(:category="'Elements/Stones'")
     SideBarLink(:category="'Elements/Plants'")
     SideBarLink(:category="'Elements/Creatures'")

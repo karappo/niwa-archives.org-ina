@@ -338,9 +338,9 @@ export default {
       let index = globalIndex
       // カテゴリーが絞り込まれていたら
       // eslint-disable-next-line
-      if (this.$store.getters.selectedCategory) {
+      if (this.$store.getters.listName) {
         // eslint-disable-next-line
-        annotations = window.viewer.scene.annotations.children.filter((a) => a.data.category === this.$store.getters.selectedCategory)
+        annotations = window.viewer.scene.annotations.children.filter((a) => a.data.category === this.$store.getters.listName)
         index = annotations.findIndex((a) => a._index === globalIndex)
       }
       return {
@@ -437,6 +437,7 @@ export default {
           }
         }
       })
+      this.$store.commit('listName', 'Guided Tour')
       this.listData = {
         name: 'Guided Tour',
         list
@@ -445,7 +446,7 @@ export default {
     selectCategory(category) {
       console.log('selectCategory', category)
       this.clearSelectedAnnotation()
-      this.$store.commit('selectedCategory', category)
+      this.$store.commit('listName', category)
       this.listData = {
         name: category,
         list: this.annotations.filter((a) => {
@@ -460,7 +461,7 @@ export default {
     },
     closeDrawer() {
       // clear List
-      this.$store.commit('selectedCategory', '')
+      this.$store.commit('listName', '')
       this.clearSelectedAnnotation()
       this.listData = null
     },
