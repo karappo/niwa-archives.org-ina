@@ -4,7 +4,7 @@ article
     h1
       Icon(:category="data.category")
       | {{ title }}
-    template(v-if="tags.length" )
+    template(v-if="filterVisibility && tags.length" )
       label Filter:
       SelectBox(:options="tags" :value.sync="tagIndexStr" :allowEmpty="true")
     a.close(@click="$emit('close')" title="Close") X
@@ -151,6 +151,9 @@ export default {
     },
     selectedTag() {
       return this.tags[this.tagIndex]
+    },
+    filterVisibility() {
+      return !['Guided Tour', 'Plans'].includes(this.title)
     },
     filteredList() {
       if (this.selectedTag) {
