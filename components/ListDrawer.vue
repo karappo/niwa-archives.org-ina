@@ -10,7 +10,7 @@ article
     a.close(@click="$emit('close')" title="Close") X
   template(v-if="data.name === 'Guided Tour'")
     .description Guided Tourでは、庭園をひとめぐりしながら、INAの全体が把握できるような自動モードです。
-    .bigBtn Start Tour
+    .bigBtn(@click="startTour") Start Tour
   ul.list(v-if="filteredList.length")
     li(v-for="o in filteredList" @click="$emit('showAnnotation', o.index)")
       Icon(v-if="!icon" :category="o.category")
@@ -178,6 +178,12 @@ export default {
       } else {
         console.error(`「${tag}」というタグは見つかりませんでした`)
       }
+    },
+    startTour() {
+      this.$store.commit('autoPlayNextVideo', true)
+      this.$nextTick(() => {
+        this.$emit('showAnnotation', this.filteredList[0].index)
+      })
     }
   }
 }

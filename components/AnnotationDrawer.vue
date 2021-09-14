@@ -6,7 +6,7 @@ article
       | {{ data.title }}
     a.autoplay(
       v-if="autoplayAvailable"
-      @click="$store.commit('autoPlayNextVideo', !$store.getters.autoPlayNextVideo)"
+      @click="clickAutoplay"
       :class="{enabled: $store.getters.autoPlayNextVideo}"
       title="オートプレイ：自動的に次の動画を再生します"
     ) Autoplay
@@ -31,7 +31,7 @@ article
   img.image(v-if="data.image" :src="data.image")
   a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
   .youtube(v-if="data.youtube")
-    youtube(ref="youtube" :video-id="data.youtube.id()" :player-vars="playerVars" @ended="youtubeEnded")
+    youtube(ref="youtube" :video-id="data.youtube.id()" :player-vars="playerVars" @ended="goToNextAnnotation")
     .cover(
       ref="cover"
       :class="{hidden: !cover}"
@@ -236,7 +236,19 @@ export default {
       return this.$refs.youtube.player
     },
     autoplayAvailable() {
-      return this.data.category === 'Oral Archives'
+      return ['Oral Archives', 'Guided Tour'].includes(
+        this.$store.getters.listName
+      )
+    }
+  },
+  mounted() {
+    if (
+      !this.data.youtube &&
+      !this.data.movie &&
+      this.autoplayAvailable &&
+      this.$store.getters.autoPlayNextVideo
+    ) {
+      this.startTimer()
     }
   },
   methods: {
@@ -248,8 +260,12 @@ export default {
       }
       return d.format(format)
     },
-    youtubeEnded() {
-      if (this.autoplayAvailable && this.$store.getters.autoPlayNextVideo) {
+    goToNextAnnotation() {
+      if (
+        this.autoplayAvailable &&
+        this.$store.getters.autoPlayNextVideo &&
+        !this.nextDisabled
+      ) {
         this.$emit('next', this.data.index)
       } else {
         this.cover = true
@@ -260,6 +276,19 @@ export default {
     replayVideo() {
       this.cover = false
       this.player.playVideo()
+    },
+    clickAutoplay() {
+      this.$store.commit(
+        'autoPlayNextVideo',
+        !this.$store.getters.autoPlayNextVideo
+      )
+      if (this.$store.getters.autoPlayNextVideo) {
+        this.startTimer()
+      }
+    },
+    startTimer() {
+      // 一定時間後に次へ
+      setTimeout(this.goToNextAnnotation, 15000)
     }
   }
 }
