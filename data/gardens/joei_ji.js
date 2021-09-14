@@ -15,10 +15,9 @@ export default {
     window.viewer.scene.view.lookAt(new THREE.Vector3(38.742, 83.399, 24.068))
   },
   guidedTour: [
-    'j1p8ce',
     '9xv9zl',
-    'nw0bpt',
     'ieagdj',
+    'j1p8ce',
     'zfdjlo',
     '4bmhwg',
     '74wek8',
