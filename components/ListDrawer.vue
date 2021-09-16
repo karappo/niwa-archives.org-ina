@@ -1,10 +1,8 @@
 <template lang="pug">
 article
   header
-    h1(:data-category="title")
-      Icon(:category="data.category")
-      | {{ title }}
-    template(v-if="filterVisibility && tags.length" )
+    h1(:data-category="title") {{ title }}
+    .filter(v-if="filterVisibility && tags.length" )
       label Filter:
       SelectBox(:options="tags" :value.sync="tagIndexStr" :allowEmpty="true")
     a.close(@click="$emit('close')" title="Close") X
