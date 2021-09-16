@@ -2,7 +2,9 @@
 .root
   main
     splitpanes.default-theme
-      pane.potree_container
+      pane.potree_container(
+        size="60"
+      )
         #potree_render_area(ref="potree_render_area" :class="{loading, annotationVisibility}")
           .controls
             .title
@@ -16,6 +18,7 @@
         #potree_sidebar_container
       pane(
         v-if="listData || annotationData"
+        size="40"
         min-size="25"
         max-size="75"
       )
