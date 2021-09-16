@@ -212,7 +212,7 @@ export default {
       return this.$refs.youtube.player
     },
     autoplayAvailable() {
-      return ['Oral Archives', 'Guided Tour'].includes(
+      return ['Oral Archives', 'Guided Tour', 'Ramble Tour'].includes(
         this.$store.getters.listName
       )
     },
