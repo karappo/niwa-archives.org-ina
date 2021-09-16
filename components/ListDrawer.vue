@@ -133,6 +133,14 @@ export default {
       )
     }
   },
+  watch: {
+    data: {
+      immediate: true,
+      handler() {
+        this.tagIndexStr = ''
+      }
+    }
+  },
   mounted() {
     this.$nuxt.$on('setTagIndexStr', this.setTagIndexStr)
   },
