@@ -11,7 +11,7 @@ article
       .description Guided Tourは、庭園をひとめぐりしながら、INAの全体が把握できるようなツアーモードです。
       .bigBtn(@click="startTour") Start Tour
     template(v-else-if="data.name === 'Ramble Tour'")
-      .description Ramble Tourは、全アノテーションをランダムに巡っていくツアーモードです。
+      .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。
       .bigBtn(@click="startTour") Start Tour
     AnnotationList(:list="filteredList" :icon="!$getIcon(data.name)")
 </template>
