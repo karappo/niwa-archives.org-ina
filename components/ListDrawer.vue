@@ -99,6 +99,9 @@ article
         margin-right: 10px
       h5
         font-size: 15px
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
         flex: 1
 </style>
 
