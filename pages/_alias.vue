@@ -16,7 +16,7 @@
             )
             KeyMap
         #potree_sidebar_container
-      pane(
+      pane.drawer(
         v-if="listData || annotationData"
         size="40"
         min-size="25"
@@ -73,31 +73,21 @@ main
     display: block
     font-size: 25px
 .splitpanes.default-theme
-  .potree_container
-    width: 100%
-    height: 100%
-    position: relative
+  overflow: hidden
   /deep/ .splitpanes__splitter
     background-color: transparent
     border: 0
-    width: 5px
-    position: relative
-    &:before
-      position: absolute
-      display: block
-      content: ''
-      width: 100%
-      height: 40px
-      background-color: var(--drawer-header-color)
-      margin: 0
-      transform: none
-      top: 28px
-      left: 1px // 親の margin-left: -1px を考慮
-  .splitpanes
-    overflow: hidden
+    width: 7px
+    z-index: 2
   .splitpanes__pane
-    overflow-y: auto
-    background-color: black
+    &.potree_container
+      width: 100%
+      height: 100%
+      position: relative
+    &.drawer
+      overflow-y: auto
+      background-color: black
+      margin-left: -6px
 #potree_render_area
   width: 100%
   height: 100%

@@ -1,7 +1,7 @@
 <template lang="pug">
 article
   header
-    h2.category {{ category }}
+    h2.category(:data-category="category") {{ category }}
     a.autoplay(
       v-if="autoplayAvailable"
       @click="clickAutoplay"
@@ -62,132 +62,100 @@ article
 
 <style lang="sass" scoped>
 @import ~/assets/style/const
-article
-  color: white
-  padding: 0
+@import ~/assets/style/drawer-common
 header
-  display: flex
-  height: 40px
-  align-items: center
-  margin-bottom: 15px
-  padding: 28px 25px
-.content
-  padding: 0 25px
-.close
-  @extend %button
-  height: 26px
-  width: 26px
-  font-size: 12px
-  color: #898989
-  transition: color 0.2s
-  margin-left: 10px
-  margin-right: 0
-  &:hover
-    color: white
-a
-  @extend %button
-  font-size: 12px
-  height: 26px
-.autoplay
-  padding: 0 10px
-  margin-right: 10px
-  &.enabled
-    border-color: white !important
-.backTolist
-  font-family: 'Font Awesome 5 Pro-Light-300'
-  width: 26px
-  margin-left: 10px
-.prev,
-.next
-  width: 26px
-  &.disabled
-    opacity: 0.5
-    pointer-events: none
-.next
-  margin-left: 5px
-h2.category
-  margin: 0
-  margin-right: auto
-  display: flex
-  align-items: center
-  text-overflow: ellipsis
-  white-space: nowrap
-  font-size: 18px
-  position: relative
-h1
-  margin: 0
-  margin-right: auto
-  display: flex
-  align-items: center
-  text-overflow: ellipsis
-  white-space: nowrap
-  font-size: 21px
-.description,
-.commentForGuidedTour
-  font-size: 14px
-  line-height: calc(29 / 14)
-  margin-bottom: 15px
-  white-space: pre-wrap // nl2br
-  /deep/ a
-    color: #A452E0
-.commentForGuidedTour
-  background-color: #05211A
-  color: white
-  padding: 20px 23px
-  border-radius: 10px
-.image
-  width: 100%
-  height: auto
-.download
-  @extend %button
-  padding: 20px
-.youtube,
-.movie
-  position: relative
-  padding-top: calc(225 / 400 * 100%) // ここでアスペクト比（height / width）を設定
-  overflow: hidden
-  max-width: 100%
-  height: auto
-  margin-bottom: 20px
-  .cover,
-  /deep/ iframe
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    z-index: 1
-  .cover
+  .autoplay
+    padding: 0 10px
+    margin-right: 10px
+    &.enabled
+      border-color: white !important
+  .backTolist
     font-family: 'Font Awesome 5 Pro-Light-300'
-    font-size: 50px
-    color: white
-    background: black
-    z-index: 2
-    display: flex
-    justify-content: center
-    align-items: center
-    cursor: pointer
-    .icon
+    width: 26px
+    margin-left: 10px
+  .prev,
+  .next
+    width: 26px
+    &.disabled
       opacity: 0.5
-      transition: opacity 0.2s
-    &:hover
-      .icon
-        opacity: 1
-    &.hidden
-      display: none
-.tags
-  font-size: 12px
-  line-height: 2
-  ul
+      pointer-events: none
+  .next
+    margin-left: 5px
+.content
+  h1
     margin: 0
-  li
-    text-decoration: underline
-    cursor: pointer
-    &:hover
-      opacity: 0.5
-.dateTime
-  font-size: 12px
-  margin-top: 50px
+    margin-right: auto
+    display: flex
+    align-items: center
+    text-overflow: ellipsis
+    white-space: nowrap
+    font-size: 21px
+  .description,
+  .commentForGuidedTour
+    font-size: 14px
+    line-height: calc(29 / 14)
+    margin-bottom: 15px
+    white-space: pre-wrap // nl2br
+    /deep/ a
+      color: #A452E0
+  .commentForGuidedTour
+    background-color: #05211A
+    color: white
+    padding: 20px 23px
+    border-radius: 10px
+  .image
+    width: 100%
+    height: auto
+  .download
+    @extend %button
+    padding: 20px
+  .youtube,
+  .movie
+    position: relative
+    padding-top: calc(225 / 400 * 100%) // ここでアスペクト比（height / width）を設定
+    overflow: hidden
+    max-width: 100%
+    height: auto
+    margin-bottom: 20px
+    .cover,
+    /deep/ iframe
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      z-index: 1
+    .cover
+      font-family: 'Font Awesome 5 Pro-Light-300'
+      font-size: 50px
+      color: white
+      background: black
+      z-index: 2
+      display: flex
+      justify-content: center
+      align-items: center
+      cursor: pointer
+      .icon
+        opacity: 0.5
+        transition: opacity 0.2s
+      &:hover
+        .icon
+          opacity: 1
+      &.hidden
+        display: none
+  .tags
+    font-size: 12px
+    line-height: 2
+    ul
+      margin: 0
+    li
+      text-decoration: underline
+      cursor: pointer
+      &:hover
+        opacity: 0.5
+  .dateTime
+    font-size: 12px
+    margin-top: 50px
 </style>
 
 <script>
@@ -253,7 +221,6 @@ export default {
     }
   },
   mounted() {
-    document.body.setAttribute('data-drawer-header-color', this.category)
     if (
       !this.data.youtube &&
       !this.data.movie &&

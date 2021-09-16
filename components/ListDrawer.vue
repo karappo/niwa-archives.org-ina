@@ -1,63 +1,31 @@
 <template lang="pug">
 article
   header
-    h1
+    h1(:data-category="title")
       Icon(:category="data.category")
       | {{ title }}
     template(v-if="filterVisibility && tags.length" )
       label Filter:
       SelectBox(:options="tags" :value.sync="tagIndexStr" :allowEmpty="true")
     a.close(@click="$emit('close')" title="Close") X
-  template(v-if="data.name === 'Guided Tour'")
-    .description Guided Tourでは、庭園をひとめぐりしながら、INAの全体が把握できるような自動モードです。
-    .bigBtn(@click="startTour") Start Tour
-  ul.list(v-if="filteredList.length")
-    li(v-for="o in filteredList" @click="$emit('showAnnotation', o.index)")
-      Icon(v-if="!icon" :category="o.category")
-      .thumb(v-if="o.image" :style="`background-image: url(${o.image});`")
-      .thumb(v-if="o.youtube" :style="`background-image: url(${o.youtube.thumbnailUrl()});`")
-      span.title {{ o.title }}
-      span.type(v-if="o.image") 
-      span.type.youtube(v-else-if="o.youtube") 
-  .empty(v-else) データがありません
+  .content
+    template(v-if="data.name === 'Guided Tour'")
+      .description Guided Tourでは、庭園をひとめぐりしながら、INAの全体が把握できるような自動モードです。
+      .bigBtn(@click="startTour") Start Tour
+    ul.list(v-if="filteredList.length")
+      li(v-for="o in filteredList" @click="$emit('showAnnotation', o.index)")
+        Icon(v-if="!icon" :category="o.category")
+        .thumb(v-if="o.image" :style="`background-image: url(${o.image});`")
+        .thumb(v-if="o.youtube" :style="`background-image: url(${o.youtube.thumbnailUrl()});`")
+        span.title {{ o.title }}
+        span.type(v-if="o.image") 
+        span.type.youtube(v-else-if="o.youtube") 
+    .empty(v-else) データがありません
 </template>
 
 <style lang="sass" scoped>
 @import ~/assets/style/const
-article
-  background-color: #000
-  color: white
-  width: calc(100% - 30px)
-  min-height: calc(100% - 30px)
-  padding: 15px
-header
-  display: flex
-  height: 65px
-  align-items: center
-  margin-bottom: 15px
-  label
-    font-size: 12px
-    color: #898989
-    margin-right: 1em
-.close
-  @extend %button
-  height: 32px
-  width: 32px
-  font-size: 12px
-  color: #898989
-  transition: color 0.2s
-  margin-left: 10px
-  margin-right: 0
-  &:hover
-    color: white
-h1
-  display: flex
-  align-items: center
-  margin: 0
-  margin-right: auto
-  .icon
-    font-size: 30px
-    margin-right: 0.5em
+@import ~/assets/style/drawer-common
 .description
   font-size: 14px
   line-height: 2
@@ -164,13 +132,7 @@ export default {
       return this.data.list
     }
   },
-  watch: {
-    data() {
-      document.body.setAttribute('data-drawer-header-color', this.title)
-    }
-  },
   mounted() {
-    document.body.setAttribute('data-drawer-header-color', this.title)
     this.$nuxt.$on('setTagIndexStr', this.setTagIndexStr)
   },
   beforeDestroy() {
