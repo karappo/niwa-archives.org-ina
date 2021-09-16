@@ -55,7 +55,7 @@ article
           // TODO: data.index != _a.index のところ、Annotation.id が導入されたらidで比較する方が良さそう
           li(
             v-for="a in annotations.filter((_a) => _a.tags && _a.tags.includes(tag) && data.index != _a.index )"
-            @click="$emit('showAnnotation', a.index)"
+            @click="$nuxt.$emit('showAnnotation', a.index)"
           ) {{ a.title }}
     .dateTime(v-if="data.dateTime") {{ showDateTime(data.dateTime) }}
 </template>

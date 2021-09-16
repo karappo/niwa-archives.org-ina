@@ -31,7 +31,6 @@
           :nextDisabled="nextDisabled"
           @backToList="clearSelectedAnnotation"
           @close="closeDrawer"
-          @showAnnotation="showAnnotation"
           @prev="prev"
           @next="next"
         )
@@ -39,7 +38,6 @@
           v-else-if="listData"
           :data="listData"
           @close="closeDrawer"
-          @showAnnotation="showAnnotation"
         )
     SoundBar
   SideBar.sideBar(
@@ -292,6 +290,7 @@ export default {
     this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$on('selectList', this.selectList)
+    this.$nuxt.$on('showAnnotation', this.showAnnotation)
     this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
     window.viewer.addEventListener('camera_changed', this.update)
 
@@ -306,6 +305,7 @@ export default {
     this.$nuxt.$off('setControlMode', this.setControlMode)
     this.$nuxt.$off('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$off('selectList', this.selectList)
+    this.$nuxt.$off('showAnnotation', this.showAnnotation)
     this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
     window.viewer.removeEventListener('camera_changed', this.update)
     if (window.viewer.scene.annotations) {

@@ -151,7 +151,7 @@ export default {
     startTour() {
       this.$store.commit('autoplay', true)
       this.$nextTick(() => {
-        this.$emit('showAnnotation', this.filteredList[0].index)
+        this.$nuxt.$emit('showAnnotation', this.filteredList[0].index)
       })
     }
   }

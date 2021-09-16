@@ -1,7 +1,7 @@
 <template lang="pug">
 .annotationList
   ul.list(v-if="list.length")
-    li(v-for="o in list" @click="$emit('showAnnotation', o.index)")
+    li(v-for="o in list" @click="$nuxt.$emit('showAnnotation', o.index)")
       Icon(v-if="icon" :category="o.category")
       .thumb(v-if="o.image" :style="`background-image: url(${o.image});`")
       .thumb(v-if="o.youtube" :style="`background-image: url(${o.youtube.thumbnailUrl()});`")
