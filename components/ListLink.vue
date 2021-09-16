@@ -30,7 +30,7 @@
   &[data-list-name='Elements/DNA Data']
     --bg-color: #{$color_dnaData}
   &[data-list-name='Oral Archives']
-    --bg-color: #{$color_oral}
+    --bg-color: #{$color_oralArchives}
 
   &.dot:before
     content: ''

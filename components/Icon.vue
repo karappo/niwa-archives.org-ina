@@ -30,7 +30,7 @@ span.icon(v-if="icon" :data-category="category") {{ icon }}
   &[data-category='Elements/DNA Data']
     background-color: $color_dnaData
   &[data-category='Oral Archives']
-    background-color: $color_oral
+    background-color: $color_oralArchives
 </style>
 
 <script>
