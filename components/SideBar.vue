@@ -89,7 +89,6 @@ export default {
   data() {
     const variations = ['summer', 'winter', 'snow']
     let variationIndex = variations.indexOf(this.$variation(this.$route))
-    console.log('variationIndex', variationIndex, this.$variation(this.$route))
     variationIndex += '' // SelectBoxに渡す関係でvariationIndexはStringにしておく必要がある
     return {
       variations,
