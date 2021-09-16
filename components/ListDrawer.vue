@@ -13,7 +13,14 @@ article
     template(v-else-if="data.name === 'Ramble Tour'")
       .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。
       .bigBtn(@click="startTour") Start Tour
-    AnnotationList(:list="filteredList" :icon="!$getIcon(data.name)")
+
+    .groups(v-if="data.name === 'Oral Archives'")
+      .group(v-for="(val, key) in this.groups")
+        .head
+          .thumb(:style="`background-image: url(${val[0].youtube.thumbnailUrl()});`")
+          h5 {{ key }}
+        AnnotationList(:list="val" :icon="!$getIcon(data.name)")
+    AnnotationList(v-else :list="filteredList" :icon="!$getIcon(data.name)")
 </template>
 
 <style lang="sass" scoped>
@@ -76,10 +83,28 @@ article
     border-bottom: 1px solid #555
 .empty
   color: #898989
+.groups
+  .group + .group
+    margin-top: 60px
+  .group
+    .head
+      display: flex
+      align-items: center
+      .thumb
+        width: 80px
+        height: 60px
+        border-radius: 5px
+        background-size: cover
+        background-position: center
+        margin-right: 10px
+      h5
+        font-size: 15px
+        flex: 1
 </style>
 
 <script>
 import _flattenDeep from 'lodash/flattenDeep'
+import _groupBy from 'lodash/groupBy'
 import _map from 'lodash/map'
 import _uniq from 'lodash/uniq'
 export default {
@@ -92,7 +117,8 @@ export default {
   },
   data() {
     return {
-      tagIndexStr: ''
+      tagIndexStr: '',
+      groups: null // Oral Archivesのときにdata.listをグルーピングして保持する
     }
   },
   computed: {
@@ -125,8 +151,27 @@ export default {
   watch: {
     data: {
       immediate: true,
-      handler() {
-        this.tagIndexStr = ''
+      async handler(data) {
+        this.tagIndexStr = '' // タグをリセット
+
+        if (data.name === 'Oral Archives') {
+          const groups = _groupBy(data.list, (item) => {
+            return item.youtube.id()
+          })
+          // videoIdがkeyになっているのをYoutubeタイトルをキーに
+          const res = {}
+          for (const videoId of Object.keys(groups)) {
+            const data = await fetch(
+              `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.API_KEY}`
+            ).then((res) => res.json())
+            console.log(data.items[0].snippet.title)
+            res[data.items[0].snippet.title] = groups[videoId]
+          }
+          this.groups = res
+        } else {
+          // TODO ここ要るのか確認
+          this.groups = null
+        }
       }
     }
   },
@@ -153,6 +198,12 @@ export default {
       this.$nextTick(() => {
         this.$nuxt.$emit('showAnnotation', this.data.list[0].index)
       })
+    },
+    async youtubeTitleOf(videoId) {
+      const data = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.API_KEY}`
+      ).then((res) => res.json())
+      return data.items[0].snippet.title
     }
   }
 }

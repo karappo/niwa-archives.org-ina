@@ -1,10 +1,11 @@
 <template lang="pug">
 .annotationList
   ul.list(v-if="list.length")
-    li(v-for="o in list" @click="$nuxt.$emit('showAnnotation', o.index)")
+    li(v-for="(o, i) in list" @click="$nuxt.$emit('showAnnotation', o.index)")
       Icon(v-if="icon" :category="o.category")
-      .thumb(v-if="o.image" :style="`background-image: url(${o.image});`")
-      .thumb(v-if="o.youtube" :style="`background-image: url(${o.youtube.thumbnailUrl()});`")
+      .thumb(v-if="!isOralArchives && o.image" :style="`background-image: url(${o.image});`")
+      .thumb(v-if="!isOralArchives && o.youtube" :style="`background-image: url(${o.youtube.thumbnailUrl()});`")
+      span.index(v-if="isOralArchives") {{ i + 1 }}
       span.title {{ o.title }}
       span.type(v-if="o.image") 
       span.type.youtube(v-else-if="o.youtube") 
@@ -36,6 +37,10 @@
       background-size: cover
       background-position: center
       margin-right: 10px
+    .index
+      margin-right: 0.5em
+      width: 2em
+      text-align: right
     .title
       overflow: hidden
       text-overflow: ellipsis
@@ -65,8 +70,12 @@ export default {
     },
     icon: {
       type: Boolean,
-      require: false,
       default: false
+    }
+  },
+  computed: {
+    isOralArchives() {
+      return this.$store.getters.listName === 'Oral Archives'
     }
   }
 }
