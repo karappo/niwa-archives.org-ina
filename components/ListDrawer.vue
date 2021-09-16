@@ -17,8 +17,8 @@ article
     .groups(v-if="data.name === 'Oral Archives'")
       .group(v-for="(val, key) in this.groups")
         .head
-          .thumb(:style="`background-image: url(${val[0].youtube.thumbnailUrl()});`")
           h5 {{ key }}
+          .thumb(:style="`background-image: url(${val[0].youtube.thumbnailUrl()});`")
         AnnotationList(:list="filterByTag(val)" :icon="!$getIcon(data.name)")
     AnnotationList(v-else :list="filterByTag(data.list)" :icon="!$getIcon(data.name)")
 </template>
@@ -90,19 +90,19 @@ article
     .head
       display: flex
       align-items: center
-      .thumb
-        width: 80px
-        height: 60px
-        border-radius: 5px
-        background-size: cover
-        background-position: center
-        margin-right: 10px
       h5
         font-size: 15px
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
         flex: 1
+      .thumb
+        width: 80px
+        height: 60px
+        border-radius: 5px
+        background-size: cover
+        background-position: center
+        margin-left: 10px
 </style>
 
 <script>
