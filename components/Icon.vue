@@ -15,8 +15,8 @@ span.icon(v-if="icon" :data-category="category") {{ icon }}
   align-items: center
   margin-right: 0.5em
   background-color: $color_annotationDefault
-  &[data-category='Viewpoints/Photos']
-    background-color: $color_photos
+  &[data-category='Viewpoints/Still Images']
+    background-color: $color_stillImages
   &[data-category='Viewpoints/Movies']
     background-color: $color_movies
   &[data-category='Elements/Stones']

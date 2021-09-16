@@ -14,7 +14,7 @@ aside
   h2 Annotations
   section.viewpoints
     h3.btn(@click="$nuxt.$emit('selectList', 'Viewpoints')" :class="{current: $store.getters.listName === 'Viewpoints'}") Viewpoints
-    ListLink(:listName="'Viewpoints/Photos'")
+    ListLink(:listName="'Viewpoints/Still Images'")
     ListLink(:listName="'Viewpoints/Movies'")
   section.elements
     h3.btn(@click="$nuxt.$emit('selectList', 'Elements')" :class="{current: $store.getters.listName === 'Elements'}") Elements

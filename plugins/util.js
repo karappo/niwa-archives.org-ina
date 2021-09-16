@@ -15,7 +15,7 @@
 export default ({ app }, inject) => {
   inject('getIcon', (category) => {
     switch (category) {
-      case 'Viewpoints/Photos':
+      case 'Viewpoints/Still Images':
         return ''
       case 'Viewpoints/Movies':
         return ''

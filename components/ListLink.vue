@@ -15,8 +15,8 @@
   align-items: center
 
   --bg-color: #{$color_annotationDefault}
-  &[data-list-name='Viewpoints/Photos']
-    --bg-color: #{$color_photos}
+  &[data-list-name='Viewpoints/Still Images']
+    --bg-color: #{$color_stillImages}
   &[data-list-name='Viewpoints/Movies']
     --bg-color: #{$color_movies}
   &[data-list-name='Elements/Stones']
