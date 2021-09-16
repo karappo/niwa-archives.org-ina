@@ -125,12 +125,12 @@ export default {
       return !['Guided Tour', 'Ramble Tour', 'Plans'].includes(this.title)
     },
     filteredList() {
-      if (this.selectedTag) {
-        return this.data.list.filter(
-          (o) => o.tags && o.tags.includes(this.selectedTag)
-        )
+      if (!this.selectedTag) {
+        return this.data.list
       }
-      return this.data.list
+      return this.data.list.filter(
+        (o) => o.tags && o.tags.includes(this.selectedTag)
+      )
     }
   },
   mounted() {
