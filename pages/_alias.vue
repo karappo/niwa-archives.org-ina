@@ -237,9 +237,6 @@ export default {
 
     viewer.scene.addPointCloud(pointcloud)
 
-    // TODO Viewpointsに変更する
-    await this.data.addImages()
-
     if (
       this.$store.getters.cameraPosition &&
       this.$store.getters.cameraTarget
