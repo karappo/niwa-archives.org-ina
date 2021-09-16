@@ -22,12 +22,6 @@
         min-size="25"
         max-size="75"
       )
-        ListDrawer(
-          v-if="listData && !annotationData"
-          :data="listData"
-          @close="closeDrawer"
-          @showAnnotation="showAnnotation"
-        )
         AnnotationDrawer(
           v-if="annotationData"
           :data="annotationData"
@@ -40,6 +34,12 @@
           @showAnnotation="showAnnotation"
           @prev="prev"
           @next="next"
+        )
+        ListDrawer(
+          v-else-if="listData"
+          :data="listData"
+          @close="closeDrawer"
+          @showAnnotation="showAnnotation"
         )
     SoundBar
   SideBar.sideBar(
