@@ -5,28 +5,12 @@ article
   padding: 0
   // width: calc(100% - 30px)
   // min-height: calc(100% - 30px)
-
 header
   display: flex
   height: 65px
   align-items: center
   margin-bottom: 15px
   padding: 28px 25px 28px 0
-  label
-    font-size: 12px
-    color: #898989
-    margin-right: 1em
-  .close
-    @extend %button
-    height: 32px
-    width: 32px
-    font-size: 12px
-    color: #898989
-    transition: color 0.2s
-    margin-left: 10px
-    margin-right: 0
-    &:hover
-      color: white
   > h1,
   > h2
     &[data-category='Still Images']
@@ -53,9 +37,11 @@ header
     border-left: 4px solid var(--border-color)
     text-overflow: ellipsis
     white-space: nowrap
-    .icon
-      font-size: 30px
-      margin-right: 0.5em
+  .filter
+    label
+      font-size: 12px
+      color: #898989
+      margin-right: 1em
   .close
     @extend %button
     height: 26px
