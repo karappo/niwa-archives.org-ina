@@ -1,6 +1,6 @@
 export default {
   title: 'Jōei-ji Garden',
-  pointcloud: '/pointclouds/Sesshutei.las_converted/metadata.json',
+  pointcloud: '/pointclouds/Sessyutei0.00520210915.las_converted/metadata.json',
   async addImages() {
     const images = await Potree.OrientedImageLoader.load(
       '/orientedImage/cameraParams.xml',
