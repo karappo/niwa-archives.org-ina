@@ -86,6 +86,8 @@ main
       overflow-y: auto
       background-color: black
       margin-left: -6px
+      height: calc(100% - 1px)
+      border-bottom: 1px solid #3C3C3C
 #potree_render_area
   width: 100%
   height: 100%
