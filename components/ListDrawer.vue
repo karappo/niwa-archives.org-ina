@@ -19,8 +19,8 @@ article
         .head
           .thumb(:style="`background-image: url(${val[0].youtube.thumbnailUrl()});`")
           h5 {{ key }}
-        AnnotationList(:list="val" :icon="!$getIcon(data.name)")
-    AnnotationList(v-else :list="filteredList" :icon="!$getIcon(data.name)")
+        AnnotationList(:list="filterByTag(val)" :icon="!$getIcon(data.name)")
+    AnnotationList(v-else :list="filterByTag(data.list)" :icon="!$getIcon(data.name)")
 </template>
 
 <style lang="sass" scoped>
@@ -138,14 +138,6 @@ export default {
     },
     filterVisibility() {
       return !['Guided Tour', 'Ramble Tour', 'Plans'].includes(this.title)
-    },
-    filteredList() {
-      if (!this.selectedTag) {
-        return this.data.list
-      }
-      return this.data.list.filter(
-        (o) => o.tags && o.tags.includes(this.selectedTag)
-      )
     }
   },
   watch: {
@@ -199,11 +191,11 @@ export default {
         this.$nuxt.$emit('showAnnotation', this.data.list[0].index)
       })
     },
-    async youtubeTitleOf(videoId) {
-      const data = await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.API_KEY}`
-      ).then((res) => res.json())
-      return data.items[0].snippet.title
+    filterByTag(list) {
+      if (!this.selectedTag) {
+        return list
+      }
+      return list.filter((o) => o.tags && o.tags.includes(this.selectedTag))
     }
   }
 }
