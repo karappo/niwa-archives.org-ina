@@ -122,7 +122,7 @@ export default {
       return this.tags[this.tagIndex]
     },
     filterVisibility() {
-      return !['Guided Tour', 'Plans'].includes(this.title)
+      return !['Guided Tour', 'Ramble Tour', 'Plans'].includes(this.title)
     },
     filteredList() {
       if (this.selectedTag) {
