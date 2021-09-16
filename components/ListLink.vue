@@ -14,7 +14,7 @@
   display: flex
   align-items: center
 
-  --bg-color: #{$color_annotation_default}
+  --bg-color: #{$color_annotationDefault}
   &[data-list-name='Viewpoints/Photos']
     --bg-color: #{$color_photos}
   &[data-list-name='Viewpoints/Movies']
@@ -28,7 +28,7 @@
   &[data-list-name='Elements/Artifacts']
     --bg-color: #{$color_artifacts}
   &[data-list-name='Elements/DNA Data']
-    --bg-color: #{$color_dna}
+    --bg-color: #{$color_dnaData}
   &[data-list-name='Oral Archives']
     --bg-color: #{$color_oral}
 
