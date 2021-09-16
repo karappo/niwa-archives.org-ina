@@ -156,6 +156,7 @@ main
 </style>
 
 <script>
+import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
 export default {
   props: {
@@ -437,6 +438,10 @@ export default {
               }
             }
           })
+          break
+        case 'Ramble Tour':
+          // guidedTourの順でannotationをリスト化する
+          list = _shuffle(this.annotations)
           break
         default:
           list = this.annotations.filter((a) => a.category.includes(name))

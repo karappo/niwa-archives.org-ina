@@ -28,7 +28,7 @@ aside
   h2 Tour Modes
   section.tours
     ListLink(:listName="'Guided Tour'" :dot="false")
-    .btn.disabled Ramble Tour
+    ListLink(:listName="'Ramble Tour'" :dot="false")
 </template>
 
 <style lang="sass" scoped>

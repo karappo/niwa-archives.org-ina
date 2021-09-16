@@ -8,7 +8,10 @@ article
     a.close(@click="$emit('close')" title="Close") X
   .content
     template(v-if="data.name === 'Guided Tour'")
-      .description Guided Tourでは、庭園をひとめぐりしながら、INAの全体が把握できるような自動モードです。
+      .description Guided Tourは、庭園をひとめぐりしながら、INAの全体が把握できるようなツアーモードです。
+      .bigBtn(@click="startTour") Start Tour
+    template(v-else-if="data.name === 'Ramble Tour'")
+      .description Ramble Tourは、全アノテーションをランダムに巡っていくツアーモードです。
       .bigBtn(@click="startTour") Start Tour
     ul.list(v-if="filteredList.length")
       li(v-for="o in filteredList" @click="$emit('showAnnotation', o.index)")
