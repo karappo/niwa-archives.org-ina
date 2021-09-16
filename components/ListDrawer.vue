@@ -13,15 +13,7 @@ article
     template(v-else-if="data.name === 'Ramble Tour'")
       .description Ramble Tourは、全アノテーションをランダムに巡っていくツアーモードです。
       .bigBtn(@click="startTour") Start Tour
-    ul.list(v-if="filteredList.length")
-      li(v-for="o in filteredList" @click="$emit('showAnnotation', o.index)")
-        Icon(v-if="!icon" :category="o.category")
-        .thumb(v-if="o.image" :style="`background-image: url(${o.image});`")
-        .thumb(v-if="o.youtube" :style="`background-image: url(${o.youtube.thumbnailUrl()});`")
-        span.title {{ o.title }}
-        span.type(v-if="o.image") 
-        span.type.youtube(v-else-if="o.youtube") 
-    .empty(v-else) データがありません
+    AnnotationList(:list="filteredList" :icon="!$getIcon(data.name)")
 </template>
 
 <style lang="sass" scoped>
@@ -106,9 +98,6 @@ export default {
   computed: {
     title() {
       return this.$getTitle(this.data.name)
-    },
-    icon() {
-      return this.$getIcon(this.data.name)
     },
     tags() {
       return _uniq(_flattenDeep(_map(this.data.list, (o) => o.tags)))
