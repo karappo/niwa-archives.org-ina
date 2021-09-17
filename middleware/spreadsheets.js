@@ -78,7 +78,7 @@ export default async function ({ params, redirect, store }) {
       })
       // ===== /データ整形 =====
       // ===== バリデーション（この時点で要件を満たさないものはふるい落とす） =====
-      if (!(data.title && data.position && data.category)) {
+      if (!(data.id && data.title && data.position && data.category)) {
         continue
       }
       // ===== 追加のデータ整形 =====
