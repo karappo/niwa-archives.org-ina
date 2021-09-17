@@ -11,42 +11,23 @@ aside
       :options="variations"
       :value.sync="variationIndex"
     )
-  h2.linkCheck
-    ListLink(:listName="'Annotations'" :dot="false") Annotations
-    input(type="checkbox")
+  h2
+    ListLinkCheckbox(:listName="'Annotations'" :dot="false")
   section.viewpoints
-    h3.linkCheck
-      ListLink(:listName="'Viewpoints'" :dot="false") Viewpoints
-      input(type="checkbox")
-    .linkCheck
-      ListLink(:listName="'Viewpoints/Still Images'")
-      input(type="checkbox")
-    .linkCheck
-      ListLink(:listName="'Viewpoints/Movies'")
-      input(type="checkbox")
+    h3
+      ListLinkCheckbox(:listName="'Viewpoints'" :dot="false")
+    ListLinkCheckbox(:listName="'Viewpoints/Still Images'")
+    ListLinkCheckbox(:listName="'Viewpoints/Movies'")
   section.elements
-    h3.linkCheck
-      ListLink(:listName="'Elements'" :dot="false") Elements
-      input(type="checkbox")
-    .linkCheck
-      ListLink(:listName="'Elements/Stones'")
-      input(type="checkbox")
-    .linkCheck
-      ListLink(:listName="'Elements/Plants'")
-      input(type="checkbox")
-    .linkCheck
-      ListLink(:listName="'Elements/Creatures'")
-      input(type="checkbox")
-    .linkCheck
-      ListLink(:listName="'Elements/Artifacts'")
-      input(type="checkbox")
-    .linkCheck
-      ListLink(:listName="'Elements/DNA Data'")
-      input(type="checkbox")
+    h3
+      ListLinkCheckbox(:listName="'Elements'" :dot="false")
+    ListLinkCheckbox(:listName="'Elements/Stones'")
+    ListLinkCheckbox(:listName="'Elements/Plants'")
+    ListLinkCheckbox(:listName="'Elements/Creatures'")
+    ListLinkCheckbox(:listName="'Elements/Artifacts'")
+    ListLinkCheckbox(:listName="'Elements/DNA Data'")
   section.orals
-    .linkCheck
-      ListLink(:listName="'Oral Archives'")
-      input(type="checkbox")
+    ListLinkCheckbox(:listName="'Oral Archives'")
   h2 Tour Modes
   section.tours
     ListLink(:listName="'Guided Tour'" :dot="false")
@@ -90,10 +71,6 @@ h3
   font-size: 13px
   margin: 0
   margin-bottom: 10px
-.linkCheck
-  display: flex
-  align-items: center
-  justify-content: space-between
 .btn
   cursor: pointer
   font-size: 13px
