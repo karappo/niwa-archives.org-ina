@@ -57,7 +57,7 @@ main
   flex-direction: column
   width: calc(100% - 160px)
 .sideBar
-  width: 160px
+  width: 165px
   height: 100%
   margin: 0
 .title
@@ -427,6 +427,9 @@ export default {
       this.$store.commit('listName', name)
       let list = []
       switch (name) {
+        case 'Annotations':
+          list = this.annotations
+          break
         case 'Guided Tour':
           // guidedTourの順でannotationをリスト化する
           this.data.guidedTour.forEach((id) => {
