@@ -96,8 +96,11 @@ header
     line-height: calc(29 / 14)
     margin-bottom: 15px
     white-space: pre-wrap // nl2br
-    /deep/ a
-      color: #A452E0
+    /deep/
+      a
+        color: #A452E0
+      h2
+        margin: 0
   .commentForGuidedTour
     background-color: #05211A
     color: white
