@@ -116,34 +116,34 @@ main
 
   // アノテーションの表示切り替え
   /deep/ .annotation
-    display: none
+    visibility: hidden
   &.annotations
     &.viewpoints
       &.viewpointsStillImages
         /deep/ .annotation[data-category="Viewpoints/Still Images"]
-          display: block
+          visibility: visible
       &.viewpointsMovies
         /deep/ .annotation[data-category="Viewpoints/Movies"]
-          display: block
+          visibility: visible
     &.elements
       &.elementsStones
         /deep/ .annotation[data-category="Elements/Stones"]
-          display: block
+          visibility: visible
       &.elementsPlants
         /deep/ .annotation[data-category="Elements/Plants"]
-          display: block
+          visibility: visible
       &.elementsCreatures
         /deep/ .annotation[data-category="Elements/Creatures"]
-          display: block
+          visibility: visible
       &.elementsArtifacts
         /deep/ .annotation[data-category="Elements/Artifacts"]
-          display: block
+          visibility: visible
       &.elementsDnaData
         /deep/ .annotation[data-category="Elements/DNA Data"]
-          display: block
+          visibility: visible
     &.oralArchives
       /deep/ .annotation[data-category="Oral Archives"]
-        display: block
+        visibility: visible
 
 .controls
   position: absolute
