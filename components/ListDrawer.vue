@@ -2,7 +2,7 @@
 article
   header
     h1(:data-category="title") {{ title }}
-    .filter(v-if="filterVisibility && tags.length" )
+    .filter(v-if="tags.length")
       label Filter:
       SelectBox(:options="tags" :value.sync="tagIndexStr" :allowEmpty="true")
     a.close(@click="$emit('close')" title="Close") X
@@ -133,9 +133,6 @@ export default {
     },
     selectedTag() {
       return this.tags[this.tagIndex]
-    },
-    filterVisibility() {
-      return !['Guided Tour', 'Ramble Tour', 'Plans'].includes(this.title)
     }
   },
   watch: {
