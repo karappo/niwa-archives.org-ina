@@ -38,7 +38,7 @@
           :data="listData"
           @close="closeDrawer"
         )
-    SoundBar
+    SoundBar(:annotations="annotations")
   SideBar.sideBar(
     @saveCameraInfo="saveCameraInfo"
   )
@@ -171,7 +171,6 @@ export default {
     }
   },
   async asyncData({ route, store }) {
-    // Annotationを季節でフィルタリング
     const annotations = store.state.annotations[camelCase(route.params.alias)]
     let data = await import(`~/data/gardens/${route.params.alias}.js`)
     data = data.default

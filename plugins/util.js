@@ -12,6 +12,9 @@
 // Dependencies:
 // - [nuxt-ua](https://www.npmjs.com/package/nuxt-ua)
 //
+import _flattenDeep from 'lodash/flattenDeep'
+import _map from 'lodash/map'
+import _uniq from 'lodash/uniq'
 export default ({ app }, inject) => {
   inject('getIcon', (category) => {
     switch (category) {
@@ -39,6 +42,11 @@ export default ({ app }, inject) => {
       .split('/')
       .filter((a) => a.length) // ''を削除
       .pop()
+  }),
+  inject('getTags', (annotations) => {
+    return _uniq(_flattenDeep(_map(annotations, (o) => o.tags)))
+      .filter((o) => o)
+      .sort()
   }),
   inject('garden', (route) => {
     // 'joei_ji', 'murin_an' などを返す

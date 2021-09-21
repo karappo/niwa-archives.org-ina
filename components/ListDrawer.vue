@@ -106,10 +106,7 @@ article
 </style>
 
 <script>
-import _flattenDeep from 'lodash/flattenDeep'
 import _groupBy from 'lodash/groupBy'
-import _map from 'lodash/map'
-import _uniq from 'lodash/uniq'
 export default {
   props: {
     data: {
@@ -129,9 +126,7 @@ export default {
       return this.$getTitle(this.data.name)
     },
     tags() {
-      return _uniq(_flattenDeep(_map(this.data.list, (o) => o.tags)))
-        .filter((o) => o)
-        .sort()
+      return this.$getTags(this.data.list)
     },
     tagIndex() {
       return parseInt(this.tagIndexStr, 10)

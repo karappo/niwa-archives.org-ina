@@ -8,7 +8,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      tags: ['カルガモ', 'セグロセキレイ'],
+      tags: ['カルガモ', 'セグロセキレイ', 'ピカチュウ'],
       movieId: '7ggb5p',
       ambisonicsUrl: 'https://youtu.be/pBPv6wsc9nw'
     },

@@ -28,9 +28,11 @@
           dd
             a(@click="placeClick(data.place.annotation)") {{ data.place.label }}
         dl
-          dt Tags
+          dt Creatures
           dd
-            a(v-for="tag in data.tags" @click="tagClick(tag)") {{ tag }}
+            template(v-for="tag in data.tags")
+              a.creature(v-if="tags.includes(tag)" @click="tagClick(tag)") {{ tag }}
+              span.creature(v-else) {{ tag }}
 </template>
 
 <style lang="sass" scoped>
@@ -165,12 +167,12 @@
             width: 100%
             margin-left: 0
             margin-right: 0
-            a
-              cursor: pointer
-            a + a
+            .creature + .creature
               margin-left: 1.5em
-            a:hover
-              color: white
+            a.creature
+              cursor: pointer
+              &:hover
+                color: white
 
   &.visible
     margin-bottom: -44px
@@ -198,6 +200,13 @@ export default {
     Play,
     Pause
   },
+  props: {
+    annotations: {
+      type: Array,
+      require: true,
+      default: null
+    }
+  },
   data() {
     return {
       visible: true,
@@ -219,6 +228,9 @@ export default {
     },
     player() {
       return this.$refs.player
+    },
+    tags() {
+      return this.$getTags(this.annotations)
     }
   },
   watch: {
@@ -310,7 +322,7 @@ export default {
       this.$nuxt.$emit('showAnnotationById', annotationId)
     },
     tagClick(tag) {
-      this.$nuxt.$emit('selectList', 'Elements')
+      this.$nuxt.$emit('selectList', 'Annotations')
       this.$nextTick(function () {
         this.$nuxt.$emit('setTagIndexStr', tag)
       })
