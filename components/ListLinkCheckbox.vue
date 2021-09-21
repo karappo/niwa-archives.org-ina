@@ -1,7 +1,7 @@
 <template lang="pug">
 .linkCheck
   ListLink(:listName="listName" :dot="dot") {{ title }}
-  input(type="checkbox" v-model="visibility")
+  input(type="checkbox" v-model="visibility" :disabled="disabled")
 </template>
 
 <style lang="sass" scoped>
@@ -32,6 +32,18 @@ export default {
   computed: {
     title() {
       return this.$getTitle(this.listName)
+    },
+    disabled() {
+      if (this.listName === 'Annotations') {
+        return false
+      } else if (!this.$store.getters.annotationVisibilities.Annotations) {
+        return true
+      } else if (this.listName.includes('/')) {
+        return !this.$store.getters.annotationVisibilities[
+          this.listName.split('/')[0] // parent
+        ]
+      }
+      return false
     }
   },
   watch: {

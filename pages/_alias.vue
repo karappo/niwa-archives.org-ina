@@ -5,7 +5,10 @@
       pane.potree_container(
         size="60"
       )
-        #potree_render_area(ref="potree_render_area" :class="{loading, annotationVisibility}")
+        #potree_render_area(
+          ref="potree_render_area"
+          :class="potreeRenderAreaClass"
+        )
           .controls
             .title
               small Incomplete Niwa Archives
@@ -111,6 +114,37 @@ main
     canvas
       outline: none
 
+  // アノテーションの表示切り替え
+  /deep/ .annotation
+    display: none
+  &.annotations
+    &.viewpoints
+      &.viewpointsStillImages
+        /deep/ .annotation[data-category="Viewpoints/Still Images"]
+          display: block
+      &.viewpointsMovies
+        /deep/ .annotation[data-category="Viewpoints/Movies"]
+          display: block
+    &.elements
+      &.elementsStones
+        /deep/ .annotation[data-category="Elements/Stones"]
+          display: block
+      &.elementsPlants
+        /deep/ .annotation[data-category="Elements/Plants"]
+          display: block
+      &.elementsCreatures
+        /deep/ .annotation[data-category="Elements/Creatures"]
+          display: block
+      &.elementsArtifacts
+        /deep/ .annotation[data-category="Elements/Artifacts"]
+          display: block
+      &.elementsDnaData
+        /deep/ .annotation[data-category="Elements/DNA Data"]
+          display: block
+    &.oralArchives
+      /deep/ .annotation[data-category="Oral Archives"]
+        display: block
+
 .controls
   position: absolute
   z-index: 999999
@@ -170,6 +204,18 @@ export default {
     },
     nextDisabled() {
       return this.listDataIndexArray.length - 1 <= this.currentIndex
+    },
+    potreeRenderAreaClass() {
+      // eslint-disable-next-line
+      const visibilities = JSON.parse(JSON.stringify(this.$store.getters.annotationVisibilities))
+      // キーをクラス名で使える値に変更
+      Object.keys(visibilities).forEach(function (key) {
+        visibilities[camelCase(key)] = visibilities[key]
+        delete visibilities[key]
+      })
+      const res = visibilities
+      res.loading = this.loading
+      return res
     }
   },
   async mounted() {

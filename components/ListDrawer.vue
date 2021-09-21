@@ -159,7 +159,6 @@ export default {
             const data = await fetch(
               `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.API_KEY}`
             ).then((res) => res.json())
-            console.log(data.items[0].snippet.title)
             res[data.items[0].snippet.title] = groups[videoId]
           }
           this.groups = res
