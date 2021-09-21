@@ -3,6 +3,19 @@ export const state = () => ({
   cameraTarget: null,
   listName: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
   autoplay: false,
+  annotationVisibilities: {
+    Annotations: true,
+    Viewpoints: true,
+    'Viewpoints/Still Images': true,
+    'Viewpoints/Movies': true,
+    Elements: true,
+    'Elements/Stones': true,
+    'Elements/Plants': true,
+    'Elements/Creatures': true,
+    'Elements/Artifacts': true,
+    'Elements/DNA Data': true,
+    'Oral Archives': true
+  },
   // TODO ここ以降おそらく不要なので消す。合わせてFooter.vueも消す
   EDLEnabled: true,
   EDLRadius: 0, // default: 1.4
@@ -27,6 +40,9 @@ export const mutations = {
   },
   autoplay(state, value) {
     state.autoplay = value
+  },
+  annotationVisibilities(state, { key, value }) {
+    state.annotationVisibilities[key] = value
   },
   EDLEnabled(state, value) {
     state.EDLEnabled = value
@@ -74,6 +90,9 @@ export const getters = {
   },
   autoplay(state) {
     return state.autoplay
+  },
+  annotationVisibilities(state) {
+    return state.annotationVisibilities
   },
   EDLEnabled(state) {
     return state.EDLEnabled

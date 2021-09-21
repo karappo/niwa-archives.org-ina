@@ -10,10 +10,6 @@
             .title
               small Incomplete Niwa Archives
               span {{ data.title }}
-            .toggleAnnotationVisibility(
-              @click="annotationVisibility = !annotationVisibility"
-              :class="{active: !annotationVisibility}"
-            )
             KeyMap
         #potree_sidebar_container
       pane.drawer(
@@ -114,10 +110,6 @@ main
   /deep/
     canvas
       outline: none
-  &:not(.annotationVisibility)
-    /deep/
-      #potree_annotation_container
-        display: none
 
 .controls
   position: absolute
@@ -129,28 +121,6 @@ main
   pointer-events: none
   > *
     pointer-events: auto
-.toggleAnnotationVisibility
-  margin: auto 20px 0 auto
-  justify-self: flex-end
-  background-color: black
-  border-radius: 3px
-  height: 20px
-  width: 120px
-  display: flex
-  justify-content: center
-  align-items: center
-  font-size: 10px
-  line-height: 1
-  color: #898989
-  cursor: pointer
-  &:before
-    content: 'Hide Annotations'
-  &.active
-    &:before
-      content: 'Show Annotations'
-  &:hover
-    color: rgba(255, 255, 255, 0.8)
-
 .sideBar
   grid-area: sidebar
 </style>
@@ -179,8 +149,7 @@ export default {
       annotationData: '',
       listData: null,
       drawerAlreadyOpened: false,
-      loading: true,
-      annotationVisibility: true
+      loading: true
     }
   },
   computed: {
