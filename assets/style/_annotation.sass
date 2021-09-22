@@ -17,7 +17,6 @@
   height: #{$size}
   top: #{$size / -2}
   left: calc(50% - #{$size / 2})
-  box-shadow: 0 0 3px #000000
   border-radius: 100px
   border: 4px solid var(--category-color)
   > div
@@ -75,10 +74,11 @@
   .annotation-titlebar
     display: none
     border: 0
-    border-radius: 4px
-    padding: 0 12px
+    border-radius: 14px
+    padding: 0 15px
     box-shadow: none !important
-    top: -13px
+    top: -24px
+    left: 19px
     .annotation-label
       color: #696969
       font-size: 12px
@@ -110,7 +110,6 @@
   &[data-camera-dist=far]
     .annotation-marker
       @extend %marker_dot
-      opacity: 0.5
   &[data-camera-dist=middle]
     .annotation-marker
       @extend %marker_dot
@@ -123,19 +122,8 @@
   &[data-camera-dist=nearer]
     .annotation-titlebar
       @extend %titlebar
-      padding-left: 20px
-      left: 50px
+      padding-left: 15px
+      left: 55px
+      top: -50px
     .annotation-marker
       @extend %marker_thumb
-  // &[data-type="icon"]
-  //   &[data-camera-dist=middle]
-  //     .annotation-marker
-  //       $size: 32px
-  //       $borderWidth: 2px
-  //       width: #{$size}
-  //       height: #{$size}
-  //       top: #{$size / -2 - $borderWidth}
-  //       left: calc(50% - #{$size / 2})
-  //       border-width: $borderWidth
-  //     .annotation-titlebar
-  //       left: 18px
