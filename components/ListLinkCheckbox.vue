@@ -1,7 +1,7 @@
 <template lang="pug">
-.linkCheck
+.linkCheck(:class="{disabled}")
   ListLink(:listName="listName" :dot="dot") {{ title }}
-  input(type="checkbox" v-model="visibility" :disabled="disabled")
+  input(v-if="!disabled" type="checkbox" v-model="visibility" :disabled="checkboxDisabled")
 </template>
 
 <style lang="sass" scoped>
@@ -9,9 +9,13 @@
   display: flex
   align-items: center
   justify-content: space-between
+  &.disabled
+    opacity: 0.5
+    pointer-events: none
 </style>
 
 <script>
+import { camelCase } from 'change-case'
 export default {
   props: {
     listName: {
@@ -33,7 +37,7 @@ export default {
     title() {
       return this.$getTitle(this.listName)
     },
-    disabled() {
+    checkboxDisabled() {
       if (this.listName === 'Annotations') {
         return false
       } else if (!this.$store.getters.annotationVisibilities.Annotations) {
@@ -44,6 +48,12 @@ export default {
         ]
       }
       return false
+    },
+    disabled() {
+      // eslint-disable-next-line
+      const annotations = this.$store.state.annotations[camelCase(this.$route.params.alias)]
+      // eslint-disable-next-line
+      return !annotations.filter((a) => a.category.includes(this.listName)).length
     }
   },
   watch: {
