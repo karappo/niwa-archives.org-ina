@@ -30,7 +30,7 @@ aside
     ListLinkCheckbox(:listName="'Oral Archives'")
   h2 Tour Modes
   section.tours
-    ListLink(:listName="'Guided Tour'" :dot="false")
+    ListLink(v-if="guidedTourExists" :listName="'Guided Tour'" :dot="false")
     ListLink(:listName="'Ramble Tour'" :dot="false")
 </template>
 
@@ -89,6 +89,12 @@ h3
 
 <script>
 export default {
+  props: {
+    guidedTourExists: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     const variations = ['summer', 'winter', 'snow']
     let variationIndex = variations.indexOf(this.$variation(this.$route))

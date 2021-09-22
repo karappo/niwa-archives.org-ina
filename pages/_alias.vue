@@ -40,6 +40,7 @@
         )
     SoundBar(:annotations="annotations")
   SideBar.sideBar(
+    :guidedTourExists="0 < data.guidedTour.length"
     @saveCameraInfo="saveCameraInfo"
   )
   //- Footer.footer
