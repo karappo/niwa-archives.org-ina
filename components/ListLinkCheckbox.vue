@@ -50,6 +50,9 @@ export default {
       return false
     },
     disabled() {
+      if (this.listName === 'Annotations') {
+        return false
+      }
       // eslint-disable-next-line
       const annotations = this.$store.state.annotations[camelCase(this.$route.params.alias)]
       // eslint-disable-next-line
