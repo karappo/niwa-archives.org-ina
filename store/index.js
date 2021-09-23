@@ -42,6 +42,23 @@ export const mutations = {
     state.autoplay = value
   },
   annotationVisibilities(state, { key, value }) {
+    switch (key) {
+      case 'Annotations':
+        // 全部変更
+        for (const k in state.annotationVisibilities) {
+          state.annotationVisibilities[k] = value
+        }
+        break
+      case 'Viewpoints':
+      case 'Elements':
+        // Viewpoints/... や Elements/... を全部変更
+        for (const k in state.annotationVisibilities) {
+          if (k.includes(`${key}/`)) {
+            state.annotationVisibilities[k] = value
+          }
+        }
+        break
+    }
     state.annotationVisibilities[key] = value
   },
   EDLEnabled(state, value) {

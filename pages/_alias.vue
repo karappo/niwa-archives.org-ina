@@ -118,33 +118,30 @@ main
   // アノテーションの表示切り替え
   /deep/ .annotation
     visibility: hidden
-  &.annotations
-    &.viewpoints
-      &.viewpointsStillImages
-        /deep/ .annotation[data-category="Viewpoints/Still Images"]
-          visibility: visible
-      &.viewpointsMovies
-        /deep/ .annotation[data-category="Viewpoints/Movies"]
-          visibility: visible
-    &.elements
-      &.elementsStones
-        /deep/ .annotation[data-category="Elements/Stones"]
-          visibility: visible
-      &.elementsPlants
-        /deep/ .annotation[data-category="Elements/Plants"]
-          visibility: visible
-      &.elementsCreatures
-        /deep/ .annotation[data-category="Elements/Creatures"]
-          visibility: visible
-      &.elementsArtifacts
-        /deep/ .annotation[data-category="Elements/Artifacts"]
-          visibility: visible
-      &.elementsDnaData
-        /deep/ .annotation[data-category="Elements/DNA Data"]
-          visibility: visible
-    &.oralArchives
-      /deep/ .annotation[data-category="Oral Archives"]
-        visibility: visible
+  &.viewpointsStillImages
+    /deep/ .annotation[data-category="Viewpoints/Still Images"]
+      visibility: visible
+  &.viewpointsMovies
+    /deep/ .annotation[data-category="Viewpoints/Movies"]
+      visibility: visible
+  &.elementsStones
+    /deep/ .annotation[data-category="Elements/Stones"]
+      visibility: visible
+  &.elementsPlants
+    /deep/ .annotation[data-category="Elements/Plants"]
+      visibility: visible
+  &.elementsCreatures
+    /deep/ .annotation[data-category="Elements/Creatures"]
+      visibility: visible
+  &.elementsArtifacts
+    /deep/ .annotation[data-category="Elements/Artifacts"]
+      visibility: visible
+  &.elementsDnaData
+    /deep/ .annotation[data-category="Elements/DNA Data"]
+      visibility: visible
+  &.oralArchives
+    /deep/ .annotation[data-category="Oral Archives"]
+      visibility: visible
 
 .controls
   position: absolute
