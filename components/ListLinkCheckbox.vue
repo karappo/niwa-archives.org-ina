@@ -54,7 +54,7 @@ export default {
         return false
       }
       // eslint-disable-next-line
-      const annotations = this.$store.state.annotations[camelCase(this.$route.params.alias)]
+      const annotations = this.$store.getters.annotations[camelCase(this.$route.params.alias)]
       // eslint-disable-next-line
       return !annotations.filter((a) => a.category.includes(this.listName)).length
     }
