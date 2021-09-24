@@ -327,6 +327,8 @@ export default {
         a.removeEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
       })
     }
+    // potreeのdestroy方法が不明なので、とりあえず残されたDOMを削除する
+    document.querySelectorAll('#profile_window,.sp-container').forEach((e) => e.remove()) // eslint-disable-line
   },
   methods: {
     setControlMode(mode) {
