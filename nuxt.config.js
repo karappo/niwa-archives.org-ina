@@ -53,7 +53,7 @@ export default {
 
   router: {
     trailingSlash: true,
-    base: '/niwa/'
+    base: '/2020/'
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
