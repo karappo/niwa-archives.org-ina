@@ -20,7 +20,7 @@
     )
     h1.ja
       LogoJa.logoJa
-  section.about
+  section#about
     h2 About
     .cols(data-col="2")
       .col
@@ -32,7 +32,7 @@
         a(href="#") Read more.
       .col
         a(href="#") Read more.
-  section.archives
+  section#archives
     h2 Archives
     .garden.joei_ji
       .cols(data-col="4")
@@ -98,6 +98,8 @@
           srcset='~/assets/image/top/ryogen_in.jpg 1x, ~/assets/image/top/ryogen_in@2x.jpg 2x'
           alt='無鄰菴の点群'
         )
+  section#exhibition
+    h2 Exhibition
 </template>
 
 <style lang="sass" scoped>
@@ -155,10 +157,11 @@ section
   font-size: 14px
   line-height: 27px
   letter-spacing: 0.06em
-  &.about
+  &#about
     @extend %wrap
     padding-top: 100px
-  &.archives
+  &#archives
+    padding-bottom: 138px
     h2
       @extend %wrap
     .garden
@@ -223,6 +226,9 @@ section
         @extend %wrap
     .garden + .garden
       margin-top: 92px
+
+  &#exhibition
+    background-color: #000000
   h2
     margin: 92px 0
     font-size: 15px
