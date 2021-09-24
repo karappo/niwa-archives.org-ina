@@ -100,6 +100,14 @@
         )
   section#exhibition
     h2 Exhibition
+  section#reports
+    h2 Reports
+    .cols(data-col="2")
+      ul.col
+        li
+          a(href="/2020/" target="_blank") 2020：「Incomplete Niwa Archives 終らない庭のアーカイヴ」へ
+        li
+          a(href="/2020/assets/Towards_a_New_Archive_of_Gardens.pdf" target="_blank") 2019： 庭の新しいアーカイヴをめざして [PDF]
 </template>
 
 <style lang="sass" scoped>
@@ -158,9 +166,29 @@ section
   font-size: 14px
   line-height: 27px
   letter-spacing: 0.06em
+  h2
+    margin: 92px 0
+    font-size: 15px
+    font-weight: normal
+  .cols + .cols
+    margin-top: 2em
+  .cols
+    @extend .clf
+    .col
+      float: left
+    .col + .col
+      margin-left: 50px
+    &[data-col="2"]
+      .col
+        width: calc((100% - 50px) / 2)
+    &[data-col="4"]
+      .col
+        width: calc((100% - 150px) / 4)
+
   &#about
     @extend %wrap
     padding-top: 100px
+
   &#archives
     padding-bottom: 138px
     h2
@@ -229,25 +257,14 @@ section
       margin-top: 92px
 
   &#exhibition
+    @extend %wrap
+    padding-top: 100px
+    padding-bottom: 100px
+  &#reports
+    @extend %wrap
     background-color: #000000
-  h2
-    margin: 92px 0
-    font-size: 15px
-    font-weight: normal
-  .cols + .cols
-    margin-top: 2em
-  .cols
-    @extend .clf
-    .col
-      float: left
-    .col + .col
-      margin-left: 50px
-    &[data-col="2"]
-      .col
-        width: calc((100% - 50px) / 2)
-    &[data-col="4"]
-      .col
-        width: calc((100% - 150px) / 4)
+    padding-top: 100px
+    padding-bottom: 100px
 </style>
 
 <script>
