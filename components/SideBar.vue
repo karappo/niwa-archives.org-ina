@@ -1,6 +1,8 @@
 <template lang="pug">
 aside
-  nuxt-link.menu(to="/") Back to Top
+  nuxt-link.backToTop(to="/")
+    span Back to Top
+    MenuArrow
   h2 Outlines
   section.outlines
     .btn.disabled History
@@ -40,14 +42,28 @@ aside
   color: #898989
   z-index: 1
   border-left: 1px solid #3C3C3C
-.menu
+.backToTop
   display: flex
   align-items: center
   padding: 20px 15px
   cursor: pointer
-  font-size: 13px
+  font-size: 15px
+  span
+    color: #898989
+    margin-right: auto
+    transition: color 0.2s
+  svg
+    margin-left: auto
+    g
+      path
+        transition: fill 0.2s
   &:hover
-    color: white
+    span
+      color: white
+    svg
+      g
+        path
+          fill: white
 section
   padding: 20px
   border-top: 1px solid #3C3C3C
@@ -88,7 +104,11 @@ h3
 </style>
 
 <script>
+import MenuArrow from '~/assets/image/menu-arrow.svg?inline'
 export default {
+  components: {
+    MenuArrow
+  },
   props: {
     guidedTourExists: {
       type: Boolean,
