@@ -204,9 +204,6 @@ export default {
     category() {
       return this.$getTitle(this.data.category)
     },
-    icon() {
-      return this.$getIcon(this.this.$getTitle(this.listName))
-    },
     belongingList() {
       // eslint-disable-next-line
       return window.viewer.scene.annotations.children.filter((a) => a.data.category === this.data.category)
@@ -216,11 +213,11 @@ export default {
     },
     autoplayAvailable() {
       return ['Oral Archives', 'Guided Tour', 'Ramble Tour'].includes(
-        this.$store.getters.listName
+        this.$store.getters.pageName
       )
     },
     isGuidedTour() {
-      return this.$store.getters.listName === 'Guided Tour'
+      return this.$store.getters.pageName === 'Guided Tour'
     }
   },
   mounted() {

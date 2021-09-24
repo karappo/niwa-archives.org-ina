@@ -2,7 +2,7 @@ export const state = () => ({
   lastUpdateDateTime: {}, // 各スプレッドシートの最終更新日時を保持
   cameraPosition: null,
   cameraTarget: null,
-  listName: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
+  pageName: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
   autoplay: false,
   annotationVisibilities: {
     Annotations: true,
@@ -39,8 +39,8 @@ export const mutations = {
   cameraTarget(state, value) {
     state.cameraTarget = value
   },
-  listName(state, value) {
-    state.listName = value
+  pageName(state, value) {
+    state.pageName = value
   },
   autoplay(state, value) {
     state.autoplay = value
@@ -109,8 +109,8 @@ export const getters = {
   cameraTarget(state) {
     return state.cameraTarget
   },
-  listName(state) {
-    return state.listName
+  pageName(state) {
+    return state.pageName
   },
   autoplay(state) {
     return state.autoplay

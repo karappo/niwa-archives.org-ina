@@ -21,8 +21,8 @@
         min-size="25"
         max-size="75"
       )
-        DrawerHistory(v-if="$store.getters.listName === 'History'")
-        Drawer3DData(v-else-if="$store.getters.listName === '3D Data'")
+        DrawerHistory(v-if="$store.getters.pageName === 'History'")
+        Drawer3DData(v-else-if="$store.getters.pageName === '3D Data'")
         DrawerAnnotation(
           v-else-if="annotationData"
           :data="annotationData"
@@ -368,7 +368,7 @@ export default {
     },
     showAnnotation(globalIndex) {
       const annotation = window.viewer.scene.annotations.children[globalIndex]
-      if (this.$store.getters.listName === 'Guided Tour') {
+      if (this.$store.getters.pageName === 'Guided Tour') {
         annotation.click_inTour()
       } else {
         annotation.click()
@@ -438,7 +438,7 @@ export default {
     },
     selectList(name) {
       this.clearSelectedAnnotation()
-      this.$store.commit('listName', name)
+      this.$store.commit('pageName', name)
       let list = []
       switch (name) {
         case 'Annotations':
@@ -475,7 +475,7 @@ export default {
     },
     closeDrawer() {
       // clear List
-      this.$store.commit('listName', '')
+      this.$store.commit('pageName', '')
       this.clearSelectedAnnotation()
       this.listData = null
     },

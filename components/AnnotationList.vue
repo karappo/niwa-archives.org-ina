@@ -75,7 +75,7 @@ export default {
   },
   computed: {
     isOralArchives() {
-      return this.$store.getters.listName === 'Oral Archives'
+      return this.$store.getters.pageName === 'Oral Archives'
     }
   }
 }

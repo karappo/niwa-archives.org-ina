@@ -2,7 +2,7 @@
 .btn(
   @click="$nuxt.$emit('selectList', listName)"
   :data-list-name="listName"
-  :class="{current: $store.getters.listName === listName}"
+  :class="{current: $store.getters.pageName === listName}"
 )
   .dot.icon(v-if="icon==='dot'")
   IconTour.tour(v-else-if="icon==='tour'")
