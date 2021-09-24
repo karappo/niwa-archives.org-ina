@@ -161,11 +161,6 @@ main
 import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
 export default {
-  head: {
-    bodyAttrs: {
-      class: 'detail'
-    }
-  },
   props: {
     file: {
       type: String,
@@ -486,6 +481,11 @@ export default {
       // const camera = window.viewer.scene.getActiveCamera()
       // this.$store.commit('cameraPosition', camera.position.toArray())
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
+    }
+  },
+  head: {
+    bodyAttrs: {
+      class: 'detail'
     }
   }
 }

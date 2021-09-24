@@ -197,11 +197,6 @@ section
 import { ScrollGuide } from '@karappo-inc/vue-components'
 import LogoJa from '~/assets/image/top/logo-ja.svg?inline'
 export default {
-  head: {
-    bodyAttrs: {
-      class: 'top'
-    }
-  },
   components: {
     ScrollGuide,
     LogoJa
@@ -209,6 +204,11 @@ export default {
   data() {
     return {
       showMuriAnLink: true
+    }
+  },
+  head: {
+    bodyAttrs: {
+      class: 'top'
     }
   }
 }
