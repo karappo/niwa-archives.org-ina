@@ -49,7 +49,7 @@
 <style lang="sass" scoped>
 .root
   width: 100%
-  height: 100%
+  height: 100vh
   background: #000
   display: flex
 main
@@ -161,6 +161,11 @@ main
 import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
 export default {
+  head: {
+    bodyAttrs: {
+      class: 'detail'
+    }
+  },
   props: {
     file: {
       type: String,

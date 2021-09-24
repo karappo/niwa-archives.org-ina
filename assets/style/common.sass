@@ -1,11 +1,11 @@
-// @import general/reset-2
+@import general/reset-2
 @import general/const
 @import const
 @import annotation
 
 body
   margin: 0
-  color: black
+  color: white
   font-family: 'K2-v1-Reular', $helvetica, $yugothic
   font-size: 16px
   line-height: 1.5
@@ -23,6 +23,9 @@ body
   --color--artifacts: $color_artifacts
   --color--dna-data: $color_dnaData
   --color--oral-archives: $color_oralArchives
+
+  &.top
+    overflow-y: scroll
 
 a[href]
   color: inherit
