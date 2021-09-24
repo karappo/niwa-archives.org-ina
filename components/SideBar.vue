@@ -42,13 +42,12 @@ aside
   color: #898989
   z-index: 1
   border-left: 1px solid #3C3C3C
-  font-family: 'K2-v1-Heavy'
-  font-weight: normal
-  font-size: 14px
-  letter-spacing: 0.01em
 .backToTop
   display: flex
   align-items: center
+  font-family: 'K2-v1-Heavy'
+  font-weight: normal
+  font-size: 15px
   padding: 18px 15px
   cursor: pointer
   span
@@ -70,7 +69,7 @@ aside
         path
           fill: white
 section
-  padding: 20px
+  padding: 20px 10px 20px 20px
   border-top: 1px solid #3C3C3C
   &:last-child
     border-bottom: 1px solid #3C3C3C
@@ -84,9 +83,12 @@ h2 + section
 h2
   background-color: #171717
   color: #898989
+  font-family: 'K2-v1-Heavy'
+  font-weight: normal
   font-size: 14px
   line-height: 2
-  padding: 2px 20px
+  letter-spacing: 0.01em
+  padding: 2px 10px 2px 20px
   margin: 0
 h3
   font-size: 13px

@@ -14,7 +14,10 @@
 @import ../assets/style/const
 .btn
   cursor: pointer
-  font-size: 13px
+  font-family: 'K2-v1-Heavy'
+  font-weight: normal
+  font-size: 14px
+  letter-spacing: 0.01em
   display: flex
   align-items: center
 
