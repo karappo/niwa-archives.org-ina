@@ -36,9 +36,9 @@
     h2 Archives
     .garden.joei_ji
       .cols(data-col="4")
-        .col
+        nuxt-link.col(to='/joei_ji/')
           h3 常栄寺庭園
-        .col
+        nuxt-link.col(to='/joei_ji/')
           | Jōei-ji Garden<br>
           | Yamaguchi
         .col
@@ -66,13 +66,13 @@
         .col
           | Annotations Quantity<br>
           | {{ murinAnDataQuantity }}
-      a.image(@click="showMuriAnLink = !showMuriAnLink")
+      a.image
         img(
           src='~/assets/image/top/murin_an.jpg'
           srcset='~/assets/image/top/murin_an.jpg 1x, ~/assets/image/top/murin_an@2x.jpg 2x'
           alt='無鄰菴の点群'
         )
-        .overlay(v-if="showMuriAnLink")
+        .overlay
           .select3D
             h6 Select 3D Data
             nav
@@ -81,9 +81,9 @@
               nuxt-link(to='/murin_an-snow/') Snow
     .garden.ryogen_in
       .cols(data-col="4")
-        .col
+        nuxt-link.col(to='/ryogen_in/')
           h3 龍源院庭園
-        .col
+        nuxt-link.col(to='/ryogen_in/')
           | Ryōgen-in Garden<br>
           | Kyoto
         .col
@@ -166,9 +166,59 @@ section
         display: block
         margin-top: 90px
         cursor: pointer
+        position: relative
         img
           width: 100%
           height: auto
+          z-index: 1
+        .overlay
+          position: absolute
+          top: 0
+          left: 0
+          width: 100%
+          height: 100%
+          display: flex
+          justify-content: center
+          align-items: center
+          z-index: 2
+          cursor: default
+          &:hover
+            .select3D
+              opacity: 1
+          .select3D
+            opacity: 0
+            transition: opacity 0.2s
+            h6
+              background-color: rgba(0,0,0,0.9)
+              font-size: 14px
+              font-family: 'K2-v1-Bold'
+              color: #7C7C7C
+              width: 100%
+              height: 41px
+              display: flex
+              justify-content: center
+              align-items: center
+            nav
+              margin-top: 2px
+              display: flex
+              flex-direction: row
+              a + a
+                margin-left: 2px
+              a
+                display: flex
+                justify-content: center
+                align-items: center
+                background-color: rgba(0,0,0,0.9)
+                font-size: 19px
+                font-family:
+                font-family: 'K2-v1-Bold'
+                color: #A5A5A5
+                transition: color 0.2s
+                width: 245px
+                height: 91px
+                &:hover
+                  color: white
+
       .cols
         @extend %wrap
     .garden + .garden
@@ -202,14 +252,16 @@ export default {
     ScrollGuide,
     LogoJa
   },
-  data() {
-    return {
-      showMuriAnLink: true
-    }
-  },
   computed: {
     murinAnLastUpdateDateTime() {
-      return this.$store.getters.lastUpdateDateTime.ryogenIn
+      const array = [
+        this.$store.getters.lastUpdateDateTime.murinAnSummer,
+        this.$store.getters.lastUpdateDateTime.murinAnWinter,
+        this.$store.getters.lastUpdateDateTime.murinAnSnow
+      ]
+      return array.sort((pre, cur) => {
+        return new Date(cur) - new Date(pre)
+      })[0]
     },
     murinAnDataQuantity() {
       const a = this.$store.state.annotations
@@ -220,7 +272,7 @@ export default {
   },
   methods: {
     format(datetime) {
-      return dayjs(datetime).format('YYYY.MM.DD HH:mm:ss')
+      return dayjs(datetime).format('YYYY.MM.DD HH:mm')
     }
   },
   head: {
