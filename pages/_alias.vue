@@ -21,8 +21,10 @@
         min-size="25"
         max-size="75"
       )
-        AnnotationDrawer(
-          v-if="annotationData"
+        DrawerHistory(v-if="$store.getters.listName === 'History'")
+        Drawer3DData(v-else-if="$store.getters.listName === '3D Data'")
+        DrawerAnnotation(
+          v-else-if="annotationData"
           :data="annotationData"
           :annotations="annotations"
           :prevNextVisibility="prevNextVisibility"
@@ -33,7 +35,7 @@
           @prev="prev"
           @next="next"
         )
-        ListDrawer(
+        DrawerList(
           v-else-if="listData"
           :data="listData"
           @close="closeDrawer"
