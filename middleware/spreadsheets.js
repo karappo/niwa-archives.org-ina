@@ -4,7 +4,7 @@ const removeParams = (url) => {
   url = new URL(url)
   return url.origin + url.pathname
 }
-export default async function ({ params, redirect, store }) {
+export default async function ({ store }) {
   // 渡された配列を、1行目の値をキーとするCollectionに変換して返す
   const convertToCollection = (array) => {
     const collection = []
