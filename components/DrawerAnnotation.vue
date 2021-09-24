@@ -132,7 +132,7 @@ header
       font-family: 'Font Awesome 5 Pro-Light-300'
       font-size: 50px
       color: white
-      background: black
+      background: #0e0e0e
       z-index: 2
       display: flex
       justify-content: center
