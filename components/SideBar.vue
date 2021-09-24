@@ -5,35 +5,35 @@ aside
     MenuArrow
   h2 Outlines
   section.outlines
-    .btn.disabled History
-    ListLink(:listName="'Plans'" :dot="false") Plans
-    .btn.disabled 3D Data
+    ListLink(listName='History' icon='hyphen') History
+    ListLink(listName='Plans' icon='hyphen') Plans
+    ListLink(listName='3D Data' icon='hyphen') 3D Data
     SelectBox.variations(
       v-if="$variation($route)"
       :options="variations"
       :value.sync="variationIndex"
     )
   h2
-    ListLinkCheckbox(:listName="'Annotations'" :dot="false")
+    ListLinkCheckbox(listName='Annotations')
   section.viewpoints
     h3
-      ListLinkCheckbox(:listName="'Viewpoints'" :dot="false")
-    ListLinkCheckbox(:listName="'Viewpoints/Still Images'")
-    ListLinkCheckbox(:listName="'Viewpoints/Movies'")
+      ListLinkCheckbox(listName='Viewpoints')
+    ListLinkCheckbox(listName='Viewpoints/Still Images' icon='dot')
+    ListLinkCheckbox(listName='Viewpoints/Movies' icon='dot')
   section.elements
     h3
-      ListLinkCheckbox(:listName="'Elements'" :dot="false")
-    ListLinkCheckbox(:listName="'Elements/Stones'")
-    ListLinkCheckbox(:listName="'Elements/Plants'")
-    ListLinkCheckbox(:listName="'Elements/Creatures'")
-    ListLinkCheckbox(:listName="'Elements/Artifacts'")
-    ListLinkCheckbox(:listName="'Elements/DNA Data'")
+      ListLinkCheckbox(listName='Elements')
+    ListLinkCheckbox(listName='Elements/Stones' icon='dot')
+    ListLinkCheckbox(listName='Elements/Plants' icon='dot')
+    ListLinkCheckbox(listName='Elements/Creatures' icon='dot')
+    ListLinkCheckbox(listName='Elements/Artifacts' icon='dot')
+    ListLinkCheckbox(listName='Elements/DNA Data' icon='dot')
   section.orals
-    ListLinkCheckbox(:listName="'Oral Archives'")
+    ListLinkCheckbox(listName='Oral Archives' icon='dot')
   h2 Tour Modes
   section.tours
-    ListLink(v-if="guidedTourExists" :listName="'Guided Tour'" :dot="false")
-    ListLink(:listName="'Ramble Tour'" :dot="false")
+    ListLink(v-if="guidedTourExists" listName='Guided Tour' icon='tour')
+    ListLink(listName='Ramble Tour' icon='tour')
 </template>
 
 <style lang="sass" scoped>
@@ -102,6 +102,9 @@ h3
   &.current
     color: white
     pointer-events: none
+.btn + .btn,
+.linkCheck + .linkCheck
+  margin-top: 10px
 .disabled
   &:hover
     text-decoration: line-through

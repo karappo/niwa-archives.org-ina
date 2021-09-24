@@ -2,8 +2,12 @@
 .btn(
   @click="$nuxt.$emit('selectList', listName)"
   :data-list-name="listName"
-  :class="{current: $store.getters.listName === listName, dot}"
-) {{ title }}
+  :class="{current: $store.getters.listName === listName}"
+)
+  .dot.icon(v-if="icon==='dot'")
+  IconTour.tour(v-else-if="icon==='tour'")
+  IconHyphen.tour(v-else-if="icon==='hyphen'")
+  | {{ title }}
 </template>
 
 <style lang="sass" scoped>
@@ -32,23 +36,33 @@
   &[data-list-name='Oral Archives']
     --bg-color: #{$color_oralArchives}
 
-  &.dot:before
-    content: ''
-    display: inline-block
-    width: 6px
-    height: 6px
-    background-color: var(--bg-color)
-    margin-right: 0.5em
-    border-radius: 50%
   &:hover
     color: rgba(255,255,255,0.8)
   &.current
     color: white
     pointer-events: none
+
+  .dot
+    display: inline-block
+    width: 6px
+    height: 6px
+    background-color: var(--bg-color)
+    margin-right: 10px
+    border-radius: 50%
+  .tour
+    margin-right: 10px
+  .hyphen
+    margin-right: 10px
 </style>
 
 <script>
+import IconHyphen from '~/assets/image/icon-hyphen.svg?inline'
+import IconTour from '~/assets/image/icon-tour.svg?inline'
 export default {
+  components: {
+    IconHyphen,
+    IconTour
+  },
   props: {
     listName: {
       type: String,
@@ -58,6 +72,10 @@ export default {
     dot: {
       type: Boolean,
       default: true
+    },
+    icon: {
+      type: String,
+      default: null
     }
   },
   computed: {

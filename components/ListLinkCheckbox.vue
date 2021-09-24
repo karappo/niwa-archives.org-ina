@@ -1,6 +1,6 @@
 <template lang="pug">
 .linkCheck(:class="{disabled}")
-  ListLink(:listName="listName" :dot="dot") {{ title }}
+  ListLink(:listName="listName" :icon="icon") {{ title }}
   input(v-if="!disabled" type="checkbox" v-model="visibility")
 </template>
 
@@ -23,9 +23,9 @@ export default {
       required: true,
       default: ''
     },
-    dot: {
-      type: Boolean,
-      default: true
+    icon: {
+      type: String,
+      default: null
     }
   },
   computed: {
