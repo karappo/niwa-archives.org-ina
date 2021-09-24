@@ -42,13 +42,18 @@ aside
   color: #898989
   z-index: 1
   border-left: 1px solid #3C3C3C
+  font-family: 'K2-v1-Heavy'
+  font-weight: normal
+  font-size: 14px
+  letter-spacing: 0.01em
 .backToTop
   display: flex
   align-items: center
-  padding: 20px 15px
+  padding: 18px 15px
   cursor: pointer
-  font-size: 15px
   span
+    font-size: 15px
+    font-family: 'K2-v1-Bold'
     color: #898989
     margin-right: auto
     transition: color 0.2s
