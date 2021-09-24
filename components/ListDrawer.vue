@@ -2,7 +2,7 @@
 article
   header
     h1(:data-category="title") {{ title }}
-    .filter(v-if="tags.length")
+    .filter(v-if="tags.length && !data.name.includes('Tour')")
       label Filter:
       SelectBox(:options="tags" :value.sync="tagIndexStr" :allowEmpty="true")
     a.close(@click="$emit('close')" title="Close") X
