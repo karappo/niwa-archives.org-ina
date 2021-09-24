@@ -149,6 +149,7 @@
     font-size: 15px
     font-family: 'K2-v1-Light'
     color: #CBD5C8
+    z-index: 10
     a + a
       margin-left: 2em
 section
