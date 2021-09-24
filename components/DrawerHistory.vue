@@ -4,7 +4,11 @@ article
     h1 History
     a.close(@click="$emit('close')" title="Close") X
   .content
-
+    template(v-if="$route.params.alias === 'joei_ji'")
+    template(v-else-if="$route.params.alias === 'murin_an-summer'")
+    template(v-else-if="$route.params.alias === 'murin_an-winter'")
+    template(v-else-if="$route.params.alias === 'murin_an-snow'")
+    template(v-else-if="$route.params.alias === 'ryogen_in'")
 </template>
 
 <style lang="sass" scoped>
