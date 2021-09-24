@@ -14,8 +14,8 @@ article
       | <br>
       | 編集者：<br>
       | 井上智博（京都工芸繊維大学 KYOTO Design Lab）<br>
-      | 撮影機材：FARO FocusS 350 / FocusX 130<br>
       | <br>
+      | 撮影機材：FARO FocusS 350 / FocusX 130<br>
       | 精度：4x<br>
       | 解像度：1/4<br>
       | 測点数：74<br>
@@ -36,8 +36,8 @@ article
       | <br>
       | 編集者：<br>
       | 井上智博（京都工芸繊維大学 KYOTO Design Lab）<br>
-      | 撮影機材：FARO FocusS 350 / FocusX 130<br>
       | <br>
+      | 撮影機材：FARO FocusS 350 / FocusX 130<br>
       | 精度：3x<br>
       | 解像度：1/4<br>
       | 測点数：91<br>
@@ -58,8 +58,8 @@ article
       | <br>
       | 編集者：<br>
       | 井上智博（京都工芸繊維大学 KYOTO Design Lab）<br>
-      | 撮影機材：FARO FocusS 350 / FocusX 130<br>
       | <br>
+      | 撮影機材：FARO FocusS 350 / FocusX 130<br>
       | 精度：3x<br>
       | 解像度：1/4<br>
       | 測点数：102<br>
@@ -80,6 +80,7 @@ article
       | <br>
       | 編集者：<br>
       | 井上智博（京都工芸繊維大学 KYOTO Design Lab）<br>
+      | <br>
       | 撮影機材：FARO FocusS 350 / FocusX 130<br>
       | 精度：3x<br>
       | 解像度：1/4<br>
