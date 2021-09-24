@@ -43,7 +43,7 @@
           | Yamaguchi
         .col
           | Update<br>
-          | 2021.10.8
+          | {{ format($store.getters.lastUpdateDateTime.joeiJi) }}
         .col
           | Annotations Quantity<br>
           | {{ $store.state.annotations.joeiJi.length }}
@@ -62,10 +62,10 @@
           | Kyoto
         .col
           | Update<br>
-          | 2021.10.8
+          | {{ format(murinAnLastUpdateDateTime) }}
         .col
           | Annotations Quantity<br>
-          | {{ $store.state.annotations.murinAnSummer.length + $store.state.annotations.murinAnWinter.length + $store.state.annotations.murinAnSnow.length }}
+          | {{ murinAnDataQuantity }}
       a.image(@click="showMuriAnLink = !showMuriAnLink")
         img(
           src='~/assets/image/top/murin_an.jpg'
@@ -88,7 +88,7 @@
           | Kyoto
         .col
           | Update<br>
-          | 2021.10.8
+          | {{ format($store.getters.lastUpdateDateTime.ryogenIn) }}
         .col
           | Annotations Quantity<br>
           | {{ $store.state.annotations.ryogenIn.length }}
@@ -194,6 +194,7 @@ section
 </style>
 
 <script>
+import dayjs from 'dayjs'
 import { ScrollGuide } from '@karappo-inc/vue-components'
 import LogoJa from '~/assets/image/top/logo-ja.svg?inline'
 export default {
@@ -204,6 +205,22 @@ export default {
   data() {
     return {
       showMuriAnLink: true
+    }
+  },
+  computed: {
+    murinAnLastUpdateDateTime() {
+      return this.$store.getters.lastUpdateDateTime.ryogenIn
+    },
+    murinAnDataQuantity() {
+      const a = this.$store.state.annotations
+      return (
+        a.murinAnSummer.length + a.murinAnWinter.length + a.murinAnSnow.length
+      )
+    }
+  },
+  methods: {
+    format(datetime) {
+      return dayjs(datetime).format('YYYY.MM.DD HH:mm:ss')
     }
   },
   head: {

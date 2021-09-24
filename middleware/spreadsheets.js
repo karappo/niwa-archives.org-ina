@@ -8,8 +8,8 @@ export default async function ({ store }) {
   // 渡された配列を、1行目の値をキーとするCollectionに変換して返す
   const convertToCollection = (array) => {
     const collection = []
-    const keys = array[0].values.map((x) => x.formattedValue)
-    for (let i = 1; i < array.length; i++) {
+    const keys = array[1].values.map((x) => x.formattedValue)
+    for (let i = 2; i < array.length; i++) {
       // ===== データ整形 =====
       const values = array[i].values.map((x) => x.formattedValue)
       const data = {}
@@ -118,6 +118,12 @@ export default async function ({ store }) {
       if (!Array.isArray(data)) {
         data = Object.values(data)
       }
+
+      // 更新日時の登録
+      const key = camelCase(sheet.properties.title)
+      const value = data[0].values[0].formattedValue
+      store.commit('lastUpdateDateTime', { key, value })
+
       data = convertToCollection(data)
       // titleが空のものは削除
       data = data.filter((x) => x.title && 0 < x.title.length)
