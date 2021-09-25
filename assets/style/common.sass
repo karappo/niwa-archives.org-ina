@@ -5,6 +5,7 @@
 
 body
   margin: 0
+  background-color: black
   color: white
   font-family: 'K2-v1-Reular', $helvetica, $yugothic
   font-size: 16px
@@ -13,7 +14,6 @@ body
 
   --button-bg-color: #242424
   --textbox-bg-color: #151515
-
 
   --color--still-images: $color_stillImages
   --color--movies: $color_movies
@@ -26,6 +26,7 @@ body
 
   &.top
     overflow-y: scroll
+    background-color: #0B101A
 
 a[href]
   color: inherit
@@ -34,6 +35,10 @@ a[href]
 #potree_quick_buttons
   top: 82px
 
+// スクロールバー
+::-webkit-scrollbar
+  width: 2px
+  background-color: transparent
 // 一時的に消す
 // #potree_quick_buttons,
 // #sidebar_root
