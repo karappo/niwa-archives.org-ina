@@ -1,9 +1,9 @@
 <template lang="pug">
-article
+.content
   header
     h1 3D Data
-    a.close(@click="$emit('close')" title="Close") X
-  .content
+    DrawerCloseBtn
+  article
     template(v-if="$route.params.alias === 'joei_ji'")
       | 撮影日：2021年4月24日、25日、26日<br>
       | <br>
@@ -118,7 +118,7 @@ article
 <style lang="sass" scoped>
 // @import ~/assets/style/const
 @import ~/assets/style/drawer-common
-.content
+article
   font-size: 14px
   line-height: 2
   color: #898989

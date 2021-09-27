@@ -1,12 +1,12 @@
 <template lang="pug">
-article
+.content
   header
     h1(:data-category="title") {{ title }}
     .filter(v-if="tags.length && !data.name.includes('Tour')")
       label Filter:
       SelectBox(:options="tags" :value.sync="tagIndexStr" :allowEmpty="true")
-    a.close(@click="$emit('close')" title="Close") X
-  .content
+    DrawerCloseBtn
+  article
     template(v-if="data.name === 'Guided Tour'")
       .description Guided Tourは、庭園をひとめぐりしながら、INAの全体が把握できるようなツアーモードです。
       .bigBtn(@click="startTour") Start Tour

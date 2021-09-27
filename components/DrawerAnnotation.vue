@@ -1,5 +1,5 @@
 <template lang="pug">
-article
+.content
   header
     h2.category(:data-category="category") {{ category }}
     a.autoplay(
@@ -23,8 +23,8 @@ article
         @click="$emit('backToList')"
         :title="`Back to list`"
       ) 
-    a.close(@click="$emit('close')" title="Close") X
-  .content
+    DrawerCloseBtn
+  article
     .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
     img.image(v-if="data.image" :src="data.image")
     a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
@@ -45,10 +45,9 @@ article
         allowfullscreen
       )
     h1 {{ data.title }}
-    .person(v-if="data.person") Speaker: {{ data.person }}
     .description(v-if="data.description" v-html="data.description")
     .tags(v-if="data.tags")
-      label Tags
+      h5 Tags
       .tag(v-for="tag in data.tags")
         span \#{{ tag }}
         ul
@@ -57,10 +56,18 @@ article
             v-for="a in annotations.filter((_a) => _a.tags && _a.tags.includes(tag) && data.index != _a.index )"
             @click="$nuxt.$emit('showAnnotation', a.index)"
           ) {{ a.title }}
-    .dateTime(v-if="data.dateTime") {{ showDateTime(data.dateTime) }}
+    .person(v-if="data.person")
+      h5 Speaker
+      .unit
+        .thumb(:style="`background-image: url(${data.youtube.thumbnailUrl()});`")
+        .text(v-html="data.person")
+    .dateTime(v-if="data.dateTime")
+      h5 Date
+      p {{ showDateTime(data.dateTime) }}
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/general/clf
 @import ~/assets/style/const
 @import ~/assets/style/drawer-common
 header
@@ -82,6 +89,7 @@ header
   .next
     margin-left: 5px
 .content
+  padding-bottom: 30px
   h1
     margin: 0
     margin-right: auto
@@ -90,6 +98,12 @@ header
     text-overflow: ellipsis
     white-space: nowrap
     font-size: 21px
+  h5
+    font-family: 'K2-v1-Regular'
+    font-size: 14px
+    color: #8B8B8B
+    margin-top: 34px
+    margin-bottom: 17px
   .description,
   .commentForGuidedTour
     font-size: 14px
@@ -156,8 +170,28 @@ header
       cursor: pointer
       &:hover
         opacity: 0.5
+  .person
+    .unit
+      @extend .clf
+    .thumb
+      background-size: 180% // 上下に黒帯が入った正方形なのでceoverにするとNG
+      background-position: center
+      width: 87px
+      height: 87px
+      border-radius: 5px
+      float: left
+    .text
+      float: left
+      margin-left: 20px
+      /deep/ h6
+        font-size: 14px
+        color: white
+      /deep/ p
+        font-size: 12px
+        color: #9B9B9B
+        margin-top: 14px
   .dateTime
-    font-size: 12px
+    font-size: 14px
     margin-top: 50px
 </style>
 

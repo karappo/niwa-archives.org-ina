@@ -1,9 +1,9 @@
 <template lang="pug">
-article
+.content
   header
     h1 History
-    a.close(@click="$emit('close')" title="Close") X
-  .content
+    DrawerCloseBtn
+  article
     template(v-if="$route.params.alias === 'joei_ji'")
     template(v-else-if="$route.params.alias === 'murin_an-summer'")
     template(v-else-if="$route.params.alias === 'murin_an-winter'")
@@ -14,7 +14,7 @@ article
 <style lang="sass" scoped>
 // @import ~/assets/style/const
 @import ~/assets/style/drawer-common
-.content
+article
   font-size: 14px
   line-height: 2
   color: #898989

@@ -21,8 +21,12 @@
         min-size="25"
         max-size="75"
       )
-        DrawerHistory(v-if="$store.getters.pageName === 'History'")
-        Drawer3DData(v-else-if="$store.getters.pageName === '3D Data'")
+        DrawerHistory(
+          v-if="$store.getters.pageName === 'History'"
+        )
+        Drawer3DData(
+          v-else-if="$store.getters.pageName === '3D Data'"
+        )
         DrawerAnnotation(
           v-else-if="annotationData"
           :data="annotationData"
@@ -31,14 +35,12 @@
           :prevDisabled="prevDisabled"
           :nextDisabled="nextDisabled"
           @backToList="clearSelectedAnnotation"
-          @close="closeDrawer"
           @prev="prev"
           @next="next"
         )
         DrawerList(
           v-else-if="listData"
           :data="listData"
-          @close="closeDrawer"
         )
     SoundBar(:annotations="annotations")
   SideBar.sideBar(
@@ -299,6 +301,7 @@ export default {
     }
 
     // Set Events
+    this.$nuxt.$on('closeDrawer', this.closeDrawer)
     this.$nuxt.$on('settingUpdated', config)
     this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
@@ -314,6 +317,7 @@ export default {
     }, 1000)
   },
   beforeDestroy() {
+    this.$nuxt.$off('closeDrawer', this.closeDrawer)
     this.$nuxt.$off('settingUpdated')
     this.$nuxt.$off('setControlMode', this.setControlMode)
     this.$nuxt.$off('startCameraAnimation', this.startCameraAnimation)

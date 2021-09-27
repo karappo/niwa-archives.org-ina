@@ -1,6 +1,6 @@
 @import const
 // ヘッダー部分などDrawerで共通の部分
-article
+.content
   color: white
   padding: 0
   // width: calc(100% - 30px)
@@ -38,6 +38,8 @@ header
     white-space: nowrap
     flex: 1
     min-width: 0
+    font-family: 'K2-v1-Bold'
+    font-size: 18px
   .filter
     display: flex
     align-items: center
@@ -46,21 +48,10 @@ header
       font-size: 12px
       color: #898989
       margin-right: 1em
-  .close
-    @extend %button
-    height: 26px
-    width: 26px
-    font-size: 12px
-    color: #898989
-    transition: color 0.2s
-    margin-left: 10px
-    margin-right: 0
-    &:hover
-      color: white
   a
     @extend %button
     font-size: 12px
     height: 26px
 
-.content
+article
   padding: 0 25px
