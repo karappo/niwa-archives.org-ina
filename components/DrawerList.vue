@@ -18,8 +18,8 @@
         .head
           h5 {{ key }}
           .thumb(:style="`background-image: url(${val[0].youtube.thumbnailUrl()});`")
-        AnnotationList(:list="filterByTag(val)" :icon="!$getIcon(data.name)")
-    AnnotationList(v-else :list="filterByTag(data.list)" :icon="!$getIcon(data.name)")
+        AnnotationList(:list="filterByTag(val)" :typeVisibility="!$getIcon(data.name)")
+    AnnotationList(v-else :list="filterByTag(data.list)" :typeVisibility="!$getIcon(data.name)")
 </template>
 
 <style lang="sass" scoped>
@@ -44,42 +44,6 @@
   transition: background-color .1s
   &:hover
     background-color: lighten(#084033, 5%)
-.list
-  display: block
-  padding: 0
-  margin: 0
-  li
-    display: flex
-    align-items: center
-    padding: 0.2em 0
-    border-top: 1px solid #555
-    color: #898989
-    cursor: pointer
-    font-size: 15px
-    &:hover
-      color: white
-    .icon
-      margin-right: 0.5em
-    .thumb
-      width: 40px
-      height: 30px
-      border-radius: 5px
-      background-size: cover
-      background-position: center
-      margin-right: 10px
-    .title
-      overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
-    .type
-      font-size: 18px
-      margin-left: auto
-      margin-right: 0
-      font-family: 'Font Awesome 5 Pro-Light-300'
-      &.youtube
-        font-family: 'Font Awesome 5 Brands-Regular-400'
-  li:last-child
-    border-bottom: 1px solid #555
 .empty
   color: #898989
 .groups
@@ -89,6 +53,7 @@
     .head
       display: flex
       align-items: center
+      margin-bottom: 8px
       h5
         font-size: 15px
         overflow: hidden
@@ -96,10 +61,9 @@
         white-space: nowrap
         flex: 1
       .thumb
-        width: 80px
-        height: 60px
-        border-radius: 5px
-        background-size: cover
+        width: 120px
+        height: 80px
+        background-size: 180%
         background-position: center
         margin-left: 10px
 </style>
