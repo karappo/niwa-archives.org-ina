@@ -59,11 +59,11 @@
             v-for="a in annotations.filter((_a) => _a.tags && _a.tags.includes(tag) && data.index != _a.index )"
             @click="$nuxt.$emit('showAnnotation', a.index)"
           ) {{ a.title }}
-    .person(v-if="data.person")
+    .speaker(v-if="data.speaker")
       h5 Speaker
       .unit
         .thumb(:style="`background-image: url(${data.youtube.thumbnailUrl()});`")
-        .text(v-html="data.person")
+        .text(v-html="data.speaker")
     .dateTime(v-if="data.dateTime")
       h5 Date
       p {{ showDateTime(data.dateTime) }}
@@ -176,7 +176,7 @@ header
       cursor: pointer
       &:hover
         opacity: 0.5
-  .person
+  .speaker
     .unit
       @extend .clf
     .thumb
