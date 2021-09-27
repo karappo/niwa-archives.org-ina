@@ -51,14 +51,9 @@
     .description(v-if="data.description" v-html="data.description")
     .tags(v-if="data.tags")
       h5 Tags
-      .tag(v-for="tag in data.tags")
+      .tag(v-for="tag in data.tags" @click="tagClick(tag)")
         span \#{{ tag }}
-        ul
-          // TODO: data.index != _a.index のところ、Annotation.id が導入されたらidで比較する方が良さそう
-          li(
-            v-for="a in annotations.filter((_a) => _a.tags && _a.tags.includes(tag) && data.index != _a.index )"
-            @click="$nuxt.$emit('showAnnotation', a.index)"
-          ) {{ a.title }}
+        span.num {{ annotations.filter((_a) => _a.tags && _a.tags.includes(tag)).length }}
     .speaker(v-if="data.speaker")
       h5 Speaker
       .unit
@@ -97,8 +92,7 @@ header
 .content
   padding-bottom: 30px
   h1
-    margin: 0
-    margin-right: auto
+    margin: 30px auto 30px 0
     display: flex
     align-items: center
     text-overflow: ellipsis
@@ -112,6 +106,7 @@ header
     margin-bottom: 17px
   .description,
   .commentForGuidedTour
+    color: #9B9B9B
     font-size: 14px
     line-height: calc(29 / 14)
     margin-bottom: 15px
@@ -169,13 +164,22 @@ header
   .tags
     font-size: 12px
     line-height: 2
-    ul
-      margin: 0
-    li
-      text-decoration: underline
+    .tag + .tag
+      margin-left: 8px
+    .tag
+      display: inline-flex
+      background-color: #242424
+      color: #D6D6D6
+      border-radius: 5px
+      padding: 3px 10px
+      font-size: 14px
       cursor: pointer
       &:hover
-        opacity: 0.5
+        background-color: lighten(#242424, 10%)
+      span.num
+        color: #7C7C7C
+        font-family: 'K2-v1-Regular'
+        margin-left: 1em
   .speaker
     .unit
       @extend .clf
@@ -313,6 +317,12 @@ export default {
     startTimer() {
       // 一定時間後に次へ
       setTimeout(this.goToNextAnnotation, 15000)
+    },
+    tagClick(tag) {
+      this.$nuxt.$emit('selectList', 'Annotations')
+      this.$nextTick(function () {
+        this.$nuxt.$emit('setTagIndexStr', tag)
+      })
     }
   }
 }

@@ -17,7 +17,7 @@
 
 <style lang="sass" scoped>
 .selectBox
-  width: 188px
+  min-width: 188px
   height: 30px
   background: var(--button-bg-color)
   position: relative
@@ -35,7 +35,7 @@
     height: 100%
     color: #ADADAD
     font-size: 12px
-    padding: 7px 10px 8px
+    padding: 7px 50px 8px 10px
   .icon
     pointer-events: none
     position: absolute

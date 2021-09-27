@@ -18,7 +18,7 @@
 <style lang="sass" scoped>
 @import ~/assets/style/const
 .selectBox
-  width: 176px
+  min-width: 156px
   height: 40px
   border: 0
   margin-right: 15px
@@ -33,7 +33,7 @@
     border: 0
     width: 100%
     height: 100%
-    padding: 7px 10px 8px 14px
+    padding: 7px 50px 8px 14px
     @extend %button
   .icon
     pointer-events: none
