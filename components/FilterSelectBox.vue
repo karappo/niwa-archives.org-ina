@@ -4,7 +4,7 @@
     :value="value"
     @change="$emit('update:value', $event.target.value)"
   )
-    option(v-if="allowEmpty")
+    option(value='' selected) Filter
     option(
       v-for="(item, index) in options"
       :key="index"
@@ -16,12 +16,13 @@
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/const
 .selectBox
-  width: 188px
-  height: 30px
-  background: var(--button-bg-color)
+  width: 176px
+  height: 40px
+  border: 0
+  margin-right: 15px
   position: relative
-  border-radius: 5px
   flex-shrink: 0
   select
     cursor: pointer
@@ -29,20 +30,18 @@
     appearance: none
     padding: 0
     outline: 0
-    background: transparent
     border: 0
     width: 100%
     height: 100%
-    color: #ADADAD
-    font-size: 12px
-    padding: 7px 10px 8px
+    padding: 7px 10px 8px 14px
+    @extend %button
   .icon
     pointer-events: none
     position: absolute
     top: 0
     right: 0
     height: 100%
-    width: 28px
+    width: 40px
     border-left: 1px solid black
     display: flex
     justify-content: center
@@ -57,7 +56,7 @@
 </style>
 
 <script>
-import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg?inline'
+import TriangleArrow from '~/assets/image/filter-triangle-arrow-down.svg?inline'
 export default {
   components: {
     TriangleArrow
@@ -74,11 +73,6 @@ export default {
       default() {
         return []
       }
-    },
-    allowEmpty: {
-      type: Boolean,
-      require: false,
-      defatul: false
     }
   }
 }

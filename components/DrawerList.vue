@@ -3,7 +3,7 @@
   header
     h1(:data-category="title") {{ title }}
     .filter(v-if="tags.length && !data.name.includes('Tour')")
-      SelectBox(:options="tags" :value.sync="tagIndexStr" :allowEmpty="true")
+      FilterSelectBox(:options="tags" :value.sync="tagIndexStr")
     DrawerCloseBtn
   article
     template(v-if="data.name === 'Guided Tour'")

@@ -13,16 +13,19 @@
         @click="$emit('prev', data.index)"
         :title="`Previus`"
         :class="{disabled: prevDisabled}"
-      ) &lt;
+      )
+        IconPrev
       a.next(
         @click="$emit('next', data.index)"
         :title="`Next`"
         :class="{disabled: nextDisabled}"
-      ) &gt;
+      )
+        IconNext
       a.backTolist(
         @click="$emit('backToList')"
         :title="`Back to list`"
-      ) 
+      )
+        IconList
     DrawerCloseBtn
   article
     .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
@@ -72,22 +75,25 @@
 @import ~/assets/style/drawer-common
 header
   .autoplay
-    padding: 0 10px
-    margin-right: 10px
+    padding: 0 14px
+    margin-right: 8px
     &.enabled
       border-color: white !important
   .backTolist
     font-family: 'Font Awesome 5 Pro-Light-300'
-    width: 26px
-    margin-left: 10px
+    width: 34px
+    height: 34px
+    margin-left: 1px
+    margin-right: 1px
   .prev,
   .next
-    width: 26px
+    width: 34px
+    height: 34px
     &.disabled
       opacity: 0.5
       pointer-events: none
   .next
-    margin-left: 5px
+    margin-left: 1px
 .content
   padding-bottom: 30px
   h1
@@ -197,7 +203,15 @@ header
 
 <script>
 import dayjs from 'dayjs'
+import IconPrev from '~/assets/image/icon-prev.svg?inline'
+import IconNext from '~/assets/image/icon-next.svg?inline'
+import IconList from '~/assets/image/icon-list.svg?inline'
 export default {
+  components: {
+    IconPrev,
+    IconNext,
+    IconList
+  },
   props: {
     data: {
       type: Object,
