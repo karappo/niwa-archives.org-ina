@@ -10,12 +10,7 @@
   height: 34px
   width: 34px
   font-size: 12px
-  color: #898989
   transition: color 0.2s
-  margin-left: 10px
-  margin-right: 0
-  &:hover
-    color: white
 </style>
 
 <script>
