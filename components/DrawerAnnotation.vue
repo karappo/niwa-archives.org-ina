@@ -210,6 +210,7 @@ header
   .dateTime
     font-size: 14px
     margin-top: 50px
+    color: #8B8B8B
 </style>
 
 <script>
