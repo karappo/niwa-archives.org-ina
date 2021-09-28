@@ -48,7 +48,11 @@
         allowfullscreen
       )
     h1 {{ data.title }}
-    .description(v-if="data.description" v-html="data.description")
+    .description(
+      v-if="data.description"
+      :class="{noBr}"
+      v-html="data.description"
+    )
     .tags(v-if="data.tags")
       h5 Tags
       .tag(v-for="tag in data.tags" @click="tagClick(tag)")
@@ -110,12 +114,15 @@ header
     font-size: 14px
     line-height: calc(29 / 14)
     margin-bottom: 15px
-    white-space: pre-wrap // nl2br
+    &:not(.noBr)
+      white-space: pre-wrap // nl2br
     /deep/
       a
         color: #A452E0
       h2
-        margin: 0
+        margin: 1em 0
+      h3
+        margin: 0.5em 0
   .commentForGuidedTour
     background-color: #05211A
     color: white
@@ -270,6 +277,10 @@ export default {
     },
     isGuidedTour() {
       return this.$store.getters.pageName === 'Guided Tour'
+    },
+    noBr() {
+      // DNA Dataの時はHTMLが複雑なので、自動で改行させない
+      return this.category === 'DNA Data'
     }
   },
   mounted() {
