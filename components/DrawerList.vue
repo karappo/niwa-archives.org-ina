@@ -1,25 +1,27 @@
 <template lang="pug">
 .content
   header
-    h1(:data-category="title") {{ title }}
+    h1(:data-name="title") {{ title }}
     .filter(v-if="tags.length && !data.name.includes('Tour')")
       FilterSelectBox(:options="tags" :value.sync="tagIndexStr")
     DrawerCloseBtn
   article
     template(v-if="data.name === 'Guided Tour'")
-      .description Guided Tourは、庭園をひとめぐりしながら、INAの全体が把握できるようなツアーモードです。
-      .bigBtn(@click="startTour") Start Tour
+      .description Guided Tourでは、庭園をひとめぐりしながら、INAの全体が把握できるような自動モードです。
+      .bigBtn.guidedTour(@click="startTour()") Start Tour
     template(v-else-if="data.name === 'Ramble Tour'")
-      .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。
-      .bigBtn(@click="startTour") Start Tour
+      .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。説明を表示しながら進むモードと、説明は表示せず純粋に景色を楽しむモードの２つのモードがあります。
+      .bigBtn.rambleTour(@click="startTour(true)") Start Tour（説明なし）
+      .bigBtn.rambleTour(@click="startTour()") Start Tour（説明あり）
 
-    .groups(v-if="data.name === 'Oral Archives'")
-      .group(v-for="(val, key) in this.groups")
-        .head
-          h5 {{ key }}
-          .thumb(:style="`background-image: url(${val[0].youtube.thumbnailUrl()});`")
-        AnnotationList(:list="filterByTag(val)" :typeVisibility="!$getIcon(data.name)")
-    AnnotationList(v-else :list="filterByTag(data.list)" :typeVisibility="!$getIcon(data.name)")
+    template(v-if="data.name !== 'Ramble Tour'")
+      .groups(v-if="data.name === 'Oral Archives'")
+        .group(v-for="(val, key) in this.groups")
+          .head
+            h5 {{ key }}
+            .thumb(:style="`background-image: url(${val[0].youtube.thumbnailUrl()});`")
+          AnnotationList(:list="filterByTag(val)" :icon="!$getIcon(data.name)")
+      AnnotationList(v-else :list="filterByTag(data.list)" :icon="!$getIcon(data.name)")
 </template>
 
 <style lang="sass" scoped>
@@ -33,7 +35,6 @@
   font-size: 17px
   font-family: 'K2-v1-Bold'
   color: white
-  background-color: #084033
   display: flex
   justify-content: center
   align-items: center
@@ -42,8 +43,14 @@
   border-radius: 5px
   cursor: pointer
   transition: background-color .1s
-  &:hover
-    background-color: lighten(#084033, 5%)
+  &.guidedTour
+    background-color: darken($color_guidedTour, 15%)
+    &:hover
+      background-color: darken($color_guidedTour, 10%)
+  &.rambleTour
+    background-color: darken($color_rambleTour, 40%)
+    &:hover
+      background-color: darken($color_rambleTour, 30%)
 .empty
   color: #898989
 .groups
@@ -81,7 +88,8 @@ export default {
   data() {
     return {
       tagIndexStr: '',
-      groups: null // Oral Archivesのときにdata.listをグルーピングして保持する
+      groups: null, // Oral Archivesのときにdata.listをグルーピングして保持する
+      rambleTourTimer: null
     }
   },
   computed: {
@@ -142,11 +150,32 @@ export default {
         console.error(`「${tag}」というタグは見つかりませんでした`)
       }
     },
-    startTour() {
-      this.$store.commit('autoplay', true)
-      this.$nextTick(() => {
-        this.$nuxt.$emit('showAnnotation', this.data.list[0].index)
-      })
+    startTour(noDrawerMode = false) {
+      this.$store.commit('tourName', this.data.name)
+      this.$store.commit('noDrawerMode', noDrawerMode)
+      if (noDrawerMode) {
+        console.log('noDrawerMode-----------')
+        // autoplayはAnnotationDrawerが表示されないと意味ないのでここではあえてcommitしない
+        this.stopTour()
+        let index = 0
+        this.$nuxt.$emit('showAnnotation', this.data.list[index].index)
+        this.rambleTourTimer = setInterval(() => {
+          index++
+          console.log('index', index)
+          this.$emit('next', this.data.list[index].index)
+        }, 5000)
+      } else {
+        this.$store.commit('autoplay', true)
+        this.$nextTick(() => {
+          this.$nuxt.$emit('showAnnotation', this.data.list[0].index)
+        })
+      }
+    },
+    stopTour() {
+      this.$store.commit('tourName', null)
+      if (this.rambleTourTimer) {
+        clearInterval(this.rambleTourTimer)
+      }
     },
     filterByTag(list) {
       if (!this.selectedTag) {

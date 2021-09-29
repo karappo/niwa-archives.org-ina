@@ -13,10 +13,11 @@
             .title
               small Incomplete Niwa Archives
               span {{ data.title }}
+            TourModeIndicator
             KeyMap
         #potree_sidebar_container
       pane.drawer(
-        v-if="listData || annotationData"
+        v-if="!$store.getters.noDrawerMode && (listData || annotationData)"
         size="40"
         min-size="25"
         max-size="75"
@@ -41,6 +42,7 @@
         DrawerList(
           v-else-if="listData"
           :data="listData"
+          @next="next"
         )
     SoundBar(:annotations="annotations")
   SideBar.sideBar(
@@ -374,7 +376,8 @@ export default {
     },
     showAnnotation(globalIndex) {
       const annotation = window.viewer.scene.annotations.children[globalIndex]
-      if (this.$store.getters.pageName === 'Guided Tour') {
+      console.log(this.$store.getters.pageName)
+      if (this.$store.getters.pageName.includes('Tour')) {
         annotation.click_inTour()
       } else {
         annotation.click()
@@ -481,6 +484,7 @@ export default {
     },
     closeDrawer() {
       // clear List
+      this.$store.commit('tourName', null)
       this.$store.commit('pageName', '')
       this.clearSelectedAnnotation()
       this.listData = null
