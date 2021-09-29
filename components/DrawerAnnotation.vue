@@ -3,7 +3,7 @@
   header
     h2.category(:data-name="category") {{ category }}
     a.autoplay(
-      v-if="autoplayAvailable"
+      v-if="$store.getters.pageName === 'Oral Archives'"
       @click="clickAutoplay"
       :class="{enabled: $store.getters.autoplay}"
       title="オートプレイ：自動的に次のアノテーションを表示・再生します"
@@ -289,9 +289,6 @@ export default {
     player() {
       return this.$refs.youtube.player
     },
-    autoplayAvailable() {
-      return this.$store.getters.pageName === 'Oral Archives'
-    },
     isGuidedTour() {
       return this.$store.getters.pageName === 'Guided Tour'
     },
@@ -304,7 +301,6 @@ export default {
     if (
       !this.data.youtube &&
       !this.data.movie &&
-      this.autoplayAvailable &&
       this.$store.getters.autoplay
     ) {
       this.startTimer()
@@ -320,11 +316,7 @@ export default {
       return d.format(format)
     },
     goToNextAnnotation() {
-      if (
-        this.autoplayAvailable &&
-        this.$store.getters.autoplay &&
-        !this.nextDisabled
-      ) {
+      if (this.$store.getters.autoplay && !this.nextDisabled) {
         this.$emit('next', this.data.index)
       } else {
         this.cover = true
