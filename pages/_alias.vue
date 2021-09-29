@@ -528,6 +528,7 @@ export default {
     },
     startRambleTourWithoutDrawer() {
       this.stopRambleTourWithoutDrawer()
+      this.$store.commit('noDrawerMode', true)
       // autoplayはAnnotationDrawerが表示されないと意味ないのでここではあえてcommitしない
       let index = 0
       this.$nuxt.$emit('showAnnotation', this.listData.list[index].index)
@@ -538,6 +539,7 @@ export default {
       }, 15000)
     },
     stopRambleTourWithoutDrawer() {
+      this.$store.commit('noDrawerMode', false)
       if (this.rambleTourTimer) {
         console.log('clearInterval!')
         clearInterval(this.rambleTourTimer)

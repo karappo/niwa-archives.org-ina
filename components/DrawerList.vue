@@ -136,7 +136,6 @@ export default {
     this.$nuxt.$on('setTagIndexStr', this.setTagIndexStr)
   },
   beforeDestroy() {
-    console.log('beforeDestroy!!!! 残念！')
     this.$nuxt.$off('setTagIndexStr', this.setTagIndexStr)
   },
   methods: {
@@ -153,7 +152,6 @@ export default {
     },
     startTour(noDrawerMode = false) {
       this.$store.commit('tourName', this.data.name)
-      this.$store.commit('noDrawerMode', noDrawerMode)
       if (noDrawerMode) {
         this.$nuxt.$emit('startRambleTourWithoutDrawer')
       } else {
