@@ -20,7 +20,7 @@
               KeyMap
         #potree_sidebar_container
       pane.drawer(
-        v-if="!$store.getters.noDrawerMode && (listData || annotationData)"
+        v-if="!$store.getters.withoutDrawer && (listData || annotationData)"
         size="40"
         min-size="25"
         max-size="75"
@@ -528,7 +528,7 @@ export default {
     },
     startRambleTourWithoutDrawer() {
       this.stopRambleTourWithoutDrawer()
-      this.$store.commit('noDrawerMode', true)
+      this.$store.commit('withoutDrawer', true)
       // autoplayはAnnotationDrawerが表示されないと意味ないのでここではあえてcommitしない
       let index = 0
       this.$nuxt.$emit('showAnnotation', this.listData.list[index].index)
@@ -539,7 +539,7 @@ export default {
       }, 15000)
     },
     stopRambleTourWithoutDrawer() {
-      this.$store.commit('noDrawerMode', false)
+      this.$store.commit('withoutDrawer', false)
       if (this.rambleTourTimer) {
         console.log('clearInterval!')
         clearInterval(this.rambleTourTimer)

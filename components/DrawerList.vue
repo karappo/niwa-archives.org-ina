@@ -150,9 +150,9 @@ export default {
         console.error(`「${tag}」というタグは見つかりませんでした`)
       }
     },
-    startTour(noDrawerMode = false) {
+    startTour(withoutDrawer = false) {
       this.$store.commit('tourName', this.data.name)
-      if (noDrawerMode) {
+      if (withoutDrawer) {
         this.$nuxt.$emit('startRambleTourWithoutDrawer')
       } else {
         this.$store.commit('autoplay', true)
