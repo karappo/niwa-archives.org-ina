@@ -555,7 +555,7 @@ export default {
     stopRambleTourWithoutDrawer() {
       this.$store.commit('withoutDrawer', false)
       if (this.rambleTourTimer) {
-        console.log('clearInterval!')
+        this.closeDrawer()
         clearInterval(this.rambleTourTimer)
         this.rambleTourTimer = null
       }
