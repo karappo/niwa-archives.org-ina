@@ -70,7 +70,7 @@ aside
         path
           fill: white
 section
-  padding: 20px 10px 20px 20px
+  padding: 20px 10px 20px 15px
   border-top: 1px solid #3C3C3C
   &:last-child
     border-bottom: 1px solid #3C3C3C

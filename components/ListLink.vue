@@ -54,7 +54,7 @@
     width: 6px
     height: 6px
     background-color: var(--bg-color)
-    margin-right: 10px
+    margin-right: 8px
     border-radius: 50%
   .tour
     margin-right: 10px
