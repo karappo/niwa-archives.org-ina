@@ -10,10 +10,10 @@
           :class="potreeRenderAreaClass"
         )
           .controls
-            .title
-              small Incomplete Niwa Archives
-              span {{ data.title }}
-            template(v-if="$store.getters.tourName")
+            h1.title
+              span.global Incomplete Niwa Archives
+              span.scene {{ data.title }}
+            template(v-if="tourName")
               TourIndicator
               StopTourButton
             template(v-else)
@@ -70,15 +70,14 @@ main
   height: 100%
   margin: 0
 .title
-  margin-top: 20px
-  margin-left: 20px
+  margin-top: 28px
+  margin-left: 24px
+  font-family: 'K2-v1-Light'
+  font-weight: normal
+  font-size: 17px
   color: white
-  small
-    display: block
-    font-size: 10px
-  span
-    display: block
-    font-size: 25px
+  .scene
+    margin-left: 26px
 .splitpanes.default-theme
   overflow: hidden
   /deep/ .splitpanes__splitter
