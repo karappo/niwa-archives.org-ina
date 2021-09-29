@@ -47,7 +47,7 @@
           :data="listData"
           @next="next"
         )
-    SoundBar(:annotations="annotations")
+    SoundBar.soundBar(:annotations="annotations")
   SideBar.sideBar(
     :guidedTourExists="0 < data.guidedTour.length"
     @saveCameraInfo="saveCameraInfo"
@@ -65,10 +65,23 @@ main
   display: flex
   flex-direction: column
   width: calc(100% - 160px)
+  /deep/ .soundBar
+    // border-rightだと表示領域外になってしまうため、疑似要素で…
+    position: relative
+    &:after
+      position: absolute
+      top: 0
+      right: 0
+      content: ''
+      display: block
+      width: 1px
+      height: 100%
+      background-color: #3C3C3C
 .sideBar
   width: 165px
   height: 100%
   margin: 0
+  border-left: 0
 .title
   margin: 24px
   font-family: 'K2-v1-Light'
@@ -94,6 +107,7 @@ main
       background-color: black
       margin-left: -6px
       height: calc(100% - 1px)
+      border-right: 1px solid #3C3C3C
       border-bottom: 1px solid #3C3C3C
 #potree_render_area
   width: 100%
