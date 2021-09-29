@@ -26,6 +26,7 @@
         max-size="75"
         :class="{border: !$store.getters.tourName}"
       )
+        //- TODO Historyを開いた状態で、Annotationをクリックしたら開かない…
         DrawerHistory(
           v-if="$store.getters.pageName === 'History'"
         )
