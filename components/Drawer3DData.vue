@@ -2,7 +2,7 @@
 .content
   header
     h1 3D Data
-    DrawerCloseBtn
+    DrawerCloseButton
   article
     template(v-if="$route.params.alias === 'joei_ji'")
       | 撮影日：2021年4月24日、25日、26日<br>
