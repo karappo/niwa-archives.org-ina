@@ -12,10 +12,10 @@
     template(v-else-if="data.name === 'Ramble Tour'")
       h3 Tour with Annotations
       .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。こちらは、各Annotationの説明を表示しながら進めるモードです。
-      .bigBtn.rambleTour(@click="startTour(true)") Start Tour
+      .bigBtn.rambleTour(@click="startTour()") Start Tour
       h3 Tour without Annotations
       .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。こちらは、説明を表示せず純粋に景色を楽しむモードです。
-      .bigBtn.rambleTour(@click="startTour()") Start Tour
+      .bigBtn.rambleTour(@click="startTour(true)") Start Tour
 
     template(v-if="data.name !== 'Ramble Tour'")
       .groups(v-if="data.name === 'Oral Archives'")
