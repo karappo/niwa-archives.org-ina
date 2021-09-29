@@ -114,6 +114,7 @@ header
     margin: 30px auto 30px 0
     text-overflow: ellipsis
     white-space: nowrap
+    @extend %font_bold
     font-size: 21px
     overflow: hidden
   h5
@@ -133,6 +134,13 @@ header
     /deep/
       a
         color: #A452E0
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6
+        @extend %font_bold
       h2
         margin: 1em 0
       h3

@@ -1,5 +1,6 @@
 // Componentからもimportできるように定数やmixinの定義のみのスタイルシート
 
+@import general/const
 @import general/util
 @import general/mixins
 
@@ -40,6 +41,12 @@ $color_oralArchives: #E516D5
 $color_guidedTour: #007B5A
 $color_rambleTour: #642BFF
 
+%font_normal
+  font-family: 'K2-v1-Bold', 'TsukuGoPro-B', $yugothic
+  font-weight: normal
+%font_bold
+  font-family: 'K2-v1-Bold', 'TsukuGoPro-E', $yugothic
+  font-weight: normal
 %button
   background: var(--button-bg-color)
   border: 3px solid var(--button-bg-color)
