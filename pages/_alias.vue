@@ -70,8 +70,7 @@ main
   height: 100%
   margin: 0
 .title
-  margin-top: 28px
-  margin-left: 24px
+  margin: 24px
   font-family: 'K2-v1-Light'
   font-weight: normal
   font-size: 17px
