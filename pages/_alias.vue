@@ -13,8 +13,11 @@
             .title
               small Incomplete Niwa Archives
               span {{ data.title }}
-            TourModeIndicator
-            KeyMap
+            template(v-if="$store.getters.tourName")
+              TourIndicator
+              StopTourButton
+            template(v-else)
+              KeyMap
         #potree_sidebar_container
       pane.drawer(
         v-if="!$store.getters.noDrawerMode && (listData || annotationData)"
@@ -159,6 +162,24 @@ main
   pointer-events: none
   > *
     pointer-events: auto
+  /deep/ .stopTourButton
+    position: absolute
+    width: 160px
+    height: 50px
+    bottom: 25px
+    right: 25px
+    font-family: 'K2-v1-Bold'
+    font-size: 17px
+    color: white
+    background-color: #1D1D1D
+    border-radius: 5px
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    transition: background-color 0.2s
+    &:hover
+      background-color: lighten(#1D1D1D, 5%)
 .sideBar
   grid-area: sidebar
 </style>

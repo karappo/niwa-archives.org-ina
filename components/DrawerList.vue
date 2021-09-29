@@ -4,7 +4,7 @@
     h1(:data-name="title") {{ title }}
     .filter(v-if="tags.length && !data.name.includes('Tour')")
       FilterSelectBox(:options="tags" :value.sync="tagIndexStr")
-    DrawerCloseBtn
+    DrawerCloseButton
   article
     template(v-if="data.name === 'Guided Tour'")
       .description Guided Tourでは、庭園をひとめぐりしながら、INAの全体が把握できるような自動モードです。
@@ -12,6 +12,7 @@
     template(v-else-if="data.name === 'Ramble Tour'")
       .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。説明を表示しながら進むモードと、説明は表示せず純粋に景色を楽しむモードの２つのモードがあります。
       .bigBtn.rambleTour(@click="startTour(true)") Start Tour（説明なし）
+      .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。説明を表示しながら進むモードと、説明は表示せず純粋に景色を楽しむモードの２つのモードがあります。
       .bigBtn.rambleTour(@click="startTour()") Start Tour（説明あり）
 
     template(v-if="data.name !== 'Ramble Tour'")

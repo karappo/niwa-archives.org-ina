@@ -52,11 +52,19 @@ $color_rambleTour: #642BFF
   align-items: center
   cursor: pointer
   flex-shrink: 0
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s
+  svg
+    line,
+    path
+      transition: stroke 0.2s
   &:not([disabled]):hover
     background-color: #1A1A1A
     border-color: #1A1A1A
     color: white
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s
+    svg
+      line,
+      path
+        stroke: white
   &[disabled]
     cursor: not-allowed
     opacity: 0.5

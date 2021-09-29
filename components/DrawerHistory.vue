@@ -2,7 +2,7 @@
 .content
   header
     h1 History
-    DrawerCloseBtn
+    DrawerCloseButton
   article
     template(v-if="$route.params.alias === 'joei_ji'")
     template(v-else-if="$route.params.alias === 'murin_an-summer'")

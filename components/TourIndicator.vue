@@ -1,5 +1,5 @@
 <template lang="pug">
-.tourModeIndicator(v-if="$store.getters.tourName") {{ $store.getters.tourName }}
+.tourModeIndicator {{ $store.getters.tourName }}
 </template>
 
 <style lang="sass" scoped>
@@ -7,7 +7,7 @@
   0%
     opacity: 1
   100%
-    opacity: 0.6
+    opacity: 0.25
 .tourModeIndicator
   position: absolute
   top: 25px
@@ -25,6 +25,6 @@
     background-color: #00FDAF
     border-radius: 50%
     margin-left: 13px
-    animation: flash 0.5s linear infinite
+    animation: flash 0.5s ease-in-out infinite
     animation-direction: alternate
 </style>

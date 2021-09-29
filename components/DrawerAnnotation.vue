@@ -1,7 +1,7 @@
 <template lang="pug">
 .content
   header
-    h2.category(:data-category="category") {{ category }}
+    h2.category(:data-name="category") {{ category }}
     a.autoplay(
       v-if="autoplayAvailable"
       @click="clickAutoplay"
@@ -22,11 +22,13 @@
       )
         IconNext
       a.backTolist(
+        v-if="!$store.getters.tourName"
         @click="$emit('backToList')"
         :title="`Back to list`"
       )
         IconList
-    DrawerCloseBtn
+    StopTourButton(v-if="$store.getters.tourName" icon="true")
+    DrawerCloseButton(v-else)
   article
     .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
     img.image(v-if="data.image" :src="data.image")
@@ -93,6 +95,22 @@ header
       pointer-events: none
   .next
     margin-left: 1px
+  /deep/ .stopTourButton
+    @extend %button
+    height: 34px
+    padding-left: 18px
+    font-size: 14px
+    margin-left: 1px
+    transition: color 0.2s
+    svg
+      margin-left: 14px
+      margin-right: 14px
+      line
+        transition: stroke 0.2s
+    &:hover
+      svg
+        line
+          stroke: white
 .content
   padding-bottom: 30px
   h1
@@ -272,9 +290,7 @@ export default {
       return this.$refs.youtube.player
     },
     autoplayAvailable() {
-      return ['Oral Archives', 'Guided Tour', 'Ramble Tour'].includes(
-        this.$store.getters.pageName
-      )
+      return this.$store.getters.pageName === 'Oral Archives'
     },
     isGuidedTour() {
       return this.$store.getters.pageName === 'Guided Tour'
