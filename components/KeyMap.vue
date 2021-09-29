@@ -25,8 +25,8 @@
 <style lang="sass" scoped>
 .container
   display: grid
-  grid-template-columns: 20px 20px 20px 20px 20px
-  grid-template-rows: 20px 20px
+  grid-template-columns: 21px 21px 21px 21px 21px
+  grid-template-rows: 21px 21px
   column-gap: 5px
   row-gap: 5px
   grid-template-areas: 'key key key key key' 'key key key key key'
@@ -71,7 +71,7 @@
   grid-row-end: 2
   &:before
     content: url(~assets/image/pan.svg)
-    transform: translateY(-3px)
+    transform: translateY(-2px)
 .panRight
   grid-column-start: 3
   grid-column-end: 4
@@ -79,7 +79,7 @@
   grid-row-end: 2
   &:before
     content: url(~assets/image/pan.svg)
-    transform: translateY(3px) rotate(180deg)
+    transform: translateY(2px) rotate(180deg)
 .tiltUp
   grid-column-start: 5
   grid-column-end: 6
@@ -87,7 +87,7 @@
   grid-row-end: 2
   &:before
     content: url(~assets/image/pan.svg)
-    transform: translateX(3px) rotate(90deg)
+    transform: translateX(2px) rotate(90deg)
 .tiltDown
   grid-column-start: 5
   grid-column-end: 6
@@ -95,7 +95,7 @@
   grid-row-end: 3
   &:before
     content: url(~assets/image/pan.svg)
-    transform: translateX(-3px) rotate(-90deg)
+    transform: translateX(-2px) rotate(-90deg)
 .forward
   grid-column-start: 2
   grid-column-end: 3
@@ -135,7 +135,6 @@
   grid-row-end: 2
   &:before
     content: url(~assets/image/arrow-outline.svg)
-    transform: translateY(-1px)
 .down
   grid-column-start: 4
   grid-column-end: 5
@@ -143,7 +142,7 @@
   grid-row-end: 3
   &:before
     content: url(~assets/image/arrow-outline.svg)
-    transform: translateY(1px) rotate(180deg)
+    transform: rotate(180deg)
 </style>
 
 <script>
