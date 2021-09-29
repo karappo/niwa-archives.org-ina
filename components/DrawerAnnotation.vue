@@ -27,7 +27,7 @@
         :title="`Back to list`"
       )
         IconList
-    StopTourButton(v-if="$store.getters.tourName" icon="true")
+    StopTourButton(v-if="$store.getters.tourName" :icon="true")
     DrawerCloseButton(v-else)
   article
     .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
