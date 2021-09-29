@@ -130,6 +130,8 @@ main
     opacity: 0
     pointer-events: none
     transition: opacity 3s
+  &.disabled
+    pointer-events: none
   &.loading
     &::before
       content: 'Loading...'
@@ -255,6 +257,7 @@ export default {
       })
       const res = visibilities
       res.loading = this.loading
+      res.disabled = this.$store.getters.tourName !== null
       return res
     },
     tourName() {
