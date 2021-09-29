@@ -42,6 +42,7 @@ aside
   color: #898989
   z-index: 1
   border-left: 1px solid #3C3C3C
+  overflow-y: auto
 .backToTop
   display: flex
   align-items: center
