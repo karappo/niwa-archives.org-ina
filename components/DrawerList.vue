@@ -89,8 +89,7 @@ export default {
   data() {
     return {
       tagIndexStr: '',
-      groups: null, // Oral Archivesのときにdata.listをグルーピングして保持する
-      rambleTourTimer: null
+      groups: null // Oral Archivesのときにdata.listをグルーピングして保持する
     }
   },
   computed: {
@@ -137,6 +136,7 @@ export default {
     this.$nuxt.$on('setTagIndexStr', this.setTagIndexStr)
   },
   beforeDestroy() {
+    console.log('beforeDestroy!!!! 残念！')
     this.$nuxt.$off('setTagIndexStr', this.setTagIndexStr)
   },
   methods: {
@@ -155,27 +155,12 @@ export default {
       this.$store.commit('tourName', this.data.name)
       this.$store.commit('noDrawerMode', noDrawerMode)
       if (noDrawerMode) {
-        console.log('noDrawerMode-----------')
-        // autoplayはAnnotationDrawerが表示されないと意味ないのでここではあえてcommitしない
-        this.stopTour()
-        let index = 0
-        this.$nuxt.$emit('showAnnotation', this.data.list[index].index)
-        this.rambleTourTimer = setInterval(() => {
-          index++
-          console.log('index', index)
-          this.$emit('next', this.data.list[index].index)
-        }, 5000)
+        this.$nuxt.$emit('startRambleTourWithoutDrawer')
       } else {
         this.$store.commit('autoplay', true)
         this.$nextTick(() => {
           this.$nuxt.$emit('showAnnotation', this.data.list[0].index)
         })
-      }
-    },
-    stopTour() {
-      this.$store.commit('tourName', null)
-      if (this.rambleTourTimer) {
-        clearInterval(this.rambleTourTimer)
       }
     },
     filterByTag(list) {

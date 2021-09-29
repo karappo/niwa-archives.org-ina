@@ -206,7 +206,8 @@ export default {
       annotationData: '',
       listData: null,
       drawerAlreadyOpened: false,
-      loading: true
+      loading: true,
+      rambleTourTimer: null
     }
   },
   computed: {
@@ -239,6 +240,16 @@ export default {
       const res = visibilities
       res.loading = this.loading
       return res
+    },
+    tourName() {
+      return this.$store.getters.tourName
+    }
+  },
+  watch: {
+    tourName(val) {
+      if (val === null) {
+        this.stopRambleTourWithoutDrawer()
+      }
     }
   },
   async mounted() {
@@ -330,6 +341,7 @@ export default {
     this.$nuxt.$on('selectList', this.selectList)
     this.$nuxt.$on('showAnnotation', this.showAnnotation)
     this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
+    this.$nuxt.$on('startRambleTourWithoutDrawer', this.startRambleTourWithoutDrawer) // eslint-disable-line
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
@@ -346,6 +358,7 @@ export default {
     this.$nuxt.$off('selectList', this.selectList)
     this.$nuxt.$off('showAnnotation', this.showAnnotation)
     this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
+    this.$nuxt.$off('startRambleTourWithoutDrawer', this.startRambleTourWithoutDrawer) // eslint-disable-line
     window.viewer.removeEventListener('camera_changed', this.update)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
@@ -513,6 +526,24 @@ export default {
       // const camera = window.viewer.scene.getActiveCamera()
       // this.$store.commit('cameraPosition', camera.position.toArray())
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
+    },
+    startRambleTourWithoutDrawer() {
+      this.stopRambleTourWithoutDrawer()
+      // autoplayはAnnotationDrawerが表示されないと意味ないのでここではあえてcommitしない
+      let index = 0
+      this.$nuxt.$emit('showAnnotation', this.listData.list[index].index)
+      this.rambleTourTimer = setInterval(() => {
+        index++
+        console.log('setInterval')
+        this.next(this.listData.list[index].index)
+      }, 15000)
+    },
+    stopRambleTourWithoutDrawer() {
+      if (this.rambleTourTimer) {
+        console.log('clearInterval!')
+        clearInterval(this.rambleTourTimer)
+        this.rambleTourTimer = null
+      }
     }
   },
   head: {
