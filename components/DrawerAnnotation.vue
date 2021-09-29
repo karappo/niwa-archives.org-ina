@@ -141,7 +141,7 @@ header
       h3
         margin: 0.5em 0
   .commentForGuidedTour
-    background-color: #05211A
+    background-color: #151515
     color: white
     padding: 20px 23px
     border-radius: 10px
