@@ -115,11 +115,10 @@ header
   padding-bottom: 30px
   h1
     margin: 30px auto 30px 0
-    display: flex
-    align-items: center
     text-overflow: ellipsis
     white-space: nowrap
     font-size: 21px
+    overflow: hidden
   h5
     font-family: 'K2-v1-Regular'
     font-size: 14px
@@ -199,6 +198,7 @@ header
       padding: 3px 10px
       font-size: 14px
       cursor: pointer
+      margin-bottom: 1em
       &:hover
         background-color: lighten(#242424, 10%)
       span.num

@@ -1,14 +1,14 @@
 <template lang="pug">
 .stopTourButton(@click="$store.commit('tourName', null)")
   | Stop Tour
-  CloseIcon(v-if="icon")
+  IconStop(v-if="icon")
 </template>
 
 <script>
-import CloseIcon from '~/assets/image/close.svg?inline'
+import IconStop from '~/assets/image/icon-stop.svg?inline'
 export default {
   components: {
-    CloseIcon
+    IconStop
   },
   props: {
     icon: {
