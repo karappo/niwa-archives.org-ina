@@ -90,9 +90,6 @@ header
   .next
     width: 34px
     height: 34px
-    &.disabled
-      opacity: 0.5
-      pointer-events: none
   .next
     margin-left: 1px
   /deep/ .stopTourButton

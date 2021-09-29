@@ -24,6 +24,7 @@
         size="40"
         min-size="25"
         max-size="75"
+        :class="{border: !$store.getters.tourName}"
       )
         DrawerHistory(
           v-if="$store.getters.pageName === 'History'"
@@ -47,8 +48,9 @@
           :data="listData"
           @next="next"
         )
-    SoundBar.soundBar(:annotations="annotations")
+    SoundBar.soundBar(v-if="!$store.getters.tourName" :annotations="annotations")
   SideBar.sideBar(
+    v-if="!$store.getters.tourName"
     :guidedTourExists="0 < data.guidedTour.length"
     @saveCameraInfo="saveCameraInfo"
   )
@@ -64,7 +66,7 @@
 main
   display: flex
   flex-direction: column
-  width: calc(100% - 160px)
+  width: 100%
   /deep/ .soundBar
     // border-rightだと表示領域外になってしまうため、疑似要素で…
     position: relative
@@ -107,8 +109,9 @@ main
       background-color: black
       margin-left: -6px
       height: calc(100% - 1px)
-      border-right: 1px solid #3C3C3C
-      border-bottom: 1px solid #3C3C3C
+      &.border
+        border-right: 1px solid #3C3C3C
+        border-bottom: 1px solid #3C3C3C
 #potree_render_area
   width: 100%
   height: 100%
