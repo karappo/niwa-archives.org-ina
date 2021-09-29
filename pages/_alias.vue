@@ -422,7 +422,6 @@ export default {
     },
     showAnnotation(globalIndex) {
       const annotation = window.viewer.scene.annotations.children[globalIndex]
-      console.log(this.$store.getters.pageName)
       if (this.$store.getters.pageName.includes('Tour')) {
         annotation.click_inTour()
       } else {
@@ -548,7 +547,6 @@ export default {
       this.$nuxt.$emit('showAnnotation', this.listData.list[index].index)
       this.rambleTourTimer = setInterval(() => {
         index++
-        console.log('setInterval')
         this.next(this.listData.list[index].index)
       }, 15000)
     },
