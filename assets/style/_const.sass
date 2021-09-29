@@ -37,6 +37,9 @@ $color_dnaData: #A452E0
 
 $color_oralArchives: #E516D5
 
+$color_guidedTour: #007B5A
+$color_rambleTour: #642BFF
+
 %button
   background: var(--button-bg-color)
   border: 3px solid var(--button-bg-color)
@@ -49,11 +52,23 @@ $color_oralArchives: #E516D5
   align-items: center
   cursor: pointer
   flex-shrink: 0
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s
+  svg
+    line,
+    path
+      transition: stroke 0.2s
+    rect
+      transition: fill 0.2s
   &:not([disabled]):hover
     background-color: #1A1A1A
     border-color: #1A1A1A
     color: white
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s
+    svg
+      line,
+      path
+        stroke: white
+      rect
+        fill: white
   &[disabled]
     cursor: not-allowed
     opacity: 0.5

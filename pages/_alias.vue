@@ -10,13 +10,17 @@
           :class="potreeRenderAreaClass"
         )
           .controls
-            .title
-              small Incomplete Niwa Archives
-              span {{ data.title }}
-            KeyMap
+            h1.title
+              span.global Incomplete Niwa Archives
+              span.scene {{ data.title }}
+            template(v-if="tourName")
+              TourIndicator
+              StopTourButton
+            template(v-else)
+              KeyMap
         #potree_sidebar_container
       pane.drawer(
-        v-if="listData || annotationData"
+        v-if="!$store.getters.withoutDrawer && (listData || annotationData)"
         size="40"
         min-size="25"
         max-size="75"
@@ -41,8 +45,9 @@
         DrawerList(
           v-else-if="listData"
           :data="listData"
+          @next="next"
         )
-    SoundBar(:annotations="annotations")
+    SoundBar.soundBar(:annotations="annotations")
   SideBar.sideBar(
     :guidedTourExists="0 < data.guidedTour.length"
     @saveCameraInfo="saveCameraInfo"
@@ -60,20 +65,31 @@ main
   display: flex
   flex-direction: column
   width: calc(100% - 160px)
+  /deep/ .soundBar
+    // border-rightだと表示領域外になってしまうため、疑似要素で…
+    position: relative
+    &:after
+      position: absolute
+      top: 0
+      right: 0
+      content: ''
+      display: block
+      width: 1px
+      height: 100%
+      background-color: #3C3C3C
 .sideBar
   width: 165px
   height: 100%
   margin: 0
+  border-left: 0
 .title
-  margin-top: 20px
-  margin-left: 20px
+  margin: 24px
+  font-family: 'K2-v1-Light'
+  font-weight: normal
+  font-size: 17px
   color: white
-  small
-    display: block
-    font-size: 10px
-  span
-    display: block
-    font-size: 25px
+  .scene
+    margin-left: 26px
 .splitpanes.default-theme
   overflow: hidden
   /deep/ .splitpanes__splitter
@@ -91,6 +107,7 @@ main
       background-color: black
       margin-left: -6px
       height: calc(100% - 1px)
+      border-right: 1px solid #3C3C3C
       border-bottom: 1px solid #3C3C3C
 #potree_render_area
   width: 100%
@@ -157,6 +174,24 @@ main
   pointer-events: none
   > *
     pointer-events: auto
+  /deep/ .stopTourButton
+    position: absolute
+    width: 160px
+    height: 50px
+    bottom: 25px
+    right: 25px
+    font-family: 'K2-v1-Bold'
+    font-size: 17px
+    color: white
+    background-color: #1D1D1D
+    border-radius: 5px
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    transition: background-color 0.2s
+    &:hover
+      background-color: lighten(#1D1D1D, 5%)
 .sideBar
   grid-area: sidebar
 </style>
@@ -184,7 +219,8 @@ export default {
       annotationData: '',
       listData: null,
       drawerAlreadyOpened: false,
-      loading: true
+      loading: true,
+      rambleTourTimer: null
     }
   },
   computed: {
@@ -217,6 +253,16 @@ export default {
       const res = visibilities
       res.loading = this.loading
       return res
+    },
+    tourName() {
+      return this.$store.getters.tourName
+    }
+  },
+  watch: {
+    tourName(val) {
+      if (val === null) {
+        this.stopRambleTourWithoutDrawer()
+      }
     }
   },
   async mounted() {
@@ -308,6 +354,7 @@ export default {
     this.$nuxt.$on('selectList', this.selectList)
     this.$nuxt.$on('showAnnotation', this.showAnnotation)
     this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
+    this.$nuxt.$on('startRambleTourWithoutDrawer', this.startRambleTourWithoutDrawer) // eslint-disable-line
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
@@ -324,6 +371,7 @@ export default {
     this.$nuxt.$off('selectList', this.selectList)
     this.$nuxt.$off('showAnnotation', this.showAnnotation)
     this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
+    this.$nuxt.$off('startRambleTourWithoutDrawer', this.startRambleTourWithoutDrawer) // eslint-disable-line
     window.viewer.removeEventListener('camera_changed', this.update)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
@@ -374,7 +422,7 @@ export default {
     },
     showAnnotation(globalIndex) {
       const annotation = window.viewer.scene.annotations.children[globalIndex]
-      if (this.$store.getters.pageName === 'Guided Tour') {
+      if (this.$store.getters.pageName.includes('Tour')) {
         annotation.click_inTour()
       } else {
         annotation.click()
@@ -481,6 +529,7 @@ export default {
     },
     closeDrawer() {
       // clear List
+      this.$store.commit('tourName', null)
       this.$store.commit('pageName', '')
       this.clearSelectedAnnotation()
       this.listData = null
@@ -489,6 +538,25 @@ export default {
       // const camera = window.viewer.scene.getActiveCamera()
       // this.$store.commit('cameraPosition', camera.position.toArray())
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
+    },
+    startRambleTourWithoutDrawer() {
+      this.stopRambleTourWithoutDrawer()
+      this.$store.commit('withoutDrawer', true)
+      // autoplayはAnnotationDrawerが表示されないと意味ないのでここではあえてcommitしない
+      let index = 0
+      this.$nuxt.$emit('showAnnotation', this.listData.list[index].index)
+      this.rambleTourTimer = setInterval(() => {
+        index++
+        this.next(this.listData.list[index].index)
+      }, 15000)
+    },
+    stopRambleTourWithoutDrawer() {
+      this.$store.commit('withoutDrawer', false)
+      if (this.rambleTourTimer) {
+        this.closeDrawer()
+        clearInterval(this.rambleTourTimer)
+        this.rambleTourTimer = null
+      }
     }
   },
   head: {

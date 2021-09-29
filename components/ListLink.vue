@@ -1,7 +1,7 @@
 <template lang="pug">
 .btn(
   @click="$nuxt.$emit('selectList', listName)"
-  :data-list-name="listName"
+  :data-name="listName"
   :class="{current: $store.getters.pageName === listName}"
 )
   .dot.icon(v-if="icon==='dot'")
@@ -22,22 +22,26 @@
   align-items: center
 
   --bg-color: #{$color_annotationDefault}
-  &[data-list-name='Viewpoints/Still Images']
+  &[data-name='Viewpoints/Still Images']
     --bg-color: #{$color_stillImages}
-  &[data-list-name='Viewpoints/Movies']
+  &[data-name='Viewpoints/Movies']
     --bg-color: #{$color_movies}
-  &[data-list-name='Elements/Stones']
+  &[data-name='Elements/Stones']
     --bg-color: #{$color_stones}
-  &[data-list-name='Elements/Plants']
+  &[data-name='Elements/Plants']
     --bg-color: #{$color_plants}
-  &[data-list-name='Elements/Creatures']
+  &[data-name='Elements/Creatures']
     --bg-color: #{$color_creatures}
-  &[data-list-name='Elements/Artifacts']
+  &[data-name='Elements/Artifacts']
     --bg-color: #{$color_artifacts}
-  &[data-list-name='Elements/DNA Data']
+  &[data-name='Elements/DNA Data']
     --bg-color: #{$color_dnaData}
-  &[data-list-name='Oral Archives']
+  &[data-name='Oral Archives']
     --bg-color: #{$color_oralArchives}
+  &[data-name='Guided Tour']
+    --bg-color: #{$color_guidedTour}
+  &[data-name='Ramble Tour']
+    --bg-color: #{$color_rambleTour}
 
   &:hover
     color: rgba(255,255,255,0.8)
@@ -54,6 +58,8 @@
     border-radius: 50%
   .tour
     margin-right: 10px
+    path
+      fill: var(--bg-color)
   .hyphen
     margin-right: 10px
 </style>

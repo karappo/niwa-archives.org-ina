@@ -1,32 +1,34 @@
 <template lang="pug">
 .content
   header
-    h2.category(:data-category="category") {{ category }}
+    h2.category(:data-name="category") {{ category }}
     a.autoplay(
-      v-if="autoplayAvailable"
+      v-if="$store.getters.pageName === 'Oral Archives'"
       @click="clickAutoplay"
       :class="{enabled: $store.getters.autoplay}"
       title="オートプレイ：自動的に次のアノテーションを表示・再生します"
     ) Autoplay
     template(v-if="prevNextVisibility")
       a.prev(
-        @click="$emit('prev', data.index)"
+        @click="prev"
         :title="`Previus`"
         :class="{disabled: prevDisabled}"
       )
         IconPrev
       a.next(
-        @click="$emit('next', data.index)"
+        @click="next"
         :title="`Next`"
         :class="{disabled: nextDisabled}"
       )
         IconNext
       a.backTolist(
+        v-if="!$store.getters.tourName"
         @click="$emit('backToList')"
         :title="`Back to list`"
       )
         IconList
-    DrawerCloseBtn
+    StopTourButton(v-if="$store.getters.tourName" :icon="true")
+    DrawerCloseButton(v-else)
   article
     .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
     img.image(v-if="data.image" :src="data.image")
@@ -55,7 +57,7 @@
     )
     .tags(v-if="data.tags")
       h5 Tags
-      .tag(v-for="tag in data.tags" @click="tagClick(tag)")
+      .tag(v-for="tag in data.tags" @click="tagClick(tag)" :class="{disabled: $store.getters.tourName}")
         span \#{{ tag }}
         span.num {{ annotations.filter((_a) => _a.tags && _a.tags.includes(tag)).length }}
     .speaker(v-if="data.speaker")
@@ -93,15 +95,30 @@ header
       pointer-events: none
   .next
     margin-left: 1px
+  /deep/ .stopTourButton
+    @extend %button
+    height: 34px
+    padding-left: 18px
+    font-size: 14px
+    margin-left: 1px
+    transition: color 0.2s
+    svg
+      margin-left: 14px
+      margin-right: 14px
+      line
+        transition: stroke 0.2s
+    &:hover
+      svg
+        line
+          stroke: white
 .content
   padding-bottom: 30px
   h1
     margin: 30px auto 30px 0
-    display: flex
-    align-items: center
     text-overflow: ellipsis
     white-space: nowrap
     font-size: 21px
+    overflow: hidden
   h5
     font-family: 'K2-v1-Regular'
     font-size: 14px
@@ -124,7 +141,7 @@ header
       h3
         margin: 0.5em 0
   .commentForGuidedTour
-    background-color: #05211A
+    background-color: #151515
     color: white
     padding: 20px 23px
     border-radius: 10px
@@ -181,7 +198,11 @@ header
       padding: 3px 10px
       font-size: 14px
       cursor: pointer
-      &:hover
+      margin-bottom: 1em
+      &.disabled
+        opacity: 0.3
+        pointer-events: none
+      &:not(.disabled):hover
         background-color: lighten(#242424, 10%)
       span.num
         color: #7C7C7C
@@ -210,6 +231,7 @@ header
   .dateTime
     font-size: 14px
     margin-top: 50px
+    color: #8B8B8B
 </style>
 
 <script>
@@ -257,7 +279,9 @@ export default {
         cover: false
       }
     }
-    return {}
+    return {
+      timerID: null
+    }
   },
   computed: {
     category() {
@@ -269,11 +293,6 @@ export default {
     },
     player() {
       return this.$refs.youtube.player
-    },
-    autoplayAvailable() {
-      return ['Oral Archives', 'Guided Tour', 'Ramble Tour'].includes(
-        this.$store.getters.pageName
-      )
     },
     isGuidedTour() {
       return this.$store.getters.pageName === 'Guided Tour'
@@ -287,7 +306,6 @@ export default {
     if (
       !this.data.youtube &&
       !this.data.movie &&
-      this.autoplayAvailable &&
       this.$store.getters.autoplay
     ) {
       this.startTimer()
@@ -303,11 +321,7 @@ export default {
       return d.format(format)
     },
     goToNextAnnotation() {
-      if (
-        this.autoplayAvailable &&
-        this.$store.getters.autoplay &&
-        !this.nextDisabled
-      ) {
+      if (this.$store.getters.autoplay && !this.nextDisabled) {
         this.$emit('next', this.data.index)
       } else {
         this.cover = true
@@ -327,13 +341,27 @@ export default {
     },
     startTimer() {
       // 一定時間後に次へ
-      setTimeout(this.goToNextAnnotation, 15000)
+      this.timerID = setTimeout(this.goToNextAnnotation, 15000)
     },
     tagClick(tag) {
       this.$nuxt.$emit('selectList', 'Annotations')
       this.$nextTick(function () {
         this.$nuxt.$emit('setTagIndexStr', tag)
       })
+    },
+    clearTimer() {
+      if (this.timerID) {
+        clearTimeout(this.timerID)
+        this.timerID = null
+      }
+    },
+    prev() {
+      this.clearTimer()
+      this.$emit('prev', this.data.index)
+    },
+    next() {
+      this.clearTimer()
+      this.$emit('next', this.data.index)
     }
   }
 }

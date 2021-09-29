@@ -8,25 +8,29 @@
 header
   display: flex
   align-items: center
-  padding: 28px 25px 28px 0
+  padding: 25px 25px 28px 0
   > h1,
   > h2
-    &[data-category='Still Images']
+    &[data-name='Still Images']
       --border-color: #{$color_stillImages}
-    &[data-category='Movies']
+    &[data-name='Movies']
       --border-color: #{$color_movies}
-    &[data-category='Stones']
+    &[data-name='Stones']
       --border-color: #{$color_stones}
-    &[data-category='Plants']
+    &[data-name='Plants']
       --border-color: #{$color_plants}
-    &[data-category='Creatures']
+    &[data-name='Creatures']
       --border-color: #{$color_creatures}
-    &[data-category='Artifacts']
+    &[data-name='Artifacts']
       --border-color: #{$color_artifacts}
-    &[data-category='DNA Data']
+    &[data-name='DNA Data']
       --border-color: #{$color_dnaData}
-    &[data-category='Oral Archives']
+    &[data-name='Oral Archives']
       --border-color: #{$color_oralArchives}
+    &[data-name='Guided Tour']
+      --border-color: #{$color_guidedTour}
+    &[data-name='Ramble Tour']
+      --border-color: #{$color_rambleTour}
     margin: 0
     padding-left: 20px
     margin-right: auto

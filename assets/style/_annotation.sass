@@ -79,6 +79,16 @@
     box-shadow: none !important
     top: -24px
     left: 19px
+    position: relative
+    &:before
+      position: absolute
+      content: ''
+      display: block
+      width: 2px
+      height: 20px
+      background-color: black
+      transform: rotate(45deg) translate(-2px, 14px)
+      z-index: -1
     .annotation-label
       color: #696969
       font-size: 12px

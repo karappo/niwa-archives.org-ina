@@ -32,8 +32,16 @@
     cursor: pointer
     font-size: 14px
     height: 60px
+    transition: background 0.2s, color 0.2s
+    svg
+      path
+        transition: fill 0.2s
     &:hover
+      background-color: darken(#1A1A1A, 5%)
       color: white
+      svg
+        path
+          fill: white
 
     .dotWrap
       margin-right: 10px

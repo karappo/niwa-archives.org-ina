@@ -23,6 +23,10 @@
   position: relative
   border-radius: 5px
   flex-shrink: 0
+  transition: background-color 0.2s, color 0.2s
+  &:hover
+    background-color: #1A1A1A
+    color: white
   select
     cursor: pointer
     -webkit-appearance: none

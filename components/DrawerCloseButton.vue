@@ -1,6 +1,6 @@
 <template lang="pug">
 .close(title="Close" @click="$nuxt.$emit('closeDrawer')")
-  CloseBtn
+  IconClose
 </template>
 
 <style lang="sass" scoped>
@@ -14,10 +14,10 @@
 </style>
 
 <script>
-import CloseBtn from '~/assets/image/close.svg?inline'
+import IconClose from '~/assets/image/icon-close.svg?inline'
 export default {
   components: {
-    CloseBtn
+    IconClose
   }
 }
 </script>
