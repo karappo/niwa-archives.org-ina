@@ -10,13 +10,13 @@
     ) Autoplay
     template(v-if="prevNextVisibility")
       a.prev(
-        @click="$emit('prev', data.index)"
+        @click="prev"
         :title="`Previus`"
         :class="{disabled: prevDisabled}"
       )
         IconPrev
       a.next(
-        @click="$emit('next', data.index)"
+        @click="next"
         :title="`Next`"
         :class="{disabled: nextDisabled}"
       )
@@ -279,7 +279,9 @@ export default {
         cover: false
       }
     }
-    return {}
+    return {
+      timerID: null
+    }
   },
   computed: {
     category() {
@@ -339,13 +341,27 @@ export default {
     },
     startTimer() {
       // 一定時間後に次へ
-      setTimeout(this.goToNextAnnotation, 15000)
+      this.timerID = setTimeout(this.goToNextAnnotation, 15000)
     },
     tagClick(tag) {
       this.$nuxt.$emit('selectList', 'Annotations')
       this.$nextTick(function () {
         this.$nuxt.$emit('setTagIndexStr', tag)
       })
+    },
+    clearTimer() {
+      if (this.timerID) {
+        clearTimeout(this.timerID)
+        this.timerID = null
+      }
+    },
+    prev() {
+      this.clearTimer()
+      this.$emit('prev', this.data.index)
+    },
+    next() {
+      this.clearTimer()
+      this.$emit('next', this.data.index)
     }
   }
 }
