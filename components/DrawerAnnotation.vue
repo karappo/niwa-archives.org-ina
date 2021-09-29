@@ -57,7 +57,7 @@
     )
     .tags(v-if="data.tags")
       h5 Tags
-      .tag(v-for="tag in data.tags" @click="tagClick(tag)")
+      .tag(v-for="tag in data.tags" @click="tagClick(tag)" :class="{disabled: $store.getters.tourName}")
         span \#{{ tag }}
         span.num {{ annotations.filter((_a) => _a.tags && _a.tags.includes(tag)).length }}
     .speaker(v-if="data.speaker")
@@ -199,7 +199,10 @@ header
       font-size: 14px
       cursor: pointer
       margin-bottom: 1em
-      &:hover
+      &.disabled
+        opacity: 0.3
+        pointer-events: none
+      &:not(.disabled):hover
         background-color: lighten(#242424, 10%)
       span.num
         color: #7C7C7C

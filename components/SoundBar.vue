@@ -1,5 +1,5 @@
 <template lang="pug">
-.soundBar(v-if="list" :class="{visible}")
+.soundBar(v-if="list" :class="{visible, disabled: $store.getters.tourName}")
   audio(ref='player')
   .toggleBtn(@click="visible = !visible")
     span.text Sounds
@@ -46,6 +46,9 @@
   font-family: 'K2-v1-Bold'
   margin-bottom: -100%
   transition: margin 0.8s
+  &.disabled
+    opacity: 0.25
+    pointer-events: none
   .toggleBtn
     --height: 24px
     position: absolute
@@ -167,12 +170,12 @@
             width: 100%
             margin-left: 0
             margin-right: 0
-            .creature + .creature
-              margin-left: 1.5em
-            a.creature
+            a
               cursor: pointer
               &:hover
                 color: white
+            .creature + .creature
+              margin-left: 1.5em
 
   &.visible
     margin-bottom: -44px

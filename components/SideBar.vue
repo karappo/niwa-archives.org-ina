@@ -1,5 +1,5 @@
 <template lang="pug">
-aside
+aside(:class="{disabled: $store.getters.tourName}")
   nuxt-link.backToTop(to="/")
     span Back to Top
     MenuArrow
@@ -42,6 +42,9 @@ aside
   color: #898989
   z-index: 1
   border-left: 1px solid #3C3C3C
+  &.disabled
+    opacity: 0.25
+    pointer-events: none
 .backToTop
   display: flex
   align-items: center
