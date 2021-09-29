@@ -10,10 +10,12 @@
       .description Guided Tourでは、庭園をひとめぐりしながら、INAの全体が把握できるような自動モードです。
       .bigBtn.guidedTour(@click="startTour()") Start Tour
     template(v-else-if="data.name === 'Ramble Tour'")
-      .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。説明を表示しながら進むモードと、説明は表示せず純粋に景色を楽しむモードの２つのモードがあります。
-      .bigBtn.rambleTour(@click="startTour(true)") Start Tour（説明なし）
-      .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。説明を表示しながら進むモードと、説明は表示せず純粋に景色を楽しむモードの２つのモードがあります。
-      .bigBtn.rambleTour(@click="startTour()") Start Tour（説明あり）
+      h3 Tour with Annotations
+      .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。こちらは、各Annotationの説明を表示しながら進めるモードです。
+      .bigBtn.rambleTour(@click="startTour(true)") Start Tour
+      h3 Tour without Annotations
+      .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。こちらは、説明を表示せず純粋に景色を楽しむモードです。
+      .bigBtn.rambleTour(@click="startTour()") Start Tour
 
     template(v-if="data.name !== 'Ramble Tour'")
       .groups(v-if="data.name === 'Oral Archives'")
@@ -28,6 +30,15 @@
 <style lang="sass" scoped>
 @import ~/assets/style/const
 @import ~/assets/style/drawer-common
+article
+  h3
+    font-family: 'K2-v1-Bold'
+    font-size: 16px
+    color: #BCBCBC
+    margin-bottom: 1em
+  .bigBtn + h3
+    margin-top: 70px
+
 .description
   font-size: 14px
   line-height: 2
@@ -45,11 +56,11 @@
   cursor: pointer
   transition: background-color .1s
   &.guidedTour
-    background-color: darken($color_guidedTour, 15%)
+    background-color: #112526
     &:hover
       background-color: darken($color_guidedTour, 10%)
   &.rambleTour
-    background-color: darken($color_rambleTour, 40%)
+    background-color: #252134
     &:hover
       background-color: darken($color_rambleTour, 30%)
 .empty
