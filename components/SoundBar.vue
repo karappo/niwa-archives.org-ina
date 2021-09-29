@@ -36,6 +36,7 @@
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/const
 .soundBar
   --background-color: black
   background-color: var(--background-color)
@@ -126,14 +127,14 @@
           white-space: nowrap
           color: #898989
         .link
+          @extend %button
           margin-left: 8px
-          color: #ADADAD
-          background: var(--button-bg-color)
           border-radius: 5px
           white-space: nowrap
-          width: 96px
+          width: 90px
           flex-shrink: 0
-          padding: 7px 10px
+          padding: 4px 10px
+          font-size: 12px
           display: flex
           .icon
             margin-left: auto
