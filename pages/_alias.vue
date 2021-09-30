@@ -20,7 +20,7 @@
               KeyMap
         #potree_sidebar_container
       pane.drawer(
-        v-if="!(tourName && tourName.includes('withoud Annotations')) && (listData || annotationData)"
+        v-if="!(tourName && tourName.includes('without Annotations')) && (listData || annotationData)"
         size="40"
         min-size="25"
         max-size="75"
