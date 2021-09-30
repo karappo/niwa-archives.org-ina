@@ -1,148 +1,84 @@
 <template lang="pug">
 .container
+  .key Q
+  .key W
+  .key E
+  .key R
+  .key T
+
   .btn.panLeft(@mousedown="mousedown('Q')" title="Pan Left")
-    .key Q
   .btn.forward(@mousedown="mousedown('W')" title="Forward")
-    .key W
   .btn.panRight(@mousedown="mousedown('E')" title="Pan Right")
-    .key E
-  .btn.backward(@mousedown="mousedown('S')" title="Backward")
-    .key S
+  .btn.tiltUp(@mousedown="mousedown('R')" title="Tilt Up")
+  .btn.up(@mousedown="mousedown('T')" title="Up")
+
   .btn.left(@mousedown="mousedown('A')" title="Left")
-    .key A
+  .btn.backward(@mousedown="mousedown('S')" title="Backward")
   .btn.right(@mousedown="mousedown('D')" title="Right")
-    .key D
-  .btn.up(@mousedown="mousedown('R')" title="Up")
-    .key R
-  .btn.down(@mousedown="mousedown('F')" title="Down")
-    .key F
-  .btn.tiltUp(@mousedown="mousedown('T')" title="Tilt Up")
-    .key T
-  .btn.tiltDown(@mousedown="mousedown('G')" title="Tilt Down")
-    .key G
+  .btn.tiltDown(@mousedown="mousedown('F')" title="Tilt Down")
+  .btn.down(@mousedown="mousedown('G')" title="Down")
+
+  .key A
+  .key S
+  .key D
+  .key F
+  .key G
 </template>
 
 <style lang="sass" scoped>
 .container
   display: grid
   grid-template-columns: 21px 21px 21px 21px 21px
-  grid-template-rows: 21px 21px
+  grid-template-rows: 20px 20px 21px 21px
   column-gap: 5px
   row-gap: 5px
-  grid-template-areas: 'key key key key key' 'key key key key key'
+  grid-template-areas: 'key key key key key' 'key key key key key' 'key key key key key' 'key key key key key'
   margin: auto 20px 20px auto
+.key,
 .btn
-  background-color: black
-  border-radius: 3px
-  overflow: hidden
   color: white
   cursor: pointer
   position: relative
-  &:before
-    position: absolute
-    width: 100%
-    height: 100%
-    display: flex
-    justify-content: center
-    align-items: center
-    content: url(~assets/image/arrow.svg)
-  &:hover
-    .key
-      opacity: 1
-.key
-  position: absolute
-  width: 100%
-  height: 100%
   display: flex
   justify-content: center
   align-items: center
-  font-size: 13px
-  line-height: 1
-  color: #666
-  font-weight: bold
+  font-size: 12px
+  font-family: 'K2-v1-Bold'
+.btn
+  border-radius: 3px
   background-color: black
-  opacity: 0
-  transition: opacity 0.2s
-  margin-top: 1px // ちょっとY軸方向のずれがあったので調整
+  background-repeat: no-repeat
+  background-position: center
+  transition: background-color 0.2s
+  &:hover
+    background-color: #333
 .panLeft
-  grid-column-start: 1
-  grid-column-end: 2
-  grid-row-start: 1
-  grid-row-end: 2
-  &:before
-    content: url(~assets/image/pan.svg)
-    transform: translateY(-2px)
+  background-image: url(~assets/image/pan.svg)
 .panRight
-  grid-column-start: 3
-  grid-column-end: 4
-  grid-row-start: 1
-  grid-row-end: 2
-  &:before
-    content: url(~assets/image/pan.svg)
-    transform: translateY(2px) rotate(180deg)
+  background-image: url(~assets/image/pan.svg)
+  transform: rotate(180deg)
 .tiltUp
-  grid-column-start: 5
-  grid-column-end: 6
-  grid-row-start: 1
-  grid-row-end: 2
-  &:before
-    content: url(~assets/image/pan.svg)
-    transform: translateX(2px) rotate(90deg)
+  background-image: url(~assets/image/pan.svg)
+  transform: rotate(90deg)
 .tiltDown
-  grid-column-start: 5
-  grid-column-end: 6
-  grid-row-start: 2
-  grid-row-end: 3
-  &:before
-    content: url(~assets/image/pan.svg)
-    transform: translateX(-2px) rotate(-90deg)
+  background-image: url(~assets/image/pan.svg)
+  transform: rotate(-90deg)
 .forward
-  grid-column-start: 2
-  grid-column-end: 3
-  grid-row-start: 1
-  grid-row-end: 2
-  &:before
-    content: url(~assets/image/arrow.svg)
-    transform: translateY(-1px)
+  background-image: url(~assets/image/arrow.svg)
 .backward
-  grid-column-start: 2
-  grid-column-end: 3
-  grid-row-start: 2
-  grid-row-end: 3
-  &:before
-    content: url(~assets/image/arrow.svg)
-    transform: translateY(1px) rotate(180deg)
+  background-image: url(~assets/image/arrow.svg)
+  transform: rotate(180deg)
 .left
-  grid-column-start: 1
-  grid-column-end: 2
-  grid-row-start: 2
-  grid-row-end: 3
-  &:before
-    content: url(~assets/image/arrow.svg)
-    transform: translateX(-1px) rotate(-90deg)
+  background-image: url(~assets/image/arrow.svg)
+  transform: rotate(-90deg)
 .right
-  grid-column-start: 3
-  grid-column-end: 4
-  grid-row-start: 2
-  grid-row-end: 3
-  &:before
-    content: url(~assets/image/arrow.svg)
-    transform: translateX(1px) rotate(90deg)
+  background-image: url(~assets/image/arrow.svg)
+  transform: rotate(90deg)
 .up
-  grid-column-start: 4
-  grid-column-end: 5
-  grid-row-start: 1
-  grid-row-end: 2
-  &:before
-    content: url(~assets/image/arrow-outline.svg)
+  background-image: url(~assets/image/arrow-outline.svg)
 .down
-  grid-column-start: 4
-  grid-column-end: 5
-  grid-row-start: 2
-  grid-row-end: 3
-  &:before
-    content: url(~assets/image/arrow-outline.svg)
-    transform: rotate(180deg)
+  background-image: url(~assets/image/arrow-outline.svg)
+  transform: rotate(180deg)
 </style>
 
 <script>
