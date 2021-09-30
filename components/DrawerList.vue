@@ -8,14 +8,14 @@
   article
     template(v-if="data.name === 'Guided Tour'")
       .description Guided Tourでは、庭園をひとめぐりしながら、INAの全体が把握できるような自動モードです。
-      .bigBtn.guidedTour(@click="startTour()") Start Tour
+      .bigBtn.guidedTour(@click="startTour('Guided Tour')") Start Tour
     template(v-else-if="data.name === 'Ramble Tour'")
       h3 Tour with Annotations
       .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。こちらは、各Annotationの説明を表示しながら進めるモードです。
-      .bigBtn.rambleTour(@click="startTour()") Start Tour
+      .bigBtn.rambleTour(@click="startTour('Ramble Tour with Annotations')") Start Tour
       h3 Tour without Annotations
       .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。こちらは、説明を表示せず純粋に景色を楽しむモードです。
-      .bigBtn.rambleTour(@click="startTour(true)") Start Tour
+      .bigBtn.rambleTour(@click="startRambleTourWithoutAnnotations()") Start Tour
 
     template(v-if="data.name !== 'Ramble Tour'")
       .groups(v-if="data.name === 'Oral Archives'")
@@ -161,16 +161,16 @@ export default {
         console.error(`「${tag}」というタグは見つかりませんでした`)
       }
     },
-    startTour(withoutDrawer = false) {
-      this.$store.commit('tourName', this.data.name)
-      if (withoutDrawer) {
-        this.$nuxt.$emit('startRambleTourWithoutDrawer')
-      } else {
-        this.$store.commit('autoplay', true)
-        this.$nextTick(() => {
-          this.$nuxt.$emit('showAnnotation', this.data.list[0].index)
-        })
-      }
+    startRambleTourWithoutAnnotations() {
+      this.$store.commit('tourName', 'Ramble Tour without Annotations')
+      this.$nuxt.$emit('startRambleTourWithoutAnnotations')
+    },
+    startTour(tourName) {
+      this.$store.commit('tourName', tourName)
+      this.$store.commit('autoplay', true)
+      this.$nextTick(() => {
+        this.$nuxt.$emit('showAnnotation', this.data.list[0].index)
+      })
     },
     filterByTag(list) {
       if (!this.selectedTag) {

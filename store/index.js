@@ -5,7 +5,6 @@ export const state = () => ({
   pageName: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
   tourName: null,
   autoplay: false,
-  withoutDrawer: false, // Ramble TourでAnnotation Drawerを開かずに進めるモード
   annotationVisibilities: {
     Annotations: true,
     Viewpoints: true,
@@ -49,9 +48,6 @@ export const mutations = {
   },
   autoplay(state, value) {
     state.autoplay = value
-  },
-  withoutDrawer(state, value) {
-    state.withoutDrawer = value
   },
   annotationVisibilities(state, { key, value }) {
     switch (key) {
@@ -125,9 +121,6 @@ export const getters = {
   },
   autoplay(state) {
     return state.autoplay
-  },
-  withoutDrawer(state) {
-    return state.withoutDrawer
   },
   annotationVisibilities(state) {
     return state.annotationVisibilities

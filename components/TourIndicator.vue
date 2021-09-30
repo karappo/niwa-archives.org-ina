@@ -1,5 +1,5 @@
 <template lang="pug">
-.tourModeIndicator {{ $store.getters.tourName }}
+.tourModeIndicator {{ label }}
 </template>
 
 <style lang="sass" scoped>
@@ -28,3 +28,13 @@
     animation: flash 0.5s ease-in-out infinite
     animation-direction: alternate
 </style>
+
+<script>
+export default {
+  computed: {
+    label() {
+      return this.$store.getters.tourName.replace(/ with(out)? Annotations/, '')
+    }
+  }
+}
+</script>

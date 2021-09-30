@@ -20,7 +20,7 @@
               KeyMap
         #potree_sidebar_container
       pane.drawer(
-        v-if="!$store.getters.withoutDrawer && (listData || annotationData)"
+        v-if="!(tourName && tourName.includes('withoud Annotations')) && (listData || annotationData)"
         size="40"
         min-size="25"
         max-size="75"
@@ -349,7 +349,7 @@ export default {
     this.$nuxt.$on('selectList', this.selectList)
     this.$nuxt.$on('showAnnotation', this.showAnnotation)
     this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
-    this.$nuxt.$on('startRambleTourWithoutDrawer', this.startRambleTourWithoutDrawer) // eslint-disable-line
+    this.$nuxt.$on('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.addEventListener('camera_changed', this.update)
 
     config()
@@ -366,7 +366,7 @@ export default {
     this.$nuxt.$off('selectList', this.selectList)
     this.$nuxt.$off('showAnnotation', this.showAnnotation)
     this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
-    this.$nuxt.$off('startRambleTourWithoutDrawer', this.startRambleTourWithoutDrawer) // eslint-disable-line
+    this.$nuxt.$off('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.removeEventListener('camera_changed', this.update)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
@@ -534,9 +534,8 @@ export default {
       // this.$store.commit('cameraPosition', camera.position.toArray())
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
-    startRambleTourWithoutDrawer() {
+    startRambleTourWithoutAnnotations() {
       this.stopRambleTourWithoutDrawer()
-      this.$store.commit('withoutDrawer', true)
       // autoplayはAnnotationDrawerが表示されないと意味ないのでここではあえてcommitしない
       let index = 0
       this.$nuxt.$emit('showAnnotation', this.listData.list[index].index)
@@ -546,7 +545,6 @@ export default {
       }, 15000)
     },
     stopRambleTourWithoutDrawer() {
-      this.$store.commit('withoutDrawer', false)
       if (this.rambleTourTimer) {
         this.closeDrawer()
         clearInterval(this.rambleTourTimer)
