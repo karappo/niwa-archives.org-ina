@@ -23,16 +23,18 @@
           | Ambisonics
           span.icon 
       .row
-        dl(v-if="data.place")
+        dl
           dt Place
           dd
-            a(@click="placeClick(data.place.annotation)" :class="{disabled: $store.getters.tourName}") {{ data.place.label }}
-        dl(v-if="data.creatures && data.creatures.length")
+            template(v-if="data.place" )
+              a(@click="placeClick(data.place.annotation)" :class="{disabled: $store.getters.tourName}") {{ data.place.label }}
+        dl
           dt Creatures
           dd
-            template(v-for="creature in data.creatures")
-              a.creature(v-if="tags.includes(creature)" @click="tagClick(creature)" :class="{disabled: $store.getters.tourName}") {{ tag }}
-              span.creature(v-else) {{ creature }}
+            template(v-if="data.creatures && data.creatures.length")
+              template(v-for="creature in data.creatures")
+                a.creature(v-if="tags.includes(creature)" @click="tagClick(creature)" :class="{disabled: $store.getters.tourName}") {{ tag }}
+                span.creature(v-else) {{ creature }}
 </template>
 
 <style lang="sass" scoped>
