@@ -10,6 +10,12 @@
 - [データシート](https://docs.google.com/spreadsheets/d/1F7sd4dz2FHWiagmLGDLwmeUK1U3XCWhjIApzdLXyRmo/edit#gid=0)
 - [ファイル保存先](https://drive.google.com/drive/u/0/folders/1mwweu4PCDgja-3FXoQ1Pl4zvc-W9X_in)
 
+## サーバースペック
+
+vCPU 2
+mem 16GB
+HDD 500GB
+
 ## Getting started
 
 ```sh
