@@ -8,7 +8,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -19,7 +19,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -30,7 +30,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -41,7 +41,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -52,7 +52,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -60,10 +60,11 @@ export default {
       label: '2021.01.12 16:53-18:05',
       src: '/sound/joei_ji-2021_0112_1653.mp3',
       place: {
-        label: '聴松軒',
-        annotation: 'vvxnpn'
+        label: '本堂',
+        annotation: 'u2tiff'
       },
-      creatures: ['TODO'],
+      // eslint-disable-next-line
+      creatures: ['シロハラ', 'ハシブトガラス', 'ヤマガラ', 'モズ', 'ハシブトガラス'],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -74,7 +75,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -85,7 +86,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -96,7 +97,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -107,7 +108,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: ['ヒグラシ', 'ツチガエル', 'ヒヨドリ'],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -118,7 +119,8 @@ export default {
         label: '本堂',
         annotation: 'u2tiff'
       },
-      creatures: ['TODO'],
+      // eslint-disable-next-line
+      creatures: ['ヒグラシ', 'ハシブトガラス', 'ツクツクボウシ', 'ツチガエル', 'イヌ'],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -129,7 +131,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -140,7 +142,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -151,7 +153,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -162,7 +164,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -173,7 +175,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -181,10 +183,11 @@ export default {
       label: '2021.01.12 16:53-18:05 (wav)',
       src: '/sound/joei_ji-2021_0112_1653.wav',
       place: {
-        label: '聴松軒',
-        annotation: 'vvxnpn'
+        label: '本堂',
+        annotation: 'u2tiff'
       },
-      creatures: ['TODO'],
+      // eslint-disable-next-line
+      creatures: ['シロハラ', 'ハシブトガラス', 'ヤマガラ', 'モズ', 'ハシブトガラス'],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -195,7 +198,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -206,7 +209,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -217,7 +220,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -228,7 +231,7 @@ export default {
         label: '聴松軒',
         annotation: 'vvxnpn'
       },
-      creatures: ['TODO'],
+      creatures: ['ヒグラシ', 'ツチガエル', 'ヒヨドリ'],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -239,7 +242,8 @@ export default {
         label: '本堂',
         annotation: 'u2tiff'
       },
-      creatures: ['TODO'],
+      // eslint-disable-next-line
+      creatures: ['ヒグラシ', 'ハシブトガラス', 'ツクツクボウシ', 'ツチガエル', 'イヌ'],
       movieId: null,
       ambisonicsUrl: null
     }
@@ -252,7 +256,7 @@ export default {
       //   label: '聴松軒',
       //   annotation: 'vvxnpn'
       // },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     },
@@ -263,7 +267,7 @@ export default {
       //   label: '聴松軒',
       //   annotation: 'vvxnpn'
       // },
-      creatures: ['TODO'],
+      creatures: [],
       movieId: null,
       ambisonicsUrl: null
     }
