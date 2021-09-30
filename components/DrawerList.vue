@@ -23,8 +23,8 @@
           .head
             h5 {{ key }}
             .thumb(:style="`background-image: url(${val[0].youtube.thumbnailUrl()});`")
-          AnnotationList(:list="filterByTag(val)" :icon="!$getIcon(data.name)")
-      AnnotationList(v-else :list="filterByTag(data.list)" :icon="!$getIcon(data.name)")
+          AnnotationList(:list="filterByTag(val)" :typeVisibility="typeVisibility")
+      AnnotationList(v-else :list="filterByTag(data.list)" :typeVisibility="typeVisibility")
 </template>
 
 <style lang="sass" scoped>
@@ -115,6 +115,18 @@ export default {
     },
     selectedTag() {
       return this.tags[this.tagIndex]
+    },
+    typeVisibility() {
+      return ![
+        'Viewpoints/Still Images',
+        'Viewpoints/Movies',
+        'Elements/Stones',
+        'Elements/Plants',
+        'Elements/Creatures',
+        'Elements/Artifacts',
+        'Elements/DNA Data',
+        'Oral Archives'
+      ].includes(this.data.name)
     }
   },
   watch: {

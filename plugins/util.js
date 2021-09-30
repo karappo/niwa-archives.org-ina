@@ -16,27 +16,6 @@ import _flattenDeep from 'lodash/flattenDeep'
 import _map from 'lodash/map'
 import _uniq from 'lodash/uniq'
 export default ({ app }, inject) => {
-  inject('getIcon', (category) => {
-    switch (category) {
-      case 'Viewpoints/Still Images':
-        return ''
-      case 'Viewpoints/Movies':
-        return ''
-      case 'Elements/Stones':
-        return ''
-      case 'Elements/Plants':
-        return ''
-      case 'Elements/Creatures':
-        return ''
-      case 'Elements/Artifacts':
-        return ''
-      case 'Elements/DNA Data':
-        return ''
-      case 'Oral Archives':
-        return ''
-    }
-    return null
-  })
   inject('getTitle', (category) => {
     return category
       .split('/')
