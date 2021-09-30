@@ -107,7 +107,7 @@
         li
           a(href="/2020/" target="_blank") 2020：「Incomplete Niwa Archives 終らない庭のアーカイヴ」へ
         li
-          a(href="/2020/assets/Towards_a_New_Archive_of_Gardens.pdf" target="_blank") 2019： 庭の新しいアーカイヴをめざして [PDF]
+          a(href="/2019/Towards_a_New_Archive_of_Gardens.pdf" target="_blank") 2019： 庭の新しいアーカイヴをめざして [PDF]
 </template>
 
 <style lang="sass" scoped>
