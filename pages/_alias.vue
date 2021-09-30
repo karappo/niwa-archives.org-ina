@@ -24,7 +24,7 @@
         size="40"
         min-size="25"
         max-size="75"
-        :class="{border: !$store.getters.tourName}"
+        :class="{border: !tourName}"
       )
         //- TODO Historyを開いた状態で、Annotationをクリックしたら開かない…
         DrawerHistory(
@@ -51,7 +51,7 @@
         )
     SoundBar(:annotations="annotations")
   SideBar.sideBar(
-    v-if="!$store.getters.tourName"
+    v-if="!tourName"
     :guidedTourExists="0 < data.guidedTour.length"
     @saveCameraInfo="saveCameraInfo"
   )
@@ -246,7 +246,7 @@ export default {
       })
       const res = visibilities
       res.loading = this.loading
-      res.disabled = this.$store.getters.tourName !== null
+      res.disabled = this.tourName !== null
       return res
     },
     tourName() {
