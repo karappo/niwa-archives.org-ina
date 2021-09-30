@@ -49,7 +49,7 @@
           :data="listData"
           @next="next"
         )
-    SoundBar.soundBar(v-if="!$store.getters.tourName" :annotations="annotations")
+    SoundBar(:annotations="annotations")
   SideBar.sideBar(
     v-if="!$store.getters.tourName"
     :guidedTourExists="0 < data.guidedTour.length"
@@ -68,18 +68,6 @@ main
   display: flex
   flex-direction: column
   width: 100%
-  /deep/ .soundBar
-    // border-rightだと表示領域外になってしまうため、疑似要素で…
-    position: relative
-    &:after
-      position: absolute
-      top: 0
-      right: 0
-      content: ''
-      display: block
-      width: 1px
-      height: 100%
-      background-color: #3C3C3C
 .sideBar
   width: 165px
   height: 100%

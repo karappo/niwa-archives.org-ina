@@ -1,5 +1,5 @@
 <template lang="pug">
-.soundBar(v-if="list" :class="{visible}")
+.soundBar(v-if="list" :class="{visible, border: !$store.getters.tourName}")
   audio(ref='player')
   .toggleBtn(@click="visible = !visible")
     span.text Sounds
@@ -16,22 +16,22 @@
           .seekBar
             .progress(:style="progressStyle()")
         .time {{ currentTime }} / {{ totalTime }}
-        nuxt-link(v-if="data.movieId" to='TODO').link.movie
+        nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
           | Movie
           span.icon 
-        ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl")
+        ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
           | Ambisonics
           span.icon 
       .row
         dl
           dt Place
           dd
-            a(@click="placeClick(data.place.annotation)") {{ data.place.label }}
+            a(@click="placeClick(data.place.annotation)" :class="{disabled: $store.getters.tourName}") {{ data.place.label }}
         dl
           dt Creatures
           dd
             template(v-for="tag in data.tags")
-              a.creature(v-if="tags.includes(tag)" @click="tagClick(tag)") {{ tag }}
+              a.creature(v-if="tags.includes(tag)" @click="tagClick(tag)" :class="{disabled: $store.getters.tourName}") {{ tag }}
               span.creature(v-else) {{ tag }}
 </template>
 
@@ -47,6 +47,16 @@
   font-family: 'K2-v1-Bold'
   margin-bottom: -100%
   transition: margin 0.8s
+  // border-rightだと表示領域外になってしまうため、疑似要素で…
+  &.border:after
+    position: absolute
+    top: 0
+    right: 0
+    content: ''
+    display: block
+    width: 1px
+    height: 100%
+    background-color: #3C3C3C
   .toggleBtn
     --height: 24px
     position: absolute
@@ -168,6 +178,8 @@
             width: 100%
             margin-left: 0
             margin-right: 0
+            a.disabled
+              opacity: 1
             a
               cursor: pointer
               &:hover
