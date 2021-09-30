@@ -1,6 +1,6 @@
 <template lang="pug">
 .annotationList
-  ul.list(v-if="list.length")
+  ul.list(v-if="list.length" :class="{thin}")
     li(v-for="(o, i) in list" @click="$nuxt.$emit('showAnnotation', o.index)")
       .thumb(v-if="!isOralArchives" :style="`background-image: url(${thumbURL(o)});`")
 
@@ -23,6 +23,9 @@
   margin: 0
   li + li
     margin-top: 3px
+  &.thin
+    li
+      height: 45px
   li
     display: flex
     padding: 0
@@ -83,7 +86,7 @@
       background-color: #333
       flex-shrink: 0
     .index
-      margin-right: 20px
+      margin-right: 0.75em
       width: 30px
       display: flex
       align-items: center
@@ -120,6 +123,10 @@ export default {
       }
     },
     typeVisibility: {
+      type: Boolean,
+      default: false
+    },
+    thin: {
       type: Boolean,
       default: false
     }

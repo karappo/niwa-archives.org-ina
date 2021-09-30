@@ -23,7 +23,7 @@
           .head
             h5 {{ key }}
             .thumb(:style="`background-image: url(${val[0].youtube.thumbnailUrl()});`")
-          AnnotationList(:list="filterByTag(val)" :typeVisibility="typeVisibility")
+          AnnotationList(:list="filterByTag(val)" :typeVisibility="typeVisibility" :thin="true")
       AnnotationList(v-else :list="filterByTag(data.list)" :typeVisibility="typeVisibility")
 </template>
 
@@ -72,19 +72,23 @@ article
     .head
       display: flex
       align-items: center
-      margin-bottom: 8px
+      margin-bottom: 3px
+      background-color: #1A1A1A
       h5
+        padding-left: 20px
         font-size: 15px
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
         flex: 1
+        color: #898989
       .thumb
         width: 120px
         height: 80px
         background-size: 180%
         background-position: center
         margin-left: 10px
+        border-left: 3px solid black
 </style>
 
 <script>
