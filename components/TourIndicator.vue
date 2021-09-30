@@ -1,5 +1,5 @@
 <template lang="pug">
-.tourModeIndicator {{ label }}
+.tourModeIndicator {{ label }} - {{ denominator }}/{{ numerator }}
 </template>
 
 <style lang="sass" scoped>
@@ -31,6 +31,16 @@
 
 <script>
 export default {
+  props: {
+    numerator: {
+      type: Number,
+      required: true
+    },
+    denominator: {
+      type: Number,
+      required: true
+    }
+  },
   computed: {
     label() {
       return this.$store.getters.tourName.replace(/ with(out)? Annotations/, '')

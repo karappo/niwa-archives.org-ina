@@ -14,7 +14,10 @@
               span.global Incomplete Niwa Archives
               span.scene {{ data.title }}
             template(v-if="tourName")
-              TourIndicator
+              TourIndicator(
+                :numerator="listData.list.length"
+                :denominator="currentIndex + 1"
+              )
               StopTourButton
             template(v-else)
               KeyMap
@@ -228,6 +231,9 @@ export default {
       return []
     },
     currentIndex() {
+      if (!this.annotationData) {
+        return null
+      }
       return this.listDataIndexArray.indexOf(this.annotationData.index)
     },
     prevDisabled() {
@@ -256,7 +262,7 @@ export default {
   watch: {
     tourName(val) {
       if (val === null) {
-        this.stopRambleTourWithoutDrawer()
+        this.stopRambleTourWithoutAnnotations()
       }
     }
   },
@@ -535,16 +541,13 @@ export default {
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
     startRambleTourWithoutAnnotations() {
-      this.stopRambleTourWithoutDrawer()
-      // autoplayはAnnotationDrawerが表示されないと意味ないのでここではあえてcommitしない
-      let index = 0
-      this.$nuxt.$emit('showAnnotation', this.listData.list[index].index)
+      this.stopRambleTourWithoutAnnotations()
+      this.$nuxt.$emit('showAnnotation', this.listData.list[0].index)
       this.rambleTourTimer = setInterval(() => {
-        index++
-        this.next(this.listData.list[index].index)
+        this.next(this.listData.list[this.currentIndex].index)
       }, 15000)
     },
-    stopRambleTourWithoutDrawer() {
+    stopRambleTourWithoutAnnotations() {
       if (this.rambleTourTimer) {
         this.closeDrawer()
         clearInterval(this.rambleTourTimer)
