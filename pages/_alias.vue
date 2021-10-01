@@ -116,7 +116,7 @@ main
     align-items: center
     width: 100%
     height: 100%
-    background: black
+    background: #111
     position: absolute
     z-index: 99999999
     opacity: 0
