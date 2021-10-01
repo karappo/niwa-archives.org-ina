@@ -9,14 +9,14 @@
   .btn.panLeft(@mousedown="mousedown('Q')" title="Pan Left")
   .btn.forward(@mousedown="mousedown('W')" title="Forward")
   .btn.panRight(@mousedown="mousedown('E')" title="Pan Right")
-  .btn.tiltUp(@mousedown="mousedown('R')" title="Tilt Up")
-  .btn.up(@mousedown="mousedown('T')" title="Up")
+  .btn.up(@mousedown="mousedown('R')" title="Up")
+  .btn.tiltUp(@mousedown="mousedown('T')" title="Tilt Up")
 
   .btn.left(@mousedown="mousedown('A')" title="Left")
   .btn.backward(@mousedown="mousedown('S')" title="Backward")
   .btn.right(@mousedown="mousedown('D')" title="Right")
-  .btn.tiltDown(@mousedown="mousedown('F')" title="Tilt Down")
-  .btn.down(@mousedown="mousedown('G')" title="Down")
+  .btn.down(@mousedown="mousedown('F')" title="Down")
+  .btn.tiltDown(@mousedown="mousedown('G')" title="Tilt Down")
 
   .key A
   .key S
