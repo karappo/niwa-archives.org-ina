@@ -136,30 +136,34 @@ main
   // アノテーションの表示切り替え
   /deep/ .annotation
     visibility: hidden
-  &.viewpointsStillImages
-    /deep/ .annotation[data-category="Viewpoints/Still Images"]
+  &.rambleTourWithoutAnnotations
+    /deep/ .annotation.highlighted
       visibility: visible
-  &.viewpointsMovies
-    /deep/ .annotation[data-category="Viewpoints/Movies"]
-      visibility: visible
-  &.elementsStones
-    /deep/ .annotation[data-category="Elements/Stones"]
-      visibility: visible
-  &.elementsPlants
-    /deep/ .annotation[data-category="Elements/Plants"]
-      visibility: visible
-  &.elementsCreatures
-    /deep/ .annotation[data-category="Elements/Creatures"]
-      visibility: visible
-  &.elementsArtifacts
-    /deep/ .annotation[data-category="Elements/Artifacts"]
-      visibility: visible
-  &.elementsDnaData
-    /deep/ .annotation[data-category="Elements/DNA Data"]
-      visibility: visible
-  &.oralArchives
-    /deep/ .annotation[data-category="Oral Archives"]
-      visibility: visible
+  &:not(.rambleTourWithoutAnnotations) // Ramble Tour中はこのクラスがなくなる
+    &.viewpointsStillImages
+      /deep/ .annotation[data-category="Viewpoints/Still Images"]
+        visibility: visible
+    &.viewpointsMovies
+      /deep/ .annotation[data-category="Viewpoints/Movies"]
+        visibility: visible
+    &.elementsStones
+      /deep/ .annotation[data-category="Elements/Stones"]
+        visibility: visible
+    &.elementsPlants
+      /deep/ .annotation[data-category="Elements/Plants"]
+        visibility: visible
+    &.elementsCreatures
+      /deep/ .annotation[data-category="Elements/Creatures"]
+        visibility: visible
+    &.elementsArtifacts
+      /deep/ .annotation[data-category="Elements/Artifacts"]
+        visibility: visible
+    &.elementsDnaData
+      /deep/ .annotation[data-category="Elements/DNA Data"]
+        visibility: visible
+    &.oralArchives
+      /deep/ .annotation[data-category="Oral Archives"]
+        visibility: visible
 
 .controls
   position: absolute
@@ -252,6 +256,8 @@ export default {
       })
       const res = visibilities
       res.loading = this.loading
+      // eslint-disable-next-line
+      res.rambleTourWithoutAnnotations = this.tourName === 'Ramble Tour without Annotations'
       res.disabled = this.tourName !== null
       return res
     },
