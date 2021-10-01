@@ -241,9 +241,15 @@ export default {
       return this.listDataIndexArray.indexOf(this.annotationData.index)
     },
     prevDisabled() {
+      if (this.listData && this.listData.name.includes('Ramble Tour')) {
+        return false
+      }
       return this.currentIndex <= 0
     },
     nextDisabled() {
+      if (this.listData && this.listData.name.includes('Ramble Tour')) {
+        return false
+      }
       return this.listDataIndexArray.length - 1 <= this.currentIndex
     },
     potreeRenderAreaClass() {
@@ -420,12 +426,18 @@ export default {
       console.error(`id=${id} のアノテーションが見つかりませんでした`)
     },
     prev(globalIndex) {
-      const currentIndex = this.listDataIndexArray.indexOf(globalIndex)
-      this.showAnnotation(this.listDataIndexArray[currentIndex - 1])
+      let index = this.listDataIndexArray.indexOf(globalIndex) - 1
+      if (index < 0) {
+        index = this.listDataIndexArray.length - 1
+      }
+      this.showAnnotation(this.listDataIndexArray[index])
     },
     next(globalIndex) {
-      const currentIndex = this.listDataIndexArray.indexOf(globalIndex)
-      this.showAnnotation(this.listDataIndexArray[currentIndex + 1])
+      let index = this.listDataIndexArray.indexOf(globalIndex) + 1
+      if (this.listDataIndexArray.length <= index) {
+        index = 0
+      }
+      this.showAnnotation(this.listDataIndexArray[index])
     },
     showAnnotation(globalIndex) {
       const annotation = window.viewer.scene.annotations.children[globalIndex]
