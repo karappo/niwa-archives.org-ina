@@ -42,10 +42,14 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ['~assets/style/common'],
+  css: [
+    'element-ui/lib/theme-chalk/index.css',
+    '~assets/style/common'
+  ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    '~plugins/element-ui',
     '~plugins/util',
     '~plugins/key-detection',
     '~plugins/splitpanes',

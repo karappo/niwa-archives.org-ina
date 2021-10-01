@@ -30,6 +30,7 @@
     "change-case": "^4.1.2",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.6",
+    "element-ui": "^2.15.6",
     "node-sass": "^5.0.0",
     "nuxt": "^2.14.6",
     "nuxt-ua": "^1.0.6",

@@ -1,7 +1,7 @@
 <template lang="pug">
 .linkCheck(:class="{disabled}")
   ListLink(:listName="listName" :icon="icon") {{ title }}
-  input(v-if="!disabled" type="checkbox" v-model="visibility")
+  el-checkbox(v-if="!disabled" v-model="visibility" :indeterminate="indeterminate")
 </template>
 
 <style lang="sass" scoped>
@@ -12,9 +12,24 @@
   &.disabled
     opacity: 0.5
     pointer-events: none
+  /deep/ .el-checkbox__input.is-checked .el-checkbox__inner
+    background-color: #434343
+    border-color: #434343
+  /deep/ .el-checkbox__inner
+    border-color: transparent
+    background-color: #434343
+  /deep/ .el-checkbox__inner::after
+    border: 2px solid #D3D3D3
+    border-left: 0
+    border-top: 0
+    top: 0
+    transition: none
+  /deep/ .el-checkbox__input.is-indeterminate .el-checkbox__inner::before
+    background-color: #D3D3D3
 </style>
 
 <script>
+import _uniq from 'lodash/uniq'
 import { camelCase } from 'change-case'
 export default {
   props: {
@@ -49,6 +64,27 @@ export default {
         const key = this.listName
         this.$store.commit('annotationVisibilities', { key, value })
       }
+    },
+    indeterminate() {
+      if (this.listName === 'Annotations') {
+        const childrenValues = []
+        // eslint-disable-next-line
+        Object.keys(this.$store.getters.annotationVisibilities).map((key) => {
+          childrenValues.push(this.$store.getters.annotationVisibilities[key])
+        })
+        return 1 < _uniq(childrenValues).length
+      }
+      if (['Viewpoints', 'Elements'].includes(this.listName)) {
+        const childrenValues = []
+        // eslint-disable-next-line
+        Object.keys(this.$store.getters.annotationVisibilities).map((key) => {
+          if (key.includes(`${this.listName}/`)) {
+            childrenValues.push(this.$store.getters.annotationVisibilities[key])
+          }
+        })
+        return 1 < _uniq(childrenValues).length
+      }
+      return false
     }
   }
 }
