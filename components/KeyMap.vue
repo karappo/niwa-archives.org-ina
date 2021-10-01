@@ -37,14 +37,16 @@
 .key,
 .btn
   color: white
-  cursor: pointer
   position: relative
   display: flex
   justify-content: center
   align-items: center
   font-size: 12px
   font-family: 'K2-v1-Bold'
+.key
+  pointer-events: none
 .btn
+  cursor: pointer
   border-radius: 3px
   background-color: black
   background-repeat: no-repeat
