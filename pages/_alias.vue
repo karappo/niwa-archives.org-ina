@@ -547,7 +547,10 @@ export default {
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
     startRambleTourWithoutAnnotations() {
-      this.stopRambleTourWithoutAnnotations()
+      if (this.rambleTourTimer) {
+        clearInterval(this.rambleTourTimer)
+        this.rambleTourTimer = null
+      }
       this.$nuxt.$emit('showAnnotation', this.listData.list[0].index)
       this.rambleTourTimer = setInterval(() => {
         this.next(this.listData.list[this.currentIndex].index)
@@ -555,7 +558,8 @@ export default {
     },
     stopRambleTourWithoutAnnotations() {
       if (this.rambleTourTimer) {
-        this.closeDrawer()
+        this.$store.commit('pageName', '')
+        this.clearSelectedAnnotation()
         clearInterval(this.rambleTourTimer)
         this.rambleTourTimer = null
       }
