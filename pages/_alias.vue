@@ -547,11 +547,10 @@ export default {
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
     startRambleTourWithoutAnnotations() {
+      this.$nuxt.$emit('showAnnotation', this.listData.list[0].index)
       if (this.rambleTourTimer) {
         clearInterval(this.rambleTourTimer)
-        this.rambleTourTimer = null
       }
-      this.$nuxt.$emit('showAnnotation', this.listData.list[0].index)
       this.rambleTourTimer = setInterval(() => {
         this.next(this.listData.list[this.currentIndex].index)
       }, 15000)
