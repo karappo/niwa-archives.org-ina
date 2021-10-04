@@ -1,6 +1,6 @@
 export default {
   title: 'Jōei-ji Garden',
-  pointcloud: '/pointclouds/Sessyutei_20211004_0.005.las_converted/metadata.json',
+  pointcloud: '/assets/pointclouds/Sessyutei_20211004_0.005.las_converted/metadata.json',
   initCamera() {
     // viewer.fitToScreen()
     window.viewer.scene.view.position.set(46.97, 75.066, 25.272)

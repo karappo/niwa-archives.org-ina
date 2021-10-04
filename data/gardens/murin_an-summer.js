@@ -1,6 +1,6 @@
 export default {
   title: 'Murin-an Garden - Summer',
-  pointcloud: '/pointclouds/MurinanS_0.01.las_converted/metadata.json',
+  pointcloud: '/assets/pointclouds/MurinanS_0.01.las_converted/metadata.json',
   initCamera() {
     // viewer.fitToScreen()
     window.viewer.scene.view.position.set(171.85, -48.743, -4.652)

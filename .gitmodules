@@ -1,6 +1,3 @@
 [submodule "assets/style/general"]
 	path = assets/style/general
 	url = git://github.com/naokazuterada/general.git
-[submodule "static/potree"]
-	path = static/potree
-	url = git@github.com:naokazuterada/potree.git

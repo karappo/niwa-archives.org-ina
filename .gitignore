@@ -91,8 +91,8 @@ sw.*
 
 .vscode
 
-static/pointclouds/*
-!static/pointclouds/.gitkeep
-static/sound/*
-!static/sound/.gitkeep
+static/assets/pointclouds/*
+!static/assets/pointclouds/.gitkeep
+static/assets/sound/*
+!static/assets/sound/.gitkeep
 static/2020/assets/sessyutei.mp3

@@ -1,6 +1,6 @@
 export default {
   title: 'Murin-an Garden - Snow',
-  pointcloud: '/pointclouds/MurinanWS_0.01.las_converted/metadata.json',
+  pointcloud: '/assets/pointclouds/MurinanWS_0.01.las_converted/metadata.json',
   initCamera() {
     // viewer.fitToScreen()
     window.viewer.scene.view.position.set(171.85, -48.743, -4.652)
