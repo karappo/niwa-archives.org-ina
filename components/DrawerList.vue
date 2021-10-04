@@ -7,14 +7,14 @@
     DrawerCloseButton
   article
     template(v-if="data.name === 'Guided Tour'")
-      .description Guided Tourでは、庭園をひとめぐりしながら、INAの全体が把握できるような自動モードです。
+      .description Guided Tourは、庭園をひとめぐりしながらINAの基本的な機能を把握することのできる自動モードです。
       .bigBtn.guidedTour(@click="startTour('Guided Tour')") Start Tour
     template(v-else-if="data.name === 'Ramble Tour'")
       h3 Tour with Annotations
-      .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。こちらは、各Annotationの説明を表示しながら進めるモードです。
+      .description Ramble Tourは、全てのアノテーションをランダムにめぐってゆく自動モードです。Tour with Annotationsでは、各Annotationの説明を表示しながら進んでゆきます。
       .bigBtn.rambleTour(@click="startTour('Ramble Tour with Annotations')") Start Tour
       h3 Tour without Annotations
-      .description Ramble Tourは、全てのアノテーションをランダムに巡っていくツアーモードです。こちらは、説明を表示せず純粋に景色を楽しむモードです。
+      .description Ramble Tourは、全てのアノテーションをランダムにめぐってゆく自動モードです。Tour without Annotationsでは、各Annotationの説明を表示せず、園内を移動しつづけます。同時にSoundsを再生させることもできます。
       .bigBtn.rambleTour(@click="startRambleTourWithoutAnnotations()") Start Tour
 
     template(v-if="data.name !== 'Ramble Tour'")
