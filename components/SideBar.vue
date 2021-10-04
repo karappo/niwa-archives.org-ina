@@ -78,7 +78,8 @@ h2 + section
   border-top: 0
 .variations
   margin-top: 10px
-  width: 130px
+  width: 121px
+  min-width: 0
   /deep/ select
     text-transform: capitalize
 h2
