@@ -183,7 +183,6 @@ export default {
     },
     startTour(tourName) {
       this.$store.commit('tourName', tourName)
-      this.$store.commit('autoplay', true)
       this.$nextTick(() => {
         this.$nuxt.$emit('showAnnotation', this.data.list[0].index)
       })

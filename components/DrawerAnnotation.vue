@@ -311,7 +311,7 @@ export default {
     if (
       !this.data.youtube &&
       !this.data.movie &&
-      this.$store.getters.autoplay
+      (this.$store.getters.autoplay || this.$store.getters.tourName)
     ) {
       this.startTimer()
     }
@@ -326,7 +326,10 @@ export default {
       return d.format(format)
     },
     goToNextAnnotation() {
-      if (this.$store.getters.autoplay && !this.nextDisabled) {
+      if (
+        !this.nextDisabled &&
+        (this.$store.getters.autoplay || this.$store.getters.tourName)
+      ) {
         this.$emit('next', this.data.index)
       } else {
         this.cover = true
