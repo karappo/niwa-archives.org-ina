@@ -1,8 +1,9 @@
 <template lang="pug">
 .tourModeIndicator
-  | {{ label }}
   template(v-if="this.$store.getters.tourName==='Guided Tour'")
-    | - {{ denominator }}/{{ numerator }}
+    | {{ label }} - {{ denominator }}/{{ numerator }}
+  template(v-else)
+    | {{ label }}
 </template>
 
 <style lang="sass" scoped>
