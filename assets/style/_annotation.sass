@@ -95,6 +95,7 @@
       line-height: 2.2
   .annotation-marker
     cursor: pointer
+    z-index: 1 // macOS Safariでホバーしたときにマスキングが外れる症状への対処
   .annotation-prev,
   .annotation-next
     display: none
