@@ -5,23 +5,33 @@
       pane.potree_container(
         size="60"
       )
-        #potree_render_area(
-          ref="potree_render_area"
-          :class="potreeRenderAreaClass"
-        )
-          .controls
-            h1.title
-              span.global Incomplete Niwa Archives
-              span.scene {{ data.title }}
-            template(v-if="tourName")
-              TourIndicator(
-                :numerator="listData.list.length"
-                :denominator="currentIndex + 1"
-              )
-              StopTourButton
-            template(v-else)
-              KeyMap
-        #potree_sidebar_container
+        //- TODO 追々対応が確認できたら個々の条件を見直すこと
+        .notice(v-if="!$ua.is.chrome && noticeVisibility")
+          | このブラウザは推奨環境ではないため不具合発生の可能性があります。
+          ExternalLink(href="https://www.google.com/chrome/") Chrome
+          //- | または
+          //- ExternalLink(href="https://www.mozilla.org/ja/firefox/new/") Firefox
+          | でご覧ください。
+          .closeButton(@click="noticeVisibility = false")
+            IconClose
+        .potree_wrap
+          #potree_render_area(
+            ref="potree_render_area"
+            :class="potreeRenderAreaClass"
+          )
+            .controls
+              h1.title
+                span.global Incomplete Niwa Archives
+                span.scene {{ data.title }}
+              template(v-if="tourName")
+                TourIndicator(
+                  :numerator="listData.list.length"
+                  :denominator="currentIndex + 1"
+                )
+                StopTourButton
+              template(v-else)
+                KeyMap
+          #potree_sidebar_container
       pane.drawer(
         v-if="!(tourName && tourName.includes('without Annotations')) && (listData || annotationData)"
         size="40"
@@ -95,7 +105,47 @@ main
     &.potree_container
       width: 100%
       height: 100%
-      position: relative
+      display: flex
+      flex-direction: column
+      .notice
+        background-color: #C9E2D4
+        color: black
+        font-size: 13px
+        padding: 15px
+        display: flex
+        align-items: center
+        flex-shrink: 0
+        a
+          margin-left: 0.2em
+          margin-right: 0.2em
+          text-decoration: underline
+        .closeButton
+          cursor: pointer
+          background-color: #434343
+          width: 18px
+          height: 18px
+          border-radius: 50%
+          display: flex
+          justify-content: center
+          align-items: center
+          margin-left: auto
+          margin-right: 0
+          transition: background-color 0.2s
+          svg
+            width: 8px
+            height: 8px
+            line
+              stroke: #D3D3D3
+              transition: stroke 0.2s
+          &:hover
+            background-color: black
+            svg
+              line
+                stroke: white
+      .potree_wrap
+        position: relative
+        width: 100%
+        height: 100%
     &.drawer
       overflow-y: auto
       background-color: black
@@ -200,7 +250,13 @@ main
 <script>
 import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
+import { ExternalLink } from '@karappo-inc/vue-components'
+import IconClose from '~/assets/image/icon-close.svg?inline'
 export default {
+  components: {
+    ExternalLink,
+    IconClose
+  },
   props: {
     file: {
       type: String,
@@ -221,6 +277,7 @@ export default {
       listData: null,
       drawerAlreadyOpened: false,
       loading: true,
+      noticeVisibility: true,
       rambleTourTimer: null
     }
   },

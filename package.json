@@ -33,7 +33,7 @@
     "element-ui": "^2.15.6",
     "node-sass": "^5.0.0",
     "nuxt": "^2.14.6",
-    "nuxt-ua": "^1.0.6",
+    "nuxt-ua": "^1.0.7",
     "pug": "^3.0.0",
     "pug-plain-loader": "^1.0.0",
     "sass-loader": "^10.1.0",
