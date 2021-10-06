@@ -109,20 +109,6 @@ header
         line
           stroke: white
 .content
-  padding-bottom: 30px
-  h1
-    margin: 30px auto 30px 0
-    text-overflow: ellipsis
-    white-space: nowrap
-    @extend %font_bold
-    font-size: 21px
-    overflow: hidden
-  h5
-    font-family: 'K2-v1-Regular'
-    font-size: 14px
-    color: #8B8B8B
-    margin-top: 34px
-    margin-bottom: 17px
   .description,
   .commentForGuidedTour
     color: #9B9B9B
@@ -150,9 +136,6 @@ header
     color: white
     padding: 20px 23px
     border-radius: 10px
-  .image
-    width: 100%
-    height: auto
   .download
     @extend %button
     padding: 20px
