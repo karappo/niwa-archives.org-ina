@@ -3,8 +3,8 @@ export default {
   pointcloud: '/assets/pointclouds/MurinanS_0.01.las_converted/metadata.json',
   initCamera() {
     // viewer.fitToScreen()
-    window.viewer.scene.view.position.set(171.85, -48.743, -4.652)
-    window.viewer.scene.view.lookAt(new THREE.Vector3(170.578, -51.43, -5.052))
+    window.viewer.scene.view.position.set(169.884, -45.892, -3.278)
+    window.viewer.scene.view.lookAt(new THREE.Vector3(168.611, -48.579, -3.678))
   },
   guidedTour: [],
   tours: [

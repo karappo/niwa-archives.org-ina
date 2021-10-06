@@ -4,8 +4,8 @@ export default {
     '/assets/pointclouds/Sessyutei_20211004_0.005.las_converted/metadata.json',
   initCamera() {
     // viewer.fitToScreen()
-    window.viewer.scene.view.position.set(46.97, 75.066, 25.272)
-    window.viewer.scene.view.lookAt(new THREE.Vector3(38.742, 83.399, 24.068))
+    window.viewer.scene.view.position.set(48.27, 81.57, 26.026)
+    window.viewer.scene.view.lookAt(new THREE.Vector3(45.402, 82.278, 26.55))
   },
   guidedTour: [
     'rq8xn8',
