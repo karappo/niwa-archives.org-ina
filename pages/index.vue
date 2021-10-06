@@ -14,9 +14,9 @@
       a(href='#reports') Reports
     ScrollGuide(
       text="Scroll"
-      gutterColor="rgba(255,255,255,0.5)"
-      highlightColor="#ffffff"
-      textColor="#ffffff"
+      gutterColor="#000000"
+      highlightColor="#C9E2D4"
+      textColor="#C9E2D4"
     )
     h1.ja
       LogoJa.logoJa
@@ -114,6 +114,7 @@
 @import ../assets/style/general/clf
 .root
   position: relative
+  color: #C9E2D4
 %wrap
   padding: 0 65px
 .mv
