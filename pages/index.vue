@@ -854,7 +854,7 @@ section
             width: 41px
             heitght: auto
   &#reports
-    background-color: #000000
+    background-color: #0B101A
     padding-top: 100px
     padding-bottom: 100px
     +sp
@@ -895,7 +895,7 @@ section
             font-size: 10px
 footer
   @extend %font_light
-  background-color: #000000
+  background-color: #0B101A
   padding-top: 100px
   padding-bottom: 60px
   font-size: 15px
