@@ -23,7 +23,7 @@ export default {
       { rel: 'stylesheet', type: 'text/css', href: '/assets/potree/libs/jquery-ui/jquery-ui.css' },
     ],
     script: [
-      { src: '//webfont.fontplus.jp/accessor/script/fontplus.js?Kda7jDZHaBw%3D&box=tTklazNwpV4%3D&aa=1&ab=2', defer: true},
+      { src: '//webfont.fontplus.jp/accessor/script/fontplus.js?Kda7jDZHaBw%3D&box=BAYjMHHVKVM%3D&aa=1&ab=2', defer: true},
       { src: '/assets/potree/libs/jquery/jquery-3.1.1.min.js'},
       { src: '/assets/potree/libs/spectrum/spectrum.js'},
       { src: '/assets/potree/libs/jquery-ui/jquery-ui.min.js'},
