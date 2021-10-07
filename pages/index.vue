@@ -22,7 +22,7 @@
       LogoJa.logoJa
     .footage
       | Grant-in-Aid for Scientific Research (B)<br>
-      | “Research and Development of Comprehensive Archives of Japanese Gardens”
+      | “Research and Development of Comprehensive <br class="sp">Archives of Japanese Gardens”
   section#about
     h2 About
     .cols(data-col="2")
@@ -368,8 +368,12 @@
       left: 0
       bottom: 4px
       width: 14px
+      +sp
+        bottom: 0
       .scroll_guide
         padding: 36px
+        +sp
+          padding: 20px 10px
         > span
           font-size: 12px
           letter-spacing: 0.05em
@@ -382,6 +386,12 @@
     position: absolute
     top: 40px
     left: 40px
+    +sp
+      top: 23px
+      left: 20px
+      img
+        width: 105px
+        height: auto
   .logoJa
     width: 102vw
     height: auto
@@ -394,6 +404,8 @@
     z-index: 10
     a + a
       margin-left: 2em
+    +sp
+      display: none
   .footage
     position: absolute
     bottom: 40px
@@ -401,6 +413,12 @@
     font-size: 13px
     line-height: calc(25 / 13)
     text-align: right
+    +sp
+      font-size: 10px
+      transform-origin: right bottom
+      transform: scale(0.9)
+      bottom: 20px
+      right: 20px
 section
   background-color: #0B101A
   padding-top: 143px
