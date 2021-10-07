@@ -131,7 +131,7 @@
       )
       h3
         | 原瑠璃彦+YCAM　共同研究成果展示<br>
-        | Incomplete Niwa Arhives <br class="sp">― 終わらない庭のアーカイブ
+        | Incomplete Niwa Archives <br class="sp">― 終らない庭のアーカイヴ
       .place
         | 2021年10月8日（金）〜 2022年1月30日（日）<br>
         | 山口情報芸術センター［YCAM］2階ギャラリー
@@ -212,7 +212,7 @@
     .wrap
       h2 Reports
       p
-        | 庭園アーカイブプロジェクトは3年間のプロジェクトです。<br>
+        | 庭園アーカイヴプロジェクトは3年間のプロジェクトです。<br>
         | ここでは1年毎のレポートを公開しています。
       a(href="/2020/" target="_blank")
         img(
