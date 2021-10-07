@@ -775,83 +775,84 @@ section
     padding-bottom: 111px
     +sp
       padding-bottom: 88px
-    h2
-      @extend %font_bold
-      color: #E0E0E0
-      border-top: 1px solid black
-      margin: 0
-      font-size: 18px
-      padding: 50px 0 54px
-      +sp
-        font-size: 16px
-        margin-left: -20px
-        margin-right: -20px
-        padding-left: 20px
-        padding-right: 20px
-    > p
-      margin-bottom: 58px
-      +sp
-        font-size: 12px
-        line-height: calc(25 / 12)
-    .col
-      .dateTime
+    .wrap
+      h2
         @extend %font_bold
-        color: #627CAD
-        +sp
-          font-size: 13px
-      h4
-        margin-top: 21px
-        @extend %font_bold
-        font-size: 19px
-        color: #E6E6E6
+        color: #E0E0E0
+        border-top: 1px solid black
+        margin: 0
+        font-size: 18px
+        padding: 50px 0 54px
         +sp
           font-size: 16px
-        &.noLead
-          margin: 37px 0 34px
-        span.lead
-          display: block
-          margin-top: 8px
+          margin-left: -20px
+          margin-right: -20px
+          padding-left: 20px
+          padding-right: 20px
+      > p
+        margin-bottom: 58px
+        +sp
+          font-size: 12px
+          line-height: calc(25 / 12)
+      .col
+        .dateTime
           @extend %font_bold
-          font-size: 14px
-          color: #C7C7C7
-          letter-spacing: 0
+          color: #627CAD
           +sp
+            font-size: 13px
+        h4
+          margin-top: 21px
+          @extend %font_bold
+          font-size: 19px
+          color: #E6E6E6
+          +sp
+            font-size: 16px
+          &.noLead
+            margin: 37px 0 34px
+          span.lead
+            display: block
+            margin-top: 8px
+            @extend %font_bold
+            font-size: 14px
+            color: #C7C7C7
+            letter-spacing: 0
+            +sp
+              font-size: 11px
+              margin-top: 4px
+        .detail
+          margin-top: 16px
+          @extend %font_medium
+          +sp
+            margin-top: 20px
             font-size: 11px
-            margin-top: 4px
-      .detail
-        margin-top: 16px
-        @extend %font_medium
+            line-height: 2
+      .cols + .cols
+        margin-top: 70px
+      .cols + p
+        @extend %font_bold
+        margin-top: 70px
+      .youtube
+        margin-top: 74px
+        display: block
+        font-family: 'K2-v1-Bold'
+        font-size: 21px
+        color: white
+        border-radius: 5px
+        background-color: #464B4E
+        padding: 30px 40px
+        display: flex
+        align-items: center
+        justify-content: space-between
+        transition: background-color 0.2s
+        &:hover
+          background-color: darken(#464B4E, 7%)
         +sp
-          margin-top: 20px
-          font-size: 11px
-          line-height: 2
-    .cols + .cols
-      margin-top: 70px
-    .cols + p
-      @extend %font_bold
-      margin-top: 70px
-    .youtube
-      margin-top: 74px
-      display: block
-      font-family: 'K2-v1-Bold'
-      font-size: 21px
-      color: white
-      border-radius: 5px
-      background-color: #464B4E
-      padding: 30px 40px
-      display: flex
-      align-items: center
-      justify-content: space-between
-      transition: background-color 0.2s
-      &:hover
-        background-color: darken(#464B4E, 7%)
-      +sp
-        font-size: 14px
-        padding: 20px
-      svg
-        +sp
-          width: 41px
-          heitght: auto
+          font-size: 14px
+          padding: 20px
+        svg
+          +sp
+            width: 41px
+            heitght: auto
   &#reports
     background-color: #000000
     padding-top: 100px
