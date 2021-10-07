@@ -27,48 +27,55 @@
     h2 About
     .cols(data-col="2")
       .col
-        p 庭園アーカイヴ・プロジェクトは、現代のテクノロジーを駆使して、日本庭園の多様な側面をデータ化した新しい総合的アーカイヴを研究開発するものです。このウェブサイトでは、山口市・常栄寺庭園、京都市・無鄰菴庭園、同・龍源院庭園を対象に開発したアーカイヴを公開しています。
-      .col
-        p The Garden Archives Project aims to study and develop a new kind of comprehensive archives that digitally survey Japanese gardens’ diverse aspects. This website features Jōei-ji Garden in Yamaguchi City, Murin-an Garden, and Ryōgen-in Garden in Kyoto City.
-    .cols(data-col="2")
-      .col
+        p.ja 庭園アーカイヴ・プロジェクトは、現代のテクノロジーを駆使して、日本庭園の多様な側面をデータ化した新しい総合的アーカイヴを研究開発するものです。このウェブサイトでは、山口市・常栄寺庭園、京都市・無鄰菴庭園、同・龍源院庭園を対象に開発したアーカイヴを公開しています。
         a.readMore(@click="popupVisibility = true") Read more.
       .col
+        p.en The Garden Archives Project aims to study and develop a new kind of comprehensive archives that digitally survey Japanese gardens’ diverse aspects. This website features Jōei-ji Garden in Yamaguchi City, Murin-an Garden, and Ryōgen-in Garden in Kyoto City.
         a.readMore(@click="popupVisibility = true") Read more.
   section#archives
     h2 Archives
     .garden.joei_ji
       .cols(data-col="4")
-        nuxt-link.col(to='/joei_ji/')
+        nuxt-link.image.sp(to='/joei_ji/')
+          img(
+            src='~/assets/image/top/joei_ji-sp.jpg'
+            alt='無鄰菴の点群'
+          )
+        nuxt-link.col.jaName(to='/joei_ji/')
           h3 常栄寺庭園
-        nuxt-link.col(to='/joei_ji/')
-          | Jōei-ji Garden<br>
+        nuxt-link.col.enName(to='/joei_ji/')
+          | Jōei-ji Garden<br class="pc">
           | Yamaguchi
-        .col
-          | Update<br>
+        .col.date
+          | Update<br class="pc">
           | {{ format($store.getters.lastUpdateDateTime.joeiJi) }}
-        .col
-          | Annotations Quantity<br>
+        .col.annotationsQuantity
+          | Annotations Quantity<br class="pc">
           | {{ $store.state.annotations.joeiJi.length }}
-      nuxt-link.image(to='/joei_ji/')
+      nuxt-link.image.pc(to='/joei_ji/')
         img(
           src='~/assets/image/top/joei_ji.jpg'
           alt='常栄寺の点群'
         )
     .garden.murin_an
       .cols(data-col="4")
-        .col
+        nuxt-link.image.sp(to='/murin_an/')
+          img(
+            src='~/assets/image/top/murin_an-sp.jpg'
+            alt='無鄰菴の点群'
+          )
+        .col.jaName
           h3 無鄰菴庭園
-        .col
-          | Murin-an Garden<br>
+        .col.enName
+          | Murin-an Garden<br class="pc">
           | Kyoto
-        .col
-          | Update<br>
+        .col.date
+          | Update<br class="pc">
           | {{ format(murinAnLastUpdateDateTime) }}
-        .col
-          | Annotations Quantity<br>
+        .col.annotationsQuantity
+          | Annotations Quantity<br class="pc">
           | {{ murinAnDataQuantity }}
-      a.image
+      .image.pc
         img(
           src='~/assets/image/top/murin_an.jpg'
           alt='無鄰菴の点群'
@@ -82,18 +89,23 @@
               nuxt-link(to='/murin_an-snow/') Snow
     .garden.ryogen_in
       .cols(data-col="4")
-        nuxt-link.col(to='/ryogen_in/')
+        nuxt-link.image.sp(to='/ryogen_in/')
+          img(
+            src='~/assets/image/top/ryogen_in-sp.jpg'
+            alt='無鄰菴の点群'
+          )
+        nuxt-link.col.jaName(to='/ryogen_in/')
           h3 龍源院庭園
-        nuxt-link.col(to='/ryogen_in/')
-          | Ryōgen-in Garden<br>
+        nuxt-link.col.enName(to='/ryogen_in/')
+          | Ryōgen-in Garden<br class="pc">
           | Kyoto
-        .col
-          | Update<br>
+        .col.date
+          | Update<br class="pc">
           | {{ format($store.getters.lastUpdateDateTime.ryogenIn) }}
-        .col
-          | Annotations Quantity<br>
+        .col.annotationsQuantity
+          | Annotations Quantity<br class="pc">
           | {{ $store.state.annotations.ryogenIn.length }}
-      nuxt-link.image(to='/ryogen_in/')
+      nuxt-link.image.pc(to='/ryogen_in/')
         img(
           src='~/assets/image/top/ryogen_in.jpg'
           alt='無鄰菴の点群'
@@ -106,7 +118,7 @@
     )
     h3
       | 原瑠璃彦+YCAM　共同研究成果展示<br>
-      | Incomplete Niwa Arhives  ― 終わらない庭のアーカイブ
+      | Incomplete Niwa Arhives <br class="sp">― 終わらない庭のアーカイブ
     .place
       | 2021年10月8日（金）〜 2022年1月30日（日）<br>
       | 山口情報芸術センター［YCAM］2階ギャラリー
@@ -141,11 +153,11 @@
         | 植彌加藤造園株式会社、宗教法人 龍源院
     .logos.cols(data-col="2")
       .col
-        img.logo(
+        img.logo.bunkacho(
           src='~/assets/image/top/logo-bunkacho.png'
           alt='文化庁のロゴ'
         )
-        img.logo(
+        img.logo.expo(
           src='~/assets/image/top/logo-expo.png'
           alt='日本博のロゴ'
         )
@@ -351,6 +363,8 @@
   color: #C9E2D4
 %wrap
   padding: 0 65px
+  +sp
+    padding: 0 20px
 .mv
   width: 100%
   height: 100vh
@@ -425,22 +439,38 @@ section
   font-size: 14px
   line-height: 2
   letter-spacing: 0.06em
+  .ja
+    +sp
+      font-size: 12px
   h2
     margin-bottom: 84px
     font-size: 15px
     font-weight: normal
     letter-spacing: 0
+    +sp
+      margin-bottom: 60px
   h3
     @extend %font_light
     font-size: 30px
+    +sp
+      margin-top: 16px
+      font-size: 22px
+      margin-bottom: 4px
   .cols + .cols
     margin-top: 2em
 
   &#about
     padding-top: 100px
     @extend %wrap
+    +sp
+      padding-top: 75px
     .readMore
+      display: inline-block
+      margin-top: 26px
       cursor: pointer
+      +sp
+        margin-top: 18px
+        font-size: 14px
       &:hover
         color: white
   &#archives
@@ -448,6 +478,30 @@ section
       @extend %wrap
       margin-bottom: 48px
     .garden
+      .image
+        &.sp
+          display: none
+          +sp
+            display: block
+        &.pc
+          +sp
+            display: none
+      .col
+        +sp
+          font-size: 11px
+      .cols
+        .col + .col
+          +sp
+            margin-top: 0
+        .enName
+          display: block
+        .date,
+        .annotationsQuantity
+          +sp
+            display: inline
+        .annotationsQuantity
+          +sp
+            margin-left: 1em
       .image
         display: block
         margin-top: 20px
@@ -512,8 +566,12 @@ section
         @extend %wrap
         display: flex
         align-items: center
+        +sp
+          display: block
     .garden + .garden
       margin-top: 82px
+      +sp
+        margin-top: 60px
 
   &#exhibition
     @extend %wrap
@@ -521,11 +579,19 @@ section
     margin-top: 250px
     padding-bottom: 78px
     color: rgba(255,255,255,0.6)
+    +sp
+      margin-top: 140px
     h2
       padding-top: 75px
       margin-bottom: 10px
+      +sp
+        padding-top: 47px
     img.ycam
       float: right
+      +sp
+        width: 61px
+        height: auto
+        margin-top: 28px
     h3
       @extend %font_bold
       clear: both
@@ -533,40 +599,74 @@ section
       line-height: calc(40 / 19)
       margin: 158px 0
       color: #E0E0E0
+      +sp
+        font-size: 14px
     .place
+      @extend %font_bold
       margin-bottom: 60px
       color: #C3C3C3
       font-size: 14px
       line-height: calc(30 / 14)
+      +sp
+        font-size: 12px
+        line-height: calc(28 / 12)
+        margin-bottom: 34px
     .info
       font-size: 13px
       line-height: calc(24 / 13)
+      +sp
+        font-size: 11px
+        line-height: 2
+      .col + .col
+        +sp
+          margin-top: 1em
     .logos
       margin-top: 37px
     .logo + .logo
       margin-left: 48px
+      +sp
+        margin-left: 34px
+    .logo.bunkacho,
+    .logo.expo
+      +sp
+        height: 30px
+        width: auto
   &#onlineEvents
     @extend %wrap
     background-color: #0D1F1F
     color: #E0E0E0
     padding-bottom: 111px
+    +sp
+      padding-bottom: 88px
     h2
       @extend %font_bold
       color: #E0E0E0
       border-top: 1px solid black
       margin: 0
       padding: 50px 0 54px
+      +sp
+        margin-left: -20px
+        margin-right: -20px
+        padding-left: 20px
+        padding-right: 20px
     > p
       margin-bottom: 58px
+      +sp
+        font-size: 12px
+        line-height: calc(25 / 12)
     .col
       .dateTime
         @extend %font_bold
         color: #627CAD
+        +sp
+          font-size: 13px
       h4
         margin-top: 21px
         @extend %font_bold
         font-size: 19px
         color: #E6E6E6
+        +sp
+          font-size: 16px
         &.noLead
           margin: 37px 0 34px
         span.lead
@@ -576,9 +676,16 @@ section
           font-size: 14px
           color: #C7C7C7
           letter-spacing: 0
+          +sp
+            font-size: 11px
+            margin-top: 4px
       .detail
         margin-top: 16px
         @extend %font_medium
+        +sp
+          margin-top: 20px
+          font-size: 11px
+          line-height: 2
     .cols + .cols
       margin-top: 70px
     .cols + p
@@ -599,17 +706,35 @@ section
       transition: background-color 0.2s
       &:hover
         background-color: darken(#464B4E, 7%)
+      +sp
+        font-size: 14px
+        padding: 20px
+      svg
+        +sp
+          width: 41px
+          heitght: auto
   &#reports
     @extend %wrap
     background-color: #000000
     padding-top: 100px
     padding-bottom: 100px
+    +sp
+      padding-top: 75px
     h2
       margin: 0 0 75px
+      +sp
+        margin-bottom: 45px
     > p
       margin-bottom: 70px
+      +sp
+        margin-bottom: 55px
+        font-size: 12px
+        letter-spacing: 0
+        line-height: calc(28 / 12)
     a + a
       margin-top: 75px
+      +sp
+        margin-top: 60px
     a
       display: block
       img
@@ -619,6 +744,8 @@ section
         @extend %font_bold
         font-size: 17px
         margin-top: 19px
+        +sp
+          font-size: 10px
 footer
   @extend %wrap
   @extend %font_light
@@ -628,6 +755,10 @@ footer
   font-size: 15px
   line-height: 2
   letter-spacing: 0.03em
+  +sp
+    padding-top: 60px
+    font-size: 10px
+    padding-bottom: 30px
   a
     margin-left: 0.5em
 #popup
@@ -717,7 +848,8 @@ export default {
   },
   methods: {
     format(datetime) {
-      return dayjs(datetime).format('YYYY.MM.DD HH:mm')
+      // return dayjs(datetime).format('YYYY.MM.DD HH:mm')
+      return dayjs(datetime).format('YYYY.MM.DD')
     }
   },
   head() {
