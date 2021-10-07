@@ -814,32 +814,40 @@ section
     padding-bottom: 100px
     +sp
       padding-top: 75px
-    h2
-      margin: 0 0 75px
-      +sp
-        margin-bottom: 45px
-    > p
-      margin-bottom: 70px
-      +sp
-        margin-bottom: 55px
-        font-size: 12px
-        letter-spacing: 0
-        line-height: calc(28 / 12)
-    a + a
-      margin-top: 75px
-      +sp
-        margin-top: 60px
-    a
-      display: block
-      img
-        width: 100%
-        height: auto
-      p
-        @extend %font_bold
-        font-size: 17px
-        margin-top: 19px
+    .wrap
+      h2
+        margin: 0 0 75px
         +sp
-          font-size: 10px
+          margin-bottom: 45px
+      > p
+        margin-bottom: 70px
+        +sp
+          margin-bottom: 55px
+          font-size: 12px
+          letter-spacing: 0
+          line-height: calc(28 / 12)
+      a + a
+        margin-top: 75px
+        +sp
+          margin-top: 60px
+      a
+        display: block
+        transition: color 0.2s
+        img
+          width: 100%
+          height: auto
+          opacity: 0.85
+          transition: opacity 0.2s
+        &:hover
+          color: white
+          img
+            opacity: 1
+        p
+          @extend %font_bold
+          font-size: 17px
+          margin-top: 19px
+          +sp
+            font-size: 10px
 footer
   @extend %font_light
   background-color: #000000
