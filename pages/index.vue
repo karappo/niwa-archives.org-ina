@@ -1,5 +1,9 @@
 <template lang="pug">
-.root
+.root(:data-sp_menu_visibility="hamOpened+''")
+  #ham(@click="toggleGlobalMenu" :class="{open: hamOpened}")
+    i
+    i
+  .modal_background
   .mv
     h1.en
       img(
@@ -7,11 +11,11 @@
         srcset='~/assets/image/top/logo-en.png 1x, ~/assets/image/top/logo-en@2x.png 2x'
         alt='Incomplete Niwa Archives'
       )
-    nav.globalNav
-      nuxt-link(v-scroll-to="'#about'" to) About
-      nuxt-link(v-scroll-to="'#archives'" to) Archives
-      nuxt-link(v-scroll-to="'#exhibition'" to) Exhibition
-      nuxt-link(v-scroll-to="'#reports'" to) Reports
+    nav.globalNav(:class="{open: hamOpened}")
+      nuxt-link(v-scroll-to="'#about'" @click.native="hamOpened = false" to) About
+      nuxt-link(v-scroll-to="'#archives'" @click.native="hamOpened = false" to) Archives
+      nuxt-link(v-scroll-to="'#exhibition'" @click.native="hamOpened = false" to) Exhibition
+      nuxt-link(v-scroll-to="'#reports'" @click.native="hamOpened = false" to) Reports
     ScrollGuide(
       text="Scroll"
       gutterColor="#000000"
@@ -357,10 +361,76 @@
 <style lang="sass" scoped>
 @import ../assets/style/general/clf
 @import ../assets/style/const
+@keyframes fadeIn
+  0%
+    opacity: 0
+  100%
+    opacity: 1
 .root
   position: relative
   @extend %font_light
   color: #C9E2D4
+  .modal_background
+    display: none
+  &[data-sp_menu_visibility="false"]
+    .globalNav
+      +sp
+        display: none
+        transition-duration: 0.2s
+  &[data-sp_menu_visibility="true"]
+    .modal_background
+      +sp
+        display: block
+        animation: fadeIn 0.3s
+        position: absolute
+        top: 0
+        left: 0
+        // width: calc(100vw + 16px) // スクロールバーを考慮
+        // height: calc(100vh + 16px) // スクロールバーを考慮
+        width: 100%
+        height: 100%
+        background-color: rgba(0,0,0,0.5)
+        z-index: 30
+#ham
+  display: none
+  transition-duration: 0s
+  &:hover
+    +sp
+      opacity: 1
+  +sp
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    vertical-align: middle
+    position: fixed
+    top: 0
+    right: 0
+    width: 107px
+    height: 63px
+    cursor: pointer
+    z-index: 100
+    animation: fadeIn 0.2s
+    animation-fill-mode: forwards
+    i
+      display: block
+      width: 55px
+      height: 1px
+      background-color: #CBD5C8
+      position: relative
+      transform-origin: center
+      transition-duration: 0.1s
+    i + i
+      margin-top: 7px
+    &.open
+      i
+        margin: 0
+        background-color: #CBD5C8
+        &:nth-child(1)
+          margin-bottom: -1px
+          transform: rotate(15deg)
+        &:nth-child(2)
+          transform: rotate(-15deg)
 %wrap
   padding: 0 65px
   +sp
@@ -418,8 +488,25 @@
     z-index: 10
     a + a
       margin-left: 2em
+      +sp
+        margin-left: 0
     +sp
-      display: none
+      background-color: #092F2F
+      padding-left: 37px
+      width: #{250px - 37px}
+      height: 100%
+      position: fixed
+      top: 0
+      right: 0
+      z-index: 90
+      animation: fadeIn 0.2s
+      animation-fill-mode: forwards
+      display: flex
+      justify-content: center
+      flex-direction: column
+      font-size: 22px
+      letter-spacing: 0.06em
+      line-height: calc(40 / 22)
   .footage
     position: absolute
     bottom: 40px
@@ -816,7 +903,8 @@ export default {
   data() {
     return {
       popupVisibility: false,
-      bodyClass: 'top'
+      bodyClass: 'top',
+      hamOpened: false
     }
   },
   computed: {
@@ -839,17 +927,25 @@ export default {
   },
   watch: {
     popupVisibility(val) {
-      let bodyClass = 'top'
-      if (val) {
-        bodyClass += ' noScroll'
-      }
-      this.bodyClass = bodyClass
+      this.bodyClass = val ? 'top noScroll' : 'top'
+    },
+    hamOpened(val) {
+      this.bodyClass = val ? 'top noScroll' : 'top'
     }
   },
   methods: {
     format(datetime) {
       // return dayjs(datetime).format('YYYY.MM.DD HH:mm')
       return dayjs(datetime).format('YYYY.MM.DD')
+    },
+    toggleGlobalMenu() {
+      this.hamOpened = !this.hamOpened
+      // $('#global_header').css('top', 0).attr('data-sp_menu_visibility', this.hamOpened)
+      if (this.hamOpened) {
+        this.bodyClass = 'top noScroll'
+      } else {
+        this.bodyClass = 'top'
+      }
     }
   },
   head() {
