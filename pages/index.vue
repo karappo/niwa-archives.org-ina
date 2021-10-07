@@ -850,7 +850,7 @@ footer
     margin-left: 0.5em
 #popup
   position: fixed
-  z-index: 20
+  z-index: 200
   top: 0vh
   background-color: #819A9A
   overflow-y: scroll
@@ -867,6 +867,11 @@ footer
     top: 43px
     right: 38px
     cursor: pointer
+    +sp
+      width: 98px
+      height: auto
+      top: 27px
+      right: 20px
   h2
     margin: 105px 0 65px
     @extend %font_light
