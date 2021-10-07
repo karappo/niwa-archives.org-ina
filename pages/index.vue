@@ -285,18 +285,6 @@ section
     font-size: 30px
   .cols + .cols
     margin-top: 2em
-  .cols
-    @extend .clf
-    .col
-      float: left
-    .col + .col
-      margin-left: 50px
-    &[data-col="2"]
-      .col
-        width: calc((100% - 50px) / 2)
-    &[data-col="4"]
-      .col
-        width: calc((100% - 150px) / 4)
 
   &#about
     padding-top: 100px

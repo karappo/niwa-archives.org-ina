@@ -1,6 +1,7 @@
 @import general/fixes
 @import general/reset-2
 @import general/const
+@import general/clf
 @import const
 @import annotation
 
@@ -67,3 +68,16 @@ a.disabled
 // #potree_quick_buttons,
 // #sidebar_root
 //   display: none
+
+.cols
+  @extend .clf
+  .col
+    float: left
+  .col + .col
+    margin-left: 50px
+  &[data-col="2"]
+    .col
+      width: calc((100% - 50px) / 2)
+  &[data-col="4"]
+    .col
+      width: calc((100% - 150px) / 4)
