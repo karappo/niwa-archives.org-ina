@@ -63,14 +63,22 @@
         )
     .garden.murin_an
       .cols(data-col="4")
-        nuxt-link.image.sp(to='/murin_an-summer/')
+        transition(name="fade")
+          .overlay(v-if="select3dVisibiligy" @click="select3dVisibiligy = false")
+            .select3D
+              h6 Select 3D Data
+              nav
+                nuxt-link(to='/murin_an-summer/') Summer
+                nuxt-link(to='/murin_an-winter/') Winter
+                nuxt-link(to='/murin_an-snow/') Snow
+        .image.sp(@click="showSelect3d")
           img(
             src='~/assets/image/top/murin_an-sp.jpg'
             alt='無鄰菴の点群'
           )
-        .col.jaName
+        .col.jaName(@click="showSelect3d")
           h3 無鄰菴庭園
-        .col.enName
+        .col.enName(@click="showSelect3d")
           | Murin-an Garden<br class="pc">
           | Kyoto
         .col.date
@@ -571,6 +579,42 @@ section
       @extend %wrap
       margin-bottom: 48px
     .garden
+      .cols
+        > .overlay
+          position: fixed
+          top: 0
+          left: 0
+          width: 100vw
+          height: 100vh
+          background-color: rgba(10,21,21,0.4)
+          z-index: 100
+          display: flex
+          justify-content: center
+          align-items: center
+          .select3D
+            padding: 0 13px 13px
+            background-color: #101010
+            border-radius: 9px
+            h6
+              font-size: 14px
+              font-family: 'K2-v1-Bold'
+              color: #EAEAEA
+              padding: 22px
+              text-align: center
+            nav
+              a + a
+                margin-top: 2px
+              a
+                display: flex
+                justify-content: center
+                align-items: center
+                background-color: rgba(0,0,0,0.9)
+                font-size: 16px
+                font-family:
+                font-family: 'K2-v1-Bold'
+                color: #A5A5A5
+                width: 245px
+                height: 60px
       .image
         &.sp
           display: none
@@ -893,6 +937,13 @@ footer
     @extend %font_light
     font-size: 14px
 
+.fade-enter-active,
+.fade-leave-active
+  transition: opacity 1s
+.fade-enter,
+.fade-leave-to
+  opacity: 0
+
 .slideUp-enter-active,
 .slideUp-leave-active
   transition: top 1s, opacity 1s
@@ -925,7 +976,8 @@ export default {
     return {
       popupVisibility: false,
       bodyClass: 'top',
-      hamOpened: false
+      hamOpened: false,
+      select3dVisibiligy: false
     }
   },
   computed: {
@@ -952,6 +1004,10 @@ export default {
     },
     hamOpened(val) {
       this.bodyClass = val ? 'top noScroll' : 'top'
+    },
+    select3dVisibiligy(val) {
+      this.bodyClass = val ? 'top noScroll' : 'top'
+      console.log('select3dVisibiligy', val, this.bodyClass)
     }
   },
   methods: {
@@ -966,6 +1022,11 @@ export default {
         this.bodyClass = 'top noScroll'
       } else {
         this.bodyClass = 'top'
+      }
+    },
+    showSelect3d() {
+      if (this.$device.isMobile) {
+        this.select3dVisibiligy = true
       }
     }
   },
