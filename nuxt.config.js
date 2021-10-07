@@ -85,6 +85,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
+    'nuxt-device-detect',
     'nuxt-ua'
   ],
 

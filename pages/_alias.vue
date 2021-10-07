@@ -1,74 +1,75 @@
 <template lang="pug">
 .root
-  main
-    splitpanes.default-theme
-      pane.potree_container(
-        size="60"
-      )
-        //- TODO 追々対応が確認できたら個々の条件を見直すこと
-        .notice(v-if="!$ua.is.chrome && noticeVisibility")
-          | このブラウザは推奨環境ではないため不具合発生の可能性があります。
-          ExternalLink(href="https://www.google.com/chrome/") Chrome
-          //- | または
-          //- ExternalLink(href="https://www.mozilla.org/ja/firefox/new/") Firefox
-          | でご覧ください。
-          .closeButton(@click="noticeVisibility = false")
-            IconClose
-        .potree_wrap
-          #potree_render_area(
-            ref="potree_render_area"
-            :class="potreeRenderAreaClass"
+  SorryScreen(v-if="$device.isMobile")
+  template(v-else)
+    main
+      splitpanes.default-theme
+        pane.potree_container(
+          size="60"
+        )
+          //- TODO 追々対応が確認できたら個々の条件を見直すこと
+          .notice(v-if="!$ua.is.chrome && noticeVisibility")
+            | このブラウザは推奨環境ではないため不具合発生の可能性があります。
+            ExternalLink(href="https://www.google.com/chrome/") Chrome
+            //- | または
+            //- ExternalLink(href="https://www.mozilla.org/ja/firefox/new/") Firefox
+            | でご覧ください。
+            .closeButton(@click="noticeVisibility = false")
+              IconClose
+          .potree_wrap
+            #potree_render_area(
+              ref="potree_render_area"
+              :class="potreeRenderAreaClass"
+            )
+              .controls
+                h1.title
+                  span.global Incomplete Niwa Archives
+                  span.scene {{ data.title }}
+                template(v-if="tourName")
+                  TourIndicator(
+                    :numerator="listData.list.length"
+                    :denominator="currentIndex + 1"
+                  )
+                  StopTourButton
+                template(v-else)
+                  KeyMap
+            #potree_sidebar_container
+        pane.drawer(
+          v-if="!(tourName && tourName.includes('without Annotations')) && (listData || annotationData)"
+          size="40"
+          min-size="25"
+          max-size="75"
+          :class="{border: !tourName}"
+        )
+          //- TODO Historyを開いた状態で、Annotationをクリックしたら開かない…
+          DrawerHistory(
+            v-if="$store.getters.pageName === 'History'"
           )
-            .controls
-              h1.title
-                span.global Incomplete Niwa Archives
-                span.scene {{ data.title }}
-              template(v-if="tourName")
-                TourIndicator(
-                  :numerator="listData.list.length"
-                  :denominator="currentIndex + 1"
-                )
-                StopTourButton
-              template(v-else)
-                KeyMap
-          #potree_sidebar_container
-      pane.drawer(
-        v-if="!(tourName && tourName.includes('without Annotations')) && (listData || annotationData)"
-        size="40"
-        min-size="25"
-        max-size="75"
-        :class="{border: !tourName}"
-      )
-        //- TODO Historyを開いた状態で、Annotationをクリックしたら開かない…
-        DrawerHistory(
-          v-if="$store.getters.pageName === 'History'"
-        )
-        Drawer3DData(
-          v-else-if="$store.getters.pageName === '3D Data'"
-        )
-        DrawerAnnotation(
-          v-else-if="annotationData"
-          :data="annotationData"
-          :annotations="annotations"
-          :prevNextVisibility="prevNextVisibility"
-          :prevDisabled="prevDisabled"
-          :nextDisabled="nextDisabled"
-          @backToList="clearSelectedAnnotation"
-          @prev="prev"
-          @next="next"
-        )
-        DrawerList(
-          v-else-if="listData"
-          :data="listData"
-          @next="next"
-        )
-    SoundBar(:annotations="annotations")
-  SideBar.sideBar(
-    v-if="!tourName"
-    :guidedTourExists="0 < data.guidedTour.length"
-    @saveCameraInfo="saveCameraInfo"
-  )
-  //- Footer.footer
+          Drawer3DData(
+            v-else-if="$store.getters.pageName === '3D Data'"
+          )
+          DrawerAnnotation(
+            v-else-if="annotationData"
+            :data="annotationData"
+            :annotations="annotations"
+            :prevNextVisibility="prevNextVisibility"
+            :prevDisabled="prevDisabled"
+            :nextDisabled="nextDisabled"
+            @backToList="clearSelectedAnnotation"
+            @prev="prev"
+            @next="next"
+          )
+          DrawerList(
+            v-else-if="listData"
+            :data="listData"
+            @next="next"
+          )
+      SoundBar(:annotations="annotations")
+    SideBar.sideBar(
+      v-if="!tourName"
+      :guidedTourExists="0 < data.guidedTour.length"
+      @saveCameraInfo="saveCameraInfo"
+    )
 </template>
 
 <style lang="sass" scoped>
@@ -336,6 +337,10 @@ export default {
     }
   },
   async mounted() {
+    // eslint-disable-next-line
+    if (this.$device.isMobile) {
+      return
+    }
     const viewer = new Potree.Viewer(this.$refs.potree_render_area)
     window.viewer = viewer
     viewer.setFOV(75)
@@ -434,6 +439,10 @@ export default {
     }, 1000)
   },
   beforeDestroy() {
+    // eslint-disable-next-line
+    if (this.$device.isMobile) {
+      return
+    }
     this.$nuxt.$off('closeDrawer', this.closeDrawer)
     this.$nuxt.$off('settingUpdated')
     this.$nuxt.$off('setControlMode', this.setControlMode)
