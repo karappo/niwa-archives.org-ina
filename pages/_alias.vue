@@ -75,7 +75,7 @@
 <style lang="sass" scoped>
 .root
   width: 100%
-  height: 100vh
+  height: var(--vh)
   background: #000
   display: flex
 main

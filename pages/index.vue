@@ -450,7 +450,7 @@
     padding: 0 20px
 .mv
   width: 100%
-  height: 100vh
+  height: var(--vh)
   display: flex
   justify-content: center
   align-items: center
@@ -585,7 +585,7 @@ section
           top: 0
           left: 0
           width: 100vw
-          height: 100vh
+          height: var(--vh)
           background-color: rgba(10,21,21,0.4)
           z-index: 100
           display: flex
@@ -915,7 +915,7 @@ footer
   background-color: #819A9A
   overflow-y: scroll
   width: 100%
-  height: 100vh
+  height: var(--vh)
   font-size: 14px
   line-height: calc(30 / 14)
   color: #272727
@@ -950,7 +950,7 @@ footer
   transition: top 1s, opacity 1s
 .slideUp-enter,
 .slideUp-leave-to
-  top: 100vh
+  top: var(--vh)
   opacity: 0
 </style>
 
