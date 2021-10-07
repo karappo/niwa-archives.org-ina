@@ -291,6 +291,7 @@ export default {
     }
   },
   mounted() {
+    FONTPLUS.start()
     if (
       !this.data.youtube &&
       !this.data.movie &&

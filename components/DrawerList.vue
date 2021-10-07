@@ -160,6 +160,7 @@ export default {
     }
   },
   mounted() {
+    FONTPLUS.start()
     this.$nuxt.$on('setTagIndexStr', this.setTagIndexStr)
   },
   beforeDestroy() {

@@ -123,3 +123,11 @@ article
   line-height: 2
   color: #898989
 </style>
+
+<script>
+export default {
+  mounted() {
+    FONTPLUS.start()
+  }
+}
+</script>

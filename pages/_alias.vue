@@ -337,6 +337,7 @@ export default {
     }
   },
   async mounted() {
+    FONTPLUS.start()
     if (this.$device.isMobile) {
       return
     }

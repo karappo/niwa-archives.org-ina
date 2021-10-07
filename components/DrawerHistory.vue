@@ -73,6 +73,9 @@ import { ExternalLink } from '@karappo-inc/vue-components'
 export default {
   components: {
     ExternalLink
+  },
+  mounted() {
+    FONTPLUS.start()
   }
 }
 </script>

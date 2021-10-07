@@ -1013,10 +1013,10 @@ export default {
     }
   },
   reated() {
-    FONTPLUS.async() // FONTPLUSの処理を一時停止
+    FONTPLUS.async()
   },
   mounted() {
-    FONTPLUS.start() // FONTPLUSの処理を開始
+    FONTPLUS.start()
   },
   methods: {
     format(datetime) {
