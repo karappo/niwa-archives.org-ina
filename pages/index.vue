@@ -341,7 +341,7 @@
             | Nakaue Junji (YCAM InterLab), Ishii Eiichi<br>
             | Development of Acoustic Recognition System: <br>
             | Jo Kazuhiro (Kyushu University / YCAM InterLab),<br>
-            | Anzai Reo ((Tokyo University of the Arts), Okazaki Keisuke (Keio University)<br>
+            | Anzai Reo (Tokyo University of the Arts), Okazaki Keisuke (Keio University)<br>
             | <br>
             | Oral Archives: Ito Shogo (President of Ito Zoen LLC.), Tanaka Hiroshi (Curator, Zoology department of Yamaguchi museum), Yano Hitoshi (Kyoritsu Chika Kougyo Co., Ltd.),<br>
             | Fujiwara Toshihiro (Arborist)<br>
