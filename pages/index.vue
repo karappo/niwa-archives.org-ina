@@ -63,7 +63,7 @@
         )
     .garden.murin_an
       .cols(data-col="4")
-        nuxt-link.image.sp(to='/murin_an/')
+        nuxt-link.image.sp(to='/murin_an-summer/')
           img(
             src='~/assets/image/top/murin_an-sp.jpg'
             alt='無鄰菴の点群'
