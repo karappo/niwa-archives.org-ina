@@ -920,6 +920,7 @@ footer
   color: #272727
   .wrap
     @extend %wrap
+    max-width: initial
     padding-top: 40px
     padding-bottom: 100px
   .popupClose
