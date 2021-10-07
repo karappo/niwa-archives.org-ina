@@ -1012,6 +1012,12 @@ export default {
       console.log('select3dVisibiligy', val, this.bodyClass)
     }
   },
+  reated() {
+    FONTPLUS.async() // FONTPLUSの処理を一時停止
+  },
+  mounted() {
+    FONTPLUS.start() // FONTPLUSの処理を開始
+  },
   methods: {
     format(datetime) {
       // return dayjs(datetime).format('YYYY.MM.DD HH:mm')

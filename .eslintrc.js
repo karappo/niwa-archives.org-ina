@@ -29,6 +29,7 @@ module.exports = {
   },
   globals: {
     '$': true,
+    'FONTPLUS': true,
     'Potree': true,
     'THREE': true
   }
