@@ -51,6 +51,7 @@ export default {
   plugins: [
     '~plugins/element-ui',
     '~plugins/util',
+    '~plugins/vue-scrollto',
     '~plugins/key-detection',
     '~plugins/splitpanes',
     '~plugins/vue-youtube'

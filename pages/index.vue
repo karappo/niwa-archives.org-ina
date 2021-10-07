@@ -8,10 +8,10 @@
         alt='Incomplete Niwa Archives'
       )
     nav.globalNav
-      a(href='#about') About
-      a(href='#archives') Archives
-      a(href='#exhibition') Exhibition
-      a(href='#reports') Reports
+      nuxt-link(v-scroll-to="'#about'" to='') About
+      nuxt-link(v-scroll-to="'#archives'" to='') Archives
+      nuxt-link(v-scroll-to="'#exhibition'" to='') Exhibition
+      nuxt-link(v-scroll-to="'#reports'" to='') Reports
     ScrollGuide(
       text="Scroll"
       gutterColor="#000000"
@@ -271,12 +271,12 @@
     text-align: right
 section
   background-color: #0B101A
-  padding-top: 34px
+  padding-top: 143px
   font-size: 14px
   line-height: 2
   letter-spacing: 0.06em
   h2
-    margin: 100px 0 84px
+    margin-bottom: 84px
     font-size: 15px
     font-weight: normal
     letter-spacing: 0
@@ -299,6 +299,7 @@ section
         width: calc((100% - 150px) / 4)
 
   &#about
+    padding-top: 100px
     @extend %wrap
 
   &#archives
