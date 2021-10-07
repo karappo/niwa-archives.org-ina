@@ -914,13 +914,13 @@ footer
   top: 0vh
   background-color: #819A9A
   overflow-y: scroll
+  width: 100%
   height: 100vh
   font-size: 14px
   line-height: calc(30 / 14)
   color: #272727
   .wrap
     @extend %wrap
-    max-width: initial
     padding-top: 40px
     padding-bottom: 100px
   .popupClose
