@@ -17,3 +17,6 @@ RewriteCond %{HTTPS} Off [OR]
 RewriteCond %{SERVER_PORT} ^80$
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
+
+# https://special.ycam.jp/niwa/assets/Towards_a_New_Archive_of_Gardens.pdfへのリンクを転送
+RedirectMatch (.*)Towards_a_New_Archive_of_Gardens¥.pdf$ /2019/Towards_a_New_Archive_of_Gardens.pdf
