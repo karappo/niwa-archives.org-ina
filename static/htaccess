@@ -1,15 +1,3 @@
-# Basic Auth
-#DEP_REMOTE_RM <Files ~ "^.(htaccess|htpasswd)$">
-#DEP_REMOTE_RM deny from all
-#DEP_REMOTE_RM </Files>
-#DEP_TEST_RM AuthUserFile /home/users/0/karappo/web/sites/niwa.karappo.net/.htpasswd
-#DEP_PRODUCTION_RM AuthUserFile /home/www/html/niwa2/.htpasswd
-#DEP_REMOTE_RM AuthGroupFile /dev/null
-#DEP_REMOTE_RM AuthName "Please enter your ID and password"
-#DEP_REMOTE_RM AuthType Basic
-#DEP_REMOTE_RM require valid-user
-#DEP_REMOTE_RM order deny,allow
-
 # Redirect http to https
 <IfModule mod_rewrite.c>
 RewriteEngine On
