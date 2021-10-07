@@ -8,10 +8,10 @@
         alt='Incomplete Niwa Archives'
       )
     nav.globalNav
-      nuxt-link(v-scroll-to="'#about'" to='') About
-      nuxt-link(v-scroll-to="'#archives'" to='') Archives
-      nuxt-link(v-scroll-to="'#exhibition'" to='') Exhibition
-      nuxt-link(v-scroll-to="'#reports'" to='') Reports
+      nuxt-link(v-scroll-to="'#about'" to) About
+      nuxt-link(v-scroll-to="'#archives'" to) Archives
+      nuxt-link(v-scroll-to="'#exhibition'" to) Exhibition
+      nuxt-link(v-scroll-to="'#reports'" to) Reports
     ScrollGuide(
       text="Scroll"
       gutterColor="#000000"
