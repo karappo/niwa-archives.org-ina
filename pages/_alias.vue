@@ -337,7 +337,6 @@ export default {
     }
   },
   async mounted() {
-    // eslint-disable-next-line
     if (this.$device.isMobile) {
       return
     }
@@ -439,7 +438,6 @@ export default {
     }, 1000)
   },
   beforeDestroy() {
-    // eslint-disable-next-line
     if (this.$device.isMobile) {
       return
     }
