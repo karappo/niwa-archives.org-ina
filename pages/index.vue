@@ -115,108 +115,111 @@
           alt='無鄰菴の点群'
         )
   section#exhibition
-    h2 Exhibition
-    img.ycam(
-      src='~/assets/image/top/logo-ycam.png'
-      alt='YCAMのロゴ'
-    )
-    h3
-      | 原瑠璃彦+YCAM　共同研究成果展示<br>
-      | Incomplete Niwa Arhives <br class="sp">― 終わらない庭のアーカイブ
-    .place
-      | 2021年10月8日（金）〜 2022年1月30日（日）<br>
-      | 山口情報芸術センター［YCAM］2階ギャラリー
-    .info.cols(data-col="2")
-      .col
-        | 主催：山口市、公益財団法人山口市文化振興財団<br>
-        | 後援：山口市教育委員会<br>
-        | 助成：令和3年度日本博を契機とする文化資源コンテンツ創成事業<br>
-        | 共同開発：YCAM InterLab<br>
-        | 企画制作：山口情報芸術センター［YCAM］<br>
-        | <br>
-        | ＊本展示の一部は、科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」（2019-21年度、研究代表者：原瑠璃彦、課題番号：19H01225）による研究成果です。<br>
-        | <br>
-        | 庭園アーカイヴ・プロジェクト：原瑠璃彦（静岡大学）、伊藤隆之（YCAM）、高原文江（YCAM）、津田和俊（YCAM、京都工芸繊維大学）、城一裕（YCAM、九州大学）<br>
-        | <br>
-        | 企画制作：菅沼聖（YCAM）、会田大也（YCAM）、原瑠璃彦（静岡大学）
-      .col
-        | ウェブデザイン・開発／グラフィック・デザイン：KARAPPO Inc.<br>
-        | 空間デザイン：ALTEMY<br>
-        | プログラミング：白木良<br>
-        | <br>
-        | 3Dスキャン・点群編集：井上智博（京都工芸繊維大学 KYOTO Design Lab）<br>
-        | 常栄寺庭園 3Dスキャン 協力：石井栄一、西本文博<br>
-        | 無鄰菴庭園 3Dスキャン 協力：孫夢（京都工芸繊維大学 KYOTO Design Lab）<br>
-        | 常栄寺庭園 サウンド・レコーディング 協力：中上淳二（YCAM InterLab）、石井栄一<br>
-        | サウンド・システム開発：安齋励應（東京藝術大学）、岡﨑圭佑（慶應義塾大学）<br>
-        | <br>
-        | 映像データ整理：石井栄一<br>
-        | 画像権利処理協力：木村英恵<br>
-        | <br>
-        | 謝辞：宗教法人 常栄寺、  山口市文化財保護課、京都市、無鄰菴管理事務所、<br>
-        | 植彌加藤造園株式会社、宗教法人 龍源院
-    .logos.cols(data-col="2")
-      .col
-        img.logo.bunkacho(
-          src='~/assets/image/top/logo-bunkacho.png'
-          alt='文化庁のロゴ'
-        )
-        img.logo.expo(
-          src='~/assets/image/top/logo-expo.png'
-          alt='日本博のロゴ'
-        )
+    .wrap
+      h2 Exhibition
+      img.ycam(
+        src='~/assets/image/top/logo-ycam.png'
+        alt='YCAMのロゴ'
+      )
+      h3
+        | 原瑠璃彦+YCAM　共同研究成果展示<br>
+        | Incomplete Niwa Arhives <br class="sp">― 終わらない庭のアーカイブ
+      .place
+        | 2021年10月8日（金）〜 2022年1月30日（日）<br>
+        | 山口情報芸術センター［YCAM］2階ギャラリー
+      .info.cols(data-col="2")
+        .col
+          | 主催：山口市、公益財団法人山口市文化振興財団<br>
+          | 後援：山口市教育委員会<br>
+          | 助成：令和3年度日本博を契機とする文化資源コンテンツ創成事業<br>
+          | 共同開発：YCAM InterLab<br>
+          | 企画制作：山口情報芸術センター［YCAM］<br>
+          | <br>
+          | ＊本展示の一部は、科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」（2019-21年度、研究代表者：原瑠璃彦、課題番号：19H01225）による研究成果です。<br>
+          | <br>
+          | 庭園アーカイヴ・プロジェクト：原瑠璃彦（静岡大学）、伊藤隆之（YCAM）、高原文江（YCAM）、津田和俊（YCAM、京都工芸繊維大学）、城一裕（YCAM、九州大学）<br>
+          | <br>
+          | 企画制作：菅沼聖（YCAM）、会田大也（YCAM）、原瑠璃彦（静岡大学）
+        .col
+          | ウェブデザイン・開発／グラフィック・デザイン：KARAPPO Inc.<br>
+          | 空間デザイン：ALTEMY<br>
+          | プログラミング：白木良<br>
+          | <br>
+          | 3Dスキャン・点群編集：井上智博（京都工芸繊維大学 KYOTO Design Lab）<br>
+          | 常栄寺庭園 3Dスキャン 協力：石井栄一、西本文博<br>
+          | 無鄰菴庭園 3Dスキャン 協力：孫夢（京都工芸繊維大学 KYOTO Design Lab）<br>
+          | 常栄寺庭園 サウンド・レコーディング 協力：中上淳二（YCAM InterLab）、石井栄一<br>
+          | サウンド・システム開発：安齋励應（東京藝術大学）、岡﨑圭佑（慶應義塾大学）<br>
+          | <br>
+          | 映像データ整理：石井栄一<br>
+          | 画像権利処理協力：木村英恵<br>
+          | <br>
+          | 謝辞：宗教法人 常栄寺、  山口市文化財保護課、京都市、無鄰菴管理事務所、<br>
+          | 植彌加藤造園株式会社、宗教法人 龍源院
+      .logos.cols(data-col="2")
+        .col
+          img.logo.bunkacho(
+            src='~/assets/image/top/logo-bunkacho.png'
+            alt='文化庁のロゴ'
+          )
+          img.logo.expo(
+            src='~/assets/image/top/logo-expo.png'
+            alt='日本博のロゴ'
+          )
   section#onlineEvents
-    h2 関連オンラインイベント
-    p
-      | 展覧会のオンラインイベントを、<br>
-      | 「INA」Youtube チャンネル上で行います。（参加無料）
-    .cols(data-col="2")
-      .col
-        span.dateTime 2021年10月9日（土） 19:00〜20:30
-        h4
-          | 庭と山口情報芸術センター（YCAM）
-          span.lead ――「INA」前史とその研究活動
-        p.detail 登壇者：原瑠璃彦（静岡大学）、伊藤隆之（YCAM）、高原文江（YCAM）、城一裕（YCAM、九州大学）、津田和俊（YCAM、京都工芸繊維大学）、会田大也（YCAM）
-      .col
-        span.dateTime 2021年10月30日（土）　19:00〜20:30
-        h4
-          | 庭とウェブメディア・デザイン・アーカイヴ
-          span.lead ――「INA」ウェブサイトの開発
-        p.detail 登壇者：三尾康明（KARAPPO Inc.）、寺田直和（KARAPPO Inc.）、原瑠璃彦ほか
-    .cols(data-col="2")
-      .col
-        span.dateTime 2021年11月13日（土）　19:00〜20:30
-        h4
-          | 庭と空間・身体性・アーカイヴ
-          span.lead ――「INA」インスタレーション・ヴァージョンの制作プロセス
-        p.detail 登壇者：津川恵理（ALTEMY）、戸村陽（ALTEMY）、白木良（プログラマー）、原瑠璃彦ほか
-      .col
-        span.dateTime 2021年12月11日（土）　17:00〜18:30
-        h4.noLead 日本庭園のアーカイヴの歴史と未来
-        p.detail 登壇者：粟野隆（東京農業大学）、エマニュエル・マレス（京都産業大学）、原瑠璃彦ほか
-    p 2022年1月には、映画「動いている庭」ほかの上映、トークイベントを予定しています。
-    ExternalLink.youtube(href="https://www.youtube.com/channel/UCtZit5KBQw8olVPRWnDdG0w")
-      | YOUTUBE CHANNEL
-      YoutubeArrow
+    .wrap
+      h2 関連オンラインイベント
+      p
+        | 展覧会のオンラインイベントを、<br>
+        | 「INA」Youtube チャンネル上で行います。（参加無料）
+      .cols(data-col="2")
+        .col
+          span.dateTime 2021年10月9日（土） 19:00〜20:30
+          h4
+            | 庭と山口情報芸術センター（YCAM）
+            span.lead ――「INA」前史とその研究活動
+          p.detail 登壇者：原瑠璃彦（静岡大学）、伊藤隆之（YCAM）、高原文江（YCAM）、城一裕（YCAM、九州大学）、津田和俊（YCAM、京都工芸繊維大学）、会田大也（YCAM）
+        .col
+          span.dateTime 2021年10月30日（土）　19:00〜20:30
+          h4
+            | 庭とウェブメディア・デザイン・アーカイヴ
+            span.lead ――「INA」ウェブサイトの開発
+          p.detail 登壇者：三尾康明（KARAPPO Inc.）、寺田直和（KARAPPO Inc.）、原瑠璃彦ほか
+      .cols(data-col="2")
+        .col
+          span.dateTime 2021年11月13日（土）　19:00〜20:30
+          h4
+            | 庭と空間・身体性・アーカイヴ
+            span.lead ――「INA」インスタレーション・ヴァージョンの制作プロセス
+          p.detail 登壇者：津川恵理（ALTEMY）、戸村陽（ALTEMY）、白木良（プログラマー）、原瑠璃彦ほか
+        .col
+          span.dateTime 2021年12月11日（土）　17:00〜18:30
+          h4.noLead 日本庭園のアーカイヴの歴史と未来
+          p.detail 登壇者：粟野隆（東京農業大学）、エマニュエル・マレス（京都産業大学）、原瑠璃彦ほか
+      p 2022年1月には、映画「動いている庭」ほかの上映、トークイベントを予定しています。
+      ExternalLink.youtube(href="https://www.youtube.com/channel/UCtZit5KBQw8olVPRWnDdG0w")
+        | YOUTUBE CHANNEL
+        YoutubeArrow
   section#reports
-    h2 Reports
-    p
-      | 庭園アーカイブプロジェクトは3年間のプロジェクトです。<br>
-      | ここでは1年毎のレポートを公開しています。
-    a(href="/2020/" target="_blank")
-      img(
-        src='~/assets/image/top/2020.jpg'
-        srcset='~/assets/image/top/2020.jpg 1x, ~/assets/image/top/2020@2x.jpg 2x'
-        alt='イメージ'
-      )
-      p 2020：「Incomplete Niwa Archives 終らない庭のアーカイヴ」へ
-    a(href="/2019/Towards_a_New_Archive_of_Gardens.pdf" target="_blank")
-      img(
-        src='~/assets/image/top/2019.jpg'
-        srcset='~/assets/image/top/2019.jpg 1x, ~/assets/image/top/2019@2x.jpg 2x'
-        alt='イメージ'
-      )
-      p 2019： 庭の新しいアーカイヴをめざして [PDF]
+    .wrap
+      h2 Reports
+      p
+        | 庭園アーカイブプロジェクトは3年間のプロジェクトです。<br>
+        | ここでは1年毎のレポートを公開しています。
+      a(href="/2020/" target="_blank")
+        img(
+          src='~/assets/image/top/2020.jpg'
+          srcset='~/assets/image/top/2020.jpg 1x, ~/assets/image/top/2020@2x.jpg 2x'
+          alt='イメージ'
+        )
+        p 2020：「Incomplete Niwa Archives 終らない庭のアーカイヴ」へ
+      a(href="/2019/Towards_a_New_Archive_of_Gardens.pdf" target="_blank")
+        img(
+          src='~/assets/image/top/2019.jpg'
+          srcset='~/assets/image/top/2019.jpg 1x, ~/assets/image/top/2019@2x.jpg 2x'
+          alt='イメージ'
+        )
+        p 2019： 庭の新しいアーカイヴをめざして [PDF]
   footer
     p
       | 科学研究費 基盤研究 (B)<br>
@@ -433,6 +436,8 @@
           transform: rotate(-15deg)
 %wrap
   padding: 0 65px
+  max-width: 1150px
+  margin: 0 auto
   +sp
     padding: 0 20px
 .mv
@@ -545,7 +550,8 @@ section
       margin-bottom: 4px
   .cols + .cols
     margin-top: 2em
-
+  > .wrap
+    @extend %wrap
   &#about
     padding-top: 100px
     @extend %wrap
@@ -661,11 +667,11 @@ section
         margin-top: 60px
 
   &#exhibition
-    @extend %wrap
     background-color: #0D1F1F
-    margin-top: 250px
-    padding-bottom: 78px
     color: rgba(255,255,255,0.6)
+    margin-top: 250px
+    padding-top: 0
+    padding-bottom: 78px
     +sp
       margin-top: 140px
     h2
@@ -719,7 +725,7 @@ section
         height: 30px
         width: auto
   &#onlineEvents
-    @extend %wrap
+    padding-top: 0
     background-color: #0D1F1F
     color: #E0E0E0
     padding-bottom: 111px
@@ -730,8 +736,10 @@ section
       color: #E0E0E0
       border-top: 1px solid black
       margin: 0
+      font-size: 18px
       padding: 50px 0 54px
       +sp
+        font-size: 16px
         margin-left: -20px
         margin-right: -20px
         padding-left: 20px
@@ -801,7 +809,6 @@ section
           width: 41px
           heitght: auto
   &#reports
-    @extend %wrap
     background-color: #000000
     padding-top: 100px
     padding-bottom: 100px
@@ -834,7 +841,6 @@ section
         +sp
           font-size: 10px
 footer
-  @extend %wrap
   @extend %font_light
   background-color: #000000
   padding-top: 100px
@@ -842,6 +848,8 @@ footer
   font-size: 15px
   line-height: 2
   letter-spacing: 0.03em
+  > p
+    @extend %wrap
   +sp
     padding-top: 60px
     font-size: 10px
