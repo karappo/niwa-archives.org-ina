@@ -9,7 +9,7 @@
         )
           //- TODO 追々対応が確認できたら個々の条件を見直すこと
           .notice(v-if="!$ua.is.chrome && noticeVisibility")
-            | このブラウザは推奨環境ではないため不具合発生の可能性があります。
+            | このブラウザは閲覧時に不具合の可能性があります。デスクトップ版
             ExternalLink(href="https://www.google.com/chrome/") Chrome
             //- | または
             //- ExternalLink(href="https://www.mozilla.org/ja/firefox/new/") Firefox
