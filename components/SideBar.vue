@@ -1,7 +1,7 @@
 <template lang="pug">
 aside
   nuxt-link.backToTop(to="/")
-    span Back to Top
+    span Back to top
     MenuArrow
   h2 Outlines
   section.outlines
