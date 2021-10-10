@@ -83,6 +83,7 @@ main
   flex-direction: column
   width: 100%
 .sideBar
+  flex-shrink: 0
   width: 165px
   height: 100%
   margin: 0
