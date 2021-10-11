@@ -12,6 +12,8 @@
   &.disabled
     opacity: 0.5
     pointer-events: none
+  /deep/ .el-checkbox
+    margin-right: 12px
   /deep/ .el-checkbox__input.is-checked .el-checkbox__inner
     background-color: #434343
     border-color: #434343

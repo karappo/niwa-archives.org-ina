@@ -49,7 +49,7 @@ aside
   font-family: 'K2-v1-Heavy'
   font-weight: normal
   font-size: 15px
-  padding: 18px 15px
+  padding: 18px 15px 18px 20px
   cursor: pointer
   span
     font-size: 15px
@@ -70,10 +70,11 @@ aside
         path
           fill: white
 section
-  padding: 20px 10px 20px 15px
-  border-top: 1px solid #3C3C3C
-  &:last-child
-    border-bottom: 1px solid #3C3C3C
+  padding: 11px 0
+  border-top: 1px solid #2C2C2C
+  &.outlines,
+  &.tours
+    padding: 15px 0
 h2 + section
   border-top: 0
 .variations
@@ -90,8 +91,12 @@ h2
   font-size: 14px
   line-height: 2
   letter-spacing: 0.01em
-  padding: 2px 10px 2px 20px
+  padding-top: 2px
+  padding-bottom: 2px
+  padding-left: 20px
   margin: 0
+  /deep/ .linkCheck .btn
+    margin-left: 0
 h3
   font-size: 13px
   margin: 0
@@ -108,7 +113,7 @@ h3
     pointer-events: none
 .btn + .btn,
 .linkCheck + .linkCheck
-  margin-top: 10px
+  margin-top: 8px
 .disabled
   &:hover
     text-decoration: line-through

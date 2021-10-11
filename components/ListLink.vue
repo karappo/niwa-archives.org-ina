@@ -20,6 +20,7 @@
   letter-spacing: 0.01em
   display: flex
   align-items: center
+  margin-left: 20px
 
   --bg-color: #{$color_annotationDefault}
   &[data-name='Viewpoints/Still Images']
@@ -54,10 +55,11 @@
     width: 6px
     height: 6px
     background-color: var(--bg-color)
-    margin-right: 8px
+    margin-left: 1px
+    margin-right: 9px
     border-radius: 50%
   .tour
-    margin-right: 10px
+    margin-right: 8px
     path
       fill: var(--bg-color)
   .hyphen
