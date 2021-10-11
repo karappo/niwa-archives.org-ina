@@ -931,7 +931,7 @@ footer
     padding-top: 40px
     padding-bottom: 100px
   .popupClose
-    position: absolute
+    position: fixed
     top: 43px
     right: 38px
     cursor: pointer
