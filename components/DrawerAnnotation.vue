@@ -128,9 +128,13 @@ header
       h6
         @extend %font_bold
       h2
-        margin: 1em 0
+        margin: 1.6em 0 0.3rem
+        color: #ddd
+        font-size: 1.8rem
       h3
-        margin: 0.5em 0
+        margin: 1.4em 0 0
+        color: #DDD
+        font-size: 1.4rem
   .commentForGuidedTour
     background-color: #151515
     color: white
