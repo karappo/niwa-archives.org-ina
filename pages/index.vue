@@ -501,12 +501,13 @@
     z-index: 10
     a + a
       margin-left: 2em
+    a
       +sp
-        margin-left: 0
+        display: block
+        margin-left: 27px !important
     +sp
       background-color: #092F2F
-      padding-left: 37px
-      width: #{250px - 37px}
+      width: 50%
       height: 100%
       position: fixed
       top: 0
