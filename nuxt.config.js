@@ -42,7 +42,8 @@ export default {
   },
 
   loading: {
-    color: '#C9E2D4'
+    color: '#C9E2D4',
+    height: '4px'
   },
   loadingIndicator: {
     color: '#666666',
