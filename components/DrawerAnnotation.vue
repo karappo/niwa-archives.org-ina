@@ -126,7 +126,7 @@ header
       h4,
       h5,
       h6
-        @extend %font_bold
+        @extend %font_bolder
       h2
         margin: 1.6em 0 0.3rem
         color: #ddd

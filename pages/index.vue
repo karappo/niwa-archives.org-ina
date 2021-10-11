@@ -731,7 +731,7 @@ section
         height: auto
         margin-top: 28px
     h3
-      @extend %font_bold
+      @extend %font_bolder
       clear: both
       font-size: 19px
       line-height: calc(40 / 19)
@@ -740,7 +740,7 @@ section
       +sp
         font-size: 14px
     .place
-      @extend %font_bold
+      @extend %font_bolder
       margin-bottom: 60px
       color: #C3C3C3
       font-size: 14px
@@ -778,7 +778,7 @@ section
       padding-bottom: 88px
     .wrap
       h2
-        @extend %font_bold
+        @extend %font_bolder
         color: #E0E0E0
         border-top: 1px solid black
         margin: 0
@@ -797,13 +797,13 @@ section
           line-height: calc(25 / 12)
       .col
         .dateTime
-          @extend %font_bold
+          @extend %font_bolder
           color: #627CAD
           +sp
             font-size: 13px
         h4
           margin-top: 21px
-          @extend %font_bold
+          @extend %font_bolder
           font-size: 19px
           color: #E6E6E6
           +sp
@@ -813,7 +813,7 @@ section
           span.lead
             display: block
             margin-top: 8px
-            @extend %font_bold
+            @extend %font_bolder
             font-size: 14px
             color: #C7C7C7
             letter-spacing: 0
@@ -830,7 +830,7 @@ section
       .cols + .cols
         margin-top: 70px
       .cols + p
-        @extend %font_bold
+        @extend %font_bolder
         margin-top: 70px
       .youtube
         margin-top: 74px
@@ -889,7 +889,7 @@ section
           img
             opacity: 1
         p
-          @extend %font_bold
+          @extend %font_bolder
           font-size: 17px
           margin-top: 19px
           +sp
