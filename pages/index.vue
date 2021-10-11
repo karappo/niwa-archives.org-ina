@@ -751,6 +751,7 @@ section
         line-height: calc(28 / 12)
         margin-bottom: 34px
     .info
+      @extend %font_medium
       font-size: 13px
       line-height: calc(24 / 13)
       +sp
@@ -792,6 +793,7 @@ section
           padding-left: 20px
           padding-right: 20px
       > p
+        @extend %font_medium
         margin-bottom: 58px
         +sp
           font-size: 12px
@@ -867,6 +869,7 @@ section
         +sp
           margin-bottom: 45px
       > p
+        @extend %font_medium
         margin-bottom: 70px
         +sp
           margin-bottom: 55px
