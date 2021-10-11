@@ -53,6 +53,7 @@ aside
   cursor: pointer
   span
     font-size: 15px
+    letter-spacing: 0.01em
     font-family: 'K2-v1-Bold'
     color: #898989
     margin-right: auto
