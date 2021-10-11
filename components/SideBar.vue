@@ -78,6 +78,7 @@ section
 h2 + section
   border-top: 0
 .variations
+  margin-left: 34px
   margin-top: 10px
   width: 121px
   min-width: 0
