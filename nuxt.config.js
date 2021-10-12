@@ -1,3 +1,8 @@
+const site_title = 'Incomplete Niwa Archives 終らない庭のアーカイヴ'
+const site_description = '2019年4月より始動した庭園アーカイヴ・プロジェクトは、現代のテクノロジーを駆使して、日本庭園の多様な側面をデータ化した新しい総合的アーカイヴを研究開発するものです。'
+// const site_url = 'https://special.ycam.jp/niwa/'
+const site_url = 'https://niwa.ycam.jp'
+
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
@@ -14,10 +19,23 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      // { name: 'google-site-verification', content: '' },
+      { hid: 'description', name: 'description', content: site_description },
+      { hid: 'description', name: 'description', content: site_description },
+      { hid: 'og:site_name', property: 'og:site_name', content: site_title },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:url', property: 'og:url', content: site_url },
+      { hid: 'og:title', property: 'og:title', content: site_title },
+      { hid: 'og:description', property: 'og:description', content: site_description },
+      { hid: 'og:image', property: 'og:image', content: `${site_url}/share.jpg` },
+      { hid: 'twitter:title', property: 'twitter:title', content: site_title },
+      { hid: 'twitter:url', property: 'twitter:url', content: site_url },
+      { hid: 'twitter:description', property: 'twitter:description', content: site_description },
+      { hid: 'twitter:image', property: 'twitter:image', content: `${site_url}/share.jpg` },
+      { hid: 'twitter:card', property: 'twitter:card', content: 'summary_large_image' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', type: 'text/css', href: '/assets/potree/build/potree/potree.css' },
       { rel: 'stylesheet', type: 'text/css', href: '/assets/potree/libs/jstree/themes/mixed/style.css' },
       { rel: 'stylesheet', type: 'text/css', href: '/assets/potree/libs/jquery-ui/jquery-ui.css' },
