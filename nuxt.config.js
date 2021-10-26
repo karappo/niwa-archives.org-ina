@@ -97,7 +97,11 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxtjs/svg',
+    '@nuxtjs/google-analytics'
   ],
+  googleAnalytics: {
+    id: 'UA-70788872-16'
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [

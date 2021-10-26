@@ -25,6 +25,7 @@
     "@karappo-inc/vue-components": "^0.3.1",
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/pwa": "^3.0.2",
     "@nuxtjs/svg": "^0.2.0",
     "change-case": "^4.1.2",
