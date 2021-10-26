@@ -21,6 +21,7 @@
               ref="potree_render_area"
               :class="potreeRenderAreaClass"
             )
+              .debugMenuButton(@click.shift="viewer.toggleSidebar()")
               .controls
                 h1.title
                   span.global Incomplete Niwa Archives
@@ -82,6 +83,15 @@ main
   display: flex
   flex-direction: column
   width: 100%
+.debugMenuButton
+  width: 4px
+  height: 4px
+  background: transparent
+  position: absolute
+  top: 0
+  left: 0
+  cursor: pointer
+  z-index: 100
 .sideBar
   flex-shrink: 0
   width: 165px
@@ -284,6 +294,9 @@ export default {
     }
   },
   computed: {
+    viewer() {
+      return window.viewer
+    },
     prevNextVisibility() {
       return this.listData !== null
     },
