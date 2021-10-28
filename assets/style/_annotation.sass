@@ -5,8 +5,6 @@
   100%
     opacity: 0.8
 
-%titlebar
-  display: block
 %marker_dot
   $size: 4px
   content: ''
@@ -123,15 +121,15 @@
       @extend %marker_dot
     &:hover
       .annotation-titlebar
-        @extend %titlebar
+        display: block
   &[data-camera-dist=near]
     .annotation-titlebar
-      @extend %titlebar
+      display: block
     .annotation-marker
       @extend %marker_dot
   &[data-camera-dist=nearer]
     .annotation-titlebar
-      @extend %titlebar
+      display: block
       left: 55px
       top: -50px
     .annotation-marker
