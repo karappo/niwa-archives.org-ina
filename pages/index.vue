@@ -451,6 +451,7 @@
 .mv
   width: 100%
   height: var(--vh)
+  transition: height 0.2s
   display: flex
   justify-content: center
   align-items: center
