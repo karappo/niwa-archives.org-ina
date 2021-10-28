@@ -459,6 +459,7 @@
   background-position: center
   background-size: cover
   position: relative
+  overflow: hidden
   /deep/
     .scroll_guide_wrap
       position: absolute
