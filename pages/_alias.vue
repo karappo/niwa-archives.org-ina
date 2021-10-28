@@ -573,8 +573,6 @@ export default {
             if (_a._title === a.title) {
               let val = 'middle'
               if (20 < distance) {
-                val = 'further'
-              } else if (15 < distance) {
                 val = 'far'
               } else if (distance <= 5) {
                 val = 'nearer'

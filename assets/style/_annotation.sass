@@ -8,6 +8,7 @@
 %titlebar
   display: block
   position: absolute
+  padding-left: 15px
 %marker_dot
   $size: 4px
   content: ''
@@ -117,24 +118,22 @@
         animation-direction: alternate
     .annotation-label
       color: white
-  &[data-camera-dist=further]
-    // 非表示
   &[data-camera-dist=far]
-    .annotation-marker
-      @extend %marker_dot
+    // 非表示
   &[data-camera-dist=middle]
     .annotation-marker
       @extend %marker_dot
+    &:hover
+      .annotation-titlebar
+        @extend %titlebar
   &[data-camera-dist=near]
     .annotation-titlebar
       @extend %titlebar
-      padding-left: 15px
     .annotation-marker
       @extend %marker_dot
   &[data-camera-dist=nearer]
     .annotation-titlebar
       @extend %titlebar
-      padding-left: 15px
       left: 55px
       top: -50px
     .annotation-marker
