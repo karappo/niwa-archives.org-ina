@@ -82,6 +82,8 @@ article
         white-space: nowrap
         flex: 1
         color: #898989
+        margin-top: 0
+        margin-bottom: 0
       .thumb
         width: 120px
         height: 80px
