@@ -3,7 +3,7 @@
   #ham(@click="toggleGlobalMenu" :class="{open: hamOpened}")
     i
     i
-  .modal_background
+  .modal_background(@click="popupVisibility = hamOpened = false")
   .mv
     h1.en
       img(
@@ -11,7 +11,7 @@
         srcset='~/assets/image/top/logo-en.png 1x, ~/assets/image/top/logo-en@2x.png 2x'
         alt='Incomplete Niwa Archives'
       )
-    nav.globalNav(:class="{open: hamOpened}")
+    nav.globalNav(:class="{visible: spGlobalNavVisibility}")
       nuxt-link(v-scroll-to="'#about'" @click.native="hamOpened = false" to) About
       nuxt-link(v-scroll-to="'#archives'" @click.native="hamOpened = false" to) Archives
       nuxt-link(v-scroll-to="'#exhibition'" @click.native="hamOpened = false" to) Exhibition
@@ -512,7 +512,8 @@
       height: 100%
       position: fixed
       top: 0
-      right: 0
+      transition: right 0.6s
+      right: -50%
       z-index: 90
       animation: fadeIn 0.2s
       animation-fill-mode: forwards
@@ -522,6 +523,9 @@
       font-size: 22px
       letter-spacing: 0.06em
       line-height: calc(40 / 22)
+      &.visible
+        +sp
+          right: 0%
   .footage
     position: absolute
     bottom: 40px
@@ -993,6 +997,8 @@ export default {
       popupVisibility: false,
       bodyClass: 'top',
       hamOpened: false,
+      spGlobalNavVisibility: false,
+      spGlobalNavVisibilityTimer: null,
       select3dVisibiligy: false
     }
   },
@@ -1020,6 +1026,15 @@ export default {
     },
     hamOpened(val) {
       this.bodyClass = val ? 'top noScroll' : 'top'
+      if (val === true) {
+        this.spGlobalNavVisibilityTimer = setTimeout(() => {
+          this.spGlobalNavVisibility = true
+          this.spGlobalNavVisibilityTimer = null
+        }, 0)
+      } else {
+        clearTimeout(this.spGlobalNavVisibilityTimer)
+        this.spGlobalNavVisibility = false
+      }
     },
     select3dVisibiligy(val) {
       this.bodyClass = val ? 'top noScroll' : 'top'
