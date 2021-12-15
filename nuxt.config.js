@@ -122,6 +122,12 @@ export default {
     ]
   },
 
+  // ローカルIPでデバッグしたい時に有効化
+  // server: {
+  //   port: 3000, // デフォルト: 3000
+  //   host: '0.0.0.0' // デフォルト: localhost
+  // },
+
   generate: {
     routes: [
       '/murin_an-snow/',
