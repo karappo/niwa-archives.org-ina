@@ -5,16 +5,22 @@ nuxt/
 <script>
 export default {
   mounted() {
-    window.addEventListener('resize', this.setVH)
-    this.setVH()
+    window.addEventListener('resize', this.resize)
+    this.resize()
+    document.documentElement.style.setProperty(
+      '--initial-vh',
+      `${window.innerHeight}px`
+    )
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.setVH)
+    window.removeEventListener('resize', this.resize)
   },
   methods: {
-    setVH() {
-      const vh = window.innerHeight
-      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    resize() {
+      document.documentElement.style.setProperty(
+        '--vh',
+        `${window.innerHeight}px`
+      )
     }
   }
 }

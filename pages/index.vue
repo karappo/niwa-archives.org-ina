@@ -450,7 +450,7 @@
     padding: 0 20px
 .mv
   width: 100%
-  height: var(--vh)
+  height: var(--initial-vh)
   transition: height 0.2s
   display: flex
   justify-content: center
