@@ -36,6 +36,10 @@ yarn dev
 
 基本的に、pointcolud/は`.depignore`で無視しているので、点群データも更新したい場合は`.depignore`を一時的に修正してdeployすること
 
+```sh
+yarn deploy (test|procution)
+```
+
 ## 1. 点群データのサブサンプリング
 
 目的は、容量削減。CloudCompareを使うが、GUI（Edit > Subsampling）でやろうとすると重いので、CLIでやったほうがよい。
