@@ -235,138 +235,137 @@
       | （課題番号：19H01225、研究代表者：原瑠璃彦）<br>
       | contact:
       MailLink(to="niwaarchive@rurihikohara.com")
-  transition(name="slideUp")
-    #popup(v-if="popupVisibility")
-      PopupClose.popupClose(@click="popupVisibility = false")
-      .wrap
-        h2 Concept
-        .cols(data-col="2")
-          .col
-            | 2019年4月より始動した庭園アーカイヴ・プロジェクトは、現代のテクノロジーを駆使して、日本庭園の多様な側面をデータ化した新しい総合的アーカイヴを研究開発するものです。<br>
-            | 庭とは、時とともに変化してゆきます。建築やいわゆる芸術作品と異なり、庭は、つくられた時点が完成ではありません。庭はそこから歳月をかけることで「時熟」してゆきます。<br>
-            | 古来、人はこうした動態としての庭とともに生きてきました。そこは、様々な活動の場であり、人々の記憶が蓄積しています。<br>
-            | こうした庭を記録するにあたって、これまで、テキスト、図面、絵画、写真、映像など様々な手法が用いられてきました。<br>
-            | 今日、高解像度撮影や実空間の3Dスキャン・3D録音、生物のDNA解析などの技術が発達し、その設備も以前より格段に安価にととのえることが可能になっています。<br>
-            | これらのテクノロジーを用いることで、現代に見合った、新しい日本庭園のアーカイヴの構築できるのではないでしょうか。<br>
-            | 庭のアーカイヴ化は、矛盾を孕んだ課題でもあります。<br>
-            | どのようにしても、庭のアーカイヴは不十分なものとなります。限られた時間、限られた空間、限られたサンプルしか、データを採取することはできません。庭に完成はなく、「終り」はありませんが、そのアーカイヴもまた完成はなく、終わりはないものとなるでしょう。<br>
-            | こうした無謀ともいえる試みをあえて行うことによって、庭というものを問い直すこともまたこのプロジェクトの目的です。
-          .col
-            | Launched in April 2019, the Garden Archives Project aims to study and develop a new kind of comprehensive archives that digitally survey Japanese gardens’ diverse aspects.<br>
-            | Gardens, niwa in Japanese, change with time. In contact to architecture and artworks in the conventional sense, gardens’ physical completion does not mean their realization. It merely marks the beginning of a long process in which the garden slowly goes on “maturing.” Gardens understood as such—as constant metamorphosis—have always been part of human life. It is a space in which a wide range of activities unfold and human memories accumulate.<br>
-            | A variety of methods have been employed to record gardens, including text, architectural drawing, painting, photography and video. Recent years saw the emergence of high-definition photography, 3D scanning and audio recording of physical space and DNA analysis of living organisms. The equipment, too, has become much more affordable. The time thus seems ripe for us to exploit these technologies to build novel, contemporary archives of Japanese gardens.<br>
-            | Archiving gardens is a paradoxical effort. Such archives remain necessarily insufficient, for there is always a limit to the time, space and number of cases of which data can be collected. Just as a garden is never complete and has no “end,” its archives, too, will know no completion and be endless. Pursuing such a seemingly impossible goal, this project seeks to interrogate anew what gardens are.
-        h2 Credit
-        .cols(data-col="2")
-          .col
-            | 庭園アーカイヴ・プロジェクト：<br>
-            | 原瑠璃彦（静岡大学）、<br>
-            | 伊藤隆之（YCAM）、<br>
-            | 高原文江（YCAM）、<br>
-            | 津田和俊（YCAM、京都工芸繊維大学）、<br>
-            | 城一裕（九州大学、YCAM）<br>
-            | <br>
-            | ウェブデザイン・開発／グラフィック・デザイン：<br>
-            | KARAPPO Inc.<br>
-            | <br>
-            | 3Dスキャン・点群編集 ：<br>
-            | 井上智博（京都工芸繊維大学 KYOTO Design Lab）、<br>
-            | 津田和俊（YCAM、京都工芸繊維大学）<br>
-            | 常栄寺庭園 3Dスキャン 協力：<br>
-            | 石井栄一、西本文博<br>
-            | 無鄰菴庭園 3Dスキャン 協力：<br>
-            | 孫夢（京都工芸繊維大学 KYOTO Design Lab）<br>
-            | <br>
-            | サウンド・レコーディング：<br>
-            | 伊藤隆之（YCAM）<br>
-            | 常栄寺庭園 サウンド・レコーディング 協力：<br>
-            | 中上淳二（YCAM InterLab）、石井栄一<br>
-            | 音響認識システム開発 ：<br>
-            | 城一裕（九州大学、YCAM）、安齋励應（東京藝術大学）、岡﨑圭佑（慶應義塾大学）<br>
-            | <br>
-            | オーラル・アーカイヴ：<br>
-            | 伊藤尚吾（有限会社伊藤造園 代表取締役社長）、田中浩（山口博物館 動物学部門学芸員）、矢野等（共立地下工業株式会社）、藤原俊廣（樹木医）<br>
-            | <br>
-            | 生物調査：<br>
-            | 津田和俊（YCAM、京都工芸繊維大学）、高原文江（YCAM）<br>
-            | 生物種同定 協力(動画)：<br>
-            | 田中浩（山口博物館 動物学部門学芸員）<br>
-            | 生物種同定  協力(録音)：<br>
-            | 川原康寛（萩博物館）<br>
-            | <br>
-            | 画像提供：宗教法人 常栄寺、マツノ書店、山口県文書館<br>
-            | <br>
-            | 映像データ整理：石井栄一<br>
-            | 権利処理：木村英恵<br>
-            | テクニカルサポート：三浦陽平（YCAM）、正分あゆみ（YCAM）<br>
-            | <br>
-            | <br>
-            | 謝辞：<br>
-            | 宗教法人 常栄寺、山口市文化財保護課<br>
-            | 有限会社 伊藤造園<br>
-            | 株式会社 葉山土木コンサルタント、共立地下工業株式会社、常栄寺庭園保存整備委員会<br>
-            | 加納隆（山口大学名誉教授）、古賀信幸、鈴木誠（東京農業大学教授）、多々良美春（株式会社多々良造園),<br>
-            | 京都市、無鄰菴管理事務所、植彌加藤造園株式会社<br>
-            | 永田貴丸（滋賀県琵琶湖環境科学研究センター）<br>
-            | 宗教法人 龍源院<br>
-            | 株式会社 サンデー山口<br>
-            | 栗林尚代 <br>
-            | <br>
-            | 制作協力：<br>
-            | 公益財団法人 山口市文化振興財団（山口情報芸術センター）<br>
-            | <br>
-            | <br>
-            | 科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」（2019-21年度、研究代表者：原瑠璃彦、課題番号：19H01225）
-          .col
-            | The Garden Archives Project:<br>
-            | Hara Rurihiko (Shizuoka University),<br>
-            | Ito Takayuki (YCAM InterLab), <br>
-            | Takahara Fumie (YCAM InterLab), <br>
-            | Tsuda Kazutoshi (YCAM InterLab/ Kyoto Institute of Technology),<br>
-            | Jo Kazuhiro (Kyushu University / YCAM InterLab)<br>
-            | <br>
-            | UI Design and Development / Graphic Design<br>
-            | KARAPPO Inc.<br>
-            | <br>
-            | 3D Scanning and Clouds Editing:<br>
-            | Inoue Tomohiro (KYOTO Design Lab, Kyoto Institute of Technology),<br>
-            | Tsuda Kazutoshi (YCAM InterLab / Kyoto Institute of Technology)<br>
-            | Cooperation for 3D Scanning of Jōei-ji Garden: <br>
-            | Ishii Eiichi, Nishimoto Fumihiro<br>
-            | Cooperation for 3D Scanning of Murin-an Garden: <br>
-            | Sun Meng (KYOTO Design Lab, Kyoto Institute of Technology)<br>
-            | <br>
-            | Sound Recording: Ito Takayuki (YCAM InterLab)<br>
-            | Cooperation for Ambisonics Recording of Jōei-ji Garden: <br>
-            | Nakaue Junji (YCAM InterLab), Ishii Eiichi<br>
-            | Development of Acoustic Recognition System: <br>
-            | Jo Kazuhiro (Kyushu University / YCAM InterLab),<br>
-            | Anzai Reo (Tokyo University of the Arts), Okazaki Keisuke (Keio University)<br>
-            | <br>
-            | Oral Archives: Ito Shogo (President of Ito Zoen LLC.), Tanaka Hiroshi (Curator, Zoology department of Yamaguchi museum), Yano Hitoshi (Kyoritsu Chika Kougyo Co., Ltd.),<br>
-            | Fujiwara Toshihiro (Arborist)<br>
-            | <br>
-            | Bio research: Tsuda Kazutoshi (YCAM InterLab / Kyoto Institute of Technology)<br>
-            | Takahara Fumie (YCAM InterLab)<br>
-            | Supervisor of identifying living things (Movies): <br>
-            | Tanaka Hiroshi (Curator, Zoology department of Yamaguchi museum)<br>
-            | Supervisor of identifying living things (Sounds): <br>
-            | Kawahara Yasuhiro (Curator, Hagi museum)<br>
-            | <br>
-            | Photo Courtesy: Religious corporation, Jōei-ji temple, Matsuno Shoten, Yamaguchi Prefectural Archives<br>
-            | <br>
-            | Organization of Movies Data: Ishii Eiichi <br>
-            | Cooperation for the rights processing of images: Kimura Hanae<br>
-            | Technical Support: Miura Yohei (YCAM), Shobun Ayumi (YCAM)<br>
-            | <br>
-            | Special thanks to Religious corporation, Jōei-ji temple, Cultural Properties Protection Department of Yamaguchi City, Ito Zoen LLC., Hayama Civil Engineering Consultant Co., LTD., Kyoritsu Chika Kougyo CO., LTD., Jōei-ji garden Preservation and Maintenance Committee, Kano Takashi (Emeritus Professor at Yamaguchi University), Koga Nobuyuki, Suzuki Makoto (Professor at Tokyo University of Agriculture), Tatara Miharu (Tatara Landscape Architect CO., LTD.), Kyoto City, Murin-an Management Office, UEYAKATO LANDSCAPE Co., LTD., Nagata Takamaru (Lake Biwa Environmental Research Institute), Religious corporation, Ryōgen-in, Sunday Yamaguchi Co., Ltd.,<br>
-            | Kuribayashi Hisayo<br>
-            | <br>
-            | Developed in Cooperation with Public Interest Incorporated Foundation, Yamaguchi City Foundation for Cultural Promotion (Yamaguchi Center for Arts and Media)<br>
-            | <br>
-            | <br>
-            | Grant-in-Aid for Scientific Research (B) <br>
-            | “Research and Development of Comprehensive Archives of Japanese Gardens” (2019-21, Principal Investigator: Rurihiko Hara, Grant Number: 19H01225)
+  #popup(:class="{hidden: popupVisibility !== true}")
+    PopupClose.popupClose(@click="popupVisibility = false")
+    .wrap
+      h2 Concept
+      .cols(data-col="2")
+        .col
+          | 2019年4月より始動した庭園アーカイヴ・プロジェクトは、現代のテクノロジーを駆使して、日本庭園の多様な側面をデータ化した新しい総合的アーカイヴを研究開発するものです。<br>
+          | 庭とは、時とともに変化してゆきます。建築やいわゆる芸術作品と異なり、庭は、つくられた時点が完成ではありません。庭はそこから歳月をかけることで「時熟」してゆきます。<br>
+          | 古来、人はこうした動態としての庭とともに生きてきました。そこは、様々な活動の場であり、人々の記憶が蓄積しています。<br>
+          | こうした庭を記録するにあたって、これまで、テキスト、図面、絵画、写真、映像など様々な手法が用いられてきました。<br>
+          | 今日、高解像度撮影や実空間の3Dスキャン・3D録音、生物のDNA解析などの技術が発達し、その設備も以前より格段に安価にととのえることが可能になっています。<br>
+          | これらのテクノロジーを用いることで、現代に見合った、新しい日本庭園のアーカイヴの構築できるのではないでしょうか。<br>
+          | 庭のアーカイヴ化は、矛盾を孕んだ課題でもあります。<br>
+          | どのようにしても、庭のアーカイヴは不十分なものとなります。限られた時間、限られた空間、限られたサンプルしか、データを採取することはできません。庭に完成はなく、「終り」はありませんが、そのアーカイヴもまた完成はなく、終わりはないものとなるでしょう。<br>
+          | こうした無謀ともいえる試みをあえて行うことによって、庭というものを問い直すこともまたこのプロジェクトの目的です。
+        .col
+          | Launched in April 2019, the Garden Archives Project aims to study and develop a new kind of comprehensive archives that digitally survey Japanese gardens’ diverse aspects.<br>
+          | Gardens, niwa in Japanese, change with time. In contact to architecture and artworks in the conventional sense, gardens’ physical completion does not mean their realization. It merely marks the beginning of a long process in which the garden slowly goes on “maturing.” Gardens understood as such—as constant metamorphosis—have always been part of human life. It is a space in which a wide range of activities unfold and human memories accumulate.<br>
+          | A variety of methods have been employed to record gardens, including text, architectural drawing, painting, photography and video. Recent years saw the emergence of high-definition photography, 3D scanning and audio recording of physical space and DNA analysis of living organisms. The equipment, too, has become much more affordable. The time thus seems ripe for us to exploit these technologies to build novel, contemporary archives of Japanese gardens.<br>
+          | Archiving gardens is a paradoxical effort. Such archives remain necessarily insufficient, for there is always a limit to the time, space and number of cases of which data can be collected. Just as a garden is never complete and has no “end,” its archives, too, will know no completion and be endless. Pursuing such a seemingly impossible goal, this project seeks to interrogate anew what gardens are.
+      h2 Credit
+      .cols(data-col="2")
+        .col
+          | 庭園アーカイヴ・プロジェクト：<br>
+          | 原瑠璃彦（静岡大学）、<br>
+          | 伊藤隆之（YCAM）、<br>
+          | 高原文江（YCAM）、<br>
+          | 津田和俊（YCAM、京都工芸繊維大学）、<br>
+          | 城一裕（九州大学、YCAM）<br>
+          | <br>
+          | ウェブデザイン・開発／グラフィック・デザイン：<br>
+          | KARAPPO Inc.<br>
+          | <br>
+          | 3Dスキャン・点群編集 ：<br>
+          | 井上智博（京都工芸繊維大学 KYOTO Design Lab）、<br>
+          | 津田和俊（YCAM、京都工芸繊維大学）<br>
+          | 常栄寺庭園 3Dスキャン 協力：<br>
+          | 石井栄一、西本文博<br>
+          | 無鄰菴庭園 3Dスキャン 協力：<br>
+          | 孫夢（京都工芸繊維大学 KYOTO Design Lab）<br>
+          | <br>
+          | サウンド・レコーディング：<br>
+          | 伊藤隆之（YCAM）<br>
+          | 常栄寺庭園 サウンド・レコーディング 協力：<br>
+          | 中上淳二（YCAM InterLab）、石井栄一<br>
+          | 音響認識システム開発 ：<br>
+          | 城一裕（九州大学、YCAM）、安齋励應（東京藝術大学）、岡﨑圭佑（慶應義塾大学）<br>
+          | <br>
+          | オーラル・アーカイヴ：<br>
+          | 伊藤尚吾（有限会社伊藤造園 代表取締役社長）、田中浩（山口博物館 動物学部門学芸員）、矢野等（共立地下工業株式会社）、藤原俊廣（樹木医）<br>
+          | <br>
+          | 生物調査：<br>
+          | 津田和俊（YCAM、京都工芸繊維大学）、高原文江（YCAM）<br>
+          | 生物種同定 協力(動画)：<br>
+          | 田中浩（山口博物館 動物学部門学芸員）<br>
+          | 生物種同定  協力(録音)：<br>
+          | 川原康寛（萩博物館）<br>
+          | <br>
+          | 画像提供：宗教法人 常栄寺、マツノ書店、山口県文書館<br>
+          | <br>
+          | 映像データ整理：石井栄一<br>
+          | 権利処理：木村英恵<br>
+          | テクニカルサポート：三浦陽平（YCAM）、正分あゆみ（YCAM）<br>
+          | <br>
+          | <br>
+          | 謝辞：<br>
+          | 宗教法人 常栄寺、山口市文化財保護課<br>
+          | 有限会社 伊藤造園<br>
+          | 株式会社 葉山土木コンサルタント、共立地下工業株式会社、常栄寺庭園保存整備委員会<br>
+          | 加納隆（山口大学名誉教授）、古賀信幸、鈴木誠（東京農業大学教授）、多々良美春（株式会社多々良造園),<br>
+          | 京都市、無鄰菴管理事務所、植彌加藤造園株式会社<br>
+          | 永田貴丸（滋賀県琵琶湖環境科学研究センター）<br>
+          | 宗教法人 龍源院<br>
+          | 株式会社 サンデー山口<br>
+          | 栗林尚代 <br>
+          | <br>
+          | 制作協力：<br>
+          | 公益財団法人 山口市文化振興財団（山口情報芸術センター）<br>
+          | <br>
+          | <br>
+          | 科学研究費 基盤研究（B）「日本庭園の総合的アーカイヴの開発をめぐる研究」（2019-21年度、研究代表者：原瑠璃彦、課題番号：19H01225）
+        .col
+          | The Garden Archives Project:<br>
+          | Hara Rurihiko (Shizuoka University),<br>
+          | Ito Takayuki (YCAM InterLab), <br>
+          | Takahara Fumie (YCAM InterLab), <br>
+          | Tsuda Kazutoshi (YCAM InterLab/ Kyoto Institute of Technology),<br>
+          | Jo Kazuhiro (Kyushu University / YCAM InterLab)<br>
+          | <br>
+          | UI Design and Development / Graphic Design<br>
+          | KARAPPO Inc.<br>
+          | <br>
+          | 3D Scanning and Clouds Editing:<br>
+          | Inoue Tomohiro (KYOTO Design Lab, Kyoto Institute of Technology),<br>
+          | Tsuda Kazutoshi (YCAM InterLab / Kyoto Institute of Technology)<br>
+          | Cooperation for 3D Scanning of Jōei-ji Garden: <br>
+          | Ishii Eiichi, Nishimoto Fumihiro<br>
+          | Cooperation for 3D Scanning of Murin-an Garden: <br>
+          | Sun Meng (KYOTO Design Lab, Kyoto Institute of Technology)<br>
+          | <br>
+          | Sound Recording: Ito Takayuki (YCAM InterLab)<br>
+          | Cooperation for Ambisonics Recording of Jōei-ji Garden: <br>
+          | Nakaue Junji (YCAM InterLab), Ishii Eiichi<br>
+          | Development of Acoustic Recognition System: <br>
+          | Jo Kazuhiro (Kyushu University / YCAM InterLab),<br>
+          | Anzai Reo (Tokyo University of the Arts), Okazaki Keisuke (Keio University)<br>
+          | <br>
+          | Oral Archives: Ito Shogo (President of Ito Zoen LLC.), Tanaka Hiroshi (Curator, Zoology department of Yamaguchi museum), Yano Hitoshi (Kyoritsu Chika Kougyo Co., Ltd.),<br>
+          | Fujiwara Toshihiro (Arborist)<br>
+          | <br>
+          | Bio research: Tsuda Kazutoshi (YCAM InterLab / Kyoto Institute of Technology)<br>
+          | Takahara Fumie (YCAM InterLab)<br>
+          | Supervisor of identifying living things (Movies): <br>
+          | Tanaka Hiroshi (Curator, Zoology department of Yamaguchi museum)<br>
+          | Supervisor of identifying living things (Sounds): <br>
+          | Kawahara Yasuhiro (Curator, Hagi museum)<br>
+          | <br>
+          | Photo Courtesy: Religious corporation, Jōei-ji temple, Matsuno Shoten, Yamaguchi Prefectural Archives<br>
+          | <br>
+          | Organization of Movies Data: Ishii Eiichi <br>
+          | Cooperation for the rights processing of images: Kimura Hanae<br>
+          | Technical Support: Miura Yohei (YCAM), Shobun Ayumi (YCAM)<br>
+          | <br>
+          | Special thanks to Religious corporation, Jōei-ji temple, Cultural Properties Protection Department of Yamaguchi City, Ito Zoen LLC., Hayama Civil Engineering Consultant Co., LTD., Kyoritsu Chika Kougyo CO., LTD., Jōei-ji garden Preservation and Maintenance Committee, Kano Takashi (Emeritus Professor at Yamaguchi University), Koga Nobuyuki, Suzuki Makoto (Professor at Tokyo University of Agriculture), Tatara Miharu (Tatara Landscape Architect CO., LTD.), Kyoto City, Murin-an Management Office, UEYAKATO LANDSCAPE Co., LTD., Nagata Takamaru (Lake Biwa Environmental Research Institute), Religious corporation, Ryōgen-in, Sunday Yamaguchi Co., Ltd.,<br>
+          | Kuribayashi Hisayo<br>
+          | <br>
+          | Developed in Cooperation with Public Interest Incorporated Foundation, Yamaguchi City Foundation for Cultural Promotion (Yamaguchi Center for Arts and Media)<br>
+          | <br>
+          | <br>
+          | Grant-in-Aid for Scientific Research (B) <br>
+          | “Research and Development of Comprehensive Archives of Japanese Gardens” (2019-21, Principal Investigator: Rurihiko Hara, Grant Number: 19H01225)
 </template>
 
 <style lang="sass" scoped>
@@ -923,11 +922,22 @@ footer
   color: #272727
   position: fixed
   z-index: 200
-  top: 0vh
+  opacity: 1
   background-color: #819A9A
   overflow-y: scroll
   width: 100%
   height: var(--vh)
+  transition: top 0.8s, opacity 0.8s
+  transition-timing-function: ease-in-out
+  top: 0
+  &.hidden
+    top: 100vh
+    opacity: 0
+    pointer-events: none
+    .popupClose
+      opacity: 0
+      transition-delay: 0s
+      transition-duration: 0s
   .wrap
     @extend %wrap
     padding-top: 40px
@@ -937,6 +947,10 @@ footer
     top: 43px
     right: 38px
     cursor: pointer
+    opacity: 1
+    transition-delay: 0.8s
+    transition-duration: 0.2s
+    transition-property: opacity
     +sp
       width: 98px
       height: auto
@@ -952,14 +966,6 @@ footer
   transition: opacity 1s
 .fade-enter,
 .fade-leave-to
-  opacity: 0
-
-.slideUp-enter-active,
-.slideUp-leave-active
-  transition: top 1s, opacity 1s
-.slideUp-enter,
-.slideUp-leave-to
-  top: var(--vh)
   opacity: 0
 </style>
 
