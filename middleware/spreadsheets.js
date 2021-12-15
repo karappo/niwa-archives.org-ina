@@ -109,6 +109,10 @@ export default async function ({ store }) {
     const gss = await fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${process.env.SPREADSHEET_ID}/?key=${process.env.API_KEY}&includeGridData=true`
     ).then((res) => res.json())
+    if (gss.error) {
+      console.log('Spreadsheetの読み込みでエラー発生')
+      console.log(...gss.error)
+    }
     gss.sheets.forEach((sheet) => {
       let data = sheet.data[0].rowData
       if (!data) {

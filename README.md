@@ -24,7 +24,13 @@ git clone --recursive git@github.com:karappo/IncompleteNiwaArchives.git
 # Ready potree to create build dir.
 cd static/potree
 npm i
+
+cd ../../
+yarn
+yarn dev
 ```
+
+もし、spreadsheetが読み込めず`Spreadsheetの読み込みでエラー発生`が出る場合は、[GoogleCloudPlatform](https://console.cloud.google.com/apis/credentials/key/c238b06c-505e-4198-91bf-6557605ab380?hl=ja&project=proxies-of-client)の管理画面から、ウェブサイトの制限のところにドメインまたはIPを追加すること。
 
 ## デプロイ
 
