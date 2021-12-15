@@ -917,6 +917,10 @@ footer
   a
     margin-left: 0.5em
 #popup
+  @extend %font_regular
+  font-size: 14px
+  line-height: calc(30 / 14)
+  color: #272727
   position: fixed
   z-index: 200
   top: 0vh
@@ -924,10 +928,6 @@ footer
   overflow-y: scroll
   width: 100%
   height: var(--vh)
-  @extend %font_regular
-  font-size: 14px
-  line-height: calc(30 / 14)
-  color: #272727
   .wrap
     @extend %wrap
     padding-top: 40px
