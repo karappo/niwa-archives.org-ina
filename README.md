@@ -1,8 +1,8 @@
-# niwa-archive-nuxt
+# Incomplete Niwa Archives
 
 | Environment | サーバー  | URL                        | BasicAuth(id:pw) |
 |:------------|:---------|:---------------------------|:-----------------|
-| Production  | AWS S3   | https://niwa2.ycam.jp      |                  |
+| Production  | AWS S3   | https://niwa.ycam.jp       |                  |
 | Test        | Heteml   | https://niwa.karappo.net   | niwa:archive     |
 | Development | nuxt     | http://localhost:3000      |                  |
 
