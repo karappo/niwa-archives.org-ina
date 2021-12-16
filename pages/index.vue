@@ -3,7 +3,7 @@
   #ham(@click="toggleGlobalMenu" :class="{open: hamOpened}")
     i
     i
-  .modal_background(@click="popupVisibility = hamOpened = false")
+  .modal_background(@click="popupVisibility = false; hamOpened = false")
   .mv
     h1.en
       img(
