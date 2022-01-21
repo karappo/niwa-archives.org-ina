@@ -204,7 +204,15 @@
           span.dateTime 2021年12月11日（土）　17:00〜18:30
           h4.noLead 日本庭園のアーカイヴの歴史と未来
           p.detail 登壇者：粟野隆（東京農業大学）、エマニュエル・マレス（京都産業大学）、原瑠璃彦ほか
-      p 2022年1月には、映画「動いている庭」ほかの上映、トークイベントを予定しています。
+      .cols(data-col="2")
+        .col
+          span.dateTime 2022年1月30日（日）　14:00〜16:00
+          h4 庭と映像・アーカイヴ
+          p.detail 場所：山口情報芸術センター［YCAM］ スタジオ C
+          p.detail 登壇者：澤崎賢一（アーティスト、映像作家）、エマニュエル・マレス（京都産業大学）、原瑠璃彦
+      p
+        | 2022年1月23日（日）〜30日（日）に「Incomplete Niwa Archives - 終らない庭のアーカイヴ」関連上映として、映画「FIVE SEASONS ガーデン・オブ・ピート・アウドルフ」、「動いている庭」を上映いたします。<br>
+        ExternalLink.underLine(href="https://www.ycam.jp/cinema/2022/incomplete-niwa-archives/") https://www.ycam.jp/cinema/2022/incomplete-niwa-archives/
       ExternalLink.youtube(href="https://www.youtube.com/channel/UCtZit5KBQw8olVPRWnDdG0w")
         | YOUTUBE CHANNEL
         YoutubeArrow
@@ -840,6 +848,13 @@ section
       .cols + p
         @extend %font_bolder
         margin-top: 70px
+      .underLine
+        font-size: 0.95em
+        text-decoration: underline
+        opacity: 0.5
+        transition: opacity 0.2s
+        &:hover
+          opacity: 1
       .youtube
         margin-top: 74px
         display: block
