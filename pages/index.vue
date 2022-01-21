@@ -208,8 +208,9 @@
         .col
           span.dateTime 2022年1月30日（日）　14:00〜16:00
           h4 庭と映像・アーカイヴ
-          p.detail 場所：山口情報芸術センター［YCAM］ スタジオ C
-          p.detail 登壇者：澤崎賢一（アーティスト、映像作家）、エマニュエル・マレス（京都産業大学）、原瑠璃彦
+          p.detail
+            | 場所：山口情報芸術センター［YCAM］ スタジオ C<br>
+            | 登壇者：澤崎賢一（アーティスト、映像作家）、エマニュエル・マレス（京都産業大学）、原瑠璃彦
       p
         | 2022年1月23日（日）〜30日（日）に「Incomplete Niwa Archives - 終らない庭のアーカイヴ」関連上映として、映画「FIVE SEASONS ガーデン・オブ・ピート・アウドルフ」、「動いている庭」を上映いたします。<br>
         ExternalLink.underLine(href="https://www.ycam.jp/cinema/2022/incomplete-niwa-archives/") https://www.ycam.jp/cinema/2022/incomplete-niwa-archives/
