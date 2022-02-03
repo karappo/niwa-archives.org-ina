@@ -7,7 +7,7 @@
       alt='Incomplete Niwa Archives'
     )
   p.ja
-    | このページはモバイル端末からはご覧に慣れません。<br>
+    | このページはモバイル端末からはご覧になれません。<br>
     | デスクトップ版 Chrome でご覧ください。
   p.en
     | You are not accustomed to viewing this page from a mobile device. Please use the desktop version of Chrome.
