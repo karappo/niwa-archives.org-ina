@@ -25,7 +25,7 @@
       | CloudCompare<br>
       | <br>
       | 点群数：<br>
-      | 188,768,417<br>
+      | 178,885,542<br>
     template(v-else-if="$route.params.alias === 'murin_an-summer'")
       | 撮影日：2020年6月20日、21日、23日、24日<br>
       | <br>
