@@ -97,3 +97,7 @@ for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
 1. nuxt.config.js にルートを追加
 1. store/annotation.js を編集
 1. data/gardens 下にjsを追加
+
+## Potreeのサイドバーを表示する方法
+
+画面の左上数ピクセルの透明なボタンがあるので、カーソルを合わせると形状が変化することで場所を特定し、Shiftキーを押しながらクリックするとサイドバーが現れる。
