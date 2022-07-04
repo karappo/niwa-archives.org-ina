@@ -89,3 +89,11 @@ GoogleDriveをFinderにローカル同期し、下記実行すると大きいも
 for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
 ```
 ※ imagemagicが必要
+
+
+## 庭の増やし方
+
+1. 点群データを格納
+1. nuxt.config.js にルートを追加
+1. store/annotation.js を編集
+1. data/gardens 下にjsを追加
