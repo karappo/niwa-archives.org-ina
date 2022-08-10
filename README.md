@@ -1,10 +1,11 @@
 # Incomplete Niwa Archives
 
-| Environment | サーバー  | URL                        | BasicAuth(id:pw) |
-|:------------|:---------|:---------------------------|:-----------------|
-| Production  | AWS S3   | https://niwa.ycam.jp       |                  |
-| Test        | Heteml   | https://niwa.karappo.net   | niwa:archive     |
-| Development | nuxt     | http://localhost:3000      |                  |
+| Environment   | サーバー  | URL                              | BasicAuth(id:pw) |
+|:--------------|:---------|:---------------------------------|:-----------------|
+| Production    | さくら    | https://niwa-archives.org/       |                  |
+| Staging       | Heteml   | https://stg.niwa-archives.org/   | niwa:archive     |
+| 旧 Production | AWS S3   | https://niwa.ycam.jp             |                  |
+| Development   | nuxt     | http://localhost:3000            |                  |
 
 
 - [データシート](https://docs.google.com/spreadsheets/d/1F7sd4dz2FHWiagmLGDLwmeUK1U3XCWhjIApzdLXyRmo/edit#gid=0)
@@ -37,7 +38,7 @@ yarn dev
 基本的に、pointcolud/は`.depignore`で無視しているので、点群データも更新したい場合は`.depignore`を一時的に修正してdeployすること
 
 ```sh
-yarn deploy (test|procution)
+yarn deploy (procution|staging|ycam)
 ```
 
 ## 1. 点群データのサブサンプリング

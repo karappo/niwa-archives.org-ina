@@ -2,14 +2,18 @@
 echo "Deploy to '$1'"
 if [ $1 = 'production' ]; then
   DEP_ENV='PRODUCTION'
+  DEP_TARGET='rurihikohara@rurihikohara.sakura.ne.jp:/home/rurihikohara/www/niwa-archives.org'
+  DEP_PORT='22'
+elif [ $1 = 'staging' ]; then
+  DEP_ENV='STAGING'
+  DEP_TARGET='rurihikohara@rurihikohara.sakura.ne.jp:/home/rurihikohara/www/stg.niwa-archives.org'
+  DEP_PORT='22'
+elif [ $1 = 'ycam' ]; then
+  DEP_ENV='PRODUCTION'
   DEP_TARGET='www@niwa2.ycam.jp:/home/www/html/niwa2'
   DEP_PORT='10022'
-elif [ $1 = 'test' ]; then
-  DEP_ENV='TEST'
-  DEP_TARGET='karappo@ssh-karappo.heteml.net:/home/users/0/karappo/web/sites/niwa.karappo.net'
-  DEP_PORT='2222'
 else
-  echo "引数にデプロイ先( production | test )を指定してください。"
+  echo "引数にデプロイ先( production | staging | ycam )を指定してください。"
   exit 1
 fi
 
