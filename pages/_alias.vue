@@ -69,6 +69,7 @@
     SideBar.sideBar(
       v-if="!tourName"
       :guidedTourExists="0 < data.guidedTour.length"
+      :variations="this.data.variations"
       @saveCameraInfo="saveCameraInfo"
     )
 </template>

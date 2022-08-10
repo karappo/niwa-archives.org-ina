@@ -9,7 +9,7 @@ aside
     ListLink(listName='Plans' icon='hyphen') Plans
     ListLink(listName='3D Data' icon='hyphen') 3D Data
     SelectBox.variations(
-      v-if="$variation($route)"
+      v-if="variations.length"
       :options="variations"
       :value.sync="variationIndex"
     )
@@ -132,15 +132,18 @@ export default {
     guidedTourExists: {
       type: Boolean,
       default: true
+    },
+    variations: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
-    const variations = ['summer', 'winter', 'snow']
-    let variationIndex = variations.indexOf(this.$variation(this.$route))
-    variationIndex += '' // SelectBoxに渡す関係でvariationIndexはStringにしておく必要がある
     return {
-      variations,
-      variationIndex
+      // SelectBoxに渡す関係でvariationIndexはStringにしておく必要がある
+      variationIndex: String(
+        this.variations.indexOf(this.$variation(this.$route))
+      )
     }
   },
   watch: {
