@@ -3,7 +3,7 @@
 | Environment   | サーバー  | URL                              | BasicAuth(id:pw) |
 |:--------------|:---------|:---------------------------------|:-----------------|
 | Production    | さくら    | https://niwa-archives.org/       |                  |
-| Staging       | Heteml   | https://stg.niwa-archives.org/   | niwa:archive     |
+| Staging       | Heteml   | https://stg.niwa-archives.org/   | niwa:archives    |
 | 旧 Production | AWS S3   | https://niwa.ycam.jp             |                  |
 | Development   | nuxt     | http://localhost:3000            |                  |
 
