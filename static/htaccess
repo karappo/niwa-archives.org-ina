@@ -6,6 +6,18 @@ RewriteCond %{SERVER_PORT} ^80$
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
+# Basic Authentication -----------
+#DEP_STAGING_RM <Files ~ "^\.(htaccess|htpasswd)$">
+#DEP_STAGING_RM deny from all
+#DEP_STAGING_RM </Files>
+#DEP_STAGING_RM AuthUserFile /home/rurihikohara/www/stg.niwa-archives.org/.htpasswd
+#DEP_STAGING_RM AuthGroupFile /dev/null
+#DEP_STAGING_RM AuthName "Please enter your ID and password"
+#DEP_STAGING_RM AuthType Basic
+#DEP_STAGING_RM require valid-user
+#DEP_STAGING_RM order deny,allow
+# ----------- / Basic Authentication
+
 # https://special.ycam.jp/niwa/assets/Towards_a_New_Archive_of_Gardens.pdfへのリンクを転送
 Redirect /niwa/assets/Towards_a_New_Archive_of_Gardens.pdf /2019/Towards_a_New_Archive_of_Gardens.pdf
 # RedirectMatch (.*)Towards_a_New_Archive_of_Gardens¥.pdf$ /2019/Towards_a_New_Archive_of_Gardens.pdf # これは効かなかった
