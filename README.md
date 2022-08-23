@@ -4,7 +4,7 @@
 |:--------------|:---------|:---------------------------------|:-----------------|
 | Production    | さくら    | https://niwa-archives.org/       |                  |
 | Staging       | Heteml   | https://stg.niwa-archives.org/   | niwa:archives    |
-| 旧 Production | AWS S3   | https://niwa.ycam.jp             |                  |
+| 旧 Production | AWS S3   | https://special.ycam.jp/niwa/     |                  |
 | Development   | nuxt     | http://localhost:3000            |                  |
 
 

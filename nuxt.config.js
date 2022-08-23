@@ -1,8 +1,7 @@
 const site_title = 'Incomplete Niwa Archives 終らない庭のアーカイヴ'
 const site_description = '2019年4月より始動した庭園アーカイヴ・プロジェクトは、現代のテクノロジーを駆使して、日本庭園の多様な側面をデータ化した新しい総合的アーカイヴを研究開発するものです。'
 // TODO: 環境変数から読み込むなどしてstagingなどにも対応する
-// const baseUrl = 'https://special.ycam.jp/niwa/'
-const baseUrl = 'https://niwa.ycam.jp'
+const baseUrl = 'https://special.ycam.jp/niwa/'
 
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
