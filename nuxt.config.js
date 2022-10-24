@@ -4,6 +4,11 @@ const site_description = '2019年4月より始動した庭園アーカイヴ・�
 const baseUrl = 'https://special.ycam.jp/niwa/'
 
 export default {
+
+  env: {
+    siteUrl: baseUrl
+  },
+
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
 
@@ -85,6 +90,7 @@ export default {
   ],
 
   router: {
+    base: '/niwa/',
     trailingSlash: true,
     middleware: ['spreadsheets']
   },
