@@ -12,6 +12,10 @@ elif [ $1 = 'ycam' ]; then
   DEP_ENV='PRODUCTION'
   DEP_TARGET='www@niwa2.ycam.jp:/home/www/html/niwa2'
   DEP_PORT='10022'
+elif [ $1 = 'karappojp' ]; then
+  DEP_ENV='PRODUCTION'
+  DEP_TARGET='karappojp@karappojp.sakura.ne.jp:/home/karappojp/www/karappo.jp/niwa'
+  DEP_PORT='22'
 else
   echo "引数にデプロイ先( production | staging | ycam )を指定してください。"
   exit 1
