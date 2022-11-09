@@ -223,14 +223,14 @@
       p
         | 庭園アーカイヴプロジェクトは3年間のプロジェクトです。<br>
         | ここでは1年毎のレポートを公開しています。
-      a(href="/2020/" target="_blank")
+      a(href="/niwa/2020/" target="_blank")
         img(
           src='~/assets/image/top/2020.jpg'
           srcset='~/assets/image/top/2020.jpg 1x, ~/assets/image/top/2020@2x.jpg 2x'
           alt='イメージ'
         )
         p 2020：「Incomplete Niwa Archives 終らない庭のアーカイヴ」へ
-      a(href="/2019/Towards_a_New_Archive_of_Gardens.pdf" target="_blank")
+      a(href="/niwa/2019/Towards_a_New_Archive_of_Gardens.pdf" target="_blank")
         img(
           src='~/assets/image/top/2019.jpg'
           srcset='~/assets/image/top/2019.jpg 1x, ~/assets/image/top/2019@2x.jpg 2x'
