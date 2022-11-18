@@ -32,11 +32,11 @@ export default {
       { hid: 'og:url', property: 'og:url', content: baseUrl },
       { hid: 'og:title', property: 'og:title', content: site_title },
       { hid: 'og:description', property: 'og:description', content: site_description },
-      { hid: 'og:image', property: 'og:image', content: `${baseUrl}/share.jpg` },
+      { hid: 'og:image', property: 'og:image', content: `${baseUrl}share.jpg` },
       { hid: 'twitter:title', property: 'twitter:title', content: site_title },
       { hid: 'twitter:url', property: 'twitter:url', content: baseUrl },
       { hid: 'twitter:description', property: 'twitter:description', content: site_description },
-      { hid: 'twitter:image', property: 'twitter:image', content: `${baseUrl}/share.jpg` },
+      { hid: 'twitter:image', property: 'twitter:image', content: `${baseUrl}share.jpg` },
       { hid: 'twitter:card', property: 'twitter:card', content: 'summary_large_image' }
     ],
     link: [
