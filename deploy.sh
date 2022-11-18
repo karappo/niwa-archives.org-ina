@@ -30,8 +30,6 @@ if yarn generate; then
     ext=".temp_bakup" # extension of backup files which are created before replacement
     find ./dist/ -name "*.htaccess" -exec sed -i$ext "s|#DEP_REMOTE_RM ||" {} \;
     find ./dist/ -name "*.htaccess" -exec sed -i$ext "s|#DEP_"$DEP_ENV"_RM ||" {} \;
-    find ./dist/ -name "*.php" -exec sed -i$ext "s|//DEP_REMOTE_RM ||" {} \;
-    find ./dist/ -name "*.php" -exec sed -i$ext "s|//DEP_"$DEP_ENV"_RM ||" {} \;
     find ./dist/ -name "*$ext" -exec rm {} \; # delete backup files
     # Deploy
     rsync -aIzhv --stats --delete -e "ssh -p $DEP_PORT" "--exclude-from=$PWD/.depignore" ./dist/ $DEP_TARGET
