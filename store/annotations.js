@@ -4,7 +4,8 @@ export const state = () => ({
   murinAnSummer: null,
   murinAnWinter: null,
   ryogenIn: null,
-  fugetsuRoFebruary: null
+  fugetsuRoFebruary: null,
+  fugetsuRoJuly: null
 })
 
 export const mutations = {
@@ -25,6 +26,9 @@ export const mutations = {
   },
   fugetsuRoFebruary(state, value) {
     state.fugetsuRoFebruary = value
+  },
+  fugetsuRoJuly(state, value) {
+    state.fugetsuRoJuly = value
   }
 }
 
@@ -46,5 +50,8 @@ export const getters = {
   },
   fugetsuRoFebruary(state) {
     return state.fugetsuRoFebruary
+  },
+  fugetsuRoJuly(state) {
+    return state.fugetsuRoJuly
   }
 }
