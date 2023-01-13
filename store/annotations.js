@@ -7,6 +7,7 @@ const pages = [
   'murinAnWinter',
   'ryogenIn',
   'fugetsuRoFebruary',
+  'fugetsuRoFebruaryOld',
   'fugetsuRoJuly'
 ]
 // -------------------------------
