@@ -1,7 +1,7 @@
 export default {
   title: 'Fugetsuro - July',
   pointcloud:
-    '/assets/pointclouds/Fugetsuro_Summer_AllUnit_Model_1mm_cleaned_nonormal_small_noduplicates.laz_converted/metadata.json',
+    '/assets/pointclouds/Fugetsuro_Summer_WithTeahouse_1mm_cleaned_nonormal_small_noduplicates.laz_converted/metadata.json',
   variations: ['february', 'july'],
   initCamera() {
     // viewer.fitToScreen()
