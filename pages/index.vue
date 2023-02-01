@@ -1008,6 +1008,9 @@ export default {
     YoutubeArrow,
     PopupClose
   },
+  fetch({ redirect }) {
+    redirect(301, '/fugetsu_ro-february/')
+  },
   data() {
     return {
       popupVisibility: false,
