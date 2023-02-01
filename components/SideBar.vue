@@ -1,8 +1,8 @@
 <template lang="pug">
 aside
-  nuxt-link.backToTop(to="/")
-    span Back to top
-    MenuArrow
+  //- nuxt-link.backToTop(to="/")
+  //-   span Back to top
+  //-   MenuArrow
   h2 Outlines
   section.outlines
     ListLink(listName='History' icon='hyphen') History
