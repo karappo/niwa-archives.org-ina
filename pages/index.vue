@@ -40,14 +40,14 @@
     h2 Archives
     .garden.joei_ji
       .cols(data-col="4")
-        nuxt-link.image.sp(to='/joei_ji/')
+        a.image.sp(href='https://niwa-archives.org/joei_ji/' target='_blank')
           img(
             src='~/assets/image/top/joei_ji-sp.jpg'
             alt='無鄰菴の点群'
           )
-        nuxt-link.col.jaName(to='/joei_ji/')
+        a.col.jaName(href='https://niwa-archives.org/joei_ji/' target='_blank')
           h3 常栄寺庭園
-        nuxt-link.col.enName(to='/joei_ji/')
+        a.col.enName(href='https://niwa-archives.org/joei_ji/' target='_blank')
           | Jōei-ji Garden<br class="pc">
           | Yamaguchi
         .col.date
@@ -56,7 +56,7 @@
         .col.annotationsQuantity
           | Annotations Quantity<br class="pc">
           | {{ $store.state.annotations.joeiJi.length }}
-      nuxt-link.image.pc(to='/joei_ji/')
+      a.image.pc(href='https://niwa-archives.org/joei_ji/' target='_blank')
         img(
           src='~/assets/image/top/joei_ji.jpg'
           alt='常栄寺の点群'
@@ -68,9 +68,9 @@
             .select3D
               h6 Select 3D Data
               nav
-                nuxt-link(to='/murin_an-summer/') Summer
-                nuxt-link(to='/murin_an-winter/') Winter
-                nuxt-link(to='/murin_an-snow/') Snow
+                a(href='https://niwa-archives.org/murin_an-summer/' target='_blank') Summer
+                a(href='https://niwa-archives.org/murin_an-winter/' target='_blank') Winter
+                a(href='https://niwa-archives.org/murin_an-snow/' target='_blank') Snow
         .image.sp(@click="showSelect3d")
           img(
             src='~/assets/image/top/murin_an-sp.jpg'
@@ -96,19 +96,19 @@
           .select3D
             h6 Select 3D Data
             nav
-              nuxt-link(to='/murin_an-summer/') Summer
-              nuxt-link(to='/murin_an-winter/') Winter
-              nuxt-link(to='/murin_an-snow/') Snow
+              a(href='https://niwa-archives.org/murin_an-summer/' target='_blank') Summer
+              a(href='https://niwa-archives.org/murin_an-winter/' target='_blank') Winter
+              a(href='https://niwa-archives.org/murin_an-snow/' target='_blank') Snow
     .garden.ryogen_in
       .cols(data-col="4")
-        nuxt-link.image.sp(to='/ryogen_in/')
+        a.image.sp(href='https://niwa-archives.org/ryogen_in/' target='_blank')
           img(
             src='~/assets/image/top/ryogen_in-sp.jpg'
             alt='無鄰菴の点群'
           )
-        nuxt-link.col.jaName(to='/ryogen_in/')
+        a.col.jaName(href='https://niwa-archives.org/ryogen_in/' target='_blank')
           h3 龍源院庭園
-        nuxt-link.col.enName(to='/ryogen_in/')
+        a.col.enName(href='https://niwa-archives.org/ryogen_in/' target='_blank')
           | Ryōgen-in Garden<br class="pc">
           | Kyoto
         .col.date
@@ -117,7 +117,7 @@
         .col.annotationsQuantity
           | Annotations Quantity<br class="pc">
           | {{ $store.state.annotations.ryogenIn.length }}
-      nuxt-link.image.pc(to='/ryogen_in/')
+      a.image.pc(href='https://niwa-archives.org/ryogen_in/' target='_blank')
         img(
           src='~/assets/image/top/ryogen_in.jpg'
           alt='無鄰菴の点群'
