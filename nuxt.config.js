@@ -132,7 +132,6 @@ export default {
   generate: {
     routes: [
       '/fugetsu_ro-february/',
-      '/fugetsu_ro-february-old/',
       '/fugetsu_ro-july/',
       '/murin_an-snow/',
       '/murin_an-summer/',
