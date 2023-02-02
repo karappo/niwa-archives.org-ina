@@ -223,20 +223,27 @@
       p
         | 庭園アーカイヴプロジェクトは3年間のプロジェクトです。<br>
         | ここでは1年毎のレポートを公開しています。
+      a(href="/niwa/2021/Garden_Archives_Project_Activity_Report_2021.pdf" target="_blank")
+        img(
+          src='~/assets/image/top/2021.jpg'
+          srcset='~/assets/image/top/2021.jpg 1x, ~/assets/image/top/2021@2x.jpg 2x'
+          alt=''
+        )
+        p 2021：<br class="sp">日本庭園の新しいアーカイヴのウェブサイトとインスタレーション
       a(href="/niwa/2020/" target="_blank")
         img(
           src='~/assets/image/top/2020.jpg'
           srcset='~/assets/image/top/2020.jpg 1x, ~/assets/image/top/2020@2x.jpg 2x'
-          alt='イメージ'
+          alt=''
         )
-        p 2020：「Incomplete Niwa Archives 終らない庭のアーカイヴ」へ
+        p 2020：<br class="sp">「Incomplete Niwa Archives 終らない庭のアーカイヴ」へ
       a(href="/niwa/2019/Towards_a_New_Archive_of_Gardens.pdf" target="_blank")
         img(
           src='~/assets/image/top/2019.jpg'
           srcset='~/assets/image/top/2019.jpg 1x, ~/assets/image/top/2019@2x.jpg 2x'
-          alt='イメージ'
+          alt=''
         )
-        p 2019： 庭の新しいアーカイヴをめざして [PDF]
+        p 2019： <br class="sp">庭の新しいアーカイヴをめざして [PDF]
   footer
     p
       | 科学研究費 基盤研究 (B)<br>
