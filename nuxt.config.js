@@ -41,26 +41,9 @@ export default {
     ],
     link: [
       // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: '/niwa/assets/potree/build/potree/potree.css' },
-      { rel: 'stylesheet', type: 'text/css', href: '/niwa/assets/potree/libs/jstree/themes/mixed/style.css' },
-      { rel: 'stylesheet', type: 'text/css', href: '/niwa/assets/potree/libs/jquery-ui/jquery-ui.css' },
     ],
     script: [
-      { src: '//webfont.fontplus.jp/accessor/script/fontplus.js?Kda7jDZHaBw%3D&box=BAYjMHHVKVM%3D&aa=1&ab=2', defer: true},
-      { src: '/niwa/assets/potree/libs/jquery/jquery-3.1.1.min.js'},
-      { src: '/niwa/assets/potree/libs/spectrum/spectrum.js'},
-      { src: '/niwa/assets/potree/libs/jquery-ui/jquery-ui.min.js'},
-      { src: '/niwa/assets/potree/libs/three.js/build/three.min.js'},
-      { src: '/niwa/assets/potree/libs/three.js/extra/lines.js'},
-      { src: '/niwa/assets/potree/libs/other/BinaryHeap.js'},
-      { src: '/niwa/assets/potree/libs/tween/tween.min.js'},
-      { src: '/niwa/assets/potree/libs/d3/d3.js'},
-      { src: '/niwa/assets/potree/libs/proj4/proj4.js'},
-      { src: '/niwa/assets/potree/libs/openlayers3/ol.js'},
-      { src: '/niwa/assets/potree/libs/i18next/i18next.js'},
-      { src: '/niwa/assets/potree/libs/jstree/jstree.js'},
-      { src: '/niwa/assets/potree/build/potree/potree.js'},
-      { src: '/niwa/assets/potree/libs/plasio/js/laslaz.js'}
+      { src: '//webfont.fontplus.jp/accessor/script/fontplus.js?Kda7jDZHaBw%3D&box=BAYjMHHVKVM%3D&aa=1&ab=2', defer: true}
     ],
   },
 
