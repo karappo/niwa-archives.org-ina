@@ -87,7 +87,10 @@ export default {
 
   router: {
     trailingSlash: true,
-    middleware: ['spreadsheets']
+    middleware: [
+      'redirection',
+      'spreadsheets'
+    ]
   },
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -131,8 +134,10 @@ export default {
 
   generate: {
     routes: [
-      '/fugetsu_ro-february/',
-      '/fugetsu_ro-july/',
+      '/fugetsu_ro-spring/',
+      '/fugetsu_ro-summer/',
+      '/fugetsu_ro-autumn/',
+      '/fugetsu_ro-winter/',
       '/murin_an-snow/',
       '/murin_an-summer/',
       '/murin_an-winter/',

@@ -6,9 +6,10 @@ const pages = [
   'murinAnSummer',
   'murinAnWinter',
   'ryogenIn',
-  'fugetsuRoFebruary',
-  'fugetsuRoFebruaryOld',
-  'fugetsuRoJuly'
+  'fugetsuRoSpring',
+  'fugetsuRoSummer',
+  'fugetsuRoAutumn',
+  'fugetsuRoWinter'
 ]
 // -------------------------------
 const mapStates = () => {
