@@ -11,7 +11,8 @@
     | デスクトップ版 Chrome でご覧ください。
   p.en
     | You are not accustomed to viewing this page from a mobile device. Please use the desktop version of Chrome.
-  nuxt-link(to="/") Back to top
+  //- nuxt-link(to="/") Back to top
+  a(href="https://special.ycam.jp/niwa/") Go to past top page
 </template>
 
 <style lang="sass" scoped>
