@@ -42,7 +42,12 @@ export const mutations = {
     state.cameraTarget = value
   },
   pageName(state, value) {
-    state.pageName = value
+    if (value === null) {
+      console.error('pageNameにnullは設定できません！代わりに""を代入します')
+      state.pageName = ''
+    } else {
+      state.pageName = value
+    }
   },
   tourName(state, value) {
     state.tourName = value
