@@ -36,20 +36,20 @@
                   KeyMap
             #potree_sidebar_container
         pane.drawer(
-          v-if="drawerVisibility"
+          v-if="drawerContent"
           size="40"
           min-size="25"
           max-size="75"
           :class="{border: !tourName}"
         )
           DrawerHistory(
-            v-if="$store.getters.pageName === 'History'"
+            v-if="drawerContent === 'history'"
           )
           Drawer3DData(
-            v-else-if="$store.getters.pageName === '3D Data'"
+            v-else-if="drawerContent === '3d-data'"
           )
           DrawerAnnotation(
-            v-else-if="annotationData"
+            v-else-if="drawerContent === 'annotation'"
             :data="annotationData"
             :annotations="annotations"
             :prevNextVisibility="prevNextVisibility"
@@ -60,7 +60,7 @@
             @next="next"
           )
           DrawerList(
-            v-else-if="listData"
+            v-else-if="drawerContent === 'list'"
             :data="listData"
             @next="next"
           )
@@ -294,12 +294,22 @@ export default {
     }
   },
   computed: {
-    drawerVisibility() {
+    drawerContent() {
+      // false の場合はdrawer表示
       if (this.tourName && this.tourName.includes('without Annotations')) {
         return false
       }
-      if (this.listData || this.annotationData) {
-        return true
+      if (this.$store.getters.pageName === 'History') {
+        return 'history'
+      }
+      if (this.$store.getters.pageName === '3D Data') {
+        return '3d-data'
+      }
+      if (this.annotationData) {
+        return 'annotation'
+      }
+      if (this.listData) {
+        return 'list'
       }
       return false
     },
@@ -357,6 +367,9 @@ export default {
       if (val === null) {
         this.stopRambleTourWithoutAnnotations()
       }
+    },
+    drawerContent(val) {
+      console.log('drawerContent change: ', val)
     }
   },
   async mounted() {
@@ -540,7 +553,7 @@ export default {
       this.getAnnotationById(id, annotations).click()
     },
     clickAnnotation(e) {
-      if (this.annotationData || this.listData) {
+      if (this.drawerContent) {
         this.$store.commit('pageName', '') // これがないと historyを開いた状態でannotationクリックなどでannotaionが開かなくなる
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
         this.clearSelectedAnnotation()
