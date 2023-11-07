@@ -295,7 +295,7 @@ export default {
   },
   computed: {
     drawerContent() {
-      // false の場合はdrawer表示
+      // falsy な時はdrawer非表示
       if (this.tourName && this.tourName.includes('without Annotations')) {
         return false
       }
