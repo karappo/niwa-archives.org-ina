@@ -36,7 +36,7 @@
                   KeyMap
             #potree_sidebar_container
         pane.drawer(
-          v-if="!(tourName && tourName.includes('without Annotations')) && (listData || annotationData)"
+          v-if="drawerVisibility"
           size="40"
           min-size="25"
           max-size="75"
@@ -295,6 +295,15 @@ export default {
     }
   },
   computed: {
+    drawerVisibility() {
+      if (this.tourName && this.tourName.includes('without Annotations')) {
+        return false
+      }
+      if (this.listData || this.annotationData) {
+        return true
+      }
+      return false
+    },
     viewer() {
       return window.viewer
     },
