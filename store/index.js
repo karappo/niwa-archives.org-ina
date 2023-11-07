@@ -18,6 +18,7 @@ export const state = () => ({
     'Elements/DNA Data': true,
     'Oral Archives': true
   },
+  drawerListScrollPositions: {}, // DrawerListのスクロール位置を保持
   // TODO ここ以降おそらく不要なので消す。合わせてFooter.vueも消す
   EDLEnabled: true,
   EDLRadius: 0, // default: 1.4
@@ -68,6 +69,9 @@ export const mutations = {
         break
     }
     state.annotationVisibilities[key] = value
+  },
+  drawerListScrollPositions(state, { key, value }) {
+    state.drawerListScrollPositions[key] = value
   },
   EDLEnabled(state, value) {
     state.EDLEnabled = value
@@ -124,6 +128,9 @@ export const getters = {
   },
   annotationVisibilities(state) {
     return state.annotationVisibilities
+  },
+  drawerListScrollPositions(state) {
+    return state.drawerListScrollPositions
   },
   EDLEnabled(state) {
     return state.EDLEnabled
