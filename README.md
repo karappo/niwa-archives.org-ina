@@ -28,12 +28,6 @@
 FONTPLUS: https://fontplus.jp/users/login
 アカウント: info@karappo.net
 
-## サーバースペック
-
-vCPU 2
-mem 16GB
-HDD 500GB
-
 ## Getting started
 
 ```sh
