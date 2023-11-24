@@ -4,9 +4,10 @@
 |:--------------|:---------|:---------------------------------|:-----------------|
 | Production    | さくら    | https://niwa-archives.org/       |                  |
 | Staging       | Heteml   | https://stg.niwa-archives.org/   | niwa:archives    |
-| 旧 Production | AWS S3   | https://niwa.ycam.jp             |                  |
+| 旧サイト ※      | AWS S3   | https://niwa.ycam.jp             |                  |
 | Development   | nuxt     | http://localhost:3000            |                  |
 
+※ トップページのみ残存
 
 - [データシート](https://docs.google.com/spreadsheets/d/1F7sd4dz2FHWiagmLGDLwmeUK1U3XCWhjIApzdLXyRmo/edit#gid=0)
 - [ファイル保存先](https://drive.google.com/drive/u/0/folders/1mwweu4PCDgja-3FXoQ1Pl4zvc-W9X_in)
