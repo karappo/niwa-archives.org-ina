@@ -1,7 +1,7 @@
 export default {
   title: 'Fugetsuro - Autumn',
   pointcloud:
-    '/assets/pointclouds/20221227_FugetsuroPhotoRaserEdit0.01.las_converted/metadata.json',
+    '/assets/pointclouds/20231016_20221227_FugetsuroPhotoRaserEdit_10mm.las_converted/metadata.json',
   variations: ['spring', 'summer', 'autumn', 'winter'],
   initCamera() {
     // viewer.fitToScreen()
