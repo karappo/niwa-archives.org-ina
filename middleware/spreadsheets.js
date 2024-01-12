@@ -61,6 +61,8 @@ export default async function ({ store }) {
             const type = valueOf('attachmentType')
             switch (type) {
               case 'image':
+                value = `https://drive.google.com/thumbnail?id=${id}&sz=w2000`
+                break
               case 'pdf':
                 value = `https://drive.google.com/uc?export=view&id=${id}`
                 break
