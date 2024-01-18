@@ -73,6 +73,7 @@
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/mixins
 .root
   width: 100%
   height: var(--vh)
@@ -97,14 +98,25 @@ main
   height: 100%
   margin: 0
   border-left: 0
+  +sp
+    display: none
 .title
   margin: 24px
   font-family: 'K2-v1-Light'
   font-weight: normal
   font-size: 17px
   color: white
+  +sp
+    margin: 10px 16px
+    letter-spacing: 0
   .scene
     margin-left: 26px
+    +sp
+      margin-top: -2px
+      margin-left: 0
+  span
+    +sp
+      display: block
 .splitpanes.default-theme
   overflow: hidden
   /deep/ .splitpanes__splitter

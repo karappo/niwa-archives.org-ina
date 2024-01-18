@@ -39,6 +39,7 @@
 
 <style lang="sass" scoped>
 @import ~/assets/style/const
+@import ~/assets/style/mixins
 .soundBar
   --background-color: black
   background-color: var(--background-color)
@@ -59,6 +60,8 @@
     width: 1px
     height: 100%
     background-color: #3C3C3C
+  +sp
+    display: none
   .toggleBtn
     --height: 24px
     position: absolute
