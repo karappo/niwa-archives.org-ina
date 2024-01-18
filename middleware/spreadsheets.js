@@ -74,6 +74,19 @@ export default async function ({ store }) {
                 console.error(`"${valueOf('title')}"(${i+1}行目)の"attachmentType"が間違っています`, type)
             }
             key = type
+          } else if (
+            // eslint-disable-next-line
+            /\/\/(stg\.)?niwa-archives.org\/wp\/wp-content\/uploads\//.test(value)
+          ) {
+            if (/\.(apng|avif|gif|png|jpe?g|tiff?|webp)$/i.test(value)) {
+              key = 'image'
+            } else if (/\.pdf$/i.test(value)) {
+              key = 'pdf'
+            } else if (
+              /\.(m4v|mov|mp4|mpeg|mpg|ogg|qt|webm|wmv)$/i.test(value)
+            ) {
+              key = 'movie'
+            }
           }
         }
         data[key] = value
