@@ -1,77 +1,75 @@
 <template lang="pug">
 .root
-  SorryScreen(v-if="$device.isMobile")
-  template(v-else)
-    main
-      splitpanes.default-theme
-        pane.potree_container(
-          size="60"
+  main
+    splitpanes.default-theme
+      pane.potree_container(
+        size="60"
+      )
+        //- TODO 追々対応が確認できたら個々の条件を見直すこと
+        .notice(v-if="!$device.isMobile && !$ua.is.chrome && noticeVisibility")
+          | このブラウザは閲覧時に不具合の可能性があります。デスクトップ版
+          ExternalLink(href="https://www.google.com/chrome/") Chrome
+          //- | または
+          //- ExternalLink(href="https://www.mozilla.org/ja/firefox/new/") Firefox
+          | でご覧ください。
+          .closeButton(@click="noticeVisibility = false")
+            IconClose
+        .potree_wrap
+          #potree_render_area(
+            ref="potree_render_area"
+            :class="potreeRenderAreaClass"
+          )
+            .debugMenuButton(@click.shift="viewer.toggleSidebar()")
+            .controls
+              h1.title
+                span.global Incomplete Niwa Archives
+                span.scene {{ data.title }}
+              template(v-if="tourName")
+                TourIndicator(
+                  :numerator="listData.list.length"
+                  :denominator="currentIndex + 1"
+                )
+                StopTourButton
+              template(v-else)
+                KeyMap
+          #potree_sidebar_container
+      pane.drawer(
+        v-if="!(tourName && tourName.includes('without Annotations')) && (listData || annotationData)"
+        size="40"
+        min-size="25"
+        max-size="75"
+        :class="{border: !tourName}"
+      )
+        //- TODO Historyを開いた状態で、Annotationをクリックしたら開かない…
+        DrawerHistory(
+          v-if="$store.getters.pageName === 'History'"
         )
-          //- TODO 追々対応が確認できたら個々の条件を見直すこと
-          .notice(v-if="!$ua.is.chrome && noticeVisibility")
-            | このブラウザは閲覧時に不具合の可能性があります。デスクトップ版
-            ExternalLink(href="https://www.google.com/chrome/") Chrome
-            //- | または
-            //- ExternalLink(href="https://www.mozilla.org/ja/firefox/new/") Firefox
-            | でご覧ください。
-            .closeButton(@click="noticeVisibility = false")
-              IconClose
-          .potree_wrap
-            #potree_render_area(
-              ref="potree_render_area"
-              :class="potreeRenderAreaClass"
-            )
-              .debugMenuButton(@click.shift="viewer.toggleSidebar()")
-              .controls
-                h1.title
-                  span.global Incomplete Niwa Archives
-                  span.scene {{ data.title }}
-                template(v-if="tourName")
-                  TourIndicator(
-                    :numerator="listData.list.length"
-                    :denominator="currentIndex + 1"
-                  )
-                  StopTourButton
-                template(v-else)
-                  KeyMap
-            #potree_sidebar_container
-        pane.drawer(
-          v-if="!(tourName && tourName.includes('without Annotations')) && (listData || annotationData)"
-          size="40"
-          min-size="25"
-          max-size="75"
-          :class="{border: !tourName}"
+        Drawer3DData(
+          v-else-if="$store.getters.pageName === '3D Data'"
         )
-          //- TODO Historyを開いた状態で、Annotationをクリックしたら開かない…
-          DrawerHistory(
-            v-if="$store.getters.pageName === 'History'"
-          )
-          Drawer3DData(
-            v-else-if="$store.getters.pageName === '3D Data'"
-          )
-          DrawerAnnotation(
-            v-else-if="annotationData"
-            :data="annotationData"
-            :annotations="annotations"
-            :prevNextVisibility="prevNextVisibility"
-            :prevDisabled="prevDisabled"
-            :nextDisabled="nextDisabled"
-            @backToList="clearSelectedAnnotation"
-            @prev="prev"
-            @next="next"
-          )
-          DrawerList(
-            v-else-if="listData"
-            :data="listData"
-            @next="next"
-          )
-      SoundBar(:annotations="annotations")
-    SideBar.sideBar(
-      v-if="!tourName"
-      :guidedTourExists="0 < data.guidedTour.length"
-      :variations="this.data.variations"
-      @saveCameraInfo="saveCameraInfo"
-    )
+        DrawerAnnotation(
+          v-else-if="annotationData"
+          :data="annotationData"
+          :annotations="annotations"
+          :prevNextVisibility="prevNextVisibility"
+          :prevDisabled="prevDisabled"
+          :nextDisabled="nextDisabled"
+          @backToList="clearSelectedAnnotation"
+          @prev="prev"
+          @next="next"
+        )
+        DrawerList(
+          v-else-if="listData"
+          :data="listData"
+          @next="next"
+        )
+    SoundBar(:annotations="annotations")
+  SideBar.sideBar(
+    v-if="!tourName"
+    :guidedTourExists="0 < data.guidedTour.length"
+    :variations="this.data.variations"
+    @saveCameraInfo="saveCameraInfo"
+  )
 </template>
 
 <style lang="sass" scoped>
