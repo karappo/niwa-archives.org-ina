@@ -75,6 +75,7 @@ export default async function ({ store }) {
             }
             key = type
           } else if (
+            // WordPressのメディアライブラリ
             // eslint-disable-next-line
             /\/\/(stg\.)?niwa-archives.org\/wp\/wp-content\/uploads\//.test(value)
           ) {
