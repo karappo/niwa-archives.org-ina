@@ -1,39 +1,65 @@
 <template lang="pug">
 .container
-  .key Q
-  .key W
-  .key E
-  .key R
-  .key T
+  .pcLayout
+    .key Q
+    .key W
+    .key E
+    .key R
+    .key T
 
-  .btn.panLeft(@mousedown="mousedown('Q')" title="Pan Left")
-  .btn.forward(@mousedown="mousedown('W')" title="Forward")
-  .btn.panRight(@mousedown="mousedown('E')" title="Pan Right")
-  .btn.up(@mousedown="mousedown('R')" title="Up")
-  .btn.tiltUp(@mousedown="mousedown('T')" title="Tilt Up")
+    .btn.panLeft(@mousedown="mousedown('Q')" title="Pan Left")
+    .btn.forward(@mousedown="mousedown('W')" title="Forward")
+    .btn.panRight(@mousedown="mousedown('E')" title="Pan Right")
+    .btn.up(@mousedown="mousedown('R')" title="Up")
+    .btn.tiltUp(@mousedown="mousedown('T')" title="Tilt Up")
 
-  .btn.left(@mousedown="mousedown('A')" title="Left")
-  .btn.backward(@mousedown="mousedown('S')" title="Backward")
-  .btn.right(@mousedown="mousedown('D')" title="Right")
-  .btn.down(@mousedown="mousedown('F')" title="Down")
-  .btn.tiltDown(@mousedown="mousedown('G')" title="Tilt Down")
+    .btn.left(@mousedown="mousedown('A')" title="Left")
+    .btn.backward(@mousedown="mousedown('S')" title="Backward")
+    .btn.right(@mousedown="mousedown('D')" title="Right")
+    .btn.down(@mousedown="mousedown('F')" title="Down")
+    .btn.tiltDown(@mousedown="mousedown('G')" title="Tilt Down")
 
-  .key A
-  .key S
-  .key D
-  .key F
-  .key G
+    .key A
+    .key S
+    .key D
+    .key F
+    .key G
+  .spLayout
+    .empty
+    .btn.forward(@mousedown="mousedown('W')" title="Forward")
+    .empty
+    .gutter
+    .btn.up(@mousedown="mousedown('R')" title="Up")
+
+    .btn.left(@mousedown="mousedown('A')" title="Left")
+    .btn.backward(@mousedown="mousedown('S')" title="Backward")
+    .btn.right(@mousedown="mousedown('D')" title="Right")
+    .gutter
+    .btn.down(@mousedown="mousedown('F')" title="Down")
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/mixins
 .container
+  margin: auto 20px 20px auto
+  +sp
+    margin: auto 20px 20px 20px
+.pcLayout
   display: grid
   grid-template-columns: 21px 21px 21px 21px 21px
   grid-template-rows: 20px 20px 21px 21px
   column-gap: 5px
   row-gap: 5px
-  grid-template-areas: 'key key key key key' 'key key key key key' 'key key key key key' 'key key key key key'
-  margin: auto 20px 20px auto
+  +sp
+    display: none
+.spLayout
+  display: none
+  grid-template-columns: 62px 62px 62px auto 62px
+  grid-template-rows: 62px 62px
+  column-gap: 16px
+  row-gap: 16px
+  +sp
+    display: grid !important
 .key,
 .btn
   color: white
@@ -54,6 +80,9 @@
   transition: background-color 0.2s
   &:hover
     background-color: #333
+  +sp
+    border-radius: 10px
+    background-color: rgba(29, 29, 29, 0.80)
 .panLeft
   background-image: url(~assets/image/pan.svg)
 .panRight
@@ -67,20 +96,32 @@
   transform: rotate(-90deg)
 .forward
   background-image: url(~assets/image/arrow.svg)
+  +sp
+    background-size: 29px auto
 .backward
   background-image: url(~assets/image/arrow.svg)
   transform: rotate(180deg)
+  +sp
+    background-size: 29px auto
 .left
   background-image: url(~assets/image/arrow.svg)
   transform: rotate(-90deg)
+  +sp
+    background-size: auto 29px
 .right
   background-image: url(~assets/image/arrow.svg)
   transform: rotate(90deg)
+  +sp
+    background-size: auto 29px
 .up
   background-image: url(~assets/image/arrow-outline.svg)
+  +sp
+    background-size: 29px auto
 .down
   background-image: url(~assets/image/arrow-outline.svg)
   transform: rotate(180deg)
+  +sp
+    background-size: 29px auto
 </style>
 
 <script>
