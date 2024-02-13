@@ -39,7 +39,8 @@
 </template>
 
 <style lang="sass" scoped>
-@import ~/assets/style/mixins
+$pc_sp_threshold: 1023px
+@import ~/assets/style/general/pc-sp
 .container
   margin: auto 20px 20px auto
   +sp
