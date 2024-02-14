@@ -101,7 +101,7 @@ main
   position: relative
   +sp
     height: 100%
-    min-height: 70px
+    min-height: var(--main-min-height)
 .debugMenuButton
   width: 4px
   height: 4px
