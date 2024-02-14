@@ -13,36 +13,35 @@
     .closeBtn(@click="$emit('spClose')")
       SpClose
   .content
-    .wrap
-      .row
-        SelectBox(:options="list" :value.sync="index")
-        .playPauseBtn(@click="togglePlay()")
-          Play(v-if="paused")
-          Pause(v-else)
-        .seekBarHitArea(ref='seekBarHitArea' @click.stop="seekBarClick")
-          .return(ref='return')
-          .seekBar
-            .progress(:style="progressStyle()")
-        .time {{ currentTime }} / {{ totalTime }}
-        nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
-          | Movie
-          span.icon 
-        ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
-          | Ambisonics
-          span.icon 
-      .row
-        dl
-          dt Place
-          dd
-            template(v-if="data.place" )
-              a(@click="placeClick(data.place.annotation)" :class="{disabled: $store.getters.tourName}") {{ data.place.label }}
-        dl
-          dt Creatures
-          dd
-            template(v-if="data.creatures && data.creatures.length")
-              template(v-for="creature in data.creatures")
-                a.creature(v-if="tags.includes(creature)" @click="tagClick(creature)" :class="{disabled: $store.getters.tourName}") {{ tag }}
-                span.creature(v-else) {{ creature }}
+    .row
+      SelectBox(:options="list" :value.sync="index")
+      .playPauseBtn(@click="togglePlay()")
+        Play(v-if="paused")
+        Pause(v-else)
+      .seekBarHitArea(ref='seekBarHitArea' @click.stop="seekBarClick")
+        .return(ref='return')
+        .seekBar
+          .progress(:style="progressStyle()")
+      .time {{ currentTime }} / {{ totalTime }}
+      nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
+        | Movie
+        span.icon 
+      ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
+        | Ambisonics
+        span.icon 
+    .row
+      dl
+        dt Place
+        dd
+          template(v-if="data.place" )
+            a(@click="placeClick(data.place.annotation)" :class="{disabled: $store.getters.tourName}") {{ data.place.label }}
+      dl
+        dt Creatures
+        dd
+          template(v-if="data.creatures && data.creatures.length")
+            template(v-for="creature in data.creatures")
+              a.creature(v-if="tags.includes(creature)" @click="tagClick(creature)" :class="{disabled: $store.getters.tourName}") {{ tag }}
+              span.creature(v-else) {{ creature }}
 </template>
 
 <style lang="sass" scoped>
@@ -122,111 +121,110 @@
     &:hover
       color: white
   .content
-    .wrap
-      .row
-        height: 30px
-        margin: 15px 18px 15px 24px
-        display: flex
-        align-items: center
-        &:first-child
-          +sp
-            margin-top: 0
-        .playPauseBtn
-          width: 110px
+    .row
+      height: 30px
+      margin: 15px 18px 15px 24px
+      display: flex
+      align-items: center
+      &:first-child
+        +sp
+          margin-top: 0
+    .playPauseBtn
+      width: 110px
+      height: 100%
+      display: flex
+      justify-content: center
+      align-items: center
+      cursor: pointer
+      &:hover
+        svg
+          rect,
+          path
+            fill: white
+    .seekBarHitArea
+      cursor: pointer
+      width: 100%
+      height: 100%
+      margin-right: 12px
+      display: flex
+      align-items: center
+      position: relative
+      .return
+        position: absolute
+        top: 0
+        left: 0
+        height: 100%
+        width: 4px
+        z-index: 2
+      .seekBar
+        width: 100%
+        height: 4px
+        background-color: #272727
+        z-index: 1
+        .progress
           height: 100%
-          display: flex
-          justify-content: center
-          align-items: center
+          max-width: 100%
+          background-color: #3e3e3e
+          background-color: white
+
+    .time
+      min-width: 100px
+      text-align: right
+      white-space: nowrap
+      color: #898989
+    .link
+      @extend %button
+      margin-left: 8px
+      border-radius: 5px
+      white-space: nowrap
+      width: 90px
+      flex-shrink: 0
+      padding: 4px 10px
+      font-size: 12px
+      display: flex
+      .icon
+        margin-left: auto
+        margin-right: 0
+        font-family: 'Font Awesome 5 Pro-Solid-900'
+    .time + .link
+      margin-left: 12px
+    dl + dl
+      margin-left: 20px
+    dl
+      color: #898989
+      background-color: var(--textbox-bg-color)
+      border-radius: 5px
+      display: flex
+      align-items: center
+      &:first-child
+        width: 188px
+        flex-shrink: 0
+      &:nth-child(2)
+        width: 100%
+      dt,dd
+        padding-top: 6px
+        padding-bottom: 6px
+      dt
+        padding-left: 12px
+        padding-right: 12px
+        font-family: 'K2-v1-Bold'
+        font-size: 12px
+        border-right: 1px solid var(--background-color)
+      dd
+        padding-left: 12px
+        padding-right: 12px
+        font-size: 11px
+        width: 100%
+        margin-left: 0
+        margin-right: 0
+        a.disabled
+          opacity: 1
+        a
           cursor: pointer
           &:hover
-            svg
-              rect,
-              path
-                fill: white
-        .seekBarHitArea
-          cursor: pointer
-          width: 100%
-          height: 100%
-          margin-right: 12px
-          display: flex
-          align-items: center
-          position: relative
-          .return
-            position: absolute
-            top: 0
-            left: 0
-            height: 100%
-            width: 4px
-            z-index: 2
-          .seekBar
-            width: 100%
-            height: 4px
-            background-color: #272727
-            z-index: 1
-            .progress
-              height: 100%
-              max-width: 100%
-              background-color: #3e3e3e
-              background-color: white
-
-        .time
-          min-width: 100px
-          text-align: right
-          white-space: nowrap
-          color: #898989
-        .link
-          @extend %button
-          margin-left: 8px
-          border-radius: 5px
-          white-space: nowrap
-          width: 90px
-          flex-shrink: 0
-          padding: 4px 10px
-          font-size: 12px
-          display: flex
-          .icon
-            margin-left: auto
-            margin-right: 0
-            font-family: 'Font Awesome 5 Pro-Solid-900'
-        .time + .link
-          margin-left: 12px
-        dl + dl
-          margin-left: 20px
-        dl
-          color: #898989
-          background-color: var(--textbox-bg-color)
-          border-radius: 5px
-          display: flex
-          align-items: center
-          &:first-child
-            width: 188px
-            flex-shrink: 0
-          &:nth-child(2)
-            width: 100%
-          dt,dd
-            padding-top: 6px
-            padding-bottom: 6px
-          dt
-            padding-left: 12px
-            padding-right: 12px
-            font-family: 'K2-v1-Bold'
-            font-size: 12px
-            border-right: 1px solid var(--background-color)
-          dd
-            padding-left: 12px
-            padding-right: 12px
-            font-size: 11px
-            width: 100%
-            margin-left: 0
-            margin-right: 0
-            a.disabled
-              opacity: 1
-            a
-              cursor: pointer
-              &:hover
-                color: white
-            .creature + .creature
-              margin-left: 1.5em
+            color: white
+        .creature + .creature
+          margin-left: 1.5em
 
   &.visible
     margin-bottom: -44px
