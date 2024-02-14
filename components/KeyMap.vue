@@ -7,17 +7,17 @@
     .key R
     .key T
 
-    .btn.panLeft(@mousedown="mousedown('Q')" title="Pan Left")
-    .btn.forward(@mousedown="mousedown('W')" title="Forward")
-    .btn.panRight(@mousedown="mousedown('E')" title="Pan Right")
-    .btn.up(@mousedown="mousedown('R')" title="Up")
-    .btn.tiltUp(@mousedown="mousedown('T')" title="Tilt Up")
+    .btn.panLeft(@pointerdown="pointerdown('Q')" title="Pan Left")
+    .btn.forward(@pointerdown="pointerdown('W')" title="Forward")
+    .btn.panRight(@pointerdown="pointerdown('E')" title="Pan Right")
+    .btn.up(@pointerdown="pointerdown('R')" title="Up")
+    .btn.tiltUp(@pointerdown="pointerdown('T')" title="Tilt Up")
 
-    .btn.left(@mousedown="mousedown('A')" title="Left")
-    .btn.backward(@mousedown="mousedown('S')" title="Backward")
-    .btn.right(@mousedown="mousedown('D')" title="Right")
-    .btn.down(@mousedown="mousedown('F')" title="Down")
-    .btn.tiltDown(@mousedown="mousedown('G')" title="Tilt Down")
+    .btn.left(@pointerdown="pointerdown('A')" title="Left")
+    .btn.backward(@pointerdown="pointerdown('S')" title="Backward")
+    .btn.right(@pointerdown="pointerdown('D')" title="Right")
+    .btn.down(@pointerdown="pointerdown('F')" title="Down")
+    .btn.tiltDown(@pointerdown="pointerdown('G')" title="Tilt Down")
 
     .key A
     .key S
@@ -26,16 +26,16 @@
     .key G
   .spLayout(v-if="spVisibility")
     .empty
-    .btn.forward(@mousedown="mousedown('W')" title="Forward")
+    .btn.forward(@pointerdown="pointerdown('W')" title="Forward")
     .empty
     .gutter
-    .btn.up(@mousedown="mousedown('R')" title="Up")
+    .btn.up(@pointerdown="pointerdown('R')" title="Up")
 
-    .btn.left(@mousedown="mousedown('A')" title="Left")
-    .btn.backward(@mousedown="mousedown('S')" title="Backward")
-    .btn.right(@mousedown="mousedown('D')" title="Right")
+    .btn.left(@pointerdown="pointerdown('A')" title="Left")
+    .btn.backward(@pointerdown="pointerdown('S')" title="Backward")
+    .btn.right(@pointerdown="pointerdown('D')" title="Right")
     .gutter
-    .btn.down(@mousedown="mousedown('F')" title="Down")
+    .btn.down(@pointerdown="pointerdown('F')" title="Down")
 </template>
 
 <style lang="sass" scoped>
@@ -157,13 +157,14 @@ export default {
     }
   },
   mounted() {
-    document.addEventListener('mouseup', this.mouseup)
+    document.addEventListener('pointerup', this.pointerup)
   },
   beforeDestroy() {
-    document.removeEventListener('mouseup', this.mouseup)
+    document.removeEventListener('pointerup', this.pointerup)
   },
   methods: {
-    mousedown(key) {
+    pointerdown(key) {
+      console.log('musedown', key)
       if (!key) {
         return
       }
@@ -177,7 +178,7 @@ export default {
         })
       )
     },
-    mouseup() {
+    pointerup() {
       if (!(this.currentKey && this.currentKeyCode)) {
         return
       }
