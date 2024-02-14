@@ -404,9 +404,6 @@ export default {
   },
   async mounted() {
     FONTPLUS.start()
-    if (this.$device.isMobile) {
-      return
-    }
     const viewer = new Potree.Viewer(this.$refs.potree_render_area)
     window.viewer = viewer
     viewer.setFOV(75)
@@ -505,9 +502,6 @@ export default {
     }, 1000)
   },
   beforeDestroy() {
-    if (this.$device.isMobile) {
-      return
-    }
     this.$nuxt.$off('closeDrawer', this.closeDrawer)
     this.$nuxt.$off('settingUpdated')
     this.$nuxt.$off('setControlMode', this.setControlMode)
