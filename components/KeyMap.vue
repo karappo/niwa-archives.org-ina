@@ -43,6 +43,11 @@ $pc_sp_threshold: 1023px
 @import ~/assets/style/general/pc-sp
 .container
   margin: auto 20px 20px auto
+  pointer-events: none
+  .pcLayout,
+  .spLayout
+    > *
+      pointer-events: auto
   +sp
     margin: auto 20px 20px 20px
 .pcLayout
