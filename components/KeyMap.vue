@@ -164,7 +164,6 @@ export default {
   },
   methods: {
     pointerdown(key) {
-      console.log('musedown', key)
       if (!key) {
         return
       }
