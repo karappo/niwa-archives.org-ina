@@ -24,7 +24,7 @@
           .seekBar
             .progress(:style="progressStyle()")
         .time {{ currentTime }} / {{ totalTime }}
-      .movieAndAmbisonics
+      .movieAndAmbisonics(v-if="data.movieId || data.ambisonicsUrl")
         //- nuxt-link(to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
         nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
           | Movie
@@ -38,7 +38,7 @@
       dd
         template(v-if="data.place" )
           a(@click="placeClick(data.place.annotation)" :class="{disabled: $store.getters.tourName}") {{ data.place.label }}
-    dl.creatures
+    dl.creatures(:class="{empty: !(data.creatures && data.creatures.length)}")
       dt Creatures
       dd
         template(v-if="data.creatures && data.creatures.length")
@@ -62,6 +62,21 @@
   transition: margin 0.8s
   +sp
     font-size: 15px
+    .selectBox
+      order: 1
+    .controlsAndMovies
+      order: 3
+      margin-top: 15px
+      display: block
+      .movieAndAmbisonics
+        margin-top: 30px
+        margin-left: -8px // 中のボタンのマージンを打ち消す
+    .place
+      order: 2
+    .creatures
+      order: 4
+      &.empty
+        display: none
   // border-rightだと表示領域外になってしまうため、疑似要素で…
   &.border:after
     position: absolute
@@ -97,7 +112,8 @@
     padding: 28px 20px
     color: #898989
     font-size: 15px
-    font-weight: 900
+    font-weight: bold
+    letter-spacing: 0
 .closeBtn
   position: absolute
   top: 0
@@ -205,6 +221,8 @@
   white-space: nowrap
   color: #898989
   flex-shrink: 0
+  +sp
+    letter-spacing: 0
 .link
   @extend %button
   margin-left: 8px
@@ -252,6 +270,7 @@ dl
     margin-right: 0
     +sp
       font-size: 14px
+      font-weight: bold
     a.disabled
       opacity: 1
     a
@@ -260,6 +279,20 @@ dl
         color: white
     .creature + .creature
       margin-left: 1.5em
+.creatures
+  +sp
+    display: block
+    background-color: transparent
+    width: auto
+    letter-spacing: 0
+    dt
+      padding-left: 0
+    dd
+      background-color: var(--textbox-bg-color)
+      border-radius: 5px
+      font-size: 12px
+      width: auto
+      line-height: 20px
 audio
   width: 100%
 </style>

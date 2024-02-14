@@ -28,6 +28,8 @@
   &:hover
     background-color: #1A1A1A
     color: white
+  +sp
+    height: 38px
   select
     cursor: pointer
     -webkit-appearance: none
@@ -54,6 +56,8 @@
     display: flex
     justify-content: center
     align-items: center
+    +sp
+      width: 38px
   &:hover
     select
       color: white
