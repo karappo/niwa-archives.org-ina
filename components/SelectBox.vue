@@ -16,6 +16,7 @@
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/mixins
 .selectBox
   min-width: 188px
   height: 30px
@@ -40,6 +41,8 @@
     color: #ADADAD
     font-size: 12px
     padding: 7px 50px 8px 10px
+    +sp
+      font-size: 15px
   .icon
     pointer-events: none
     position: absolute

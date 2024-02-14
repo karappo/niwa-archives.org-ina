@@ -60,6 +60,8 @@
   font-family: 'K2-v1-Bold'
   margin-bottom: -100%
   transition: margin 0.8s
+  +sp
+    font-size: 15px
   // border-rightだと表示領域外になってしまうため、疑似要素で…
   &.border:after
     position: absolute
@@ -140,6 +142,10 @@
   grid-template-rows: repeat(2, 1fr)
   row-gap: 15px
   column-gap: 20px
+  +sp
+    display: flex
+    flex-direction: column
+    padding: 0 20px 20px
 .controlsAndMovies
   display: flex
   align-items: center
@@ -198,6 +204,7 @@
   text-align: right
   white-space: nowrap
   color: #898989
+  flex-shrink: 0
 .link
   @extend %button
   margin-left: 8px
@@ -234,6 +241,8 @@ dl
     font-family: 'K2-v1-Bold'
     font-size: 12px
     border-right: 1px solid var(--background-color)
+    +sp
+      font-size: 15px
   dd
     padding-left: 12px
     padding-right: 12px
@@ -241,6 +250,8 @@ dl
     width: 100%
     margin-left: 0
     margin-right: 0
+    +sp
+      font-size: 14px
     a.disabled
       opacity: 1
     a
