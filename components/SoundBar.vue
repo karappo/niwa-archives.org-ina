@@ -124,9 +124,9 @@
   justify-content: space-between
   +sp
     display: none
-span.text
-  margin-left: 10px
-  margin-right: auto
+  span.text
+    margin-left: 10px
+    margin-right: auto
 .icon
   margin-left: auto
   margin-right: 10px
