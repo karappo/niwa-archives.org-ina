@@ -114,7 +114,8 @@ nav.spMenu
     z-index: 100
   .btn
     width: 68px
-    height: 60px
+    height: 68px
+    flex-shrink: 0
     background-color: rgba(0,0,0,0.7)
     display: flex
     justify-content: center
