@@ -66,6 +66,7 @@
     SoundBar(
       :annotations="annotations"
       :spVisibility="soundSpVisibility"
+      @spClose="soundSpVisibility = false"
     )
     nav.spMenu
       .btn(@click="sideBarSpVisibility = !sideBarSpVisibility")

@@ -10,7 +10,8 @@
     TriangleArrow.icon
   .spHeader
     span.text Sounds
-
+    .closeBtn(@click="$emit('spClose')")
+      SpClose
   .content
     .wrap
       .row
@@ -74,12 +75,24 @@
       display: block
   .spHeader
     display: none
+    position: relative
     +sp
-      display: block
-      padding: 20px
+      display: flex
+      align-items: center
+      justify-content: space-between
+      padding: 28px 20px
       color: #898989
       font-size: 15px
       font-weight: 900
+    .closeBtn
+      position: absolute
+      top: 0
+      right: 0
+      height: 100%
+      padding: 0 26px
+      display: flex
+      justify-content: center
+      align-items: center
   .toggleBtn
     --height: 24px
     position: absolute
@@ -115,6 +128,9 @@
         margin: 15px 18px 15px 24px
         display: flex
         align-items: center
+        &:first-child
+          +sp
+            margin-top: 0
         .playPauseBtn
           width: 110px
           height: 100%
@@ -231,12 +247,14 @@ import AllData from '~/data/sounds.js'
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg?inline'
 import Play from '~/assets/image/SoundBar/play.svg?inline'
 import Pause from '~/assets/image/SoundBar/pause.svg?inline'
+import SpClose from '~/assets/image/SoundBar/sp-close.svg?inline'
 export default {
   components: {
     ExternalLink,
     TriangleArrow,
     Play,
-    Pause
+    Pause,
+    SpClose
   },
   props: {
     annotations: {
