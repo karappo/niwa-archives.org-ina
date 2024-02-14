@@ -72,160 +72,6 @@
   &[data-sp-visibility='true']
     +sp
       display: block
-  .spHeader
-    display: none
-    position: relative
-    +sp
-      display: flex
-      align-items: center
-      justify-content: space-between
-      padding: 28px 20px
-      color: #898989
-      font-size: 15px
-      font-weight: 900
-    .closeBtn
-      position: absolute
-      top: 0
-      right: 0
-      height: 100%
-      padding: 0 26px
-      display: flex
-      justify-content: center
-      align-items: center
-  .toggleBtn
-    --height: 24px
-    position: absolute
-    display: flex
-    justify-content: center
-    align-items: center
-    width: 188px
-    height: var(--height)
-    background-color: var(--background-color)
-    top: calc(var(--height) * -1)
-    left: 24px
-    border-radius: 5px 5px 0 0
-    font-size: 12px
-    color: #898989
-    cursor: pointer
-    z-index: 10
-    justify-content: space-between
-    +sp
-      display: none
-    span.text
-      margin-left: 10px
-      margin-right: auto
-    .icon
-      margin-left: auto
-      margin-right: 10px
-      transform: rotate(180deg)
-    &:hover
-      color: white
-  .content
-    .row
-      height: 30px
-      margin: 15px 18px 15px 24px
-      display: flex
-      align-items: center
-      &:first-child
-        +sp
-          margin-top: 0
-    .playPauseBtn
-      width: 110px
-      height: 100%
-      display: flex
-      justify-content: center
-      align-items: center
-      cursor: pointer
-      &:hover
-        svg
-          rect,
-          path
-            fill: white
-    .seekBarHitArea
-      cursor: pointer
-      width: 100%
-      height: 100%
-      margin-right: 12px
-      display: flex
-      align-items: center
-      position: relative
-      .return
-        position: absolute
-        top: 0
-        left: 0
-        height: 100%
-        width: 4px
-        z-index: 2
-      .seekBar
-        width: 100%
-        height: 4px
-        background-color: #272727
-        z-index: 1
-        .progress
-          height: 100%
-          max-width: 100%
-          background-color: #3e3e3e
-          background-color: white
-
-    .time
-      min-width: 100px
-      text-align: right
-      white-space: nowrap
-      color: #898989
-    .link
-      @extend %button
-      margin-left: 8px
-      border-radius: 5px
-      white-space: nowrap
-      width: 90px
-      flex-shrink: 0
-      padding: 4px 10px
-      font-size: 12px
-      display: flex
-      .icon
-        margin-left: auto
-        margin-right: 0
-        font-family: 'Font Awesome 5 Pro-Solid-900'
-    .time + .link
-      margin-left: 12px
-    dl + dl
-      margin-left: 20px
-    dl
-      color: #898989
-      background-color: var(--textbox-bg-color)
-      border-radius: 5px
-      display: flex
-      align-items: center
-      &:first-child
-        width: 188px
-        flex-shrink: 0
-      &:nth-child(2)
-        width: 100%
-      dt,dd
-        padding-top: 6px
-        padding-bottom: 6px
-      dt
-        padding-left: 12px
-        padding-right: 12px
-        font-family: 'K2-v1-Bold'
-        font-size: 12px
-        border-right: 1px solid var(--background-color)
-      dd
-        padding-left: 12px
-        padding-right: 12px
-        font-size: 11px
-        width: 100%
-        margin-left: 0
-        margin-right: 0
-        a.disabled
-          opacity: 1
-        a
-          cursor: pointer
-          &:hover
-            color: white
-        .creature + .creature
-          margin-left: 1.5em
-
   &.visible
     margin-bottom: -44px
     &:hover
@@ -236,8 +82,161 @@
     .toggleBtn
       .icon
         transform: rotate(0deg)
-  audio
+.spHeader
+  display: none
+  position: relative
+  +sp
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 28px 20px
+    color: #898989
+    font-size: 15px
+    font-weight: 900
+.closeBtn
+  position: absolute
+  top: 0
+  right: 0
+  height: 100%
+  padding: 0 26px
+  display: flex
+  justify-content: center
+  align-items: center
+.toggleBtn
+  --height: 24px
+  position: absolute
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 188px
+  height: var(--height)
+  background-color: var(--background-color)
+  top: calc(var(--height) * -1)
+  left: 24px
+  border-radius: 5px 5px 0 0
+  font-size: 12px
+  color: #898989
+  cursor: pointer
+  z-index: 10
+  justify-content: space-between
+  +sp
+    display: none
+span.text
+  margin-left: 10px
+  margin-right: auto
+.icon
+  margin-left: auto
+  margin-right: 10px
+  transform: rotate(180deg)
+  &:hover
+    color: white
+.content
+.row
+  height: 30px
+  margin: 15px 18px 15px 24px
+  display: flex
+  align-items: center
+  &:first-child
+    +sp
+      margin-top: 0
+.playPauseBtn
+  width: 110px
+  height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  &:hover
+    svg
+      rect,
+      path
+        fill: white
+.seekBarHitArea
+  cursor: pointer
+  width: 100%
+  height: 100%
+  margin-right: 12px
+  display: flex
+  align-items: center
+  position: relative
+  .return
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    width: 4px
+    z-index: 2
+  .seekBar
     width: 100%
+    height: 4px
+    background-color: #272727
+    z-index: 1
+    .progress
+      height: 100%
+      max-width: 100%
+      background-color: #3e3e3e
+      background-color: white
+
+.time
+  min-width: 100px
+  text-align: right
+  white-space: nowrap
+  color: #898989
+.link
+  @extend %button
+  margin-left: 8px
+  border-radius: 5px
+  white-space: nowrap
+  width: 90px
+  flex-shrink: 0
+  padding: 4px 10px
+  font-size: 12px
+  display: flex
+  .icon
+    margin-left: auto
+    margin-right: 0
+    font-family: 'Font Awesome 5 Pro-Solid-900'
+.time + .link
+  margin-left: 12px
+dl + dl
+  margin-left: 20px
+dl
+  color: #898989
+  background-color: var(--textbox-bg-color)
+  border-radius: 5px
+  display: flex
+  align-items: center
+  &:first-child
+    width: 188px
+    flex-shrink: 0
+  &:nth-child(2)
+    width: 100%
+  dt,dd
+    padding-top: 6px
+    padding-bottom: 6px
+  dt
+    padding-left: 12px
+    padding-right: 12px
+    font-family: 'K2-v1-Bold'
+    font-size: 12px
+    border-right: 1px solid var(--background-color)
+  dd
+    padding-left: 12px
+    padding-right: 12px
+    font-size: 11px
+    width: 100%
+    margin-left: 0
+    margin-right: 0
+    a.disabled
+      opacity: 1
+    a
+      cursor: pointer
+      &:hover
+        color: white
+    .creature + .creature
+      margin-left: 1.5em
+audio
+  width: 100%
 </style>
 
 <script>
