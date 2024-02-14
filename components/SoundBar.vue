@@ -13,8 +13,8 @@
     .closeBtn(@click="$emit('spClose')")
       SpClose
   .content
-    .row
-      SelectBox(:options="list" :value.sync="index")
+    SelectBox.selectBox(:options="list" :value.sync="index")
+    .controlsAndMovies
       .controls
         .playPauseBtn(@click="togglePlay()")
           Play(v-if="paused")
@@ -25,25 +25,26 @@
             .progress(:style="progressStyle()")
         .time {{ currentTime }} / {{ totalTime }}
       .movieAndAmbisonics
+        //- nuxt-link(to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
         nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
           | Movie
           span.icon 
+        //- ExternalLink.link.ambisonics(:href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
         ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
           | Ambisonics
           span.icon 
-    .row
-      dl
-        dt Place
-        dd
-          template(v-if="data.place" )
-            a(@click="placeClick(data.place.annotation)" :class="{disabled: $store.getters.tourName}") {{ data.place.label }}
-      dl
-        dt Creatures
-        dd
-          template(v-if="data.creatures && data.creatures.length")
-            template(v-for="creature in data.creatures")
-              a.creature(v-if="tags.includes(creature)" @click="tagClick(creature)" :class="{disabled: $store.getters.tourName}") {{ tag }}
-              span.creature(v-else) {{ creature }}
+    dl.place
+      dt Place
+      dd
+        template(v-if="data.place" )
+          a(@click="placeClick(data.place.annotation)" :class="{disabled: $store.getters.tourName}") {{ data.place.label }}
+    dl.creatures
+      dt Creatures
+      dd
+        template(v-if="data.creatures && data.creatures.length")
+          template(v-for="creature in data.creatures")
+            a.creature(v-if="tags.includes(creature)" @click="tagClick(creature)" :class="{disabled: $store.getters.tourName}") {{ tag }}
+            span.creature(v-else) {{ creature }}
 </template>
 
 <style lang="sass" scoped>
@@ -133,14 +134,17 @@ span.text
   &:hover
     color: white
 .content
-.row
-  height: 30px
-  margin: 15px 18px 15px 24px
+  display: grid
+  padding: 15px 18px 15px 24px
+  grid-template-columns: 188px 1fr
+  grid-template-rows: repeat(2, 1fr)
+  row-gap: 15px
+  column-gap: 20px
+.controlsAndMovies
   display: flex
   align-items: center
-  &:first-child
-    +sp
-      margin-top: 0
+  width: 100%
+  height: 100%
 .controls
   display: flex
   align-items: center
@@ -150,6 +154,7 @@ span.text
   display: flex
   align-items: center
 .playPauseBtn
+  margin-left: -20px
   width: 77px
   height: 100%
   display: flex
@@ -209,8 +214,6 @@ span.text
     font-family: 'Font Awesome 5 Pro-Solid-900'
 .time + .link
   margin-left: 12px
-dl + dl
-  margin-left: 20px
 dl
   color: #898989
   background-color: var(--textbox-bg-color)
