@@ -24,12 +24,13 @@
           .seekBar
             .progress(:style="progressStyle()")
         .time {{ currentTime }} / {{ totalTime }}
-      nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
-        | Movie
-        span.icon 
-      ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
-        | Ambisonics
-        span.icon 
+      .movieAndAmbisonics
+        nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
+          | Movie
+          span.icon 
+        ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
+          | Ambisonics
+          span.icon 
     .row
       dl
         dt Place
@@ -145,6 +146,9 @@ span.text
   align-items: center
   width: 100%
   height: 100%
+.movieAndAmbisonics
+  display: flex
+  align-items: center
 .playPauseBtn
   width: 77px
   height: 100%
