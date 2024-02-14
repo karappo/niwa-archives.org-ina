@@ -64,6 +64,13 @@
           @next="next"
         )
     SoundBar(:annotations="annotations")
+    nav.spMenu
+      .btn
+        SpMenuList
+      .btn
+        SpMenuNavigate
+      .btn
+        SpMenuSound
   SideBar.sideBar(
     v-if="!tourName"
     :guidedTourExists="0 < data.guidedTour.length"
@@ -83,6 +90,7 @@ main
   display: flex
   flex-direction: column
   width: 100%
+  position: relative
 .debugMenuButton
   width: 4px
   height: 4px
@@ -92,6 +100,24 @@ main
   left: 0
   cursor: pointer
   z-index: 100
+nav.spMenu
+  display: none
+  +sp
+    display: flex
+    flex-direction: column
+    position: absolute
+    top: 0
+    right: 0
+    z-index: 100
+  .btn
+    width: 68px
+    height: 60px
+    background-color: rgba(0,0,0,0.7)
+    display: flex
+    justify-content: center
+    align-items: center
+  .btn + .btn
+    border-top: 1px solid #3D3D3D
 .sideBar
   flex-shrink: 0
   width: 165px
@@ -275,10 +301,16 @@ import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
 import { ExternalLink } from '@karappo-inc/vue-components'
 import IconClose from '~/assets/image/icon-close.svg?inline'
+import SpMenuList from '~/assets/image/spMenu/list.svg?inline'
+import SpMenuNavigate from '~/assets/image/spMenu/navigate.svg?inline'
+import SpMenuSound from '~/assets/image/spMenu/sound.svg?inline'
 export default {
   components: {
     ExternalLink,
-    IconClose
+    IconClose,
+    SpMenuList,
+    SpMenuNavigate,
+    SpMenuSound
   },
   props: {
     file: {
