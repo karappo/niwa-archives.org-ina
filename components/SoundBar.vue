@@ -1,9 +1,16 @@
 <template lang="pug">
-.soundBar(v-if="list" :class="{visible, border: !$store.getters.tourName}")
+.soundBar(
+  v-if="list"
+  :class="{visible, border: !$store.getters.tourName}"
+  :data-sp-visibility="spVisibility"
+)
   audio(ref='player')
   .toggleBtn(@click="visible = !visible")
     span.text Sounds
     TriangleArrow.icon
+  .spHeader
+    span.text Sounds
+
   .content
     .wrap
       .row
@@ -62,6 +69,17 @@
     background-color: #3C3C3C
   +sp
     display: none
+  &[data-sp-visibility='true']
+    +sp
+      display: block
+  .spHeader
+    display: none
+    +sp
+      display: block
+      padding: 20px
+      color: #898989
+      font-size: 15px
+      font-weight: 900
   .toggleBtn
     --height: 24px
     position: absolute
@@ -79,6 +97,8 @@
     cursor: pointer
     z-index: 10
     justify-content: space-between
+    +sp
+      display: none
     span.text
       margin-left: 10px
       margin-right: auto
@@ -223,6 +243,11 @@ export default {
       type: Array,
       require: true,
       default: null
+    },
+    spVisibility: {
+      type: Boolean,
+      require: true,
+      default: false
     }
   },
   data() {

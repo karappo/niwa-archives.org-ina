@@ -63,7 +63,10 @@
           :data="listData"
           @next="next"
         )
-    SoundBar(:annotations="annotations")
+    SoundBar(
+      :annotations="annotations"
+      :spVisibility="soundSpVisibility"
+    )
     nav.spMenu
       .btn(@click="sideBarSpVisibility = !sideBarSpVisibility")
         SpMenuList
