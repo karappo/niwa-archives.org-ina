@@ -31,7 +31,7 @@
                 )
                 StopTourButton
               template(v-else)
-                KeyMap
+                KeyMap(:spVisibility="keyMapSpVisibility")
           #potree_sidebar_container
       pane.drawer(
         v-if="!(tourName && tourName.includes('without Annotations')) && (listData || annotationData)"
@@ -67,7 +67,7 @@
     nav.spMenu
       .btn
         SpMenuList
-      .btn
+      .btn(@click="keyMapSpVisibility = !keyMapSpVisibility")
         SpMenuNavigate
       .btn
         SpMenuSound
@@ -333,6 +333,7 @@ export default {
       drawerAlreadyOpened: false,
       loading: true,
       noticeVisibility: true,
+      keyMapSpVisibility: true,
       rambleTourTimer: null
     }
   },

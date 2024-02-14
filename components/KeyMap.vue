@@ -24,7 +24,7 @@
     .key D
     .key F
     .key G
-  .spLayout
+  .spLayout(v-if="spVisibility")
     .empty
     .btn.forward(@mousedown="mousedown('W')" title="Forward")
     .empty
@@ -133,6 +133,13 @@ $pc_sp_threshold: 1023px
 
 <script>
 export default {
+  props: {
+    spVisibility: {
+      type: Boolean,
+      require: true,
+      default: true
+    }
+  },
   data() {
     return {
       currentKey: null,
