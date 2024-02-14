@@ -68,7 +68,7 @@
       :spVisibility="soundSpVisibility"
       @spClose="soundSpVisibility = false"
     )
-    nav.spMenu
+    nav.spMenu(v-if="!sideBarSpVisibility")
       .btn(@click="sideBarSpVisibility = !sideBarSpVisibility")
         SpMenuList
       .btn(@click="keyMapSpVisibility = !keyMapSpVisibility")
@@ -79,6 +79,8 @@
     v-if="!tourName"
     :guidedTourExists="0 < data.guidedTour.length"
     :variations="this.data.variations"
+    :spVisibility="sideBarSpVisibility"
+    @spClose="sideBarSpVisibility = false"
     @saveCameraInfo="saveCameraInfo"
   )
 </template>
@@ -90,11 +92,16 @@
   height: var(--vh)
   background: #000
   display: flex
+  +sp
+    flex-direction: column
 main
   display: flex
   flex-direction: column
   width: 100%
   position: relative
+  +sp
+    height: 100%
+    min-height: 70px
 .debugMenuButton
   width: 4px
   height: 4px
@@ -130,7 +137,7 @@ nav.spMenu
   margin: 0
   border-left: 0
   +sp
-    display: none
+    width: auto
 .title
   margin: 24px
   font-family: 'K2-v1-Light'

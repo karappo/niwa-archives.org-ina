@@ -1,5 +1,8 @@
 <template lang="pug">
-aside
+aside(:data-sp-visibility="spVisibility")
+  .spHeader
+    .closeBtn(@click="$emit('spClose')")
+      SideBarClose
   //- nuxt-link.backToTop(to="/")
   //-   span Back to top
   //-   MenuArrow
@@ -37,12 +40,33 @@ aside
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/mixins
 aside
   background-color: #000
   color: #898989
   z-index: 1
   border-left: 1px solid #3C3C3C
   overflow-y: auto
+  +sp
+    display: none
+  &[data-sp-visibility='true']
+    +sp
+      display: block
+.spHeader
+  --size: 54px
+  height: var(--size)
+  display: flex
+  align-items: center
+  justify-content: flex-end
+  position: sticky
+  top: 0
+  background: #000
+  .closeBtn
+    width: var(--size)
+    height: var(--size)
+    display: flex
+    justify-content: center
+    align-items: center
 .backToTop
   display: flex
   align-items: center
@@ -124,9 +148,11 @@ h3
 
 <script>
 import MenuArrow from '~/assets/image/menu-arrow.svg?inline'
+import SideBarClose from '~/assets/image/sideBar/close.svg?inline'
 export default {
   components: {
-    MenuArrow
+    MenuArrow,
+    SideBarClose
   },
   props: {
     guidedTourExists: {
@@ -136,6 +162,11 @@ export default {
     variations: {
       type: Array,
       default: () => []
+    },
+    spVisibility: {
+      type: Boolean,
+      required: true,
+      default: false
     }
   },
   data() {
