@@ -40,7 +40,7 @@
 
 <style lang="sass" scoped>
 // タブレットでもSPレイアウトを使用するため、閾値をPCレイアウトの閾値よりも大きく
-$pc_sp_threshold: 1023px
+$pc_sp_threshold: 1024px
 @import ~/assets/style/general/pc-sp
 .container
   margin: auto 20px 20px auto
