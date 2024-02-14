@@ -408,15 +408,23 @@ export default {
         this.stopRambleTourWithoutAnnotations()
       }
     },
-    // keyMapSpVisibility と soundSpVisibility は同時にtrueにならないようにする
-    keyMapSpVisibility(val) {
-      if (val && this.soundSpVisibility) {
+    // sideBarSpVisibility, keyMapSpVisibility, soundSpVisibility は同時にtrueにならないようにする
+    sideBarSpVisibility(val) {
+      if (val) {
+        this.keyMapSpVisibility = false
         this.soundSpVisibility = false
       }
     },
+    keyMapSpVisibility(val) {
+      if (val) {
+        this.soundSpVisibility = false
+        this.sideBarSpVisibility = false
+      }
+    },
     soundSpVisibility(val) {
-      if (val && this.keyMapSpVisibility) {
+      if (val) {
         this.keyMapSpVisibility = false
+        this.sideBarSpVisibility = false
       }
     }
   },
