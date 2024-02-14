@@ -65,11 +65,11 @@
         )
     SoundBar(:annotations="annotations")
     nav.spMenu
-      .btn
+      .btn(@click="sideBarSpVisibility = !sideBarSpVisibility")
         SpMenuList
       .btn(@click="keyMapSpVisibility = !keyMapSpVisibility")
         SpMenuNavigate
-      .btn
+      .btn(@click="soundSpVisibility = !soundSpVisibility")
         SpMenuSound
   SideBar.sideBar(
     v-if="!tourName"
@@ -333,8 +333,11 @@ export default {
       drawerAlreadyOpened: false,
       loading: true,
       noticeVisibility: true,
+      rambleTourTimer: null,
+      // SPモード中の表示切り替えフラグ
+      sideBarSpVisibility: true,
       keyMapSpVisibility: true,
-      rambleTourTimer: null
+      soundSpVisibility: true
     }
   },
   computed: {
