@@ -233,6 +233,8 @@
     &:hover
       margin-bottom: 0
       transition: margin 0.08s
+    +sp
+      margin-bottom: 0
     .toggleBtn
       .icon
         transform: rotate(0deg)
