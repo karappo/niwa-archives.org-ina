@@ -15,14 +15,15 @@
   .content
     .row
       SelectBox(:options="list" :value.sync="index")
-      .playPauseBtn(@click="togglePlay()")
-        Play(v-if="paused")
-        Pause(v-else)
-      .seekBarHitArea(ref='seekBarHitArea' @click.stop="seekBarClick")
-        .return(ref='return')
-        .seekBar
-          .progress(:style="progressStyle()")
-      .time {{ currentTime }} / {{ totalTime }}
+      .controls
+        .playPauseBtn(@click="togglePlay()")
+          Play(v-if="paused")
+          Pause(v-else)
+        .seekBarHitArea(ref='seekBarHitArea' @click.stop="seekBarClick")
+          .return(ref='return')
+          .seekBar
+            .progress(:style="progressStyle()")
+        .time {{ currentTime }} / {{ totalTime }}
       nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
         | Movie
         span.icon 
@@ -139,13 +140,19 @@ span.text
   &:first-child
     +sp
       margin-top: 0
+.controls
+  display: flex
+  align-items: center
+  width: 100%
+  height: 100%
 .playPauseBtn
-  width: 110px
+  width: 77px
   height: 100%
   display: flex
   justify-content: center
   align-items: center
   cursor: pointer
+  flex-shrink: 0
   &:hover
     svg
       rect,
