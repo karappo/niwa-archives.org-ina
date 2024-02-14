@@ -340,9 +340,9 @@ export default {
       noticeVisibility: true,
       rambleTourTimer: null,
       // SPモード中の表示切り替えフラグ
-      sideBarSpVisibility: true,
+      sideBarSpVisibility: false,
       keyMapSpVisibility: true,
-      soundSpVisibility: true
+      soundSpVisibility: false
     }
   },
   computed: {
@@ -399,6 +399,17 @@ export default {
     tourName(val) {
       if (val === null) {
         this.stopRambleTourWithoutAnnotations()
+      }
+    },
+    // keyMapSpVisibility と soundSpVisibility は同時にtrueにならないようにする
+    keyMapSpVisibility(val) {
+      if (val && this.soundSpVisibility) {
+        this.soundSpVisibility = false
+      }
+    },
+    soundSpVisibility(val) {
+      if (val && this.keyMapSpVisibility) {
+        this.keyMapSpVisibility = false
       }
     }
   },
