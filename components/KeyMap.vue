@@ -49,6 +49,10 @@ $pc_sp_threshold: 1023px
   .spLayout
     > *
       pointer-events: auto
+      // iOS Safariで長押しで選択されてしまわないようにする
+      user-select: none
+      -webkit-user-select: none
+      -moz-user-select: none
   +sp
     margin: auto 20px 20px 20px
 .pcLayout
