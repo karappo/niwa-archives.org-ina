@@ -54,7 +54,7 @@ $pc_sp_threshold: 1024px
       -webkit-user-select: none
       -moz-user-select: none
   +sp
-    margin: auto 20px 20px 20px
+    margin: auto 22px 22px 22px
 .pcLayout
   display: grid
   grid-template-columns: 21px 21px 21px 21px 21px
@@ -67,8 +67,8 @@ $pc_sp_threshold: 1024px
   display: none
   grid-template-columns: 62px 62px 62px auto 62px
   grid-template-rows: 62px 62px
-  column-gap: 16px
-  row-gap: 16px
+  column-gap: 17px
+  row-gap: 17px
   +sp
     display: grid !important
 .key,
