@@ -1,7 +1,7 @@
 <template lang="pug">
 .root
   main
-    splitpanes.default-theme
+    splitpanes.default-theme(:horizontal="isSP")
       pane.potree_container(
         size="60"
       )
@@ -337,6 +337,7 @@ export default {
     data = data.default
 
     return {
+      isSP: false,
       annotations,
       data,
       tours: null,
@@ -520,6 +521,8 @@ export default {
     this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
     this.$nuxt.$on('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.addEventListener('camera_changed', this.update)
+    window.addEventListener('resize', this.resize)
+    this.resize()
 
     config()
 
@@ -537,6 +540,7 @@ export default {
     this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
     this.$nuxt.$off('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.removeEventListener('camera_changed', this.update)
+    window.removeEventListener('resize', this.resize)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
         a.removeEventListener('click', this.clickAnnotation)
@@ -547,6 +551,10 @@ export default {
     document.querySelectorAll('#profile_window,.sp-container').forEach((e) => e.remove()) // eslint-disable-line
   },
   methods: {
+    resize() {
+      const pcSpThreshold = 990
+      this.isSP = window.innerWidth < pcSpThreshold
+    },
     setControlMode(mode) {
       switch (mode) {
         case 0:
