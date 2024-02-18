@@ -31,10 +31,10 @@
                 )
                 StopTourButton
               template(v-else)
-                KeyMap(:spVisibility="keyMapSpVisibility")
+                KeyMap(:spVisibility="!drawerVisibility && keyMapSpVisibility")
           #potree_sidebar_container
       pane.drawer(
-        v-if="!(tourName && tourName.includes('without Annotations')) && (listData || annotationData)"
+        v-if="drawerVisibility"
         :size="isSP ? 70 : 40"
         min-size="25"
         max-size="75"
@@ -65,7 +65,7 @@
         )
     SoundBar(
       :annotations="annotations"
-      :spVisibility="soundSpVisibility"
+      :spVisibility="!drawerVisibility && soundSpVisibility"
       @spClose="soundSpVisibility = false"
     )
     nav.spMenu(v-if="!sideBarSpVisibility")
@@ -79,7 +79,7 @@
     v-if="!tourName"
     :guidedTourExists="0 < data.guidedTour.length"
     :variations="this.data.variations"
-    :spVisibility="sideBarSpVisibility"
+    :spVisibility="!drawerVisibility && sideBarSpVisibility"
     @spClose="sideBarSpVisibility = false"
     @saveCameraInfo="saveCameraInfo"
   )
@@ -404,6 +404,10 @@ export default {
     },
     tourName() {
       return this.$store.getters.tourName
+    },
+    drawerVisibility() {
+      // eslint-disable-next-line
+      return !(this.tourName && this.tourName.includes('without Annotations')) && (this.listData || this.annotationData)
     }
   },
   watch: {
