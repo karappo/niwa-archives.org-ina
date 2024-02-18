@@ -162,6 +162,9 @@ nav.spMenu
     border: 0
     width: 7px
     z-index: 2
+    +sp
+      width: 100%
+      height: 7px
   .splitpanes__pane
     &.potree_container
       width: 100%
