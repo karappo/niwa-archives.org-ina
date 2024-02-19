@@ -35,7 +35,7 @@
           #potree_sidebar_container
       pane.drawer(
         v-if="drawerVisibility"
-        :size="isSP ? 70 : 40"
+        :size="isSP ? 50 : 40"
         min-size="25"
         max-size="75"
         :class="{border: !tourName}"
