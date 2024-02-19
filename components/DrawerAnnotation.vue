@@ -7,7 +7,7 @@
       @click="clickAutoplay"
       :class="{enabled: $store.getters.autoplay}"
       title="オートプレイ：自動的に次のアノテーションを表示・再生します"
-    ) Autoplay
+    ) Auto<span class="play">play</span>
     template(v-if="prevNextVisibility")
       a.prev(
         @click="prev"
@@ -80,6 +80,17 @@ header
     margin-right: 8px
     &.enabled
       border-color: white !important
+      +sp
+        color: #fff !important
+    +sp
+      padding: 0 10px
+      margin-right: 0
+      background: transparent !important // activeやhoverの時に背景色が変わるのを防ぐために!importantつけている
+      border: 0
+      font-size: 14px
+      color: #898989 !important // activeやhoverの時に背景色が変わるのを防ぐために!importantつけている
+      .play
+        display: none
   .backTolist
     font-family: 'Font Awesome 5 Pro-Light-300'
     width: 34px
