@@ -67,19 +67,29 @@
     --category-color: #{$color_dnaData}
   &[data-category='Oral Archives']
     --category-color: #{$color_oralArchives}
-
+  +sp
+    display: flex
+    flex-direction: column-reverse
+    justify-content: center
+    overflow: visible
   .annotation-titlebar
     display: inline-block
     border: 0
-    border-radius: 14px
-    padding: 0 15px
     box-shadow: none !important
-    top: -24px
-    left: 19px
     position: absolute
     transition: .4s cubic-bezier(0.18, 0.93, 0.49, 0.99)
     transition-property: clip-path
     clip-path: inset(0 100% 0 0)
+    overflow: visible
+    background-color: transparent
+    +pc
+      top: -28px
+      left: 14px
+    +sp
+      position: relative
+      top: -53px
+      left: 3px
+      padding-bottom: 16px
     &:before
       position: absolute
       content: ''
@@ -87,14 +97,23 @@
       width: 2px
       height: 20px
       background-color: black
-      transform: rotate(45deg) translate(-2px, 14px)
+      transform: translate(0px, 13px) rotate(45deg)
       z-index: -1
+      +sp
+        height: 15px
+        transform: none
+        top: 26px
+        left: 50%
     .annotation-label
+      background-color: black
+      border-radius: 14px
+      padding: 0 15px
       color: #696969
       font-family: 'K2-v1-Bold', $yugothic
       font-size: 12px
       line-height: 2.2
       transition: color 0.2s
+      overflow: visible
       &:hover
         color: white
   .annotation-marker
@@ -136,7 +155,11 @@
   &[data-camera-dist=nearer]
     .annotation-titlebar
       clip-path: inset(0)
-      left: 55px
-      top: -50px
+      +pc
+        left: 52px
+        top: -50px
+      +sp
+        top: -97px
+
     .annotation-marker
       @extend %marker_thumb
