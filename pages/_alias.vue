@@ -308,6 +308,8 @@ nav.spMenu
     transition: background-color 0.2s
     &:hover
       background-color: lighten(#1D1D1D, 5%)
+    +sp
+      display: none
 .sideBar
   grid-area: sidebar
 </style>

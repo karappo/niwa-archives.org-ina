@@ -7,6 +7,7 @@
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/mixins
 @keyframes flash
   0%
     opacity: 1
@@ -31,6 +32,15 @@
     margin-left: 13px
     animation: flash 0.5s ease-in-out infinite
     animation-direction: alternate
+    +sp
+      margin-left: 0
+      margin-right: 10px
+  +sp
+    flex-direction: row-reverse
+    top: auto
+    right: auto
+    left: 15px
+    bottom: 10px
 </style>
 
 <script>
