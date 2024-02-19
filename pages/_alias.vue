@@ -213,8 +213,9 @@ nav.spMenu
     &.drawer
       overflow-y: auto
       background-color: black
-      margin-left: -6px
-      height: calc(100% - 1px)
+      +pc
+        margin-left: -6px
+        height: calc(100% - 1px)
       &.border
         border-right: 1px solid #3C3C3C
         border-bottom: 1px solid #3C3C3C

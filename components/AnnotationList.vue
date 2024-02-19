@@ -97,6 +97,7 @@
       white-space: nowrap
       display: flex
       align-items: center
+      margin-right: 6px
     .type
       width: 46px
       display: flex
