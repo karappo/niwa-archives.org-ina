@@ -68,7 +68,7 @@
       :spVisibility="!drawerVisibility && soundSpVisibility"
       @spClose="soundSpVisibility = false"
     )
-    nav.spMenu(v-if="!sideBarSpVisibility")
+    nav.spMenu(v-if="!drawerVisibility && !sideBarSpVisibility")
       .btn(@click="sideBarSpVisibility = !sideBarSpVisibility")
         SpMenuList
       .btn(@click="keyMapSpVisibility = !keyMapSpVisibility")
