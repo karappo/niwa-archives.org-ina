@@ -105,3 +105,15 @@ for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
 ## Potreeのサイドバーを表示する方法
 
 画面の左上数ピクセルの透明なボタンがあるので、カーソルを合わせると形状が変化することで場所を特定し、Shiftキーを押しながらクリックするとサイドバーが現れる。
+
+## 点群テータの重さ参考
+
+fugetsu_ro-autumn 3.12GB
+fugetsu_ro-spring 2.34GB
+fugetsu_ro-summer 10.14GB 最重
+fugetsu_ro-winter 8.83GB
+joei_ji 6.26GB
+murin_an-snow 1.52GB 最軽
+murin_an-summer 2.6GB
+murin_an-winter 2.68GB
+ryogen_in 1.61GB
