@@ -145,12 +145,12 @@
   span.text
     margin-left: 10px
     margin-right: auto
-.icon
-  margin-left: auto
-  margin-right: 10px
-  transform: rotate(180deg)
-  &:hover
-    color: white
+  .icon
+    margin-left: auto
+    margin-right: 10px
+    transform: rotate(180deg)
+    &:hover
+      color: white
 .content
   display: grid
   padding: 15px 18px 15px 24px
