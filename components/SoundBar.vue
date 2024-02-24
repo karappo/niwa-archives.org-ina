@@ -83,6 +83,7 @@
         .link
           margin-left: 0
           width: auto
+          font-size: 15px
     .place
       order: 2
     .creatures
