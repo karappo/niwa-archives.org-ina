@@ -24,13 +24,19 @@
           .seekBar
             .progress(:style="progressStyle()")
         .time {{ currentTime }} / {{ totalTime }}
-      .movieAndAmbisonics(v-if="data.movieId || data.ambisonicsUrl")
-        //- nuxt-link(to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
-        nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
+      //- .movieAndAmbisonics(v-if="data.movieId || data.ambisonicsUrl")
+      //-   nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
+      //-     | Movie
+      //-     span.icon 
+      //-   ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
+      //-     | Ambisonics
+      //-     span.icon 
+      //- TODO デザイン確認用なので、後で上と入れ替える
+      .movieAndAmbisonics
+        nuxt-link(to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
           | Movie
           span.icon 
-        //- ExternalLink.link.ambisonics(:href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
-        ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
+        ExternalLink.link.ambisonics(:href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
           | Ambisonics
           span.icon 
     dl.place
@@ -70,7 +76,13 @@
       display: block
       .movieAndAmbisonics
         margin-top: 30px
-        margin-left: -8px // 中のボタンのマージンを打ち消す
+        margin-left: 0 // 中のボタンのマージンを打ち消す
+        display: grid
+        grid-template-columns: 1fr 1fr
+        gap: 11px
+        .link
+          margin-left: 0
+          width: auto
     .place
       order: 2
     .creatures
