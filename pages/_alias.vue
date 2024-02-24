@@ -69,11 +69,20 @@
       @spClose="soundSpVisibility = false"
     )
     nav.spMenu(v-if="!drawerVisibility && !sideBarSpVisibility")
-      .btn(@click="sideBarSpVisibility = !sideBarSpVisibility")
+      .btn(
+        @click="sideBarSpVisibility = !sideBarSpVisibility"
+        :class="{active: sideBarSpVisibility}"
+      )
         SpMenuList
-      .btn(@click="keyMapSpVisibility = !keyMapSpVisibility")
+      .btn(
+        @click="keyMapSpVisibility = !keyMapSpVisibility"
+        :class="{active: keyMapSpVisibility}"
+      )
         SpMenuNavigate
-      .btn(@click="soundSpVisibility = !soundSpVisibility")
+      .btn(
+        @click="soundSpVisibility = !soundSpVisibility"
+        :class="{active: soundSpVisibility}"
+      )
         SpMenuSound
   SideBar.sideBar(
     v-if="!tourName"
@@ -128,6 +137,11 @@ nav.spMenu
     display: flex
     justify-content: center
     align-items: center
+    > svg
+      transition: opacity 0.2s
+    &.active
+      > svg
+        opacity: 0.5
   .btn + .btn
     border-top: 1px solid #3D3D3D
 .sideBar
