@@ -24,19 +24,11 @@
           .seekBar
             .progress(:style="progressStyle()")
         .time {{ currentTime }} / {{ totalTime }}
-      //- .movieAndAmbisonics(v-if="data.movieId || data.ambisonicsUrl")
-      //-   nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
-      //-     | Movie
-      //-     span.icon 
-      //-   ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
-      //-     | Ambisonics
-      //-     span.icon 
-      //- TODO デザイン確認用なので、後で上と入れ替える
-      .movieAndAmbisonics
-        nuxt-link(to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
+      .movieAndAmbisonics(v-if="data.movieId || data.ambisonicsUrl")
+        nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
           | Movie
           span.icon 
-        ExternalLink.link.ambisonics(:href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
+        ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
           | Ambisonics
           span.icon 
     dl.place
