@@ -323,7 +323,11 @@ nav.spMenu
     &:hover
       background-color: lighten(#1D1D1D, 5%)
     +sp
-      display: none
+      font-size: 15px
+      width: 110px
+      height: 40px
+      bottom: 15px
+      right: 15px
 .sideBar
   grid-area: sidebar
 </style>
