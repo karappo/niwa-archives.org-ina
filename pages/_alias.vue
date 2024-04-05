@@ -87,7 +87,7 @@
   SideBar.sideBar(
     v-if="!tourName"
     :guidedTourExists="0 < data.guidedTour.length"
-    :variations="this.data.variations"
+    :variations="data.variations"
     :spVisibility="!drawerVisibility && sideBarSpVisibility"
     @spClose="sideBarSpVisibility = false"
     @saveCameraInfo="saveCameraInfo"
