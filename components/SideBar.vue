@@ -1,5 +1,5 @@
 <template lang="pug">
-aside(:data-sp-visibility="spVisibility")
+aside
   .wrap
     .spHeader
       .closeBtn(@click="$emit('spClose')")
@@ -49,12 +49,7 @@ aside
   border-left: 1px solid #3C3C3C
   overflow-y: auto
   +sp
-    display: none
-  &[data-sp-visibility='true']
-    +sp
-      display: block
-      height: 100%
-      overflow: auto
+    height: 100%
   > .wrap
     padding-bottom: var(--main-min-height)
 .spHeader
@@ -68,6 +63,7 @@ aside
     position: sticky
     top: 0
     background: #000
+    z-index: 9
   .closeBtn
     width: var(--size)
     height: var(--size)
@@ -169,11 +165,6 @@ export default {
     variations: {
       type: Array,
       default: () => []
-    },
-    spVisibility: {
-      type: Boolean,
-      required: true,
-      default: false
     }
   },
   data() {

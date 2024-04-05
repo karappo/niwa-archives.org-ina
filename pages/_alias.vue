@@ -63,6 +63,16 @@
           :data="listData"
           @next="next"
         )
+      pane.sideBarSp(
+        v-if="isSP && !drawerVisibility && sideBarSpVisibility && !tourName"
+      )
+        SideBar(
+          :guidedTourExists="0 < data.guidedTour.length"
+          :variations="data.variations"
+          :spVisibility="!drawerVisibility && sideBarSpVisibility"
+          @spClose="sideBarSpVisibility = false"
+          @saveCameraInfo="saveCameraInfo"
+        )
     SoundBar(
       :annotations="annotations"
       :spVisibility="!drawerVisibility && soundSpVisibility"
@@ -85,10 +95,9 @@
       )
         SpMenuSound
   SideBar.sideBar(
-    v-if="!tourName"
+    v-if="!isSP && !tourName"
     :guidedTourExists="0 < data.guidedTour.length"
     :variations="data.variations"
-    :spVisibility="!drawerVisibility && sideBarSpVisibility"
     @spClose="sideBarSpVisibility = false"
     @saveCameraInfo="saveCameraInfo"
   )
@@ -151,7 +160,7 @@ nav.spMenu
   margin: 0
   border-left: 0
   +sp
-    width: auto
+    display: none
 .title
   margin: 24px
   font-family: 'K2-v1-Light'
