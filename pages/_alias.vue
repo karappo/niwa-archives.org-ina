@@ -47,17 +47,23 @@
         Drawer3DData(
           v-else-if="$store.getters.pageName === '3D Data'"
         )
-        DrawerAnnotation(
-          v-else-if="annotationData"
-          :data="annotationData"
-          :annotations="annotations"
-          :prevNextVisibility="prevNextVisibility"
-          :prevDisabled="prevDisabled"
-          :nextDisabled="nextDisabled"
-          @backToList="clearSelectedAnnotation"
-          @prev="prev"
-          @next="next"
-        )
+        template(v-else-if="annotationData")
+          DrawerList(
+            v-if="annotationData.group"
+            :data="{name: 'Group', list: annotationData.group}"
+            @next="next"
+          )
+          DrawerAnnotation(
+            v-else-if="annotationData"
+            :data="annotationData"
+            :annotations="annotations"
+            :prevNextVisibility="prevNextVisibility"
+            :prevDisabled="prevDisabled"
+            :nextDisabled="nextDisabled"
+            @backToList="clearSelectedAnnotation"
+            @prev="prev"
+            @next="next"
+          )
         DrawerList(
           v-else-if="listData"
           :data="listData"
