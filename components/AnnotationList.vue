@@ -47,7 +47,7 @@
           fill: white
 
     .dotWrap
-      margin-right: 10px
+      margin-right: 0
       margin-left: auto
       display: flex
       align-items: center
@@ -72,8 +72,8 @@
         display: inline-block
         width: 6px
         height: 6px
+        margin: 0 20px
         background-color: var(--bg-color)
-        margin-right: 10px
         border-radius: 50%
 
     .icon
@@ -92,13 +92,14 @@
       align-items: center
       justify-content: flex-end
     .title
+      flex-shrink: 10
       overflow: hidden
       text-overflow: ellipsis
       white-space: nowrap
       display: flex
       align-items: center
-      margin-right: 6px
     .type
+      flex-shrink: 0
       width: 46px
       display: flex
       justify-content: center
