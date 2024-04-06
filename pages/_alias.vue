@@ -644,8 +644,10 @@ export default {
       }
     },
     showAnnotationById(id) {
-      const annotations = window.viewer.scene.annotations.children
-      this.getAnnotationById(id, annotations).click()
+      this.getAnnotationById(
+        id,
+        window.viewer.scene.annotations.children
+      ).click()
     },
     clickAnnotation(e) {
       if (this.annotationData || this.listData) {
