@@ -73,7 +73,8 @@
     justify-content: center
     overflow: visible
   .annotation-titlebar
-    display: inline-block
+    display: flex
+    align-items: center
     border: 0
     box-shadow: none !important
     position: absolute
@@ -82,6 +83,10 @@
     clip-path: inset(0 100% 0 0)
     overflow: visible
     background-color: transparent
+    color: #696969
+    transition: color 0.2s
+    &:hover
+      color: white
     +pc
       top: -28px
       left: 14px
@@ -105,17 +110,27 @@
         top: 26px
         left: 50%
     .annotation-label
+      flex-shrink: 0
       background-color: black
       border-radius: 14px
       padding: 0 15px
-      color: #696969
       font-family: 'K2-v1-Bold', $yugothic
       font-size: 12px
       line-height: 2.2
-      transition: color 0.2s
       overflow: visible
-      &:hover
-        color: white
+    .group-count
+      flex-shrink: 0
+      width: 37px
+      height: 37px
+      border-radius: 50%
+      background-color: black
+      font-family: 'K2-v1-Bold', $yugothic
+      font-size: 17px
+      line-height: 1
+      display: flex
+      justify-content: center
+      align-items: center
+      position: relative
   .annotation-marker
     cursor: pointer
     z-index: 1 // macOS Safariでホバーしたときにマスキングが外れる症状への対処

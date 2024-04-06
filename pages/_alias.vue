@@ -345,6 +345,7 @@ nav.spMenu
 </style>
 
 <script>
+import _groupBy from 'lodash/groupBy'
 import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
 import { ExternalLink } from '@karappo-inc/vue-components'
@@ -390,6 +391,16 @@ export default {
     }
   },
   computed: {
+    annotationsGroupedByPosition() {
+      const res = []
+      Object.values(_groupBy(this.annotations, 'position')).forEach((a) => {
+        const first = JSON.parse(JSON.stringify(a[0]))
+        first.group =
+          a.length !== 1 ? JSON.parse(JSON.stringify(a.slice(1))) : null
+        res.push(first)
+      })
+      return res
+    },
     viewer() {
       return window.viewer
     },
@@ -536,8 +547,8 @@ export default {
     this.tours = tours
     this.$store.commit('cameraAnimationCount', tours.length)
 
-    if (this.annotations) {
-      this.annotations.forEach((data, index) => {
+    if (this.annotationsGroupedByPosition) {
+      this.annotationsGroupedByPosition.forEach((data, index) => {
         data.index = index
         const a = new Potree.Annotation(data)
         // Cancel Potree default behavior
