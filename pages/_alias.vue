@@ -29,7 +29,7 @@
                   :numerator="listData.list.length"
                   :denominator="currentIndex + 1"
                 )
-                StopTourButton
+                StopTourButton(:class="{hiddenInSP: tourName !== 'Ramble Tour without Annotations'}")
               template(v-else)
                 KeyMap(:spVisibility="!drawerVisibility && keyMapSpVisibility")
           #potree_sidebar_container
@@ -337,6 +337,9 @@ nav.spMenu
       height: 40px
       bottom: 15px
       right: 15px
+      // with Annotationの時は非表示にする
+      &.hiddenInSP
+        display: none
 .sideBar
   grid-area: sidebar
 </style>
