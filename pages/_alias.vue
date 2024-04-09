@@ -185,6 +185,7 @@ nav.spMenu
     border: 0
     width: 7px
     z-index: 2
+    margin-left: 0 // デフォルトのスタイルが-1になっていて変な線が生じてしまうので0にする
     +sp
       width: 100%
       height: 7px
