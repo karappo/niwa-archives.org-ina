@@ -668,15 +668,18 @@ export default {
         window.viewer.scene.annotations.children
       ).click()
     },
+    highliteAnnotation(e) {
+      // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
+      this.$nextTick(() => {
+        this.annotationData = e.target.data
+        e.target.domElement.get(0).classList.add('highlighted')
+      })
+    },
     clickAnnotation(e) {
       if (this.annotationData || this.listData) {
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
         this.clearSelectedAnnotation()
-        // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
-        this.$nextTick(() => {
-          this.annotationData = e.target.data
-          e.target.domElement.get(0).classList.add('highlighted')
-        })
+        this.highliteAnnotation(e)
       } else {
         this.drawerAlreadyOpened = false // あとで開くのでここでは何もしない
       }
@@ -687,11 +690,7 @@ export default {
         return
       }
       this.clearSelectedAnnotation()
-      // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
-      this.$nextTick(() => {
-        this.annotationData = e.target.data
-        e.target.domElement.get(0).classList.add('highlighted')
-      })
+      this.highliteAnnotation(e)
     },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
