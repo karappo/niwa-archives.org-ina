@@ -584,7 +584,7 @@ export default {
     this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$on('selectList', this.selectList)
-    this.$nuxt.$on('showAnnotation', this.showAnnotation)
+    this.$nuxt.$on('showAnnotationByIndex', this.showAnnotationByIndex)
     this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
     this.$nuxt.$on('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.addEventListener('camera_changed', this.update)
@@ -603,7 +603,7 @@ export default {
     this.$nuxt.$off('setControlMode', this.setControlMode)
     this.$nuxt.$off('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$off('selectList', this.selectList)
-    this.$nuxt.$off('showAnnotation', this.showAnnotation)
+    this.$nuxt.$off('showAnnotationByIndex', this.showAnnotationByIndex)
     this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
     this.$nuxt.$off('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.removeEventListener('camera_changed', this.update)
@@ -656,16 +656,16 @@ export default {
       if (index < 0) {
         index = this.listDataIndexArray.length - 1
       }
-      this.showAnnotation(this.listDataIndexArray[index])
+      this.showAnnotationByIndex(this.listDataIndexArray[index])
     },
     next(globalIndex) {
       let index = this.listDataIndexArray.indexOf(globalIndex) + 1
       if (this.listDataIndexArray.length <= index) {
         index = 0
       }
-      this.showAnnotation(this.listDataIndexArray[index])
+      this.showAnnotationByIndex(this.listDataIndexArray[index])
     },
-    showAnnotation(globalIndex) {
+    showAnnotationByIndex(globalIndex) {
       const annotation = window.viewer.scene.annotations.children[globalIndex]
       if (this.$store.getters.pageName.includes('Tour')) {
         annotation.click_inTour()
@@ -796,7 +796,7 @@ export default {
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
     startRambleTourWithoutAnnotations() {
-      this.$nuxt.$emit('showAnnotation', this.listData.list[0].index)
+      this.$nuxt.$emit('showAnnotationByIndex', this.listData.list[0].index)
       if (this.rambleTourTimer) {
         clearInterval(this.rambleTourTimer)
       }

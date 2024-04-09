@@ -187,7 +187,7 @@ export default {
     startTour(tourName) {
       this.$store.commit('tourName', tourName)
       this.$nextTick(() => {
-        this.$nuxt.$emit('showAnnotation', this.data.list[0].index)
+        this.$nuxt.$emit('showAnnotationByIndex', this.data.list[0].index)
       })
     },
     filterByTag(list) {
