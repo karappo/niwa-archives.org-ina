@@ -375,7 +375,6 @@ export default {
     const annotationGroups = Object.values(
       _groupBy(annotations, 'position')
     ).filter((a) => 1 < a.length)
-    console.log('annotationGroups', annotationGroups)
     annotations.forEach((a, index) => {
       // 通し番号を振っておく
       a.index = index
@@ -681,10 +680,22 @@ export default {
         window.viewer.scene.annotations.children
       ).click()
     },
+    getAnnotationGroupByPosition(position) {
+      return this.annotationGroups.find(
+        (g) => JSON.stringify(g[0].position) === JSON.stringify(position)
+      )
+    },
     highliteAnnotation(e) {
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
       this.$nextTick(() => {
-        this.annotationData = e.target.data
+        if (e.target.data.grouped) {
+          this.listData = {
+            name: 'Group',
+            list: this.getAnnotationGroupByPosition(e.target.data.position)
+          }
+        } else {
+          this.annotationData = e.target.data
+        }
         e.target.domElement.get(0).classList.add('highlighted')
       })
     },
