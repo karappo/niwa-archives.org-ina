@@ -47,23 +47,17 @@
         Drawer3DData(
           v-else-if="$store.getters.pageName === '3D Data'"
         )
-        template(v-else-if="annotationData")
-          DrawerList(
-            v-if="annotationData.group"
-            :data="{name: 'Group', list: annotationData.group}"
-            @next="next"
-          )
-          DrawerAnnotation(
-            v-else-if="annotationData"
-            :data="annotationData"
-            :annotations="annotations"
-            :prevNextVisibility="prevNextVisibility"
-            :prevDisabled="prevDisabled"
-            :nextDisabled="nextDisabled"
-            @backToList="clearSelectedAnnotation"
-            @prev="prev"
-            @next="next"
-          )
+        DrawerAnnotation(
+          v-else-if="annotationData"
+          :data="annotationData"
+          :annotations="annotations"
+          :prevNextVisibility="prevNextVisibility"
+          :prevDisabled="prevDisabled"
+          :nextDisabled="nextDisabled"
+          @backToList="clearSelectedAnnotation"
+          @prev="prev"
+          @next="next"
+        )
         DrawerList(
           v-else-if="listData"
           :data="listData"
@@ -376,12 +370,27 @@ export default {
   },
   async asyncData({ route, store }) {
     const annotations = store.state.annotations[camelCase(route.params.alias)]
+    // 同位置のアノテーションはgroupにする
+    const annotationGroups = Object.values(
+      _groupBy(annotations, 'position')
+    ).filter((a) => 1 < a.length)
+    console.log('annotationGroups', annotationGroups)
+    annotations.forEach((a, index) => {
+      // 通し番号を振っておく
+      a.index = index
+      // groupに属するかどうかをBooleanで持たせる
+      a.grouped = annotationGroups.some(
+        (g) => JSON.stringify(g[0].position) === JSON.stringify(a.position)
+      )
+    })
+    console.log('annotations', annotations)
     let data = await import(`~/data/gardens/${route.params.alias}.js`)
     data = data.default
 
     return {
       isSP: false,
       annotations,
+      annotationGroups, // 同位置のアノテーションをまとめたグループ
       data,
       tours: null,
       annotationData: '',
@@ -397,16 +406,6 @@ export default {
     }
   },
   computed: {
-    annotationsGroupedByPosition() {
-      const res = []
-      Object.values(_groupBy(this.annotations, 'position')).forEach((a) => {
-        const first = JSON.parse(JSON.stringify(a[0]))
-        first.group =
-          a.length !== 1 ? JSON.parse(JSON.stringify(a.slice(1))) : null
-        res.push(first)
-      })
-      return res
-    },
     viewer() {
       return window.viewer
     },
@@ -553,10 +552,23 @@ export default {
     this.tours = tours
     this.$store.commit('cameraAnimationCount', tours.length)
 
-    if (this.annotationsGroupedByPosition) {
-      this.annotationsGroupedByPosition.forEach((data, index) => {
-        data.index = index
-        const a = new Potree.Annotation(data)
+    if (this.annotations) {
+      this.annotations
+        .filter((a) => !a.grouped)
+        .forEach((data) => {
+          const a = new Potree.Annotation(data)
+          // Cancel Potree default behavior
+          a.domElement.off('mouseenter')
+          a.domElement.off('mouseleave')
+          // クリックした時の処理
+          a.addEventListener('click', this.clickAnnotation)
+          a.addEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
+          window.viewer.scene.annotations.add(a)
+        })
+    }
+    if (this.annotationGroups) {
+      this.annotationGroups.forEach((data) => {
+        const a = new Potree.Annotation(data[0], data.length)
         // Cancel Potree default behavior
         a.domElement.off('mouseenter')
         a.domElement.off('mouseleave')
