@@ -383,7 +383,6 @@ export default {
         (g) => JSON.stringify(g[0].position) === JSON.stringify(a.position)
       )
     })
-    console.log('annotations', annotations)
     let data = await import(`~/data/gardens/${route.params.alias}.js`)
     data = data.default
 
