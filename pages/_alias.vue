@@ -644,15 +644,6 @@ export default {
     startCameraAnimation(index) {
       this.tours[index].play()
     },
-    getAnnotationById(id) {
-      const list = window.viewer.scene.annotations.children.filter(
-        (a) => a.data.id === id
-      )
-      if (list.length) {
-        return list[0]
-      }
-      console.error(`id=${id} のアノテーションが見つかりませんでした`)
-    },
     prev(globalIndex) {
       let index = this.listDataIndexArray.indexOf(globalIndex) - 1
       if (index < 0) {
@@ -676,7 +667,14 @@ export default {
       }
     },
     showAnnotationById(id) {
-      this.getAnnotationById(id).click()
+      const list = window.viewer.scene.annotations.children.filter(
+        (a) => a.data.id === id
+      )
+      if (list.length) {
+        list[0].click()
+        return
+      }
+      console.error(`id=${id} のアノテーションが見つかりませんでした`)
     },
     getAnnotationGroupByPosition(position) {
       return this.annotationGroups.find(
