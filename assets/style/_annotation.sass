@@ -67,8 +67,9 @@
     --category-color: #{$color_dnaData}
   &[data-category='Oral Archives']
     --category-color: #{$color_oralArchives}
-  &[data-grouped='true']
-    display: none
+  &[data-is_group='true']
+    .annotation-titlebar
+      margin-top: -6px
   +sp
     display: flex
     flex-direction: column-reverse
@@ -88,7 +89,7 @@
     &:hover
       color: white
     +pc
-      top: -35px
+      top: -28px
       left: 14px
     +sp
       position: relative
@@ -102,7 +103,7 @@
       width: 2px
       height: 20px
       background-color: black
-      transform: translate(0px, 13px) rotate(45deg)
+      transform: translate(0px, 10px) rotate(45deg)
       z-index: -1
       +sp
         height: 15px
