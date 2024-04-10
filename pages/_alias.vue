@@ -644,8 +644,10 @@ export default {
     startCameraAnimation(index) {
       this.tours[index].play()
     },
-    getAnnotationById(id, annotations) {
-      const list = annotations.filter((a) => a.data.id === id)
+    getAnnotationById(id) {
+      const list = window.viewer.scene.annotations.children.filter(
+        (a) => a.data.id === id
+      )
       if (list.length) {
         return list[0]
       }
@@ -674,10 +676,7 @@ export default {
       }
     },
     showAnnotationById(id) {
-      this.getAnnotationById(
-        id,
-        window.viewer.scene.annotations.children
-      ).click()
+      this.getAnnotationById(id).click()
     },
     getAnnotationGroupByPosition(position) {
       return this.annotationGroups.find(
