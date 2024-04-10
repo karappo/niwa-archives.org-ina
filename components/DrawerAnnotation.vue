@@ -329,7 +329,7 @@ export default {
         !this.nextDisabled &&
         (this.$store.getters.autoplay || this.$store.getters.tourName)
       ) {
-        this.$emit('next', this.data.index)
+        this.$emit('next', this.data.id)
       } else {
         this.cover = true
         this.player.seekTo(this.playerVars.start || 0)
@@ -364,11 +364,11 @@ export default {
     },
     prev() {
       this.clearTimer()
-      this.$emit('prev', this.data.index)
+      this.$emit('prev', this.data.id)
     },
     next() {
       this.clearTimer()
-      this.$emit('next', this.data.index)
+      this.$emit('next', this.data.id)
     }
   }
 }

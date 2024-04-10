@@ -1,7 +1,7 @@
 <template lang="pug">
 .annotationList
   ul.list(v-if="list.length" :class="{thin}")
-    li(v-for="(o, i) in list" @click="$nuxt.$emit('showAnnotationByIndex', o.index)")
+    li(v-for="(o, i) in list" @click="$nuxt.$emit('showAnnotationById', o.id)")
       .thumb(v-if="!isOralArchives" :style="`background-image: url(${thumbURL(o)});`")
 
       span.index(v-if="isOralArchives") {{ i + 1 }}

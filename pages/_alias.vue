@@ -411,11 +411,12 @@ export default {
     prevNextVisibility() {
       return this.listData !== null
     },
+    // TODO これいる？ listDataIdArrayに集約できない？
     listDataIndexArray() {
-      if (this.listData) {
-        return this.listData.list.map((a) => a.index)
-      }
-      return []
+      return this.listData ? this.listData.list.map((a) => a.index) : []
+    },
+    listDataIdArray() {
+      return this.listData ? this.listData.list.map((a) => a.id) : []
     },
     currentIndex() {
       if (!this.annotationData) {
@@ -644,19 +645,19 @@ export default {
     startCameraAnimation(index) {
       this.tours[index].play()
     },
-    prev(globalIndex) {
-      let index = this.listDataIndexArray.indexOf(globalIndex) - 1
+    prev(id) {
+      let index = this.listDataIdArray.indexOf(id) - 1
       if (index < 0) {
-        index = this.listDataIndexArray.length - 1
+        index = this.listDataIdArray.length - 1
       }
-      this.showAnnotationByIndex(this.listDataIndexArray[index])
+      this.showAnnotationById(this.listDataIdArray[index])
     },
-    next(globalIndex) {
-      let index = this.listDataIndexArray.indexOf(globalIndex) + 1
-      if (this.listDataIndexArray.length <= index) {
+    next(id) {
+      let index = this.listDataIdArray.indexOf(id) + 1
+      if (this.listDataIdArray.length <= index) {
         index = 0
       }
-      this.showAnnotationByIndex(this.listDataIndexArray[index])
+      this.showAnnotationById(this.listDataIdArray[index])
     },
     showAnnotationByIndex(globalIndex) {
       const annotation = window.viewer.scene.annotations.children[globalIndex]
@@ -667,11 +668,23 @@ export default {
       }
     },
     showAnnotationById(id) {
-      const list = window.viewer.scene.annotations.children.filter(
+      // 画面上に表示されているアノテーションを探す
+      let annotation = window.viewer.scene.annotations.children.find(
         (a) => a.data.id === id
       )
-      if (list.length) {
-        list[0].click()
+      if (annotation) {
+        if (this.listData && annotation.data.grouped) {
+          this.annotationData = annotation.data
+        } else {
+          annotation.click()
+        }
+        return
+      }
+      // 画面上に表示されていないグループに含まれるアノテーションを探す
+      annotation = this.annotations.find((a) => a.id === id)
+      if (annotation) {
+        this.annotationData = annotation
+        // TODO グループのアノテーションがハイライトされていなければハイライト
         return
       }
       console.error(`id=${id} のアノテーションが見つかりませんでした`)
