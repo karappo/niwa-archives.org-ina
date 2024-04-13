@@ -412,10 +412,6 @@ export default {
     prevNextVisibility() {
       return this.listData !== null
     },
-    // TODO これいる？ listDataIdArrayに集約できない？
-    listDataIndexArray() {
-      return this.listData ? this.listData.list.map((a) => a.index) : []
-    },
     listDataIdArray() {
       return this.listData ? this.listData.list.map((a) => a.id) : []
     },
@@ -423,7 +419,7 @@ export default {
       if (!this.annotationData) {
         return null
       }
-      return this.listDataIndexArray.indexOf(this.annotationData.index)
+      return this.listDataIdArray.indexOf(this.annotationData.id)
     },
     prevDisabled() {
       if (this.listData && this.listData.name.includes('Ramble Tour')) {
@@ -435,7 +431,7 @@ export default {
       if (this.listData && this.listData.name.includes('Ramble Tour')) {
         return false
       }
-      return this.listDataIndexArray.length - 1 <= this.currentIndex
+      return this.listDataIdArray.length - 1 <= this.currentIndex
     },
     potreeRenderAreaClass() {
       // eslint-disable-next-line
