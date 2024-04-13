@@ -377,6 +377,7 @@ export default {
     ).filter((a) => 1 < a.length)
     annotations.forEach((a, index) => {
       // 通し番号を振っておく
+      // TODO これいる？ idに集約できないか？
       a.index = index
       // groupに属するかどうかをBooleanで持たせる
       a.grouped = annotationGroups.some(
@@ -585,7 +586,6 @@ export default {
     this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$on('selectList', this.selectList)
-    this.$nuxt.$on('showAnnotationByIndex', this.showAnnotationByIndex)
     this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
     this.$nuxt.$on('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.addEventListener('camera_changed', this.update)
@@ -604,7 +604,6 @@ export default {
     this.$nuxt.$off('setControlMode', this.setControlMode)
     this.$nuxt.$off('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$off('selectList', this.selectList)
-    this.$nuxt.$off('showAnnotationByIndex', this.showAnnotationByIndex)
     this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
     this.$nuxt.$off('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.removeEventListener('camera_changed', this.update)
@@ -659,14 +658,6 @@ export default {
       }
       this.showAnnotationById(this.listDataIdArray[index])
     },
-    showAnnotationByIndex(globalIndex) {
-      const annotation = window.viewer.scene.annotations.children[globalIndex]
-      if (this.$store.getters.pageName.includes('Tour')) {
-        annotation.click_inTour()
-      } else {
-        annotation.click()
-      }
-    },
     showAnnotationById(id) {
       // 画面上に表示されているアノテーションを探す
       let annotation = window.viewer.scene.annotations.children.find(
@@ -675,6 +666,8 @@ export default {
       if (annotation) {
         if (this.listData && annotation.data.grouped) {
           this.annotationData = annotation.data
+        } else if (this.$store.getters.pageName.includes('Tour')) {
+          annotation.click_inTour()
         } else {
           annotation.click()
         }
@@ -806,7 +799,7 @@ export default {
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
     startRambleTourWithoutAnnotations() {
-      this.$nuxt.$emit('showAnnotationByIndex', this.listData.list[0].index)
+      this.$nuxt.$emit('showAnnotationById', this.listData.list[0].id)
       if (this.rambleTourTimer) {
         clearInterval(this.rambleTourTimer)
       }

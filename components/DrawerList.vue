@@ -187,9 +187,7 @@ export default {
     startTour(tourName) {
       this.$store.commit('tourName', tourName)
       this.$nextTick(() => {
-        // TODO showAnnotationByIndex を使っているが、 showAnnotationById にした方がよくないか？
-        // そもそも showAnnotationByIndex の使用は必要最低限にするべきでは？ showAnnotationById を使っていく方が良い気がする。
-        this.$nuxt.$emit('showAnnotationByIndex', this.data.list[0].index)
+        this.$nuxt.$emit('showAnnotationById', this.data.list[0].id)
       })
     },
     filterByTag(list) {
