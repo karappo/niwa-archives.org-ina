@@ -291,6 +291,9 @@ export default {
       return this.$getTitle(this.data.category)
     },
     belongingList() {
+      // TODO ここ、グループに属するannotationのことを考慮できていなさそう
+      // window.viewer.scene.annotations.children ではなく this.annotations で判定するべきかも？
+      // でも、その時ほんとに動作大丈夫か？
       // eslint-disable-next-line
       return window.viewer.scene.annotations.children.filter((a) => a.data.category === this.data.category)
     },
