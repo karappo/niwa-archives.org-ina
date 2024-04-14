@@ -685,8 +685,18 @@ export default {
       // 画面上に表示されていないグループに含まれるアノテーションを探す
       annotation = this.annotations.find((a) => a.id === id)
       if (annotation) {
-        this.annotationData = annotation
-        // TODO グループのアノテーションがハイライトされていなければハイライト
+        // 同じグループの先頭アノテーションの位置へ移動
+        const firstAnnotationInSameGroup = window.viewer.scene.annotations.children.find(
+          // eslint-disable-next-line
+          (a) => JSON.stringify(a.data.position) === JSON.stringify(annotation.position)
+        )
+        // TODO firstAnnotationInSameGroupではなく、本来のannotationを表示したい…
+        // 現状グループ内の先頭以外のアノテーションをツアー中に表示することはできていない状態
+        if (this.$store.getters.pageName.includes('Tour')) {
+          firstAnnotationInSameGroup.click_inTour()
+        } else {
+          firstAnnotationInSameGroup.click()
+        }
         return
       }
       console.error(`id=${id} のアノテーションが見つかりませんでした`)
@@ -700,9 +710,13 @@ export default {
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
       this.$nextTick(() => {
         if (e.target.data.grouped) {
-          this.listData = {
-            name: 'Group',
-            list: this.getAnnotationGroupByPosition(e.target.data.position)
+          if (this.$store.getters.pageName.includes('Tour')) {
+            this.annotationData = e.target.data
+          } else {
+            this.listData = {
+              name: 'Group',
+              list: this.getAnnotationGroupByPosition(e.target.data.position)
+            }
           }
         } else {
           this.annotationData = e.target.data
