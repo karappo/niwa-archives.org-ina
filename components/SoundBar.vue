@@ -305,7 +305,7 @@ audio
 <script>
 // import dayjs from 'dayjs'
 import { ExternalLink } from '@karappo-inc/vue-components'
-import AllData from '~/data/sounds.js'
+import AllSoundData from '~/data/sounds.js'
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg?inline'
 import Play from '~/assets/image/SoundBar/play.svg?inline'
 import Pause from '~/assets/image/SoundBar/pause.svg?inline'
@@ -334,7 +334,7 @@ export default {
     return {
       visible: true,
       index: '0', // SelectBoxに渡す関係でStringにしておく必要がある
-      list: AllData[this.$garden(this.$route)] || null,
+      list: AllSoundData[this.$garden(this.$route)] || null,
       currentTime: '00:00',
       totalTime: '00:00',
       paused: true,
