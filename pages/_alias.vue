@@ -90,6 +90,7 @@
       )
         SpMenuNavigate
       .btn(
+        v-if="soundDataExists"
         @click="soundSpVisibility = !soundSpVisibility"
         :class="{active: soundSpVisibility}"
       )
@@ -349,6 +350,7 @@ import _groupBy from 'lodash/groupBy'
 import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
 import { ExternalLink } from '@karappo-inc/vue-components'
+import AllSoundData from '~/data/sounds.js'
 import IconClose from '~/assets/image/icon-close.svg?inline'
 import SpMenuList from '~/assets/image/spMenu/list.svg?inline'
 import SpMenuNavigate from '~/assets/image/spMenu/navigate.svg?inline'
@@ -453,6 +455,9 @@ export default {
     drawerVisibility() {
       // eslint-disable-next-line
       return !(this.tourName && this.tourName.includes('without Annotations')) && (this.listData || this.annotationData)
+    },
+    soundDataExists() {
+      return AllSoundData[this.$garden(this.$route)] || false
     }
   },
   watch: {
