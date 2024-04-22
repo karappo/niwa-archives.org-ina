@@ -146,8 +146,7 @@ nav.spMenu
     display: flex
     justify-content: center
     align-items: center
-    > svg
-      transition: opacity 0.2s
+    -webkit-tap-highlight-color: transparent
     &.active
       > svg
         opacity: 0.5
