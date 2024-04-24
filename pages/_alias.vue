@@ -569,7 +569,7 @@ export default {
     }
     if (this.annotationGroups) {
       this.annotationGroups.forEach((data) => {
-        const a = new Potree.Annotation(data[0], data.length)
+        const a = new Potree.Annotation(data[0], data.length - 1)
         // Cancel Potree default behavior
         a.domElement.off('mouseenter')
         a.domElement.off('mouseleave')
