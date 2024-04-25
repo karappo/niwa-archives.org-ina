@@ -37,7 +37,7 @@
       //- https://app.asana.com/0/1186397743907793/1207018579945583/f
       pane.drawer(
         v-if="drawerVisibility || spSideBarVisibility"
-        :size="isSP ? 50 : 40"
+        :size="isSP ? 60 : 40"
         min-size="25"
         max-size="75"
         :class="{border: !tourName}"
