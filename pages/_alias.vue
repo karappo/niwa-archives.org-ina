@@ -33,46 +33,47 @@
               template(v-else)
                 KeyMap(:spVisibility="!drawerVisibility && keyMapSpVisibility")
           #potree_sidebar_container
+      //- drawerとSpのSidebarは、同じpaneを使い回す。そうしないと、高さが合わなくなる
+      //- https://app.asana.com/0/1186397743907793/1207018579945583/f
       pane.drawer(
-        v-if="drawerVisibility"
+        v-if="drawerVisibility || spSideBarVisibility"
         :size="isSP ? 60 : 40"
         min-size="25"
         max-size="75"
         :class="{border: !tourName}"
       )
-        //- TODO Historyを開いた状態で、Annotationをクリックしたら開かない…
-        DrawerHistory(
-          v-if="$store.getters.pageName === 'History'"
-        )
-        Drawer3DData(
-          v-else-if="$store.getters.pageName === '3D Data'"
-        )
-        DrawerAnnotation(
-          v-else-if="annotationData"
-          :data="annotationData"
-          :annotations="annotations"
-          :prevNextVisibility="prevNextVisibility"
-          :prevDisabled="prevDisabled"
-          :nextDisabled="nextDisabled"
-          @backToList="clearSelectedAnnotation"
-          @prev="prev"
-          @next="next"
-        )
-        DrawerList(
-          v-else-if="listData"
-          :data="listData"
-          @next="next"
-        )
-      pane.sideBarSp(
-        v-if="isSP && !drawerVisibility && sideBarSpVisibility && !tourName"
-      )
-        SideBar(
-          :guidedTourExists="0 < data.guidedTour.length"
-          :variations="data.variations"
-          :spVisibility="!drawerVisibility && sideBarSpVisibility"
-          @spClose="sideBarSpVisibility = false"
-          @saveCameraInfo="saveCameraInfo"
-        )
+        template(v-if="drawerVisibility")
+          //- TODO Historyを開いた状態で、Annotationをクリックしたら開かない…
+          DrawerHistory(
+            v-if="$store.getters.pageName === 'History'"
+          )
+          Drawer3DData(
+            v-else-if="$store.getters.pageName === '3D Data'"
+          )
+          DrawerAnnotation(
+            v-else-if="annotationData"
+            :data="annotationData"
+            :annotations="annotations"
+            :prevNextVisibility="prevNextVisibility"
+            :prevDisabled="prevDisabled"
+            :nextDisabled="nextDisabled"
+            @backToList="clearSelectedAnnotation"
+            @prev="prev"
+            @next="next"
+          )
+          DrawerList(
+            v-else-if="listData"
+            :data="listData"
+            @next="next"
+          )
+        template(v-else-if="spSideBarVisibility")
+          SideBar(
+            :guidedTourExists="0 < data.guidedTour.length"
+            :variations="data.variations"
+            :spVisibility="!drawerVisibility && sideBarSpVisibility"
+            @spClose="sideBarSpVisibility = false"
+            @saveCameraInfo="saveCameraInfo"
+          )
     SoundBar(
       :annotations="annotations"
       :spVisibility="!drawerVisibility && soundSpVisibility"
@@ -451,6 +452,14 @@ export default {
     },
     tourName() {
       return this.$store.getters.tourName
+    },
+    spSideBarVisibility() {
+      return (
+        this.isSP &&
+        !this.drawerVisibility &&
+        this.sideBarSpVisibility &&
+        !this.tourName
+      )
     },
     drawerVisibility() {
       // eslint-disable-next-line
