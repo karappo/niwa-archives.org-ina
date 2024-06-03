@@ -26,8 +26,8 @@
                 span.scene {{ data.title }}
               template(v-if="tourName")
                 TourIndicator(
-                  :numerator="listData.list.length"
-                  :denominator="currentIndex + 1"
+                  :numerator="tourData.list.length"
+                  :denominator="tourCurrentIndex + 1"
                 )
                 StopTourButton(:class="{hiddenInSP: tourName !== 'Ramble Tour without Annotations'}")
               template(v-else)
@@ -59,6 +59,11 @@
             :nextDisabled="nextDisabled"
             @backToList="clearSelectedAnnotation"
             @prev="prev"
+            @next="next"
+          )
+          DrawerList(
+            v-else-if="tourData"
+            :data="tourData"
             @next="next"
           )
           DrawerList(
@@ -397,6 +402,7 @@ export default {
       tours: null,
       annotationData: '',
       listData: null,
+      tourData: null,
       drawerAlreadyOpened: false,
       loading: true,
       noticeVisibility: true,
@@ -412,28 +418,43 @@ export default {
       return window.viewer
     },
     prevNextVisibility() {
-      return this.listData !== null
+      return this.listData !== null || this.tourData !== null
     },
     listDataIdArray() {
       return this.listData ? this.listData.list.map((a) => a.id) : []
     },
-    currentIndex() {
+    listCurrentIndex() {
       if (!this.annotationData) {
         return null
       }
       return this.listDataIdArray.indexOf(this.annotationData.id)
     },
+    tourDataIdArray() {
+      return this.tourData ? this.tourData.list.map((a) => a.id) : []
+    },
+    tourCurrentIndex() {
+      if (!this.annotationData) {
+        return null
+      }
+      return this.tourDataIdArray.indexOf(this.annotationData.id)
+    },
     prevDisabled() {
-      if (this.listData && this.listData.name.includes('Ramble Tour')) {
+      if (this.tourData && this.tourData.name.includes('Ramble Tour')) {
         return false
       }
-      return this.currentIndex <= 0
+      if (this.tourDataIdArray.length) {
+        return this.tourCurrentIndex <= 0
+      }
+      return this.listCurrentIndex <= 0
     },
     nextDisabled() {
-      if (this.listData && this.listData.name.includes('Ramble Tour')) {
+      if (this.tourData && this.tourData.name.includes('Ramble Tour')) {
         return false
       }
-      return this.listDataIdArray.length - 1 <= this.currentIndex
+      if (this.tourDataIdArray.length) {
+        return this.tourDataIdArray.length - 1 <= this.tourCurrentIndex
+      }
+      return this.listDataIdArray.length - 1 <= this.tourCurrentIndex
     },
     potreeRenderAreaClass() {
       // eslint-disable-next-line
@@ -463,7 +484,7 @@ export default {
     },
     drawerVisibility() {
       // eslint-disable-next-line
-      return !(this.tourName && this.tourName.includes('without Annotations')) && (this.listData || this.annotationData)
+      return !(this.tourName && this.tourName.includes('without Annotations')) && (this.tourData || this.listData || this.annotationData)
     },
     soundDataExists() {
       return AllSoundData[this.$garden(this.$route)] || false
@@ -668,6 +689,7 @@ export default {
       this.showAnnotationById(this.listDataIdArray[index])
     },
     showAnnotationById(id) {
+      console.log('showAnnotationById', id)
       // 画面上に表示されているアノテーションを探す
       let annotation = window.viewer.scene.annotations.children.find(
         (a) => a.data.id === id
@@ -685,16 +707,28 @@ export default {
       // 画面上に表示されていないグループに含まれるアノテーションを探す
       annotation = this.annotations.find((a) => a.id === id)
       if (annotation) {
-        // 同じグループの先頭アノテーションの位置へ移動
+        console.log('annotation', annotation)
+
+        // 同じグループの先頭アノテーションを探す
         const firstAnnotationInSameGroup = window.viewer.scene.annotations.children.find(
           // eslint-disable-next-line
           (a) => JSON.stringify(a.data.position) === JSON.stringify(annotation.position)
         )
+
+        // すでに、firstAnnotationInSameGroupが開いている場合
+        if (!this.annotationData) {
+          this.annotationData = annotation
+          return
+        }
+
+        // firstAnnotationInSameGroupへ移動
         // TODO firstAnnotationInSameGroupではなく、本来のannotationを表示したい…
         // 現状グループ内の先頭以外のアノテーションをツアー中に表示することはできていない状態
         if (this.$store.getters.pageName.includes('Tour')) {
+          console.log('1')
           firstAnnotationInSameGroup.click_inTour()
         } else {
+          console.log('2')
           firstAnnotationInSameGroup.click()
         }
         return
@@ -772,15 +806,16 @@ export default {
         })
       }
     },
+    // TODO ここで、Tourでもlistを使ってしまっているために、group化された（つまりlistをつかう必要がある）ものをTourの中に組み込みにくい
+    //
     selectList(name) {
+      console.log('selectList', name)
       this.clearSelectedAnnotation()
       this.$store.commit('pageName', name)
-      let list = []
-      switch (name) {
-        case 'Annotations':
-          list = this.annotations
-          break
-        case 'Guided Tour':
+
+      if (name.includes('Tour')) {
+        let list = []
+        if (name === 'Guided Tour') {
           // guidedTourの順でannotationをリスト化する
           this.data.guidedTour.forEach((id) => {
             for (const a of this.annotations) {
@@ -790,18 +825,25 @@ export default {
               }
             }
           })
-          break
-        case 'Ramble Tour':
+        } else if (name === 'Ramble Tour') {
           // guidedTourの順でannotationをリスト化する
           list = _shuffle(this.annotations)
-          break
-        default:
+        }
+        this.tourData = {
+          name,
+          list
+        }
+      } else {
+        let list = []
+        if (name === 'Annotations') {
+          list = this.annotations
+        } else {
           list = this.annotations.filter((a) => a.category.includes(name))
-          break
-      }
-      this.listData = {
-        name,
-        list
+        }
+        this.listData = {
+          name,
+          list
+        }
       }
     },
     clearSelectedAnnotation() {
@@ -815,6 +857,7 @@ export default {
       this.$store.commit('pageName', '')
       this.clearSelectedAnnotation()
       this.listData = null
+      this.tourData = null
     },
     saveCameraInfo() {
       // const camera = window.viewer.scene.getActiveCamera()
@@ -822,12 +865,12 @@ export default {
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
     startRambleTourWithoutAnnotations() {
-      this.$nuxt.$emit('showAnnotationById', this.listData.list[0].id)
+      this.$nuxt.$emit('showAnnotationById', this.tourData.list[0].id)
       if (this.rambleTourTimer) {
         clearInterval(this.rambleTourTimer)
       }
       this.rambleTourTimer = setInterval(() => {
-        this.next(this.listData.list[this.currentIndex].index)
+        this.next(this.tourData.list[this.tourCurrentIndex].index)
       }, 15000)
     },
     stopRambleTourWithoutAnnotations() {
