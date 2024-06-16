@@ -778,7 +778,7 @@ export default {
       })
     },
     clickAnnotation(e) {
-      if (this.annotationData || this.listData) {
+      if (this.annotationData || this.listData || this.tourData) {
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
         this.clearSelectedAnnotation()
         this.highliteAnnotation(e)
