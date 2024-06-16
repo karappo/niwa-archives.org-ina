@@ -727,19 +727,16 @@ export default {
       annotation = this.annotations.find((a) => a.id === id)
       if (annotation) {
         console.log('annotation', annotation)
-
-        // 同じグループの先頭アノテーションを探す
-        const firstAnnotationInSameGroup = window.viewer.scene.annotations.children.find(
-          // eslint-disable-next-line
-          (a) => JSON.stringify(a.data.position) === JSON.stringify(annotation.position)
-        )
-
         // すでに、firstAnnotationInSameGroupが開いている場合
         if (!this.annotationData) {
           this.annotationData = annotation
           return
         }
-
+        // 同じグループの先頭アノテーションを探す
+        const firstAnnotationInSameGroup = window.viewer.scene.annotations.children.find(
+          // eslint-disable-next-line
+          (a) => JSON.stringify(a.data.position) === JSON.stringify(annotation.position)
+        )
         // firstAnnotationInSameGroupへ移動
         // TODO firstAnnotationInSameGroupではなく、本来のannotationを表示したい…
         // 現状グループ内の先頭以外のアノテーションをツアー中に表示することはできていない状態
