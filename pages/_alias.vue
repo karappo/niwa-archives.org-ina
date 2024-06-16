@@ -64,12 +64,10 @@
           DrawerList(
             v-else-if="tourData"
             :data="tourData"
-            @next="next"
           )
           DrawerList(
             v-else-if="listData"
             :data="listData"
-            @next="next"
           )
         template(v-else-if="spSideBarVisibility")
           SideBar(
