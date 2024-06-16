@@ -24,6 +24,11 @@ HDD 500GB
 ## Getting started
 
 ```sh
+# M1以降のMacの場合で、nodeのインストールに失敗する場合は、archコマンドを使ってインストールすること
+arch -x86_64 nodenv install xx.xx.xx
+```
+
+```sh
 git clone --recursive git@github.com:karappo/IncompleteNiwaArchives.git
 
 # Ready potree to create build dir.
