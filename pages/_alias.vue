@@ -755,6 +755,7 @@ export default {
       )
     },
     highliteAnnotation(e) {
+      this.clearSelectedAnnotation()
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
       this.$nextTick(() => {
         if (e.target.data.grouped) {
@@ -775,7 +776,6 @@ export default {
     clickAnnotation(e) {
       if (this.annotationData || this.listData || this.tourData) {
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
-        this.clearSelectedAnnotation()
         this.highliteAnnotation(e)
       } else {
         this.drawerAlreadyOpened = false // あとで開くのでここでは何もしない
@@ -786,7 +786,6 @@ export default {
         // 既にdrawerが開いているのでなにもしない
         return
       }
-      this.clearSelectedAnnotation()
       this.highliteAnnotation(e)
     },
     update() {
