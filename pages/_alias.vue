@@ -675,18 +675,37 @@ export default {
       this.tours[index].play()
     },
     prev(id) {
-      let index = this.listDataIdArray.indexOf(id) - 1
-      if (index < 0) {
-        index = this.listDataIdArray.length - 1
+      let idArray = null
+      if (this.tourData) {
+        idArray = this.tourDataIdArray
+      } else if (this.listData) {
+        idArray = this.listDataIdArray
+      } else {
+        console.error('prev: tourData, listData どちらも存在しません')
+        return
       }
-      this.showAnnotationById(this.listDataIdArray[index])
+
+      let index = idArray.indexOf(id) - 1
+      if (index < 0) {
+        index = idArray.length - 1
+      }
+      this.showAnnotationById(idArray[index])
     },
     next(id) {
-      let index = this.listDataIdArray.indexOf(id) + 1
-      if (this.listDataIdArray.length <= index) {
+      let idArray = null
+      if (this.tourData) {
+        idArray = this.tourDataIdArray
+      } else if (this.listData) {
+        idArray = this.listDataIdArray
+      } else {
+        console.error('prev: tourData, listData どちらも存在しません')
+        return
+      }
+      let index = idArray.indexOf(id) + 1
+      if (idArray.length <= index) {
         index = 0
       }
-      this.showAnnotationById(this.listDataIdArray[index])
+      this.showAnnotationById(idArray[index])
     },
     showAnnotationById(id) {
       console.log('showAnnotationById', id)
