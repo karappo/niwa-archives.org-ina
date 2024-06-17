@@ -706,6 +706,8 @@ export default {
       this.showAnnotationById(idArray[index])
     },
     showAnnotationById(id) {
+      // TODO 何かのリスト表示中に、アノテーショングループがクリックされた時に、リストはクリアして、グループを表示する処理が必要
+      // どのように分岐すれば良いか検討
       console.log('showAnnotationById', id)
       // 画面上に表示されているアノテーションを探す
       let annotation = window.viewer.scene.annotations.children.find(
