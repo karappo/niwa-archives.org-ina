@@ -761,6 +761,8 @@ export default {
         if (annotationData.grouped) {
           if (this.$store.getters.pageName.includes('Tour')) {
             this.annotationData = annotationData
+          } else if (this.listData) {
+            this.annotationData = annotationData
           } else {
             this.listData = {
               name: 'Group',
