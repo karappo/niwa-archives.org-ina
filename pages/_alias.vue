@@ -724,8 +724,6 @@ export default {
       // 画面上に表示されていないグループに含まれるアノテーションを探す
       annotation = this.annotations.find((a) => a.id === id)
       if (annotation) {
-        console.log('annotation', annotation)
-        // すでに、firstAnnotationInSameGroupが開いている場合
         if (!this.annotationData) {
           this.annotationData = annotation
           return
@@ -739,10 +737,11 @@ export default {
         // TODO firstAnnotationInSameGroupではなく、本来のannotationを表示したい…
         // 現状グループ内の先頭以外のアノテーションをツアー中に表示することはできていない状態
         if (this.$store.getters.pageName.includes('Tour')) {
-          console.log('1')
           firstAnnotationInSameGroup.click_inTour()
+        } else if (this.listData) {
+          this.highliteAnnotation(annotation, null)
+          this.annotationData = annotation
         } else {
-          console.log('2')
           firstAnnotationInSameGroup.click()
         }
         return
@@ -754,29 +753,32 @@ export default {
         (g) => JSON.stringify(g[0].position) === JSON.stringify(position)
       )
     },
-    highliteAnnotation(e) {
+    highliteAnnotation(annotationData, annotationElement) {
+      console.log(':: highliteAnnotation', annotationData)
       this.clearSelectedAnnotation()
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
       this.$nextTick(() => {
-        if (e.target.data.grouped) {
+        if (annotationData.grouped) {
           if (this.$store.getters.pageName.includes('Tour')) {
-            this.annotationData = e.target.data
+            this.annotationData = annotationData
           } else {
             this.listData = {
               name: 'Group',
-              list: this.getAnnotationGroupByPosition(e.target.data.position)
+              list: this.getAnnotationGroupByPosition(annotationData.position)
             }
           }
         } else {
-          this.annotationData = e.target.data
+          this.annotationData = annotationData
         }
-        e.target.domElement.get(0).classList.add('highlighted')
+        if (annotationElement) {
+          annotationElement.classList.add('highlighted')
+        }
       })
     },
     clickAnnotation(e) {
       if (this.annotationData || this.listData || this.tourData) {
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
-        this.highliteAnnotation(e)
+        this.highliteAnnotation(e.target.data, e.target.domElement.get(0))
       } else {
         this.drawerAlreadyOpened = false // あとで開くのでここでは何もしない
       }
@@ -786,7 +788,7 @@ export default {
         // 既にdrawerが開いているのでなにもしない
         return
       }
-      this.highliteAnnotation(e)
+      this.highliteAnnotation(e.target.data, e.target.domElement.get(0))
     },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
