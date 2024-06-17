@@ -11,13 +11,13 @@
     template(v-if="prevNextVisibility")
       a.prev(
         @click="prev"
-        :title="`Previus`"
+        title="Previus"
         :class="{disabled: prevDisabled}"
       )
         IconPrev
       a.next(
         @click="next"
-        :title="`Next`"
+        title="Next"
         :class="{disabled: nextDisabled}"
       )
         IconNext
