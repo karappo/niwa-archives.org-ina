@@ -452,7 +452,7 @@ export default {
       if (this.tourDataIdArray.length) {
         return this.tourDataIdArray.length - 1 <= this.tourCurrentIndex
       }
-      return this.listDataIdArray.length - 1 <= this.tourCurrentIndex
+      return this.listDataIdArray.length - 1 <= this.listCurrentIndex
     },
     potreeRenderAreaClass() {
       // eslint-disable-next-line
