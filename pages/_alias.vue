@@ -763,14 +763,6 @@ export default {
         if (annotationData.grouped) {
           if (this.$store.getters.pageName.includes('Tour')) {
             this.annotationData = annotationData
-          } else if (this.listData) {
-            // 何かのリスト表示中に、アノテーショングループがクリックされた時
-            // → リストはクリアして、グループを表示
-            console.log('--------------------------- listData 書き換え')
-            this.listData = {
-              name: 'Group',
-              list: this.getAnnotationGroupByPosition(annotationData.position)
-            }
           } else {
             console.log('--------------------------- kita')
             this.listData = {
