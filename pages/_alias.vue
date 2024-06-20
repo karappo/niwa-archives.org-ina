@@ -590,7 +590,7 @@ export default {
           a.domElement.off('mouseenter')
           a.domElement.off('mouseleave')
           // クリックした時の処理
-          a.addEventListener('click', this.clickAnnotation)
+          a.addEventListener('click', this.onClickAnnotation)
           a.addEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
           window.viewer.scene.annotations.add(a)
         })
@@ -602,7 +602,7 @@ export default {
         a.domElement.off('mouseenter')
         a.domElement.off('mouseleave')
         // クリックした時の処理
-        a.addEventListener('click', this.clickAnnotation)
+        a.addEventListener('click', this.onClickAnnotation)
         a.addEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
         window.viewer.scene.annotations.add(a)
       })
@@ -638,7 +638,7 @@ export default {
     window.removeEventListener('resize', this.resize)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
-        a.removeEventListener('click', this.clickAnnotation)
+        a.removeEventListener('click', this.onClickAnnotation)
         a.removeEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
       })
     }
@@ -778,7 +778,7 @@ export default {
         }
       })
     },
-    clickAnnotation(e) {
+    onClickAnnotation(e) {
       if (this.annotationData || this.listData || this.tourData) {
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
         this.highliteAnnotation(e.target.data, e.target.domElement.get(0))
