@@ -839,6 +839,7 @@ export default {
     //
     selectList(name) {
       console.log('selectList', name)
+      this.tourData = null
       this.clearSelectedAnnotation()
       this.$store.commit('pageName', name)
 
