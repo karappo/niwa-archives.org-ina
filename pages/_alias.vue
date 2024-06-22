@@ -747,7 +747,7 @@ export default {
         if (this.$store.getters.pageName.includes('Tour')) {
           firstAnnotationInSameGroup.click_inTour()
         } else if (this.listData) {
-          this.highliteAnnotation(annotation, null)
+          this.setAnnotationData(annotation)
           this.annotationData = annotation
         } else {
           firstAnnotationInSameGroup.click()
@@ -761,9 +761,8 @@ export default {
         (g) => JSON.stringify(g[0].position) === JSON.stringify(position)
       )
     },
-    highliteAnnotation(annotationData, annotationElement) {
+    setAnnotationData(annotationData) {
       console.log(':: highliteAnnotation', annotationData)
-      this.clearSelectedAnnotation()
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
       this.$nextTick(() => {
         if (annotationData.grouped) {
@@ -779,25 +778,31 @@ export default {
         } else {
           this.annotationData = annotationData
         }
-        if (annotationElement) {
-          annotationElement.classList.add('highlighted')
-        }
       })
     },
+    highliteAnnotation(annotationElement) {
+      console.log(':: highliteAnnotation', annotationElement)
+      this.clearSelectedAnnotation()
+      annotationElement.classList.add('highlighted')
+    },
     onClickAnnotation(e) {
+      console.log('onClickAnnotation')
       if (this.annotationData || this.listData || this.tourData) {
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
-        this.highliteAnnotation(e.target.data, e.target.domElement.get(0))
+        this.setAnnotationData(e.target.data)
+        this.highliteAnnotation(e.target.domElement.get(0))
       } else {
         this.drawerAlreadyOpened = false // あとで開くのでここでは何もしない
       }
     },
     onCameraAnimationComplete(e) {
+      console.log('onCameraAnimationComplete')
       if (this.drawerAlreadyOpened) {
         // 既にdrawerが開いているのでなにもしない
         return
       }
-      this.highliteAnnotation(e.target.data, e.target.domElement.get(0))
+      this.setAnnotationData(e.target.data)
+      this.highliteAnnotation(e.target.domElement.get(0))
     },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
