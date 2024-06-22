@@ -706,7 +706,7 @@ export default {
       this.showAnnotationById(idArray[index])
     },
     // TODO 下記がわかりにくいので、リファクタリングが必要
-    // - 外部から呼び出される
+    // - 外部（AnnotationList、DrawerList、SoundBarなど）から呼び出される
     //   - showAnnotationById
     // - 内部呼び出しのみ
     //   - onClickAnnotation -- 点群上のアノテーションがクリックされた時に呼び出される
@@ -747,7 +747,8 @@ export default {
         if (this.$store.getters.pageName.includes('Tour')) {
           firstAnnotationInSameGroup.click_inTour()
         } else if (this.listData) {
-          this.setAnnotationData(annotation)
+          // TODO 同じことをしている？どちらかで良いはず
+          // this.setAnnotationData(annotation)
           this.annotationData = annotation
         } else {
           firstAnnotationInSameGroup.click()
@@ -761,22 +762,21 @@ export default {
         (g) => JSON.stringify(g[0].position) === JSON.stringify(position)
       )
     },
-    setAnnotationData(annotationData) {
-      console.log(':: highliteAnnotation', annotationData)
+    // 基本的にはannotationData に annotationDataを代入するだけだが、
+    // 条件分岐によって、listData にも代入することがある
+    setAnnotationData(data) {
+      console.log(':: highliteAnnotation', data)
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
       this.$nextTick(() => {
-        if (annotationData.grouped) {
-          if (this.$store.getters.pageName.includes('Tour')) {
-            this.annotationData = annotationData
-          } else {
-            console.log('--------------------------- kita')
-            this.listData = {
-              name: 'Group',
-              list: this.getAnnotationGroupByPosition(annotationData.position)
-            }
+        if (data.grouped && !this.$store.getters.pageName.includes('Tour')) {
+          console.log('--------------------------- update listData')
+          this.listData = {
+            name: 'Group',
+            list: this.getAnnotationGroupByPosition(data.position)
           }
         } else {
-          this.annotationData = annotationData
+          console.log('--------------------------- update annotationData')
+          this.annotationData = data
         }
       })
     },
