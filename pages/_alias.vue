@@ -705,6 +705,12 @@ export default {
       }
       this.showAnnotationById(idArray[index])
     },
+    // TODO 下記がわかりにくいので、リファクタリングが必要
+    // - 外部から呼び出される
+    //   - showAnnotationById
+    // - 内部呼び出しのみ
+    //   - onClickAnnotation -- 点群上のアノテーションがクリックされた時に呼び出される
+    //   - highliteAnnotation --　showAnnotationById, onClickAnnotation内で呼び出される
     showAnnotationById(id) {
       // TODO 何かのリスト表示中に、アノテーショングループがクリックされた時に、リストはクリアして、グループを表示する処理が必要
       // どのように分岐すれば良いか検討
