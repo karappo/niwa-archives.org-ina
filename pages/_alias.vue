@@ -765,7 +765,7 @@ export default {
     // 基本的にはannotationData に annotationDataを代入するだけだが、
     // 条件分岐によって、listData にも代入することがある
     setAnnotationData(data) {
-      console.log(':: highliteAnnotation', data)
+      console.log(':: setAnnotationData', data)
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
       this.$nextTick(() => {
         if (data.grouped && !this.$store.getters.pageName.includes('Tour')) {
