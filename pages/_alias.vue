@@ -350,6 +350,8 @@ nav.spMenu
 </style>
 
 <script>
+// このファイル全体でprettierを無効化する
+/* eslint-disable prettier/prettier */
 import _groupBy from 'lodash/groupBy'
 import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
@@ -614,7 +616,7 @@ export default {
     this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$on('selectList', this.selectList)
-    this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
+    this.$nuxt.$on('clickAnnotationLink', this.onClickAnnotationLink)
     this.$nuxt.$on('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.addEventListener('camera_changed', this.update)
     window.addEventListener('resize', this.resize)
@@ -632,7 +634,7 @@ export default {
     this.$nuxt.$off('setControlMode', this.setControlMode)
     this.$nuxt.$off('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$off('selectList', this.selectList)
-    this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
+    this.$nuxt.$off('clickAnnotationLink', this.onClickAnnotationLink)
     this.$nuxt.$off('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.removeEventListener('camera_changed', this.update)
     window.removeEventListener('resize', this.resize)
@@ -705,28 +707,94 @@ export default {
       }
       this.showAnnotationById(idArray[index])
     },
-    // TODO 下記がわかりにくいので、リファクタリングが必要
-    // - 外部（AnnotationList、DrawerList、SoundBarなど）から呼び出される
-    //   - showAnnotationById
-    // - 内部呼び出しのみ
-    //   - onClickAnnotation -- 点群上のアノテーションがクリックされた時に呼び出される
-    //   - highliteAnnotation --　showAnnotationById, onClickAnnotation内で呼び出される
+    getFirstAnnotationInSameGroup(annotation) {
+      return window.viewer.scene.annotations.children.find(
+        (a) => JSON.stringify(a.data.position) ===JSON.stringify(annotation.position)
+      )
+    },
+    // すでにannotationのグループが開いているかどうか
+    isOpenSameGroup(annotation) {
+      if (
+        annotation &&
+        annotation.data &&
+        annotation.data.grouped &&
+        this.listData
+      ) {
+        const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(annotation)
+        if (firstAnnotationInSameGroup) {
+          // eslint-disable-next-line
+          return this.listData.list[0].id === firstAnnotationInSameGroup.data.id
+        }
+      }
+      return false
+    },
+    // Annotation表示の呼び出し関係の関数の説明
+    // - showAnnotationById
+    //   - 外部（AnnotationList、DrawerList、SoundBarなど）から呼び出される
+    //   - リスト中のアノテーションがクリックされた時の処理
+    //   - annotation.clickを起点とした処理からは呼ばれないはずで、逆にこの関数内でannotation.clickを呼び出す
+    // - onClickAnnotation
+    //   - 内部呼び出しのみ
+    //   - 点群上のアノテーションがクリックされた時に呼び出される
+    // - highliteAnnotation
+    //   - 内部呼び出しのみ
+    //   - showAnnotationById, onClickAnnotation内で呼び出される
+    //   - 点群上のアノテーションのハイライト処理
+    //
+    // onClickAnnotation: 点群中のannotationのクリック
+    // onClickAnnotationLink: リスト中のアノテーションリンクのクリック
+
+    // Annotationグループは、リスト内には存在せず、かならず点群上にあるAnnotationをクリックすることで表示される
+
+    // Annotationグループのクリック関係は、下記のように処理が分かれる
+    // - 点群上のグループがクリックされたとき
+    //   - グループをDrawerで開く
+    //     - listDataが存在する場合は上書き
+    //   - アノテーションをハイライト(highliteAnnotation)
+    // - リスト中のリンクがクリックされたとき
+    //   - アノテーションをDrawerで開く
+    //     - listDataは維持
+    //   - アノテーションをハイライト(highliteAnnotation)
+    //   - showAnnotationById → annotation.click
+
+
     showAnnotationById(id) {
+      console.log('⭐️ showAnnotationById', id)
+
+      // 【重要】点群上のAnnotation.click以外のアクションを起点として、annotationを表示する
+      // スタックトレースを取得して、Annotation.clickを起点とした処理中で呼び出された場合はエラーを出力する
+      const stackTrace = new Error().stack
+      if (stackTrace.includes('Annotation.click')) {
+        console.error("showAnnotationByIdは、Annotation.clickを起点とした処理中で呼び出されていますが、これは意図した動作ではありません。コードを見直して、呼び出されないようにしてください")
+        return
+      }
+
+      // ここからは必ず、Annotation.clickを起点とした処理ではない
+
       // TODO 何かのリスト表示中に、アノテーショングループがクリックされた時に、リストはクリアして、グループを表示する処理が必要
       // どのように分岐すれば良いか検討
-      console.log('showAnnotationById', id)
       // 画面上に表示されているアノテーションを探す
       let annotation = window.viewer.scene.annotations.children.find(
         (a) => a.data.id === id
       )
       if (annotation) {
-        if (this.listData && annotation.data.grouped) {
-          this.annotationData = annotation.data
+        // eslint-disable-next-line
+        console.log('-------')
+        // クリックされたアノテーショングループが、すでに開いているlistDataと一致する場合
+        console.log(this.isOpenSameGroup(annotation))
+        // eslint-disable-next-line
+        if (this.isOpenSameGroup(annotation)) {
+          this.setAnnotationData(annotation)
+          console.log('_A')
         } else if (this.$store.getters.pageName.includes('Tour')) {
+          // TODO この辺でannotation.click使っているが、annotation.clickを使わずに、アノテーションを表示する方法を検討
           annotation.click_inTour()
+          console.log('_B')
         } else {
           annotation.click()
+          console.log('_C')
         }
+        console.log('_D')
         return
       }
       // 画面上に表示されていないグループに含まれるアノテーションを探す
@@ -734,24 +802,26 @@ export default {
       if (annotation) {
         if (!this.annotationData) {
           this.annotationData = annotation
+          console.log('A')
           return
         }
         // 同じグループの先頭アノテーションを探す
-        const firstAnnotationInSameGroup = window.viewer.scene.annotations.children.find(
-          // eslint-disable-next-line
-          (a) => JSON.stringify(a.data.position) === JSON.stringify(annotation.position)
-        )
+        // eslint-disable-next-line
+        const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(annotation)
         // firstAnnotationInSameGroupへ移動
         // TODO firstAnnotationInSameGroupではなく、本来のannotationを表示したい…
         // 現状グループ内の先頭以外のアノテーションをツアー中に表示することはできていない状態
         if (this.$store.getters.pageName.includes('Tour')) {
           firstAnnotationInSameGroup.click_inTour()
+          console.log('B')
         } else if (this.listData) {
-          // TODO 同じことをしている？どちらかで良いはず
-          // this.setAnnotationData(annotation)
+          // TODO firstAnnotationInSameGroup.click() 以外の方法で、アノテーションに移動してannotationDataにはannotationを代入する
+          firstAnnotationInSameGroup.click()
           this.annotationData = annotation
+          console.log('C')
         } else {
           firstAnnotationInSameGroup.click()
+          console.log('D')
         }
         return
       }
@@ -764,6 +834,10 @@ export default {
     },
     // 基本的にはannotationData に annotationDataを代入するだけだが、
     // 条件分岐によって、listData にも代入することがある
+    // 呼び出し元
+    // - showAnnotationById
+    // - onClickAnnotation
+    // - onCameraAnimationComplete
     setAnnotationData(data) {
       console.log(':: setAnnotationData', data)
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
@@ -785,8 +859,10 @@ export default {
       this.clearSelectedAnnotation()
       annotationElement.classList.add('highlighted')
     },
+
+    // onClickAnnotation: 点群中のannotationのクリックイベントハンドラ
     onClickAnnotation(e) {
-      console.log('onClickAnnotation')
+      console.log('▪️▪️▪️ onClickAnnotation ▪️▪️▪️', e.target.domElement.get(0))
       if (this.annotationData || this.listData || this.tourData) {
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
         this.setAnnotationData(e.target.data)
@@ -795,6 +871,12 @@ export default {
         this.drawerAlreadyOpened = false // あとで開くのでここでは何もしない
       }
     },
+    // onClickAnnotationLink: リスト中のアノテーションリンクのクリックイベントハンドラ
+    onClickAnnotationLink(id) {
+      console.log('▪️▪️▪️ onClickAnnotationLink ▪️▪️▪️', id)
+      this.showAnnotationById(id)
+    },
+
     onCameraAnimationComplete(e) {
       console.log('onCameraAnimationComplete')
       if (this.drawerAlreadyOpened) {
@@ -895,7 +977,7 @@ export default {
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
     startRambleTourWithoutAnnotations() {
-      this.$nuxt.$emit('showAnnotationById', this.tourData.list[0].id)
+      this.showAnnotationById(this.tourData.list[0].id)
       if (this.rambleTourTimer) {
         clearInterval(this.rambleTourTimer)
       }

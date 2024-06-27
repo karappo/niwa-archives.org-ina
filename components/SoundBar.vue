@@ -442,7 +442,7 @@ export default {
       }
     },
     placeClick(annotationId) {
-      this.$nuxt.$emit('showAnnotationById', annotationId)
+      this.$nuxt.$emit('clickAnnotationLink', annotationId)
     },
     tagClick(tag) {
       this.$nuxt.$emit('selectList', 'Annotations')
