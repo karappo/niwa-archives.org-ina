@@ -800,6 +800,7 @@ export default {
         })
         return
       }
+
       console.error(`id=${id} のアノテーションが見つかりませんでした`)
     },
     getAnnotationGroupByPosition(position) {
