@@ -768,61 +768,36 @@ export default {
         console.error("showAnnotationByIdは、Annotation.clickを起点とした処理中で呼び出されていますが、これは意図した動作ではありません。コードを見直して、呼び出されないようにしてください")
         return
       }
-
       // ここからは必ず、Annotation.clickを起点とした処理ではない
 
-      // TODO 何かのリスト表示中に、アノテーショングループがクリックされた時に、リストはクリアして、グループを表示する処理が必要
-      // どのように分岐すれば良いか検討
       // 画面上に表示されているアノテーションを探す
-      let annotation = window.viewer.scene.annotations.children.find(
+      const annotation = window.viewer.scene.annotations.children.find(
         (a) => a.data.id === id
       )
       if (annotation) {
-        // eslint-disable-next-line
-        console.log('-------')
-        // クリックされたアノテーショングループが、すでに開いているlistDataと一致する場合
-        console.log(this.isOpenSameGroup(annotation))
-        // eslint-disable-next-line
-        if (this.isOpenSameGroup(annotation)) {
-          this.setAnnotationData(annotation)
-          console.log('_A')
-        } else if (this.$store.getters.pageName.includes('Tour')) {
-          // TODO この辺でannotation.click使っているが、annotation.clickを使わずに、アノテーションを表示する方法を検討
-          annotation.click_inTour()
-          console.log('_B')
-        } else {
-          annotation.click()
-          console.log('_C')
-        }
-        console.log('_D')
+        console.log('_A')
+        // リストからアノテーショングループに属するアノテーションをクリックした時に、ここを通る
+        annotation.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
+        this.highliteAnnotation(annotation.domElement.get(0))
+        this.drawerAlreadyOpened = true // あとで開く処理はスキップ
+        this.$nextTick(() => {
+          this.annotationData = annotation.data
+        })
         return
       }
+
       // 画面上に表示されていないグループに含まれるアノテーションを探す
-      annotation = this.annotations.find((a) => a.id === id)
-      if (annotation) {
-        if (!this.annotationData) {
-          this.annotationData = annotation
-          console.log('A')
-          return
-        }
+      const annotationData = this.annotations.find((a) => a.id === id)
+      if (annotationData) {
         // 同じグループの先頭アノテーションを探す
-        // eslint-disable-next-line
-        const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(annotation)
-        // firstAnnotationInSameGroupへ移動
-        // TODO firstAnnotationInSameGroupではなく、本来のannotationを表示したい…
-        // 現状グループ内の先頭以外のアノテーションをツアー中に表示することはできていない状態
-        if (this.$store.getters.pageName.includes('Tour')) {
-          firstAnnotationInSameGroup.click_inTour()
-          console.log('B')
-        } else if (this.listData) {
-          // TODO firstAnnotationInSameGroup.click() 以外の方法で、アノテーションに移動してannotationDataにはannotationを代入する
-          firstAnnotationInSameGroup.click()
-          this.annotationData = annotation
-          console.log('C')
-        } else {
-          firstAnnotationInSameGroup.click()
-          console.log('D')
-        }
+        const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(annotationData)
+        firstAnnotationInSameGroup.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
+        this.highliteAnnotation(firstAnnotationInSameGroup.domElement.get(0))
+        this.drawerAlreadyOpened = true // あとで開く処理はスキップ
+        // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
+        this.$nextTick(() => {
+          this.annotationData = annotationData
+        })
         return
       }
       console.error(`id=${id} のアノテーションが見つかりませんでした`)
@@ -864,6 +839,11 @@ export default {
     onClickAnnotation(e) {
       console.log('▪️▪️▪️ onClickAnnotation ▪️▪️▪️', e.target.domElement.get(0))
       if (this.annotationData || this.listData || this.tourData) {
+        // 何かのリスト表示中に、アノテーショングループがクリックされた時に、リストはクリアして、グループを表示する処理が必要
+        if (this.listData) {
+          this.listData = null
+          this.$store.commit('pageName', '')
+        }
         this.drawerAlreadyOpened = true // あとで開く処理はスキップ
         this.setAnnotationData(e.target.data)
         this.highliteAnnotation(e.target.domElement.get(0))
@@ -917,8 +897,6 @@ export default {
         })
       }
     },
-    // TODO ここで、Tourでもlistを使ってしまっているために、group化された（つまりlistをつかう必要がある）ものをTourの中に組み込みにくい
-    //
     selectList(name) {
       console.log('selectList', name)
       this.tourData = null
