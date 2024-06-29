@@ -736,6 +736,7 @@ export default {
     // - onClickAnnotation
     //   - 内部呼び出しのみ
     //   - 点群上のアノテーションがクリックされた時に呼び出される
+    //   - annotation.clickは、このvueファイルからも決して呼ばないこと
     // - highliteAnnotation
     //   - 内部呼び出しのみ
     //   - openAnnotationById, onClickAnnotation内で呼び出される
