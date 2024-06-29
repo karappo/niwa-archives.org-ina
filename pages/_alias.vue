@@ -57,7 +57,7 @@
             :prevNextVisibility="prevNextVisibility"
             :prevDisabled="prevDisabled"
             :nextDisabled="nextDisabled"
-            @backToList="clearSelectedAnnotation"
+            @backToList="clearAnnotationData"
             @prev="prev"
             @next="next"
           )
@@ -827,7 +827,7 @@ export default {
     },
     highliteAnnotation(annotationElement) {
       console.log(':: highliteAnnotation', annotationElement)
-      this.clearSelectedAnnotation()
+      this.clearAnnotationData()
       annotationElement.classList.add('highlighted')
     },
 
@@ -891,7 +891,7 @@ export default {
     selectList(name) {
       console.log('selectList', name)
       this.tourData = null
-      this.clearSelectedAnnotation()
+      this.clearAnnotationData()
       this.$store.commit('pageName', name)
 
       if (name.includes('Tour')) {
@@ -927,7 +927,7 @@ export default {
         }
       }
     },
-    clearSelectedAnnotation() {
+    clearAnnotationData() {
       this.annotationData = null
       // eslint-disable-next-line
       document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
@@ -936,7 +936,7 @@ export default {
       // clear List
       this.$store.commit('tourName', null)
       this.$store.commit('pageName', '')
-      this.clearSelectedAnnotation()
+      this.clearAnnotationData()
       this.listData = null
       this.tourData = null
     },
@@ -957,7 +957,7 @@ export default {
     stopRambleTourWithoutAnnotations() {
       if (this.rambleTourTimer) {
         this.$store.commit('pageName', '')
-        this.clearSelectedAnnotation()
+        this.clearAnnotationData()
         clearInterval(this.rambleTourTimer)
         this.rambleTourTimer = null
       }
