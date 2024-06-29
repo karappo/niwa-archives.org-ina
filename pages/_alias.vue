@@ -403,7 +403,6 @@ export default {
       annotationData: '',
       listData: null,
       tourData: null,
-      drawerAlreadyOpened: false,
       loading: true,
       noticeVisibility: true,
       rambleTourTimer: null,
@@ -593,7 +592,6 @@ export default {
           a.domElement.off('mouseleave')
           // クリックした時の処理
           a.addEventListener('click', this.onClickAnnotation)
-          a.addEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
           window.viewer.scene.annotations.add(a)
         })
     }
@@ -605,7 +603,6 @@ export default {
         a.domElement.off('mouseleave')
         // クリックした時の処理
         a.addEventListener('click', this.onClickAnnotation)
-        a.addEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
         window.viewer.scene.annotations.add(a)
       })
     }
@@ -641,7 +638,6 @@ export default {
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
         a.removeEventListener('click', this.onClickAnnotation)
-        a.removeEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
       })
     }
     // potreeのdestroy方法が不明なので、とりあえず残されたDOMを削除する
@@ -780,7 +776,6 @@ export default {
         // リストからアノテーショングループに属するアノテーションをクリックした時に、ここを通る
         annotation.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
         this.highliteAnnotation(annotation.domElement.get(0))
-        this.drawerAlreadyOpened = true // あとで開く処理はスキップ
         this.$nextTick(() => {
           this.annotationData = annotation.data
         })
@@ -794,7 +789,6 @@ export default {
         const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(annotationData)
         firstAnnotationInSameGroup.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
         this.highliteAnnotation(firstAnnotationInSameGroup.domElement.get(0))
-        this.drawerAlreadyOpened = true // あとで開く処理はスキップ
         // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
         this.$nextTick(() => {
           this.annotationData = annotationData
@@ -846,27 +840,22 @@ export default {
           this.listData = null
           this.$store.commit('pageName', '')
         }
-        this.drawerAlreadyOpened = true // あとで開く処理はスキップ
         this.setAnnotationData(e.target.data)
         this.highliteAnnotation(e.target.domElement.get(0))
       } else {
-        this.drawerAlreadyOpened = false // あとで開くのでここでは何もしない
+        // カメラの移動が終わった時に、アノテーションを表示する
+        const onCameraAnimationComplete = (e) => {
+          this.setAnnotationData(e.target.data)
+          this.highliteAnnotation(e.target.domElement.get(0))
+          e.target.removeEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
+        }
+        e.target.addEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
       }
     },
     // onClickAnnotationLink: リスト中のアノテーションリンクのクリックイベントハンドラ
     onClickAnnotationLink(id) {
       console.log('▪️▪️▪️ onClickAnnotationLink ▪️▪️▪️', id)
       this.openAnnotationById(id)
-    },
-
-    onCameraAnimationComplete(e) {
-      console.log('onCameraAnimationComplete')
-      if (this.drawerAlreadyOpened) {
-        // 既にdrawerが開いているのでなにもしない
-        return
-      }
-      this.setAnnotationData(e.target.data)
-      this.highliteAnnotation(e.target.domElement.get(0))
     },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
