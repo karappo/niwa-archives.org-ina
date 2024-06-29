@@ -689,7 +689,7 @@ export default {
       if (index < 0) {
         index = idArray.length - 1
       }
-      this.showAnnotationById(idArray[index])
+      this.openAnnotationById(idArray[index])
     },
     next(id) {
       let idArray = null
@@ -705,7 +705,7 @@ export default {
       if (idArray.length <= index) {
         index = 0
       }
-      this.showAnnotationById(idArray[index])
+      this.openAnnotationById(idArray[index])
     },
     getFirstAnnotationInSameGroup(annotation) {
       return window.viewer.scene.annotations.children.find(
@@ -729,7 +729,7 @@ export default {
       return false
     },
     // Annotation表示の呼び出し関係の関数の説明
-    // - showAnnotationById
+    // - openAnnotationById
     //   - 外部（AnnotationList、DrawerList、SoundBarなど）から呼び出される
     //   - リスト中のアノテーションがクリックされた時の処理
     //   - annotation.clickを起点とした処理からは呼ばれないはずで、逆にこの関数内でannotation.clickを呼び出す
@@ -738,11 +738,11 @@ export default {
     //   - 点群上のアノテーションがクリックされた時に呼び出される
     // - highliteAnnotation
     //   - 内部呼び出しのみ
-    //   - showAnnotationById, onClickAnnotation内で呼び出される
+    //   - openAnnotationById, onClickAnnotation内で呼び出される
     //   - 点群上のアノテーションのハイライト処理
     //
     // onClickAnnotation: 点群中のannotationのクリック
-    // onClickAnnotationLink: リスト中のアノテーションリンクのクリック
+    // openAnnotationById: リスト中のアノテーションリンクのクリック
 
     // Annotationグループは、リスト内には存在せず、かならず点群上にあるAnnotationをクリックすることで表示される
 
@@ -755,17 +755,17 @@ export default {
     //   - アノテーションをDrawerで開く
     //     - listDataは維持
     //   - アノテーションをハイライト(highliteAnnotation)
-    //   - showAnnotationById → annotation.click
+    //   - openAnnotationById → annotation.click
 
 
-    showAnnotationById(id) {
-      console.log('⭐️ showAnnotationById', id)
+    openAnnotationById(id) {
+      console.log('⭐️ openAnnotationById', id)
 
       // 【重要】点群上のAnnotation.click以外のアクションを起点として、annotationを表示する
       // スタックトレースを取得して、Annotation.clickを起点とした処理中で呼び出された場合はエラーを出力する
       const stackTrace = new Error().stack
       if (stackTrace.includes('Annotation.click')) {
-        console.error("showAnnotationByIdは、Annotation.clickを起点とした処理中で呼び出されていますが、これは意図した動作ではありません。コードを見直して、呼び出されないようにしてください")
+        console.error("openAnnotationByIdは、Annotation.clickを起点とした処理中で呼び出されていますが、これは意図した動作ではありません。コードを見直して、呼び出されないようにしてください")
         return
       }
       // ここからは必ず、Annotation.clickを起点とした処理ではない
@@ -811,7 +811,7 @@ export default {
     // 基本的にはannotationData に annotationDataを代入するだけだが、
     // 条件分岐によって、listData にも代入することがある
     // 呼び出し元
-    // - showAnnotationById
+    // - openAnnotationById
     // - onClickAnnotation
     // - onCameraAnimationComplete
     setAnnotationData(data) {
@@ -855,7 +855,7 @@ export default {
     // onClickAnnotationLink: リスト中のアノテーションリンクのクリックイベントハンドラ
     onClickAnnotationLink(id) {
       console.log('▪️▪️▪️ onClickAnnotationLink ▪️▪️▪️', id)
-      this.showAnnotationById(id)
+      this.openAnnotationById(id)
     },
 
     onCameraAnimationComplete(e) {
@@ -956,7 +956,7 @@ export default {
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
     startRambleTourWithoutAnnotations() {
-      this.showAnnotationById(this.tourData.list[0].id)
+      this.openAnnotationById(this.tourData.list[0].id)
       if (this.rambleTourTimer) {
         clearInterval(this.rambleTourTimer)
       }
