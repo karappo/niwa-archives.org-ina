@@ -525,10 +525,10 @@ export default {
           (a) => a.data.id === val.id
         )
         if (annotation) {
-          this.highliteAnnotation(annotation.domElement[0])
+          this.highlightAnnotation(annotation.domElement[0])
         }
       } else {
-        this.clearAnnotationHighlite()
+        this.clearAnnotationHighlight()
       }
     },
     listData(val) {
@@ -536,10 +536,10 @@ export default {
       if (val) {
         if (val.name === 'Group') {
           const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(val.list[0])
-          this.highliteAnnotation(firstAnnotationInSameGroup.domElement[0])
+          this.highlightAnnotation(firstAnnotationInSameGroup.domElement[0])
         }
       } else {
-        this.clearAnnotationHighlite()
+        this.clearAnnotationHighlight()
       }
     }
   },
@@ -761,7 +761,7 @@ export default {
     //   - 内部呼び出しのみ
     //   - 点群上のアノテーションがクリックされた時に呼び出される
     //   - annotation.clickは、このvueファイルからも決して呼ばないこと
-    // - highliteAnnotation
+    // - highlightAnnotation
     //   - 内部呼び出しのみ → さらにannotationDataとlistDataのwatch内のみ）呼び出すこと！
     //   - 点群上のアノテーションのハイライト処理
     //
@@ -832,11 +832,11 @@ export default {
     // - openAnnotationById
     // - onClickAnnotation
     // - onCameraAnimationComplete
-    highliteAnnotation(annotationElement) {
-      this.clearAnnotationHighlite()
+    highlightAnnotation(annotationElement) {
+      this.clearAnnotationHighlight()
       annotationElement.classList.add('highlighted')
     },
-    clearAnnotationHighlite() {
+    clearAnnotationHighlight() {
       // eslint-disable-next-line
       document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
     },
