@@ -390,6 +390,10 @@ export default {
       a.grouped = annotationGroups.some(
         (g) => JSON.stringify(g[0].position) === JSON.stringify(a.position)
       )
+      // groupの最初のアノテーションかどうかをBooleanで持たせる
+      a.firstInGroup = annotationGroups.some(
+        (g) => g[0].id === a.id
+      )
     })
     let data = await import(`~/data/gardens/${route.params.alias}.js`)
     data = data.default
@@ -925,7 +929,9 @@ export default {
             }
           })
         } else if (name === 'Ramble Tour') {
-          // guidedTourの順でannotationをリスト化する
+          // Ramble Tourの場合
+          // "Ramble Tour with Annotations"なのか"Ramble Tour without Annotations"なのかによって
+          // tourDataが変わってくるので、一旦ここでは全アノテーションをシャッフルしてリスト化しておくが、もし without... の場合はのちに上書きする
           list = _shuffle(this.annotations)
         }
         this.tourData = {
@@ -962,12 +968,14 @@ export default {
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
     startRambleTourWithoutAnnotations() {
+      // 点群上にあるアノテーションのみでリスト化（グループの子要素のアノテーションは同じ位置になるので含めない）
+      this.tourData.list = _shuffle(this.annotations.filter((a) => !a.grouped || a.firstInGroup))
       this.openAnnotationById(this.tourData.list[0].id)
       if (this.rambleTourTimer) {
         clearInterval(this.rambleTourTimer)
       }
       this.rambleTourTimer = setInterval(() => {
-        this.next(this.tourData.list[this.tourCurrentIndex].index)
+        this.next(this.annotationData.id)
       }, 15000)
     },
     stopRambleTourWithoutAnnotations() {
