@@ -826,7 +826,8 @@ export default {
     },
     highliteAnnotation(annotationElement) {
       // console.log(':: highliteAnnotation', annotationElement)
-      this.clearAnnotationData()
+      // eslint-disable-next-line
+      document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
       annotationElement.classList.add('highlighted')
     },
 
