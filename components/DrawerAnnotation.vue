@@ -308,14 +308,21 @@ export default {
       return this.category === 'DNA Data'
     }
   },
-  mounted() {
-    FONTPLUS.start()
-    if (
-      !this.data.youtube &&
-      !this.data.movie &&
-      (this.$store.getters.autoplay || this.$store.getters.tourName)
-    ) {
-      this.startTimer()
+  watch: {
+    data: {
+      immediate: true, // 監視開始時（コンポーネントがマウントされた直後）にも反応するようにする
+      handler(data) {
+        // 初期化時の処理
+        // mountedは、このコンポーネントの再描画時に呼ばれないので、ここで処理する
+        FONTPLUS.start()
+        if (
+          !data.youtube &&
+          !data.movie &&
+          (this.$store.getters.autoplay || this.$store.getters.tourName)
+        ) {
+          this.startGoToNextTimer()
+        }
+      }
     }
   },
   methods: {
@@ -346,10 +353,10 @@ export default {
     clickAutoplay() {
       this.$store.commit('autoplay', !this.$store.getters.autoplay)
       if (this.$store.getters.autoplay) {
-        this.startTimer()
+        this.startGoToNextTimer()
       }
     },
-    startTimer() {
+    startGoToNextTimer() {
       // 一定時間後に次へ
       this.timerID = setTimeout(this.goToNextAnnotation, 15000)
     },
