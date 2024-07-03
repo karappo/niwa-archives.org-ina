@@ -526,6 +526,9 @@ export default {
         )
         if (annotation) {
           this.highlightAnnotation(annotation.domElement[0])
+        } else {
+          const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(val)
+          this.highlightAnnotation(firstAnnotationInSameGroup.domElement[0])
         }
       } else {
         this.clearAnnotationHighlight()
