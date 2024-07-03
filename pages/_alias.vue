@@ -513,6 +513,30 @@ export default {
         this.keyMapSpVisibility = false
         this.sideBarSpVisibility = false
       }
+    },
+    annotationData(val) {
+      // 点群上のアノテーションのハイライト処理
+      if (val) {
+        const annotation = window.viewer.scene.annotations.children.find(
+          (a) => a.data.id === val.id
+        )
+        if (annotation) {
+          this.highliteAnnotation(annotation.domElement[0])
+        }
+      } else {
+        this.clearAnnotationHighlite()
+      }
+    },
+    listData(val) {
+      // 点群上のアノテーションのハイライト処理
+      if (val) {
+        if (val.name === 'Group') {
+          const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(val.list[0])
+          this.highliteAnnotation(firstAnnotationInSameGroup.domElement[0])
+        }
+      } else {
+        this.clearAnnotationHighlite()
+      }
     }
   },
   async mounted() {
@@ -734,8 +758,7 @@ export default {
     //   - 点群上のアノテーションがクリックされた時に呼び出される
     //   - annotation.clickは、このvueファイルからも決して呼ばないこと
     // - highliteAnnotation
-    //   - 内部呼び出しのみ
-    //   - openAnnotationById, onClickAnnotation内で呼び出される
+    //   - 内部呼び出しのみ → さらにannotationDataとlistDataのwatch内のみ）呼び出すこと！
     //   - 点群上のアノテーションのハイライト処理
     //
     // onClickAnnotation: 点群中のannotationのクリック
@@ -747,11 +770,9 @@ export default {
     // - 点群上のグループがクリックされたとき
     //   - グループをDrawerで開く
     //     - listDataが存在する場合は上書き
-    //   - アノテーションをハイライト(highliteAnnotation)
     // - リスト中のリンクがクリックされたとき
     //   - アノテーションをDrawerで開く
     //     - listDataは維持
-    //   - アノテーションをハイライト(highliteAnnotation)
     //   - openAnnotationById → annotation.click
 
 
@@ -774,7 +795,6 @@ export default {
       if (annotation) {
         // リストからアノテーショングループに属するアノテーションをクリックした時に、ここを通る
         annotation.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
-        this.highliteAnnotation(annotation.domElement.get(0))
         this.$nextTick(() => {
           this.annotationData = annotation.data
         })
@@ -787,7 +807,6 @@ export default {
         // 同じグループの先頭アノテーションを探す
         const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(annotationData)
         firstAnnotationInSameGroup.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
-        this.highliteAnnotation(firstAnnotationInSameGroup.domElement.get(0))
         // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
         this.$nextTick(() => {
           this.annotationData = annotationData
@@ -811,8 +830,6 @@ export default {
     // TODO
     // setAnnotationData と this.annotationData = data の２通りのやり方があって混乱しそう
     // かといって、setAnnotationDataに統一すると不具合あり。
-    // TODO
-    // highliteAnnotation は、setAnnotationData内で呼び出すようにできると、clearAnnotationData と処理内容が揃って良い
     setAnnotationData(data) {
       // console.log(':: setAnnotationData', data)
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
@@ -830,10 +847,12 @@ export default {
       })
     },
     highliteAnnotation(annotationElement) {
-      // console.log(':: highliteAnnotation', annotationElement)
+      this.clearAnnotationHighlite()
+      annotationElement.classList.add('highlighted')
+    },
+    clearAnnotationHighlite() {
       // eslint-disable-next-line
       document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
-      annotationElement.classList.add('highlighted')
     },
 
     // onClickAnnotation: 点群中のannotationのクリックイベントハンドラ
@@ -846,12 +865,10 @@ export default {
           this.$store.commit('pageName', '')
         }
         this.setAnnotationData(e.target.data)
-        this.highliteAnnotation(e.target.domElement.get(0))
       } else {
         // カメラの移動が終わった時に、アノテーションを表示する
         const onCameraAnimationComplete = (e) => {
           this.setAnnotationData(e.target.data)
-          this.highliteAnnotation(e.target.domElement.get(0))
           e.target.removeEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
         }
         e.target.addEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
@@ -934,8 +951,6 @@ export default {
     },
     clearAnnotationData() {
       this.annotationData = null
-      // eslint-disable-next-line
-      document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
     },
     closeDrawer() {
       // clear List
