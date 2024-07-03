@@ -827,25 +827,6 @@ export default {
     // - openAnnotationById
     // - onClickAnnotation
     // - onCameraAnimationComplete
-    // TODO
-    // setAnnotationData と this.annotationData = data の２通りのやり方があって混乱しそう
-    // かといって、setAnnotationDataに統一すると不具合あり。
-    setAnnotationData(data) {
-      // console.log(':: setAnnotationData', data)
-      // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
-      this.$nextTick(() => {
-        if (data.grouped && !this.$store.getters.pageName.includes('Tour')) {
-          // console.log('--------------------------- update listData')
-          this.listData = {
-            name: 'Group',
-            list: this.getAnnotationGroupByPosition(data.position)
-          }
-        } else {
-          // console.log('--------------------------- update annotationData')
-          this.annotationData = data
-        }
-      })
-    },
     highliteAnnotation(annotationElement) {
       this.clearAnnotationHighlite()
       annotationElement.classList.add('highlighted')
@@ -858,17 +839,32 @@ export default {
     // onClickAnnotation: 点群中のannotationのクリックイベントハンドラ
     onClickAnnotation(e) {
       // console.log('▪️▪️▪️ onClickAnnotation ▪️▪️▪️', e.target.domElement.get(0))
+      // この関数内でのみ、groupとannotationの切り替えが必要なので、下記関数を定義して処理をまとめる。
+      // annotationData に直接代入する方法と混在すると用途が分かりにくくなるので、methods化したりしないこと
+      const setAnnotationData = (data) => {
+        // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
+        this.$nextTick(() => {
+          if (data.grouped && !this.$store.getters.pageName.includes('Tour')) {
+            this.listData = {
+              name: 'Group',
+              list: this.getAnnotationGroupByPosition(data.position)
+            }
+          } else {
+            this.annotationData = data
+          }
+        })
+      }
       if (this.annotationData || this.listData || this.tourData) {
         // 何かのリスト表示中に、アノテーショングループがクリックされた時に、リストはクリアして、グループを表示する処理が必要
         if (this.listData) {
           this.listData = null
           this.$store.commit('pageName', '')
         }
-        this.setAnnotationData(e.target.data)
+        setAnnotationData(e.target.data)
       } else {
         // カメラの移動が終わった時に、アノテーションを表示する
         const onCameraAnimationComplete = (e) => {
-          this.setAnnotationData(e.target.data)
+          setAnnotationData(e.target.data)
           e.target.removeEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
         }
         e.target.addEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
