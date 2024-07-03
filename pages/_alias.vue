@@ -808,6 +808,11 @@ export default {
     // - openAnnotationById
     // - onClickAnnotation
     // - onCameraAnimationComplete
+    // TODO
+    // setAnnotationData と this.annotationData = data の２通りのやり方があって混乱しそう
+    // かといって、setAnnotationDataに統一すると不具合あり。
+    // TODO
+    // highliteAnnotation は、setAnnotationData内で呼び出すようにできると、clearAnnotationData と処理内容が揃って良い
     setAnnotationData(data) {
       // console.log(':: setAnnotationData', data)
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
