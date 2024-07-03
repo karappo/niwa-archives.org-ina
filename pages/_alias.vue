@@ -756,7 +756,7 @@ export default {
 
 
     openAnnotationById(id) {
-      console.log('⭐️ openAnnotationById', id)
+      // console.log('⭐️ openAnnotationById', id)
 
       // 【重要】点群上のAnnotation.click以外のアクションを起点として、annotationを表示する
       // スタックトレースを取得して、Annotation.clickを起点とした処理中で呼び出された場合はエラーを出力する
@@ -772,7 +772,6 @@ export default {
         (a) => a.data.id === id
       )
       if (annotation) {
-        console.log('_A')
         // リストからアノテーショングループに属するアノテーションをクリックした時に、ここを通る
         annotation.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
         this.highliteAnnotation(annotation.domElement.get(0))
@@ -810,30 +809,30 @@ export default {
     // - onClickAnnotation
     // - onCameraAnimationComplete
     setAnnotationData(data) {
-      console.log(':: setAnnotationData', data)
+      // console.log(':: setAnnotationData', data)
       // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
       this.$nextTick(() => {
         if (data.grouped && !this.$store.getters.pageName.includes('Tour')) {
-          console.log('--------------------------- update listData')
+          // console.log('--------------------------- update listData')
           this.listData = {
             name: 'Group',
             list: this.getAnnotationGroupByPosition(data.position)
           }
         } else {
-          console.log('--------------------------- update annotationData')
+          // console.log('--------------------------- update annotationData')
           this.annotationData = data
         }
       })
     },
     highliteAnnotation(annotationElement) {
-      console.log(':: highliteAnnotation', annotationElement)
+      // console.log(':: highliteAnnotation', annotationElement)
       this.clearAnnotationData()
       annotationElement.classList.add('highlighted')
     },
 
     // onClickAnnotation: 点群中のannotationのクリックイベントハンドラ
     onClickAnnotation(e) {
-      console.log('▪️▪️▪️ onClickAnnotation ▪️▪️▪️', e.target.domElement.get(0))
+      // console.log('▪️▪️▪️ onClickAnnotation ▪️▪️▪️', e.target.domElement.get(0))
       if (this.annotationData || this.listData || this.tourData) {
         // 何かのリスト表示中に、アノテーショングループがクリックされた時に、リストはクリアして、グループを表示する処理が必要
         if (this.listData) {
@@ -854,7 +853,7 @@ export default {
     },
     // onClickAnnotationLink: リスト中のアノテーションリンクのクリックイベントハンドラ
     onClickAnnotationLink(id) {
-      console.log('▪️▪️▪️ onClickAnnotationLink ▪️▪️▪️', id)
+      // console.log('▪️▪️▪️ onClickAnnotationLink ▪️▪️▪️', id)
       this.openAnnotationById(id)
     },
     update() {
@@ -889,7 +888,7 @@ export default {
       }
     },
     selectList(name) {
-      console.log('selectList', name)
+      // console.log('selectList', name)
       this.tourData = null
       this.clearAnnotationData()
       this.$store.commit('pageName', name)
