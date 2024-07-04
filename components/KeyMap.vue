@@ -8,54 +8,64 @@
     .key T
 
     .btn.panLeft(
-      @pointerdown="pointerdown('Q')"
-      @pointerup="pointerup('Q')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="Q"
       title="Pan Left"
     )
     .btn.forward(
-      @pointerdown="pointerdown('W')"
-      @pointerup="pointerup('W')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="W"
       title="Forward"
     )
     .btn.panRight(
-      @pointerdown="pointerdown('E')"
-      @pointerup="pointerup('E')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="E"
       title="Pan Right"
     )
     .btn.up(
-      @pointerdown="pointerdown('R')"
-      @pointerup="pointerup('R')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="R"
       title="Up"
     )
     .btn.tiltUp(
-      @pointerdown="pointerdown('T')"
-      @pointerup="pointerup('T')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="T"
       title="Tilt Up"
     )
 
     .btn.left(
-      @pointerdown="pointerdown('A')"
-      @pointerup="pointerup('A')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="A"
       title="Left"
     )
     .btn.backward(
-      @pointerdown="pointerdown('S')"
-      @pointerup="pointerup('S')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="S"
       title="Backward"
     )
     .btn.right(
-      @pointerdown="pointerdown('D')"
-      @pointerup="pointerup('D')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="D"
       title="Right"
     )
     .btn.down(
-      @pointerdown="pointerdown('F')"
-      @pointerup="pointerup('F')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="F"
       title="Down"
     )
     .btn.tiltDown(
-      @pointerdown="pointerdown('G')"
-      @pointerup="pointerup('G')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="G"
       title="Tilt Down"
     )
 
@@ -67,37 +77,43 @@
   .spLayout(v-if="spVisibility")
     .empty
     .btn.forward(
-      @pointerdown="pointerdown('W')"
-      @pointerup="pointerup('W')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="W"
       title="Forward"
     )
     .empty
     .gutter
     .btn.up(
-      @pointerdown="pointerdown('R')"
-      @pointerup="pointerup('R')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="R"
       title="Up"
     )
 
     .btn.left(
-      @pointerdown="pointerdown('A')"
-      @pointerup="pointerup('A')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="A"
       title="Left"
     )
     .btn.backward(
-      @pointerdown="pointerdown('S')"
-      @pointerup="pointerup('S')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="S"
       title="Backward"
     )
     .btn.right(
-      @pointerdown="pointerdown('D')"
-      @pointerup="pointerup('D')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="D"
       title="Right"
     )
     .gutter
     .btn.down(
-      @pointerdown="pointerdown('F')"
-      @pointerup="pointerup('F')"
+      @pointerdown="pointerdown"
+      @pointerup="pointerup"
+      data-key="F"
       title="Down"
     )
 </template>
@@ -157,6 +173,9 @@ $pc_sp_threshold: 1024px
   background-position: center
   transition: background-color 0.2s
   &:hover
+    +pc
+      background-color: #333
+  &.touched
     background-color: #333
   +sp
     border-radius: 10px
@@ -224,7 +243,9 @@ export default {
     }
   },
   methods: {
-    pointerdown(key) {
+    pointerdown(e) {
+      e.target.classList.add('touched')
+      const key = e.target.dataset.key
       if (!key) {
         return
       }
@@ -238,7 +259,9 @@ export default {
         })
       )
     },
-    pointerup(key) {
+    pointerup(e) {
+      e.target.classList.remove('touched')
+      const key = e.target.dataset.key
       if (!key) {
         return
       }
