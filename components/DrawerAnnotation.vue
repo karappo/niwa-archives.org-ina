@@ -322,6 +322,11 @@ export default {
         ) {
           this.startGoToNextTimer()
         }
+
+        // スクロール位置の初期化
+        this.$nextTick(() => {
+          this.$el.parentElement.scrollTop = 0
+        })
       }
     }
   },
