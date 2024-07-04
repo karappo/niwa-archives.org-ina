@@ -7,17 +7,57 @@
     .key R
     .key T
 
-    .btn.panLeft(@pointerdown="pointerdown('Q')" title="Pan Left")
-    .btn.forward(@pointerdown="pointerdown('W')" title="Forward")
-    .btn.panRight(@pointerdown="pointerdown('E')" title="Pan Right")
-    .btn.up(@pointerdown="pointerdown('R')" title="Up")
-    .btn.tiltUp(@pointerdown="pointerdown('T')" title="Tilt Up")
+    .btn.panLeft(
+      @pointerdown="pointerdown('Q')"
+      @pointerup="pointerup('Q')"
+      title="Pan Left"
+    )
+    .btn.forward(
+      @pointerdown="pointerdown('W')"
+      @pointerup="pointerup('W')"
+      title="Forward"
+    )
+    .btn.panRight(
+      @pointerdown="pointerdown('E')"
+      @pointerup="pointerup('E')"
+      title="Pan Right"
+    )
+    .btn.up(
+      @pointerdown="pointerdown('R')"
+      @pointerup="pointerup('R')"
+      title="Up"
+    )
+    .btn.tiltUp(
+      @pointerdown="pointerdown('T')"
+      @pointerup="pointerup('T')"
+      title="Tilt Up"
+    )
 
-    .btn.left(@pointerdown="pointerdown('A')" title="Left")
-    .btn.backward(@pointerdown="pointerdown('S')" title="Backward")
-    .btn.right(@pointerdown="pointerdown('D')" title="Right")
-    .btn.down(@pointerdown="pointerdown('F')" title="Down")
-    .btn.tiltDown(@pointerdown="pointerdown('G')" title="Tilt Down")
+    .btn.left(
+      @pointerdown="pointerdown('A')"
+      @pointerup="pointerup('A')"
+      title="Left"
+    )
+    .btn.backward(
+      @pointerdown="pointerdown('S')"
+      @pointerup="pointerup('S')"
+      title="Backward"
+    )
+    .btn.right(
+      @pointerdown="pointerdown('D')"
+      @pointerup="pointerup('D')"
+      title="Right"
+    )
+    .btn.down(
+      @pointerdown="pointerdown('F')"
+      @pointerup="pointerup('F')"
+      title="Down"
+    )
+    .btn.tiltDown(
+      @pointerdown="pointerdown('G')"
+      @pointerup="pointerup('G')"
+      title="Tilt Down"
+    )
 
     .key A
     .key S
@@ -26,16 +66,40 @@
     .key G
   .spLayout(v-if="spVisibility")
     .empty
-    .btn.forward(@pointerdown="pointerdown('W')" title="Forward")
+    .btn.forward(
+      @pointerdown="pointerdown('W')"
+      @pointerup="pointerup('W')"
+      title="Forward"
+    )
     .empty
     .gutter
-    .btn.up(@pointerdown="pointerdown('R')" title="Up")
+    .btn.up(
+      @pointerdown="pointerdown('R')"
+      @pointerup="pointerup('R')"
+      title="Up"
+    )
 
-    .btn.left(@pointerdown="pointerdown('A')" title="Left")
-    .btn.backward(@pointerdown="pointerdown('S')" title="Backward")
-    .btn.right(@pointerdown="pointerdown('D')" title="Right")
+    .btn.left(
+      @pointerdown="pointerdown('A')"
+      @pointerup="pointerup('A')"
+      title="Left"
+    )
+    .btn.backward(
+      @pointerdown="pointerdown('S')"
+      @pointerup="pointerup('S')"
+      title="Backward"
+    )
+    .btn.right(
+      @pointerdown="pointerdown('D')"
+      @pointerup="pointerup('D')"
+      title="Right"
+    )
     .gutter
-    .btn.down(@pointerdown="pointerdown('F')" title="Down")
+    .btn.down(
+      @pointerdown="pointerdown('F')"
+      @pointerup="pointerup('F')"
+      title="Down"
+    )
 </template>
 
 <style lang="sass" scoped>
@@ -159,12 +223,6 @@ export default {
       return document.body.querySelector('#potree_render_area canvas:not(.ol-unselectable)')
     }
   },
-  mounted() {
-    document.addEventListener('pointerup', this.pointerup)
-  },
-  beforeDestroy() {
-    document.removeEventListener('pointerup', this.pointerup)
-  },
   methods: {
     pointerdown(key) {
       if (!key) {
@@ -180,15 +238,16 @@ export default {
         })
       )
     },
-    pointerup() {
-      if (!(this.currentKey && this.currentKeyCode)) {
+    pointerup(key) {
+      if (!key) {
         return
       }
+      const keyCode = key.charCodeAt(0)
       this.canvas.dispatchEvent(
         new KeyboardEvent('keyup', {
-          key: this.currentKey,
-          keyCode: this.currentKeyCode,
-          code: `Key${this.currentKey.toUpperCase()}`
+          key,
+          keyCode,
+          code: `Key${key.toUpperCase()}`
         })
       )
     }
