@@ -551,12 +551,11 @@ export default {
     const viewer = new Potree.Viewer(this.$refs.potree_render_area)
     window.viewer = viewer
     viewer.setFOV(75)
-    viewer.setPointBudget(this.$store.getters.pointBudget)
     viewer.loadSettingsFromURL()
     viewer.setBackground('originalColor')
 
     // Controls
-    this.setControlMode(this.$store.getters.controlMode)
+    this.setControlMode(0) // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
 
     viewer.loadGUI(() => {
       viewer.setLanguage('en')
@@ -570,13 +569,13 @@ export default {
     material.pointSizeType = Potree.PointSizeType.ADAPTIVE
 
     const config = () => {
-      viewer.setEDLEnabled(this.$store.getters.EDLEnabled)
-      viewer.setEDLRadius(this.$store.getters.EDLRadius)
-      viewer.setEDLStrength(this.$store.getters.EDLStrength)
-      viewer.setEDLOpacity(this.$store.getters.EDLOpacity)
-      viewer.setPointBudget(this.$store.getters.pointBudget)
-      material.shape = this.$store.getters.shape
-      material.size = this.$store.getters.size
+      viewer.setEDLEnabled(true)
+      viewer.setEDLRadius(0) // default: 1.4
+      viewer.setEDLStrength(0) // default: 0.4
+      viewer.setEDLOpacity(0.85) // default: 1.0
+      viewer.setPointBudget(2000000)
+      material.shape = 1
+      material.size = 0.66
     }
 
     viewer.scene.addPointCloud(pointcloud)
@@ -611,7 +610,6 @@ export default {
       tours.push(animation)
     })
     this.tours = tours
-    this.$store.commit('cameraAnimationCount', tours.length)
 
     if (this.annotations) {
       this.annotations
@@ -641,7 +639,6 @@ export default {
     // Set Events
     this.$nuxt.$on('closeDrawer', this.closeDrawer)
     this.$nuxt.$on('settingUpdated', config)
-    this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$on('selectList', this.selectList)
     this.$nuxt.$on('clickAnnotationLink', this.onClickAnnotationLink)
@@ -659,7 +656,6 @@ export default {
   beforeDestroy() {
     this.$nuxt.$off('closeDrawer', this.closeDrawer)
     this.$nuxt.$off('settingUpdated')
-    this.$nuxt.$off('setControlMode', this.setControlMode)
     this.$nuxt.$off('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$off('selectList', this.selectList)
     this.$nuxt.$off('clickAnnotationLink', this.onClickAnnotationLink)
@@ -695,8 +691,6 @@ export default {
           window.viewer.setControls(window.viewer.orbitControls)
           break
       }
-      // モードを保存
-      this.$store.commit('controlMode', mode)
     },
     startCameraAnimation(index) {
       this.tours[index].play()
