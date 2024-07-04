@@ -553,6 +553,11 @@ export default {
     viewer.setFOV(75)
     viewer.loadSettingsFromURL()
     viewer.setBackground('originalColor')
+    viewer.setEDLEnabled(true)
+    viewer.setEDLRadius(0) // default: 1.4
+    viewer.setEDLStrength(0) // default: 0.4
+    viewer.setEDLOpacity(0.85) // default: 1.0
+    viewer.setPointBudget(2000000)
 
     // Controls
     this.setControlMode(0) // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
@@ -567,16 +572,8 @@ export default {
     const material = pointcloud.material
     material.activeAttributeName = 'rgba'
     material.pointSizeType = Potree.PointSizeType.ADAPTIVE
-
-    const config = () => {
-      viewer.setEDLEnabled(true)
-      viewer.setEDLRadius(0) // default: 1.4
-      viewer.setEDLStrength(0) // default: 0.4
-      viewer.setEDLOpacity(0.85) // default: 1.0
-      viewer.setPointBudget(2000000)
-      material.shape = 1
-      material.size = 0.66
-    }
+    material.shape = 1
+    material.size = 0.66
 
     viewer.scene.addPointCloud(pointcloud)
 
@@ -638,7 +635,6 @@ export default {
 
     // Set Events
     this.$nuxt.$on('closeDrawer', this.closeDrawer)
-    this.$nuxt.$on('settingUpdated', config)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$on('selectList', this.selectList)
     this.$nuxt.$on('clickAnnotationLink', this.onClickAnnotationLink)
@@ -647,15 +643,12 @@ export default {
     window.addEventListener('resize', this.resize)
     this.resize()
 
-    config()
-
     setTimeout(() => {
       this.loading = false
     }, 1000)
   },
   beforeDestroy() {
     this.$nuxt.$off('closeDrawer', this.closeDrawer)
-    this.$nuxt.$off('settingUpdated')
     this.$nuxt.$off('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$off('selectList', this.selectList)
     this.$nuxt.$off('clickAnnotationLink', this.onClickAnnotationLink)
