@@ -132,6 +132,9 @@ export default {
   //   port: 3000, // デフォルト: 3000
   //   host: '0.0.0.0' // デフォルト: localhost
   // },
+  // そのほかにやること
+  // - ウェブフォントFONTPLUSの管理画面にIPを追加
+  // - [GoogleCloudPlatform](https://console.cloud.google.com/apis/credentials/key/c238b06c-505e-4198-91bf-6557605ab380?hl=ja&project=proxies-of-client)の管理画面から、ウェブサイトの制限のところにドメインまたはIPを追加すること。
 
   generate: {
     routes: [

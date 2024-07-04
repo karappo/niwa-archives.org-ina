@@ -13,7 +13,8 @@
 
 # ウェブフォント
 
-FONTPLUS（info@karappo.net）
+FONTPLUS: https://fontplus.jp/users/login
+アカウント: info@karappo.net
 
 ## サーバースペック
 
