@@ -550,6 +550,9 @@ export default {
     if (FONTPLUS) {
       FONTPLUS.start()
     }
+
+    this.calcIsSp()
+
     const viewer = new Potree.Viewer(this.$refs.potree_render_area)
     window.viewer = viewer
     viewer.setFOV(75)
@@ -642,8 +645,7 @@ export default {
     this.$nuxt.$on('clickAnnotationLink', this.onClickAnnotationLink)
     this.$nuxt.$on('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.addEventListener('camera_changed', this.update)
-    window.addEventListener('resize', this.resize)
-    this.resize()
+    window.addEventListener('resize', this.calcIsSp)
 
     setTimeout(() => {
       this.loading = false
@@ -656,7 +658,7 @@ export default {
     this.$nuxt.$off('clickAnnotationLink', this.onClickAnnotationLink)
     this.$nuxt.$off('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.removeEventListener('camera_changed', this.update)
-    window.removeEventListener('resize', this.resize)
+    window.removeEventListener('resize', this.calcIsSp)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
         a.removeEventListener('click', this.onClickAnnotation)
@@ -666,7 +668,7 @@ export default {
     document.querySelectorAll('#profile_window,.sp-container').forEach((e) => e.remove()) // eslint-disable-line
   },
   methods: {
-    resize() {
+    calcIsSp() {
       const pcSpThreshold = 990
       this.isSP = window.innerWidth < pcSpThreshold
     },
