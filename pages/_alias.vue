@@ -24,6 +24,8 @@
               h1.title
                 span.global Incomplete Niwa Archives
                 span.scene {{ data.title }}
+                br
+                span.benchmark(style="font-size: 13px;") Benchmark Time: {{ benchmarkTime }}
               template(v-if="tourName")
                 TourIndicator(
                   :numerator="tourData.list.length"
@@ -399,6 +401,7 @@ export default {
     data = data.default
 
     return {
+      benchmarkTime: null,
       isSP: false,
       annotations,
       annotationGroups, // 同位置のアノテーションをまとめたグループ
@@ -551,6 +554,21 @@ export default {
       FONTPLUS.start()
     }
 
+    // 処理速度を計測するためのベンチマーク
+    function runBenchmark() {
+      const iterations = 1000000
+      const startTime = performance.now()
+      for (let i = 0; i < iterations; i++) {
+        // ベンチマークのための単純な計算
+        Math.sqrt(i)
+      }
+      const endTime = performance.now()
+      return endTime - startTime
+    }
+    this.benchmarkTime = runBenchmark()
+    console.log('Benchmark Time:', this.benchmarkTime)
+    const isLowPerformance = this.benchmarkTime < 500
+
     this.calcIsSp()
 
     const viewer = new Potree.Viewer(this.$refs.potree_render_area)
@@ -562,7 +580,7 @@ export default {
     viewer.setEDLRadius(0) // default: 1.4
     viewer.setEDLStrength(0) // default: 0.4
     viewer.setEDLOpacity(0.85) // default: 1.0
-    viewer.setPointBudget(2000000)
+    viewer.setPointBudget(isLowPerformance ? 500000 : 2000000)
 
     // Controls
     this.setControlMode(0) // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
