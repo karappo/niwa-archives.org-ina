@@ -1,17 +1,4 @@
 /* eslint-disable */
-// ブラウザやOSによってキーの判定方法が複雑なのでここに一元化する
-//
-// // 使用例
-// onKeydown(e) {
-//   const key = this.$key(e)
-// }
-// TODO:
-// keyCodeはdeprecatedらしいので、使わない方法を模索したい
-// https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-//
-// Dependencies:
-// - [nuxt-ua](https://www.npmjs.com/package/nuxt-ua)
-//
 import _flattenDeep from 'lodash/flattenDeep'
 import _map from 'lodash/map'
 import _uniq from 'lodash/uniq'
