@@ -261,7 +261,7 @@ nav.spMenu
     height: 100%
     background: #111
     position: absolute
-    z-index: 99999999
+    z-index: 99999990
     opacity: 0
     pointer-events: none
     transition: opacity 3s
@@ -310,7 +310,7 @@ nav.spMenu
 
 .controls
   position: absolute
-  z-index: 999999
+  z-index: 99999999
   width: 100%
   height: 100%
   display: flex
