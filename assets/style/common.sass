@@ -33,6 +33,11 @@ body
   &.noScroll
     overflow: hidden
 
+// SPでpotree純正のデバッグサイドバーが下にスクロールすると見えてしまうのを防ぐ
+// https://app.asana.com/0/1186397743907793/1205698370326375/f
+.sp-container
+  display: none
+
 a[href]
   color: inherit
   text-decoration: none
