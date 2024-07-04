@@ -1058,10 +1058,14 @@ export default {
     }
   },
   reated() {
-    FONTPLUS.async()
+    if (FONTPLUS) {
+      FONTPLUS.async()
+    }
   },
   mounted() {
-    FONTPLUS.start()
+    if (FONTPLUS) {
+      FONTPLUS.start()
+    }
   },
   methods: {
     format(datetime) {

@@ -547,7 +547,9 @@ export default {
     }
   },
   async mounted() {
-    FONTPLUS.start()
+    if (FONTPLUS) {
+      FONTPLUS.start()
+    }
     const viewer = new Potree.Viewer(this.$refs.potree_render_area)
     window.viewer = viewer
     viewer.setFOV(75)

@@ -314,7 +314,9 @@ export default {
       handler(data) {
         // 初期化時の処理
         // mountedは、このコンポーネントの再描画時に呼ばれないので、ここで処理する
-        FONTPLUS.start()
+        if (FONTPLUS) {
+          FONTPLUS.start()
+        }
         if (
           !data.youtube &&
           !data.movie &&
