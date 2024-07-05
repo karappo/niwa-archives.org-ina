@@ -127,7 +127,9 @@ article
 <script>
 export default {
   mounted() {
-    FONTPLUS.start()
+    if (FONTPLUS) {
+      FONTPLUS.start()
+    }
   }
 }
 </script>
