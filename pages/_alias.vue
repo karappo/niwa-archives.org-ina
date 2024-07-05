@@ -19,15 +19,16 @@
             ref="potree_render_area"
             :class="potreeRenderAreaClass"
           )
-            .debugMenuButton(v-if="this.debugMode" @click="viewer.toggleSidebar()")
+            .debugMenuButton(v-if="debugMode" @click="viewer.toggleSidebar()")
             .controls
               h1.title
                 span.global Incomplete Niwa Archives
                 span.scene {{ data.title }}
-                br
-                span(style="font-size: 13px;") Benchmark Time: {{ benchmarkTime }}
-                br
-                span(style="font-size: 13px;") isLowPerformance: {{ isLowPerformance }}
+                template(v-if="debugMode")
+                  br
+                  span(style="font-size: 13px;") Benchmark Time: {{ benchmarkTime }}
+                  br
+                  span(style="font-size: 13px;") Low Performance Mode: {{ isLowPerformance }}
               template(v-if="tourName")
                 TourIndicator(
                   :numerator="tourData.list.length"
@@ -596,8 +597,8 @@ export default {
     // - EDLの不透明度が低い（値が小さい、例: 0.0〜0.2）場合:
     //   - EDL効果が弱く、視覚的な深さやエッジの強調が控えめになります。
     //   - 視覚的な詳細が減少し、GPUの負荷が軽減され、パフォーマンスが向上する可能性があります。
-    // viewer.setEDLOpacity(this.isLowPerformance ? 0.5 : 0.85) // default: 1.0
-    viewer.setEDLOpacity(0.85) // default: 1.0
+    // viewer.setEDLOpacity(0.85) // default: 1.0
+    viewer.setEDLOpacity(this.isLowPerformance ? 0.75 : 0.85) // default: 1.0
 
     viewer.setPointBudget(this.isLowPerformance ? 500000 : 2000000)
 
@@ -617,13 +618,16 @@ export default {
     pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE
 
     // Potree.PointShape.SQUARE が一番低負荷
+    // ただし、見た目の印象に大きな影響を与える
     // pointcloud.material.shape = this.isLowPerformance ? Potree.PointShape.SQUARE : Potree.PointShape.CIRCLE
     pointcloud.material.shape = Potree.PointShape.CIRCLE
 
     // pointcloud.material.size = this.isLowPerformance ? 1 : 0.66
     pointcloud.material.size = 0.66
 
-    // pointcloud.material.rgbGamma = this.isLowPerformance ? 2.2 : 1 // 色の詳細を減らすことで、レンダリング負荷を軽減可能。点群データが非常にカラフルである場合に特に有効。default: 1
+    // 色の詳細を減らすことで、レンダリング負荷を軽減可能。点群データが非常にカラフルである場合に特に有効。
+    // ただし、見た目の印象に大きな影響を与える
+    // pointcloud.material.rgbGamma = this.isLowPerformance ? 2.2 : 1 // default: 1
 
     viewer.scene.addPointCloud(pointcloud)
 
