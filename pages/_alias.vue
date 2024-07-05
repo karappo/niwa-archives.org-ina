@@ -102,7 +102,7 @@
       )
         SpMenuSound
   SideBar.sideBar(
-    v-if="!isSP && !tourName"
+    v-if="!tourName"
     :guidedTourExists="0 < data.guidedTour.length"
     :variations="data.variations"
     @spClose="sideBarSpVisibility = false"
@@ -112,6 +112,7 @@
 
 <style lang="sass" scoped>
 @import ~/assets/style/mixins
+$menu_threshold: 768px
 .root
   width: 100%
   height: var(--vh)
@@ -138,7 +139,7 @@ main
   z-index: 100
 nav.spMenu
   display: none
-  +sp
+  +sp($menu_threshold)
     display: flex
     flex-direction: column
     position: absolute
@@ -165,7 +166,7 @@ nav.spMenu
   height: 100%
   margin: 0
   border-left: 0
-  +sp
+  +sp($menu_threshold)
     display: none
 .title
   margin: 24px
