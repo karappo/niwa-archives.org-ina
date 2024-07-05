@@ -337,14 +337,14 @@ export default {
           this.startGoToNextTimer()
         }
 
-        // スクロール位置の初期化
         this.$nextTick(() => {
+          // スクロール位置の初期化
           this.$el.parentElement.scrollTop = 0
+          // フォント
+          if (FONTPLUS) {
+            FONTPLUS.start()
+          }
         })
-        // フォント
-        if (FONTPLUS) {
-          FONTPLUS.start()
-        }
       }
     }
   },
