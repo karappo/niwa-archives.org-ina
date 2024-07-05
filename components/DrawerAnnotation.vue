@@ -327,7 +327,7 @@ export default {
           this.cover = false
         }
 
-        if (this.isSP) {
+        if (this.$device.isDesktop) {
           this.startGoToNextTimer()
         } else if (
           !data.youtube &&
