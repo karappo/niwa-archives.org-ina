@@ -24,7 +24,7 @@
               h1.title
                 span.global Incomplete Niwa Archives
                 span.scene {{ data.title }}
-                template(v-if="debugMode")
+                template(v-if="infoMode")
                   br
                   span(style="font-size: 13px;") Benchmark Time: {{ benchmarkTime }}
                   br
@@ -408,6 +408,8 @@ export default {
 
     return {
       debugMode: false,
+      infoMode: false,
+      // 以上デバッグ用
       benchmarkTime: null,
       isLowPerformance: false,
       isSP: false,
@@ -562,8 +564,9 @@ export default {
       FONTPLUS.start()
     }
 
-    // GET変数にdebug=trueがついていたらdebugModeをtrueにする
+    // GET変数にdebugがtrueだったらdebugModeをtrueにする
     this.debugMode = new URLSearchParams(window.location.search).has('debug')
+    this.infoMode = new URLSearchParams(window.location.search).has('info')
 
     // 処理速度を計測するためのベンチマーク
     function runBenchmark() {
