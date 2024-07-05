@@ -58,7 +58,7 @@
   font-family: 'K2-v1-Bold'
   margin-bottom: -100%
   transition: margin 0.8s
-  +sp
+  +sp($sp_menu_threshold)
     font-size: 15px
     .selectBox
       order: 1
@@ -92,17 +92,17 @@
     width: 1px
     height: 100%
     background-color: #3C3C3C
-  +sp
+  +sp($sp_menu_threshold)
     display: none
   &[data-sp-visibility='true']
-    +sp
+    +sp($sp_menu_threshold)
       display: block
   &.visible
     margin-bottom: -44px
     &:hover
       margin-bottom: 0
       transition: margin 0.08s
-    +sp
+    +sp($sp_menu_threshold)
       margin-bottom: 0
     .toggleBtn
       .icon
@@ -110,7 +110,7 @@
 .spHeader
   display: none
   position: relative
-  +sp
+  +sp($sp_menu_threshold)
     display: flex
     align-items: center
     justify-content: space-between
@@ -145,7 +145,7 @@
   cursor: pointer
   z-index: 10
   justify-content: space-between
-  +sp
+  +sp($sp_menu_threshold)
     display: none
   span.text
     margin-left: 10px
@@ -163,7 +163,7 @@
   grid-template-rows: repeat(2, 1fr)
   row-gap: 15px
   column-gap: 20px
-  +sp
+  +sp($sp_menu_threshold)
     display: flex
     flex-direction: column
     padding: 0 20px 20px
@@ -226,7 +226,7 @@
   white-space: nowrap
   color: #898989
   flex-shrink: 0
-  +sp
+  +sp($sp_menu_threshold)
     letter-spacing: 0
 .link
   @extend %button
@@ -264,7 +264,7 @@ dl
     font-family: 'K2-v1-Bold'
     font-size: 12px
     border-right: 1px solid var(--background-color)
-    +sp
+    +sp($sp_menu_threshold)
       font-size: 15px
   dd
     padding-left: 12px
@@ -273,7 +273,7 @@ dl
     width: 100%
     margin-left: 0
     margin-right: 0
-    +sp
+    +sp($sp_menu_threshold)
       font-size: 14px
       font-weight: bold
     a.disabled
@@ -285,7 +285,7 @@ dl
     .creature + .creature
       margin-left: 1.5em
 .creatures
-  +sp
+  +sp($sp_menu_threshold)
     display: block
     background-color: transparent
     width: auto

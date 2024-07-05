@@ -6,7 +6,10 @@
         size="60"
       )
         //- TODO 追々対応が確認できたら個々の条件を見直すこと
-        .notice(v-if="!$device.isMobile && !$ua.is.chrome && noticeVisibility")
+        .notice(
+          v-if="!$device.isMobile && !$ua.is.chrome && noticeVisibility"
+          :class="{full: spSideBarVisibility}"
+        )
           .text
             | このブラウザは閲覧時に不具合の可能性があります。デスクトップ版
             ExternalLink(href="https://www.google.com/chrome/") Chrome
@@ -116,9 +119,8 @@
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/const
 @import ~/assets/style/mixins
-$menu_threshold: 768px
-$menu_width: 68px
 .root
   width: 100%
   height: var(--vh)
@@ -145,7 +147,7 @@ main
   z-index: 100
 nav.spMenu
   display: none
-  +sp($menu_threshold)
+  +sp($sp_menu_threshold)
     display: flex
     flex-direction: column
     position: absolute
@@ -153,8 +155,8 @@ nav.spMenu
     right: 0
     z-index: 100
   .btn
-    width: $menu_width
-    height: $menu_width
+    width: $sp_menu_width
+    height: $sp_menu_width
     flex-shrink: 0
     background-color: rgba(0,0,0,0.7)
     display: flex
@@ -172,7 +174,7 @@ nav.spMenu
   height: 100%
   margin: 0
   border-left: 0
-  +sp($menu_threshold)
+  +sp($sp_menu_threshold)
     display: none
 .title
   margin: 24px
@@ -180,8 +182,8 @@ nav.spMenu
   font-weight: normal
   font-size: 17px
   color: white
-  +sp($menu_threshold)
-    margin-right: calc(24px + #{$menu_width})
+  +sp($sp_menu_threshold)
+    margin-right: calc(24px + #{$sp_menu_width})
   +sp
     margin: 10px 16px
     letter-spacing: 0
@@ -219,8 +221,9 @@ nav.spMenu
         display: flex
         align-items: center
         flex-shrink: 0
-        +sp($menu_threshold)
-          margin-right: $menu_width
+        &:not(.full)
+          +sp($sp_menu_threshold)
+            margin-right: $sp_menu_width
         .text
           +sp
             display: block

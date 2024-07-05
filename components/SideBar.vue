@@ -41,6 +41,7 @@ aside
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/const
 @import ~/assets/style/mixins
 aside
   background-color: #000
@@ -54,7 +55,7 @@ aside
     padding-bottom: var(--main-min-height)
 .spHeader
   display: none
-  +sp
+  +sp($sp_menu_threshold)
     --size: 54px
     height: var(--size)
     display: flex
