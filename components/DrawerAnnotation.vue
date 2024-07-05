@@ -319,13 +319,6 @@ export default {
       handler(data) {
         // 初期化時の処理
         // mountedは、このコンポーネントの再描画時に呼ばれないので、ここで処理する
-        // スクロール位置の初期化
-        this.$nextTick(() => {
-          this.$el.parentElement.scrollTop = 0
-        })
-        if (FONTPLUS) {
-          FONTPLUS.start()
-        }
 
         if (this.data.youtube) {
           const playerVars = this.data.youtube.getParams()
@@ -342,6 +335,15 @@ export default {
           (this.$store.getters.autoplay || this.$store.getters.tourName)
         ) {
           this.startGoToNextTimer()
+        }
+
+        // スクロール位置の初期化
+        this.$nextTick(() => {
+          this.$el.parentElement.scrollTop = 0
+        })
+        // フォント
+        if (FONTPLUS) {
+          FONTPLUS.start()
         }
       }
     }
