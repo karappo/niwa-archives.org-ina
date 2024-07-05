@@ -576,9 +576,7 @@ export default {
       return endTime - startTime
     }
     this.benchmarkTime = runBenchmark()
-    console.log('Benchmark Time:', this.benchmarkTime)
     this.isLowPerformance = 200 < this.benchmarkTime
-    console.log('isLowPerformance:', this.isLowPerformance)
 
     this.calcIsSp()
 
