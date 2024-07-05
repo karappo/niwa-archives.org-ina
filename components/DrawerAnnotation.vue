@@ -285,18 +285,11 @@ export default {
     }
   },
   data() {
-    const res = {
+    return {
       playerVars: null,
       cover: null,
       timerID: null
     }
-    if (this.data.youtube) {
-      const playerVars = this.data.youtube.getParams()
-      playerVars.autoplay = 1
-      res.playerVars = playerVars
-      res.cover = false
-    }
-    return res
   },
   computed: {
     category() {
@@ -332,6 +325,13 @@ export default {
         })
         if (FONTPLUS) {
           FONTPLUS.start()
+        }
+
+        if (this.data.youtube) {
+          const playerVars = this.data.youtube.getParams()
+          playerVars.autoplay = 1
+          this.playerVars = playerVars
+          this.cover = false
         }
 
         if (this.isSP) {
