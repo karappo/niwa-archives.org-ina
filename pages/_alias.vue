@@ -357,7 +357,7 @@ nav.spMenu
     transition: background-color 0.2s
     &:hover
       background-color: lighten(#1D1D1D, 5%)
-    +sp
+    +sp($sp_menu_threshold)
       font-size: 15px
       width: 110px
       height: 40px
