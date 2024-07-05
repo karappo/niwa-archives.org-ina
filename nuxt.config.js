@@ -111,9 +111,9 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/device',
     '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
-    'nuxt-device-detect',
     'nuxt-ua'
   ],
 
