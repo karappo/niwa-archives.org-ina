@@ -592,6 +592,10 @@ export default {
     }
     this.benchmarkTime = runBenchmark()
     this.isLowPerformance = 1.5 < this.benchmarkTime
+    // noticeの表示とも連動しているので、矛盾しないようにデスクトップ版Chromeは常にfalseにする
+    if (this.$device.isDesktop && this.$ua.is.chrome) {
+      this.isLowPerformance = false
+    }
 
     this.calcIsSp()
 
