@@ -586,8 +586,18 @@ export default {
     viewer.setEDLEnabled(true)
     viewer.setEDLRadius(0) // default: 1.4
     viewer.setEDLStrength(0) // default: 0.4
+
+    // EDLの不透明度とパフォーマンス
+    // - EDLの不透明度が高い（値が大きい、例: 0.8〜1.0）場合:
+    //   - EDL効果が強く、視覚的な深さやエッジの強調が顕著になります。
+    //   - 視覚的な詳細が増えるため、GPUの負荷が増加し、パフォーマンスが低下する可能性があります。
+    // - EDLの不透明度が低い（値が小さい、例: 0.0〜0.2）場合:
+    //   - EDL効果が弱く、視覚的な深さやエッジの強調が控えめになります。
+    //   - 視覚的な詳細が減少し、GPUの負荷が軽減され、パフォーマンスが向上する可能性があります。
+    // viewer.setEDLOpacity(this.isLowPerformance ? 0.5 : 0.85) // default: 1.0
     viewer.setEDLOpacity(0.85) // default: 1.0
-    viewer.setPointBudget(isLowPerformance ? 500000 : 2000000)
+
+    viewer.setPointBudget(this.isLowPerformance ? 500000 : 2000000)
 
     // Controls
     this.setControlMode(0) // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
@@ -601,8 +611,15 @@ export default {
     const { pointcloud } = await Potree.loadPointCloud(this.data.pointcloud)
     pointcloud.material.activeAttributeName = 'rgba'
     pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE
-    pointcloud.material.shape = 1
+
+    // Potree.PointShape.SQUARE が一番低負荷
+    // pointcloud.material.shape = this.isLowPerformance ? Potree.PointShape.SQUARE : Potree.PointShape.CIRCLE
+    pointcloud.material.shape = Potree.PointShape.CIRCLE
+
+    // pointcloud.material.size = this.isLowPerformance ? 1 : 0.66
     pointcloud.material.size = 0.66
+
+    // pointcloud.material.rgbGamma = this.isLowPerformance ? 2.2 : 1 // 色の詳細を減らすことで、レンダリング負荷を軽減可能。点群データが非常にカラフルである場合に特に有効。default: 1
 
     viewer.scene.addPointCloud(pointcloud)
 
