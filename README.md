@@ -14,8 +14,13 @@
 
 # デバッグモード
 
-点群の左上に4px角の透明なボタンを表示して、サイドバーを表示するには、GET変数に`?debug=true`をつける
-現在のモード（Low Performance Modeかどうか）を画面上に表示するには、GET変数に`?info=true`をつける
+## debug
+例: `/joei_ji/?debug=1`<br>
+点群の左上に4px角の透明なボタンを表示して、サイドバーを表示する
+
+## info
+例: `/joei_ji/?info=1`<br>
+現在のモード（Low Performance Modeかどうか）を画面上に表示する
 
 # ウェブフォント
 
