@@ -7,11 +7,12 @@
       )
         //- TODO 追々対応が確認できたら個々の条件を見直すこと
         .notice(v-if="!$device.isMobile && !$ua.is.chrome && noticeVisibility")
-          | このブラウザは閲覧時に不具合の可能性があります。デスクトップ版
-          ExternalLink(href="https://www.google.com/chrome/") Chrome
-          //- | または
-          //- ExternalLink(href="https://www.mozilla.org/ja/firefox/new/") Firefox
-          | でご覧ください。
+          .text
+            | このブラウザは閲覧時に不具合の可能性があります。デスクトップ版
+            ExternalLink(href="https://www.google.com/chrome/") Chrome
+            //- | または
+            //- ExternalLink(href="https://www.mozilla.org/ja/firefox/new/") Firefox
+            | でご覧ください。
           .closeButton(@click="noticeVisibility = false")
             IconClose
         .potree_wrap
@@ -116,6 +117,7 @@
 <style lang="sass" scoped>
 @import ~/assets/style/mixins
 $menu_threshold: 768px
+$menu_width: 68px
 .root
   width: 100%
   height: var(--vh)
@@ -150,8 +152,8 @@ nav.spMenu
     right: 0
     z-index: 100
   .btn
-    width: 68px
-    height: 68px
+    width: $menu_width
+    height: $menu_width
     flex-shrink: 0
     background-color: rgba(0,0,0,0.7)
     display: flex
@@ -178,7 +180,7 @@ nav.spMenu
   font-size: 17px
   color: white
   +sp($menu_threshold)
-    margin-right: calc(24px + 68px)
+    margin-right: calc(24px + #{$menu_width})
   +sp
     margin: 10px 16px
     letter-spacing: 0
@@ -202,6 +204,7 @@ nav.spMenu
       width: 100%
       height: 7px
   .splitpanes__pane
+    background-color: rgba(0,0,0,0.9)
     &.potree_container
       width: 100%
       height: 100%
@@ -215,6 +218,11 @@ nav.spMenu
         display: flex
         align-items: center
         flex-shrink: 0
+        +sp($menu_threshold)
+          margin-right: $menu_width
+        .text
+          +sp
+            display: block
         a
           margin-left: 0.2em
           margin-right: 0.2em
@@ -231,6 +239,7 @@ nav.spMenu
           margin-left: auto
           margin-right: 0
           transition: background-color 0.2s
+          flex-shrink: 0
           svg
             width: 8px
             height: 8px
