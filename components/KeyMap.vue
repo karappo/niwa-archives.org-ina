@@ -8,63 +8,73 @@
     .key T
 
     .btn.panLeft(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="Q"
       title="Pan Left"
     )
     .btn.forward(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="W"
       title="Forward"
     )
     .btn.panRight(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="E"
       title="Pan Right"
     )
     .btn.up(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="R"
       title="Up"
     )
     .btn.tiltUp(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="T"
       title="Tilt Up"
     )
 
     .btn.left(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="A"
       title="Left"
     )
     .btn.backward(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="S"
       title="Backward"
     )
     .btn.right(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="D"
       title="Right"
     )
     .btn.down(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="F"
       title="Down"
     )
     .btn.tiltDown(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="G"
       title="Tilt Down"
     )
@@ -77,42 +87,48 @@
   .spLayout(v-if="spVisibility")
     .empty
     .btn.forward(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="W"
       title="Forward"
     )
     .empty
     .gutter
     .btn.up(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="R"
       title="Up"
     )
 
     .btn.left(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="A"
       title="Left"
     )
     .btn.backward(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="S"
       title="Backward"
     )
     .btn.right(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="D"
       title="Right"
     )
     .gutter
     .btn.down(
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
       data-key="F"
       title="Down"
     )
@@ -172,6 +188,7 @@ $pc_sp_threshold: 1024px
   background-repeat: no-repeat
   background-position: center
   transition: background-color 0.2s
+  touch-action: none // ピンチインアウトを無効化
   &:hover
     +pc
       background-color: #333
@@ -243,12 +260,11 @@ export default {
     }
   },
   methods: {
-    pointerdown(e) {
+    start(e) {
       e.target.classList.add('touched')
       const key = e.target.dataset.key
-      if (!key) {
-        return
-      }
+      if (!key) return
+
       this.currentKey = key
       this.currentKeyCode = key.charCodeAt(0)
       this.canvas.dispatchEvent(
@@ -259,12 +275,11 @@ export default {
         })
       )
     },
-    pointerup(e) {
+    end(e) {
       e.target.classList.remove('touched')
       const key = e.target.dataset.key
-      if (!key) {
-        return
-      }
+      if (!key) return
+
       const keyCode = key.charCodeAt(0)
       this.canvas.dispatchEvent(
         new KeyboardEvent('keyup', {
