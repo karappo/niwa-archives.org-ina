@@ -580,7 +580,7 @@ export default {
       return endTime - startTime
     }
     this.benchmarkTime = runBenchmark()
-    this.isLowPerformance = 200 < this.benchmarkTime
+    this.isLowPerformance = 1.5 < this.benchmarkTime
 
     this.calcIsSp()
 
