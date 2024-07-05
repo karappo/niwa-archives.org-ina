@@ -34,13 +34,20 @@
     img.image(v-if="data.image" :src="data.image")
     a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
     .youtube(v-if="data.youtube")
-      youtube(ref="youtube" :video-id="data.youtube.id()" :player-vars="playerVars" @ended="goToNextAnnotation")
+      youtube(
+        ref="youtube"
+        :video-id="data.youtube.id()"
+        :player-vars="playerVars"
+        @playing="youtubeOnPlaying"
+        @ended="goToNextAnnotation"
+      )
       .cover(
         ref="cover"
         :class="{hidden: !cover}"
         @click="replayVideo()"
       )
         .icon 
+    //- TODO GoogleDriveのビデオ対応をやめられないか
     .movie(v-if="data.movie")
       //- GoogleDrive上のビデオ
       iframe(
@@ -271,6 +278,10 @@ export default {
     nextDisabled: {
       type: Boolean,
       default: false
+    },
+    isSP: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -314,21 +325,23 @@ export default {
       handler(data) {
         // 初期化時の処理
         // mountedは、このコンポーネントの再描画時に呼ばれないので、ここで処理する
+        // スクロール位置の初期化
+        this.$nextTick(() => {
+          this.$el.parentElement.scrollTop = 0
+        })
         if (FONTPLUS) {
           FONTPLUS.start()
         }
-        if (
+
+        if (this.isSP) {
+          this.startGoToNextTimer()
+        } else if (
           !data.youtube &&
           !data.movie &&
           (this.$store.getters.autoplay || this.$store.getters.tourName)
         ) {
           this.startGoToNextTimer()
         }
-
-        // スクロール位置の初期化
-        this.$nextTick(() => {
-          this.$el.parentElement.scrollTop = 0
-        })
       }
     }
   },
@@ -366,6 +379,11 @@ export default {
     startGoToNextTimer() {
       // 一定時間後に次へ
       this.timerID = setTimeout(this.goToNextAnnotation, 15000)
+    },
+    youtubeOnPlaying() {
+      if (this.isSP) {
+        this.clearTimer()
+      }
     },
     tagClick(tag) {
       this.$nuxt.$emit('selectList', 'Annotations')
