@@ -25,7 +25,9 @@
                 span.global Incomplete Niwa Archives
                 span.scene {{ data.title }}
                 br
-                span.benchmark(style="font-size: 13px;") Benchmark Time: {{ benchmarkTime }}
+                span(style="font-size: 13px;") Benchmark Time: {{ benchmarkTime }}
+                br
+                span(style="font-size: 13px;") isLowPerformance: {{ isLowPerformance }}
               template(v-if="tourName")
                 TourIndicator(
                   :numerator="tourData.list.length"
@@ -405,6 +407,7 @@ export default {
 
     return {
       benchmarkTime: null,
+      isLowPerformance: false,
       isSP: false,
       annotations,
       annotationGroups, // 同位置のアノテーションをまとめたグループ
@@ -570,7 +573,8 @@ export default {
     }
     this.benchmarkTime = runBenchmark()
     console.log('Benchmark Time:', this.benchmarkTime)
-    const isLowPerformance = this.benchmarkTime < 500
+    this.isLowPerformance = 200 < this.benchmarkTime
+    console.log('isLowPerformance:', this.isLowPerformance)
 
     this.calcIsSp()
 
