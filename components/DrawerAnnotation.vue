@@ -285,17 +285,18 @@ export default {
     }
   },
   data() {
+    const res = {
+      playerVars: null,
+      cover: null,
+      timerID: null
+    }
     if (this.data.youtube) {
       const playerVars = this.data.youtube.getParams()
       playerVars.autoplay = 1
-      return {
-        playerVars,
-        cover: false
-      }
+      res.playerVars = playerVars
+      res.cover = false
     }
-    return {
-      timerID: null
-    }
+    return res
   },
   computed: {
     category() {
