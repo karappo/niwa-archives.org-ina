@@ -37,7 +37,7 @@ article
     color: #BCBCBC
     margin-bottom: 1em
   .bigBtn + h3
-    margin-top: 70px
+    margin-top: 28px
 
 .description
   font-size: 14px
@@ -50,7 +50,7 @@ article
   display: flex
   justify-content: center
   align-items: center
-  margin: 30px 0
+  margin: 13px 0
   padding: 20px
   border-radius: 5px
   cursor: pointer
