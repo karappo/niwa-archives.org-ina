@@ -603,7 +603,7 @@ export default {
     // viewer.setEDLOpacity(0.85) // default: 1.0
     viewer.setEDLOpacity(this.isLowPerformance ? 0.75 : 0.85) // default: 1.0
 
-    viewer.setPointBudget(this.isLowPerformance ? 500000 : 2000000)
+    viewer.setPointBudget(this.isLowPerformance ? 200000 : 2000000)
 
     // Controls
     this.setControlMode(0) // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
