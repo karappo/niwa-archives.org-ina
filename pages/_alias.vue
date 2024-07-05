@@ -734,8 +734,8 @@ export default {
   },
   methods: {
     calcIsSp() {
-      const pcSpThreshold = 990
-      this.isSP = window.innerWidth < pcSpThreshold
+      const pcSpThreshold = 749
+      this.isSP = window.innerWidth <= pcSpThreshold
     },
     setControlMode(mode) {
       switch (mode) {
