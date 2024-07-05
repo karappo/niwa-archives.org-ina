@@ -174,6 +174,8 @@ nav.spMenu
   font-weight: normal
   font-size: 17px
   color: white
+  +sp($menu_threshold)
+    margin-right: calc(24px + 68px)
   +sp
     margin: 10px 16px
     letter-spacing: 0
