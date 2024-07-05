@@ -328,6 +328,9 @@ export default {
         }
       }
       return false
+    },
+    isMobileOrTablet() {
+      return this.$device.isMobileOrTablet || this.isIPad13
     }
   },
   watch: {
@@ -344,7 +347,8 @@ export default {
           this.cover = false
         }
 
-        if (this.$device.isMobileOrTablet || this.isIPad13) {
+        // ※1
+        if (this.isMobileOrTablet) {
           // Youtubeの自動再生できないので、時間が来たら次へ
           this.startGoToNextTimer()
         } else if (
@@ -402,7 +406,8 @@ export default {
       this.timerID = setTimeout(this.goToNextAnnotation, 15000)
     },
     youtubeOnPlaying() {
-      if (this.isSP) {
+      // かならず ※1 と条件を揃えること
+      if (this.isMobileOrTablet) {
         this.clearTimer()
       }
     },
