@@ -7,14 +7,12 @@
       )
         //- TODO 追々対応が確認できたら個々の条件を見直すこと
         .notice(
-          v-if="!$device.isMobile && !$ua.is.chrome && noticeVisibility"
+          v-if="isLowPerformance && noticeVisibility"
           :class="{full: spSideBarVisibility}"
         )
           .text
             | このブラウザは閲覧時に不具合の可能性があります。デスクトップ版
             ExternalLink(href="https://www.google.com/chrome/") Chrome
-            //- | または
-            //- ExternalLink(href="https://www.mozilla.org/ja/firefox/new/") Firefox
             | でご覧ください。
           .closeButton(@click="noticeVisibility = false")
             IconClose
