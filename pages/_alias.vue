@@ -19,7 +19,7 @@
             ref="potree_render_area"
             :class="potreeRenderAreaClass"
           )
-            .debugMenuButton(@click.shift="viewer.toggleSidebar()")
+            .debugMenuButton(v-if="this.debugMode" @click="viewer.toggleSidebar()")
             .controls
               h1.title
                 span.global Incomplete Niwa Archives
@@ -131,9 +131,9 @@ main
     height: 100%
     min-height: var(--main-min-height)
 .debugMenuButton
-  width: 4px
-  height: 4px
-  background: transparent
+  width: 20px
+  height: 20px
+  background: green
   position: absolute
   top: 0
   left: 0
@@ -406,6 +406,7 @@ export default {
     data = data.default
 
     return {
+      debugMode: false,
       benchmarkTime: null,
       isLowPerformance: false,
       isSP: false,
@@ -560,6 +561,9 @@ export default {
       FONTPLUS.start()
     }
 
+    // GET変数にdebug=trueがついていたらdebugModeをtrueにする
+    this.debugMode = new URLSearchParams(window.location.search).has('debug')
+
     // 処理速度を計測するためのベンチマーク
     function runBenchmark() {
       const iterations = 1000000
@@ -602,12 +606,14 @@ export default {
     // Controls
     this.setControlMode(0) // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
 
-    viewer.loadGUI(() => {
-      viewer.setLanguage('en')
-      $('#menu_tools').next().show()
-      $('#menu_scene').next().show()
-      // viewer.toggleSidebar() // Open sidebar
-    })
+    if (this.debugMode) {
+      viewer.loadGUI(() => {
+        viewer.setLanguage('en')
+        $('#menu_tools').next().show()
+        $('#menu_scene').next().show()
+        // viewer.toggleSidebar() // Open sidebar
+      })
+    }
     const { pointcloud } = await Potree.loadPointCloud(this.data.pointcloud)
     pointcloud.material.activeAttributeName = 'rgba'
     pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE
