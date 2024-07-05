@@ -5,9 +5,8 @@
       pane.potree_container(
         size="60"
       )
-        //- TODO 追々対応が確認できたら個々の条件を見直すこと
         .notice(
-          v-if="isLowPerformance && noticeVisibility"
+          v-if="(isLowPerformance || !$ua.is.chrome) && noticeVisibility"
           :class="{full: spSideBarVisibility}"
         )
           .text
@@ -592,8 +591,8 @@ export default {
     }
     this.benchmarkTime = runBenchmark()
     this.isLowPerformance = 1.5 < this.benchmarkTime
-    // noticeの表示とも連動しているので、矛盾しないようにデスクトップ版Chromeは常にfalseにする
-    if (this.$device.isDesktop && this.$ua.is.chrome) {
+    // isDesktop版は常にfalse
+    if (this.$device.isDesktop) {
       this.isLowPerformance = false
     }
 
