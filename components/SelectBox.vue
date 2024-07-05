@@ -18,7 +18,6 @@
 <style lang="sass" scoped>
 @import ~/assets/style/mixins
 .selectBox
-  min-width: 188px
   height: 30px
   background: var(--button-bg-color)
   position: relative
