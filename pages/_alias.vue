@@ -595,11 +595,10 @@ export default {
       // viewer.toggleSidebar() // Open sidebar
     })
     const { pointcloud } = await Potree.loadPointCloud(this.data.pointcloud)
-    const material = pointcloud.material
-    material.activeAttributeName = 'rgba'
-    material.pointSizeType = Potree.PointSizeType.ADAPTIVE
-    material.shape = 1
-    material.size = 0.66
+    pointcloud.material.activeAttributeName = 'rgba'
+    pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE
+    pointcloud.material.shape = 1
+    pointcloud.material.size = 0.66
 
     viewer.scene.addPointCloud(pointcloud)
 
