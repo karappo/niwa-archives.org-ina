@@ -866,7 +866,6 @@ export default {
         const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(annotationData)
         firstAnnotationInSameGroup.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
         // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
-        // TODO でも本当だろうか？今もそうなのか要調査。参考コミット: e79a7af14
         this.$nextTick(() => {
           this.annotationData = annotationData
         })
