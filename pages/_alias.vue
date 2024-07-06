@@ -19,7 +19,7 @@
           )
             .debugMenuButton(v-if="debugMode" @click="viewer.toggleSidebar()")
             .controls
-              h1.title
+              h1.title(@dblclick="data.initCamera()")
                 span.global Incomplete Niwa Archives
                 span.scene {{ data.title }}
                 template(v-if="infoMode")
