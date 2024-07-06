@@ -162,10 +162,12 @@ export default {
     }
   },
   mounted() {
-    if (FONTPLUS) {
-      FONTPLUS.start()
-    }
     this.$nuxt.$on('setTagIndexStr', this.setTagIndexStr)
+    this.$nextTick(() => {
+      if (FONTPLUS) {
+        FONTPLUS.start()
+      }
+    })
   },
   beforeDestroy() {
     this.$nuxt.$off('setTagIndexStr', this.setTagIndexStr)
