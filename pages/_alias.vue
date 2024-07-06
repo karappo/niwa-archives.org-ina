@@ -46,7 +46,6 @@
         :class="{border: !tourName}"
       )
         template(v-if="drawerVisibility")
-          //- TODO Historyを開いた状態で、Annotationをクリックしたら開かない…
           DrawerHistory(
             v-if="$store.getters.pageName === 'History'"
           )
