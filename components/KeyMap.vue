@@ -138,6 +138,7 @@
 // タブレットでもSPレイアウトを使用するため、閾値をPCレイアウトの閾値よりも大きく
 $pc_sp_threshold: 1024px
 @import ~/assets/style/general/pc-sp
+@import ~/assets/style/const
 .container
   margin: auto 20px 20px auto
   pointer-events: none
@@ -154,6 +155,11 @@ $pc_sp_threshold: 1024px
       user-select: none
   +sp
     margin: auto 22px 22px 22px
+
+@media (max-width: $sp_menu_threshold) and (max-height: 380px)
+  .container
+    margin-right: calc(22px + #{$sp_menu_width} + 11px) !important
+
 .pcLayout
   display: grid
   grid-template-columns: 21px 21px 21px 21px 21px
