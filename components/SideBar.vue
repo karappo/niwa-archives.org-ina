@@ -178,7 +178,7 @@ export default {
   },
   watch: {
     variationIndex(val) {
-      this.$emit('saveCameraInfo') // TODO 機能していない？？
+      this.$emit('saveCameraInfo') // TODO 機能していない
       const varStr = this.variations[parseInt(val, 10)].toLowerCase()
       this.$router.push(`../${this.$garden(this.$route)}-${varStr}/`)
     }
