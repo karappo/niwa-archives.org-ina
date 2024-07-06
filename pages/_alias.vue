@@ -395,9 +395,6 @@ export default {
       _groupBy(annotations, 'position')
     ).filter((a) => 1 < a.length)
     annotations.forEach((a, index) => {
-      // 通し番号を振っておく
-      // TODO これいる？ idに集約できないか？
-      a.index = index
       // groupに属するかどうかをBooleanで持たせる
       a.grouped = annotationGroups.some(
         (g) => JSON.stringify(g[0].position) === JSON.stringify(a.position)
