@@ -59,9 +59,13 @@ article
     background-color: #112526
     &:hover
       background-color: darken($color_guidedTour, 10%)
+    +sp(1024px)
+      background-color: darken($color_guidedTour, 10%)
   &.rambleTour
     background-color: #252134
     &:hover
+      background-color: darken($color_rambleTour, 30%)
+    +sp(1024px)
       background-color: darken($color_rambleTour, 30%)
 .empty
   color: #898989
