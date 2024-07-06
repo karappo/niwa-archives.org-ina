@@ -215,16 +215,13 @@ nav.spMenu
         display: flex
         align-items: center
         flex-shrink: 0
+        +sp($sp_menu_threshold)
+          font-size: 10px
         &:not(.full)
           +sp($sp_menu_threshold)
             margin-right: $sp_menu_width
         .text
-          +sp
-            display: block
-        a
-          margin-left: 0.2em
-          margin-right: 0.2em
-          text-decoration: underline
+          margin-right: auto
         .closeButton
           cursor: pointer
           background-color: #434343
@@ -234,7 +231,7 @@ nav.spMenu
           display: flex
           justify-content: center
           align-items: center
-          margin-left: auto
+          margin-left: 10px
           margin-right: 0
           transition: background-color 0.2s
           flex-shrink: 0
