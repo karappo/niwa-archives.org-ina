@@ -1008,7 +1008,8 @@ export default {
         }
         this.listData = {
           name,
-          list
+          list,
+          tagIndexStr: '' // フィルターの状態を保持するためここに保存
         }
       }
     },

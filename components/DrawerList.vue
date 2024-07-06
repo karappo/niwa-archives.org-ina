@@ -3,7 +3,7 @@
   header
     h1(:data-name="title") {{ title }}
     .filter(v-if="tags.length && !data.name.includes('Tour')")
-      FilterSelectBox(:options="tags" :value.sync="tagIndexStr")
+      FilterSelectBox(:options="tags" :value.sync="data.tagIndexStr")
     DrawerCloseButton
   article
     template(v-if="data.name === 'Guided Tour'")
@@ -105,7 +105,6 @@ export default {
   },
   data() {
     return {
-      tagIndexStr: '',
       groups: null // Oral Archivesのときにdata.listをグルーピングして保持する
     }
   },
@@ -117,7 +116,7 @@ export default {
       return this.$getTags(this.data.list)
     },
     tagIndex() {
-      return parseInt(this.tagIndexStr, 10)
+      return parseInt(this.data.tagIndexStr, 10)
     },
     selectedTag() {
       return this.tags[this.tagIndex]
@@ -139,8 +138,6 @@ export default {
     data: {
       immediate: true,
       async handler(data) {
-        this.tagIndexStr = '' // タグをリセット
-
         if (data.name === 'Oral Archives') {
           const groups = _groupBy(data.list, (item) => {
             return item.youtube.id()
@@ -179,7 +176,7 @@ export default {
     setTag(tag) {
       const index = this.tags.indexOf(tag)
       if (0 <= index) {
-        this.tagIndexStr = this.tags.indexOf(tag) + ''
+        this.data.tagIndexStr = this.tags.indexOf(tag) + ''
       } else {
         console.error(`「${tag}」というタグは見つかりませんでした`)
       }
