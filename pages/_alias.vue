@@ -6,13 +6,10 @@
         size="60"
       )
         .notice(
-          v-if="(isLowPerformance || !$ua.is.chrome) && noticeVisibility"
+          v-if="isLowPerformance && noticeVisibility"
           :class="{full: spSideBarVisibility}"
         )
-          .text
-            | このブラウザは閲覧時に不具合の可能性があります。デスクトップ版
-            ExternalLink(href="https://www.google.com/chrome/") Chrome
-            | でご覧ください。
+          .text 低解像度モードで起動しました。高解像度でご覧頂くには、より高スペックな端末かデスクトップ版ブラウザをご利用下さい。
           .closeButton(@click="noticeVisibility = false")
             IconClose
         .potree_wrap
