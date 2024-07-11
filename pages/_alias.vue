@@ -607,6 +607,8 @@ export default {
     // viewer.setEDLOpacity(0.85) // default: 1.0
     viewer.setEDLOpacity(this.isLowPerformance ? 0.75 : 0.85) // default: 1.0
 
+    // ポイントバジェット
+    // 同時に表示するポイント（点）の最大数を制限するための設定
     viewer.setPointBudget(this.isLowPerformance ? 200000 : 2000000)
 
     // Controls
