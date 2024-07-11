@@ -2,6 +2,24 @@
 import _flattenDeep from 'lodash/flattenDeep'
 import _map from 'lodash/map'
 import _uniq from 'lodash/uniq'
+
+// iPad13+は、検知できないので自前で判定
+// https://www.bit-hive.com/articles/20190820
+const isIPad13 = () => {
+  if (
+    navigator.platform === 'MacIntel' &&
+    navigator.userAgent.includes('Safari') &&
+    !navigator.userAgent.includes('Chrome')
+  ) {
+    if (navigator.standalone !== undefined) {
+      // iPad OS Safari
+      return true
+    } else {
+      // macOS Safari
+    }
+  }
+  return false
+}
 export default ({ app }, inject) => {
   inject('getTitle', (category) => {
     return category
@@ -31,5 +49,9 @@ export default ({ app }, inject) => {
     } else {
       return null
     }
+  })
+  inject('isIPad13', isIPad13),
+  inject('isMobileOrTablet', () => {
+    return app.$device.isMobileOrTablet || isIPad13()
   })
 }

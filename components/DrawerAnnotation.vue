@@ -311,26 +311,6 @@ export default {
     noBr() {
       // DNA Dataの時はHTMLが複雑なので、自動で改行させない
       return this.category === 'DNA Data'
-    },
-    // iPad13+は、検知できないので自前で判定
-    // https://www.bit-hive.com/articles/20190820
-    isIPad13() {
-      if (
-        navigator.platform === 'MacIntel' &&
-        navigator.userAgent.includes('Safari') &&
-        !navigator.userAgent.includes('Chrome')
-      ) {
-        if (navigator.standalone !== undefined) {
-          // iPad OS Safari
-          return true
-        } else {
-          // macOS Safari
-        }
-      }
-      return false
-    },
-    isMobileOrTablet() {
-      return this.$device.isMobileOrTablet || this.isIPad13
     }
   },
   watch: {
@@ -348,7 +328,7 @@ export default {
         }
 
         // ※1
-        if (this.isMobileOrTablet) {
+        if (this.$isMobileOrTablet()) {
           // Youtubeの自動再生できないので、時間が来たら次へ
           this.startGoToNextTimer()
         } else if (
@@ -407,7 +387,7 @@ export default {
     },
     youtubeOnPlaying() {
       // かならず ※1 と条件を揃えること
-      if (this.isMobileOrTablet) {
+      if (this.$isMobileOrTablet()) {
         this.clearTimer()
       }
     },

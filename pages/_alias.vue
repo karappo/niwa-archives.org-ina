@@ -580,11 +580,8 @@ export default {
       return endTime - startTime
     }
     this.benchmarkTime = runBenchmark()
-    this.isLowPerformance = 1.5 < this.benchmarkTime
-    // isDesktop版は常にfalse
-    if (this.$device.isDesktop) {
-      this.isLowPerformance = false
-    }
+
+    this.isLowPerformance = this.$isMobileOrTablet() ? 1.5 < this.benchmarkTime : false
 
     this.calcIsSp()
 
