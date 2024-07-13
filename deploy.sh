@@ -30,7 +30,7 @@ if yarn generate; then
     find ./dist/ -name "*.php" -exec sed -i$ext "s|//DEP_"$DEP_ENV"_RM ||" {} \;
     find ./dist/ -name "*$ext" -exec rm {} \; # delete backup files
     # Deploy
-    rsync -aIzhv --stats --delete -e "ssh -p $DEP_PORT" "--exclude-from=$PWD/.depignore" ./dist/ $DEP_TARGET
+    rsync -aIzh --perms --owner --group --stats --delete -e "ssh -p $DEP_PORT" "--exclude-from=$PWD/.depignore" ./dist/ $DEP_TARGET
     npm run rename-back
   fi
 fi
