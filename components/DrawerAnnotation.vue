@@ -47,15 +47,6 @@
         @click="replayVideo()"
       )
         .icon 
-    //- TODO GoogleDriveのビデオ対応をやめられないか
-    .movie(v-if="data.movie")
-      //- GoogleDrive上のビデオ
-      iframe(
-        :src="data.movie"
-        frameborder="0"
-        allow="autoplay"
-        allowfullscreen
-      )
     h1 {{ data.title }}
     .description(
       v-if="data.description"
@@ -161,8 +152,7 @@ header
   .download
     @extend %button
     padding: 20px
-  .youtube,
-  .movie
+  .youtube
     position: relative
     padding-top: calc(225 / 400 * 100%) // ここでアスペクト比（height / width）を設定
     overflow: hidden
