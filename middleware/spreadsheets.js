@@ -57,7 +57,7 @@ export default async function ({ store }) {
             }
             // eslint-disable-next-line
             const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
-            // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得
+            // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得（'movie'は2024/7に削除したので現在は'image','pdf'のみ）
             const type = valueOf('attachmentType')
             switch (type) {
               case 'image':
@@ -65,9 +65,6 @@ export default async function ({ store }) {
                 break
               case 'pdf':
                 value = `https://drive.google.com/uc?export=view&id=${id}`
-                break
-              case 'movie':
-                value = `https://drive.google.com/file/d/${id}/preview`
                 break
               default:
                 // eslint-disable-next-line
