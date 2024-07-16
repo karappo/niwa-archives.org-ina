@@ -9,7 +9,7 @@
           v-if="isLowPerformance && noticeVisibility"
           :class="{full: spSideBarVisibility}"
         )
-          .text 低解像度モードで起動しました。高解像度でご覧頂くには、より高スペックな端末かデスクトップ版ブラウザをご利用下さい。
+          .text 3Dの点群の解像度を下げて表示しています。高解像度でご覧頂くには、より処理の速い端末かデスクトップ版ブラウザをご利用下さい。
           .closeButton(@click="noticeVisibility = false")
             IconClose
         .potree_wrap
