@@ -33,7 +33,7 @@
     .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
     img.image(v-if="data.image" :src="data.image")
     a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
-    .youtube(v-if="data.youtube")
+    .youtube(v-if="flagForYoutube && data.youtube")
       youtube(
         ref="youtube"
         :video-id="data.youtube.id()"
@@ -278,7 +278,8 @@ export default {
     return {
       playerVars: null,
       cover: null,
-      timerID: null
+      timerID: null,
+      flagForYoutube: true // data.youtubeの値が変わった時に再描画されない問題への対処
     }
   },
   computed: {
@@ -311,6 +312,8 @@ export default {
         // mountedは、このコンポーネントの再描画時に呼ばれないので、ここで処理する
 
         if (this.data.youtube) {
+          this.flagForYoutube = false // 一旦要素を消すためにフラグをfalseにする ※2
+
           const playerVars = this.data.youtube.getParams()
           playerVars.autoplay = 1
           this.playerVars = playerVars
@@ -330,6 +333,10 @@ export default {
         }
 
         this.$nextTick(() => {
+          // 再度、要素を表示するためにフラグをtrueにする（※2とセット）
+          if (this.data.youtube) {
+            this.flagForYoutube = true
+          }
           // スクロール位置の初期化
           this.$el.parentElement.scrollTop = 0
           // フォント
