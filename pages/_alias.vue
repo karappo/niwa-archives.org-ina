@@ -701,6 +701,8 @@ export default {
     this.$nuxt.$on('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.addEventListener('camera_changed', this.update)
     window.addEventListener('resize', this.calcIsSp)
+    document.addEventListener('keydown', this.keydown)
+    document.addEventListener('keyup', this.keyup)
 
     setTimeout(() => {
       this.loading = false
@@ -714,6 +716,8 @@ export default {
     this.$nuxt.$off('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.removeEventListener('camera_changed', this.update)
     window.removeEventListener('resize', this.calcIsSp)
+    document.removeEventListener('keydown', this.keydown)
+    document.removeEventListener('keyup', this.keyup)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
         a.removeEventListener('click', this.onClickAnnotation)
@@ -723,6 +727,27 @@ export default {
     document.querySelectorAll('#profile_window,.sp-container').forEach((e) => e.remove()) // eslint-disable-line
   },
   methods: {
+    keydown(e) {
+      const canvas = document.querySelector('canvas');
+      // canvas要素にフォーカスがない場合はフォーカスを設定
+      if (document.activeElement !== canvas) {
+        canvas.focus();
+      }
+      // TODO もし今後、検索機能などキーボード入力を前提とした機能を追加する場合は、
+      // 以下のようにイベントをキャンバスに伝達する方法の方が良いかもしれない。
+      // イベントをキャンバスに伝達
+      // if (e.target !== canvas) {
+      //   const eventClone = new KeyboardEvent(e.type, e);
+      //   canvas.dispatchEvent(eventClone);
+      // }
+    },
+    keyup(e) {
+      const canvas = document.querySelector('canvas');
+      // canvas要素にフォーカスがない場合はフォーカスを設定
+      if (document.activeElement !== canvas) {
+        canvas.focus();
+      }
+    },
     calcIsSp() {
       const pcSpThreshold = 749
       this.isSP = window.innerWidth <= pcSpThreshold
