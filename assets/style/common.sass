@@ -4,7 +4,6 @@
 @import general/clf
 @import const
 @import annotation
-
 body
   margin: 0
   background-color: black
@@ -26,11 +25,18 @@ body
   --color--dna-data: $color_dnaData
   --color--oral-archives: $color_oralArchives
 
+  --main-min-height: 70px
+
   &.top
     overflow-y: scroll
     background-color: #0B101A
   &.noScroll
     overflow: hidden
+
+// SPでpotree純正のデバッグサイドバーが下にスクロールすると見えてしまうのを防ぐ
+// https://app.asana.com/0/1186397743907793/1205698370326375/f
+.sp-container
+  display: none
 
 a[href]
   color: inherit

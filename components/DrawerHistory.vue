@@ -75,7 +75,9 @@ export default {
     ExternalLink
   },
   mounted() {
-    FONTPLUS.start()
+    if (FONTPLUS) {
+      FONTPLUS.start()
+    }
   }
 }
 </script>

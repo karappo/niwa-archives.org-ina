@@ -10,7 +10,7 @@
       :key="index"
       :label="item.label || item"
       :value="index"
-    )
+    ) {{ item.label || item }}
   .icon
     TriangleArrow
 </template>

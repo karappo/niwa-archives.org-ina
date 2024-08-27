@@ -6,6 +6,7 @@ const pages = [
   'murinAnSummer',
   'murinAnWinter',
   'ryogenIn',
+  'debug',
   'fugetsuRoSpring',
   'fugetsuRoSummer',
   'fugetsuRoAutumn',

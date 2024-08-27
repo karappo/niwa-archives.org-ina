@@ -100,10 +100,15 @@ export default async function ({ store }) {
       }
       if (data.cameraTarget) {
         data.cameraPosition = data.position
-      } else if (!data.cameraPosition) {
-        // cameraPositionが未設定の場合、決め打ちのcameraPositionを設定
-        // eslint-disable-next-line
-        data.cameraPosition = [data.position[0] - 1, data.position[1] - 3, data.position[2] + 1]
+      } else {
+        // cameraTargetがない場合はpositionで代替
+        data.cameraTarget = data.position
+
+        if (!data.cameraPosition) {
+          // cameraPositionが未設定の場合、決め打ちのcameraPositionを設定
+          // eslint-disable-next-line
+          data.cameraPosition = [data.position[0] - 1, data.position[1] - 3, data.position[2] + 1]
+        }
       }
       // ===== データ格納 =====
       collection.push(data)

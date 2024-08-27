@@ -4,24 +4,36 @@
 |:--------------|:---------|:---------------------------------|:-----------------|
 | Production    | さくら    | https://niwa-archives.org/       |                  |
 | Staging       | Heteml   | https://stg.niwa-archives.org/   | niwa:archives    |
-| 旧 Production | AWS S3   | https://niwa.ycam.jp             |                  |
+| 旧サイト ※      | AWS S3   | https://niwa.ycam.jp             |                  |
 | Development   | nuxt     | http://localhost:3000            |                  |
 
+※ トップページのみ残存
 
 - [データシート](https://docs.google.com/spreadsheets/d/1F7sd4dz2FHWiagmLGDLwmeUK1U3XCWhjIApzdLXyRmo/edit#gid=0)
 - [ファイル保存先](https://drive.google.com/drive/u/0/folders/1mwweu4PCDgja-3FXoQ1Pl4zvc-W9X_in)
 
+
+# デバッグモード
+
+## debug
+例: `/joei_ji/?debug=1`<br>
+点群の左上に4px角の透明なボタンを表示して、サイドバーを表示する
+
+## info
+例: `/joei_ji/?info=1`<br>
+現在のモード（Low Performance Modeかどうか）を画面上に表示する
+
 # ウェブフォント
 
-FONTPLUS（info@karappo.net）
-
-## サーバースペック
-
-vCPU 2
-mem 16GB
-HDD 500GB
+FONTPLUS: https://fontplus.jp/users/login
+アカウント: info@karappo.net
 
 ## Getting started
+
+```sh
+# M1以降のMacの場合で、nodeのインストールに失敗する場合は、archコマンドを使ってインストールすること
+arch -x86_64 nodenv install xx.xx.xx
+```
 
 ```sh
 git clone --recursive git@github.com:karappo/IncompleteNiwaArchives.git
@@ -105,3 +117,15 @@ for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
 ## Potreeのサイドバーを表示する方法
 
 画面の左上数ピクセルの透明なボタンがあるので、カーソルを合わせると形状が変化することで場所を特定し、Shiftキーを押しながらクリックするとサイドバーが現れる。
+
+## 点群テータの重さ参考
+
+fugetsu_ro-autumn 3.12GB
+fugetsu_ro-spring 2.34GB
+fugetsu_ro-summer 10.14GB 最重
+fugetsu_ro-winter 8.83GB
+joei_ji 6.26GB
+murin_an-snow 1.52GB 最軽
+murin_an-summer 2.6GB
+murin_an-winter 2.68GB
+ryogen_in 1.61GB

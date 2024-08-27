@@ -9,6 +9,8 @@ header
   display: flex
   align-items: center
   padding: 25px 25px 28px 0
+  +sp
+    padding: 20px 20px 20px 0
   > h1,
   > h2
     --border-color: #255553
@@ -32,6 +34,8 @@ header
       --border-color: #{$color_guidedTour}
     &[data-name='Ramble Tour']
       --border-color: #{$color_rambleTour}
+    &[data-name='Group']
+      --border-color: #747474
     margin: 0
     margin-right: auto
     border-left: 5px solid var(--border-color)
@@ -43,6 +47,8 @@ header
     min-width: 0
     font-family: 'K2-v1-Bold'
     font-size: 18px
+    +sp
+      padding-left: 15px
   .filter
     display: flex
     align-items: center
@@ -58,6 +64,8 @@ header
 
 article
   padding: 0 25px
+  +sp
+    padding: 0 20px
   h1
     margin: 30px auto 30px 0
     text-overflow: ellipsis
