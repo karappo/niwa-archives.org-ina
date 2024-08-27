@@ -146,7 +146,7 @@ export default {
       '/murin_an-summer/',
       '/murin_an-winter/',
       '/ryogen_in/',
-      '/debug/',
+      // '/debug/',
       '/joei_ji/'
     ]
   }
