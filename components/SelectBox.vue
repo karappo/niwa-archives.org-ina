@@ -16,8 +16,8 @@
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/mixins
 .selectBox
-  min-width: 188px
   height: 30px
   background: var(--button-bg-color)
   position: relative
@@ -27,6 +27,8 @@
   &:hover
     background-color: #1A1A1A
     color: white
+  +sp
+    height: 38px
   select
     cursor: pointer
     -webkit-appearance: none
@@ -40,6 +42,8 @@
     color: #ADADAD
     font-size: 12px
     padding: 7px 50px 8px 10px
+    +sp
+      font-size: 15px
   .icon
     pointer-events: none
     position: absolute
@@ -51,6 +55,8 @@
     display: flex
     justify-content: center
     align-items: center
+    +sp
+      width: 38px
   &:hover
     select
       color: white

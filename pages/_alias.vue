@@ -1,48 +1,51 @@
 <template lang="pug">
 .root
-  SorryScreen(v-if="$device.isMobile")
-  template(v-else)
-    main
-      splitpanes.default-theme
-        pane.potree_container(
-          size="60"
+  main
+    splitpanes.default-theme(:horizontal="isSP")
+      pane.potree_container(
+        size="60"
+      )
+        .notice(
+          v-if="isLowPerformance && noticeVisibility"
+          :class="{full: spSideBarVisibility}"
         )
-          //- TODO 追々対応が確認できたら個々の条件を見直すこと
-          .notice(v-if="!$ua.is.chrome && noticeVisibility")
-            | このブラウザは閲覧時に不具合の可能性があります。デスクトップ版
-            ExternalLink(href="https://www.google.com/chrome/") Chrome
-            //- | または
-            //- ExternalLink(href="https://www.mozilla.org/ja/firefox/new/") Firefox
-            | でご覧ください。
-            .closeButton(@click="noticeVisibility = false")
-              IconClose
-          .potree_wrap
-            #potree_render_area(
-              ref="potree_render_area"
-              :class="potreeRenderAreaClass"
-            )
-              .debugMenuButton(@click.shift="viewer.toggleSidebar()")
-              .controls
-                h1.title
-                  span.global Incomplete Niwa Archives
-                  span.scene {{ data.title }}
-                template(v-if="tourName")
-                  TourIndicator(
-                    :numerator="listData.list.length"
-                    :denominator="currentIndex + 1"
-                  )
-                  StopTourButton
-                template(v-else)
-                  KeyMap
-            #potree_sidebar_container
-        pane.drawer(
-          v-if="!(tourName && tourName.includes('without Annotations')) && (listData || annotationData)"
-          size="40"
-          min-size="25"
-          max-size="75"
-          :class="{border: !tourName}"
-        )
-          //- TODO Historyを開いた状態で、Annotationをクリックしたら開かない…
+          .text 3Dの点群の解像度を下げて表示しています。高解像度でご覧頂くには、より処理の速い端末かデスクトップ版ブラウザをご利用下さい。
+          .closeButton(@click="noticeVisibility = false")
+            IconClose
+        .potree_wrap
+          #potree_render_area(
+            ref="potree_render_area"
+            :class="potreeRenderAreaClass"
+          )
+            .debugMenuButton(v-if="debugMode" @click="viewer.toggleSidebar()")
+            .controls
+              h1.title(@dblclick="data.initCamera()")
+                span.global Incomplete Niwa Archives
+                span.scene {{ data.title }}
+                template(v-if="infoMode")
+                  br
+                  span(style="font-size: 13px;") Benchmark Time: {{ benchmarkTime }}
+                  br
+                  span(style="font-size: 13px;") Low Performance Mode: {{ isLowPerformance }}
+              template(v-if="tourName")
+                TourIndicator(
+                  :numerator="tourData.list.length"
+                  :denominator="tourCurrentIndex + 1"
+                )
+                StopTourButton(:class="{hiddenInSP: tourName !== 'Ramble Tour without Annotations'}")
+              template(v-else)
+                KeyMap(:spVisibility="!drawerVisibility && keyMapSpVisibility")
+          #potree_sidebar_container
+      //- drawerとSpのSidebarは、同じpaneを使い回す。そうしないと、高さが合わなくなる
+      //- https://app.asana.com/0/1186397743907793/1207018579945583/f
+      pane.drawer(
+        v-if="drawerVisibility || spSideBarVisibility"
+        :size="isSP ? 60 : 40"
+        min-size="25"
+        max-size="75"
+        :class="{border: !tourName}"
+      )
+        template(v-if="drawerVisibility")
           DrawerHistory(
             v-if="$store.getters.pageName === 'History'"
           )
@@ -56,57 +59,135 @@
             :prevNextVisibility="prevNextVisibility"
             :prevDisabled="prevDisabled"
             :nextDisabled="nextDisabled"
-            @backToList="clearSelectedAnnotation"
+            :isSP="isSP"
+            @backToList="clearAnnotationData"
             @prev="prev"
             @next="next"
           )
           DrawerList(
+            v-else-if="tourData"
+            :data="tourData"
+          )
+          DrawerList(
             v-else-if="listData"
             :data="listData"
-            @next="next"
           )
-      SoundBar(:annotations="annotations")
-    SideBar.sideBar(
-      v-if="!tourName"
-      :guidedTourExists="0 < data.guidedTour.length"
-      :variations="this.data.variations"
-      @saveCameraInfo="saveCameraInfo"
+        template(v-else-if="spSideBarVisibility")
+          SideBar(
+            :guidedTourExists="0 < data.guidedTour.length"
+            :variations="data.variations"
+            :spVisibility="!drawerVisibility && sideBarSpVisibility"
+            @spClose="sideBarSpVisibility = false"
+            @saveCameraInfo="saveCameraInfo"
+          )
+    SoundBar(
+      :annotations="annotations"
+      :spVisibility="!drawerVisibility && soundSpVisibility"
+      @spClose="soundSpVisibility = false"
     )
+    nav.spMenu(v-if="!drawerVisibility && !sideBarSpVisibility")
+      .btn(
+        @click="sideBarSpVisibility = !sideBarSpVisibility"
+        :class="{active: sideBarSpVisibility}"
+      )
+        SpMenuList
+      .btn(
+        @click="keyMapSpVisibility = !keyMapSpVisibility"
+        :class="{active: keyMapSpVisibility}"
+      )
+        SpMenuNavigate
+      .btn(
+        v-if="soundDataExists"
+        @click="soundSpVisibility = !soundSpVisibility"
+        :class="{active: soundSpVisibility}"
+      )
+        SpMenuSound
+  SideBar.sideBar(
+    v-if="!tourName"
+    :guidedTourExists="0 < data.guidedTour.length"
+    :variations="data.variations"
+    @spClose="sideBarSpVisibility = false"
+    @saveCameraInfo="saveCameraInfo"
+  )
 </template>
 
 <style lang="sass" scoped>
+@import ~/assets/style/const
+@import ~/assets/style/mixins
 .root
   width: 100%
   height: var(--vh)
   background: #000
   display: flex
+  +sp
+    flex-direction: column
 main
   display: flex
   flex-direction: column
   width: 100%
+  position: relative
+  +sp
+    height: 100%
+    min-height: var(--main-min-height)
 .debugMenuButton
-  width: 4px
-  height: 4px
-  background: transparent
+  width: 20px
+  height: 20px
+  background: green
   position: absolute
   top: 0
   left: 0
   cursor: pointer
   z-index: 100
+nav.spMenu
+  display: none
+  +sp($sp_menu_threshold)
+    display: flex
+    flex-direction: column
+    position: absolute
+    top: 0
+    right: 0
+    z-index: 100
+  .btn
+    width: $sp_menu_width
+    height: $sp_menu_width
+    flex-shrink: 0
+    background-color: rgba(0,0,0,0.7)
+    display: flex
+    justify-content: center
+    align-items: center
+    -webkit-tap-highlight-color: transparent
+    &.active
+      > svg
+        opacity: 0.5
+  .btn + .btn
+    border-top: 1px solid #3D3D3D
 .sideBar
   flex-shrink: 0
   width: 165px
   height: 100%
   margin: 0
   border-left: 0
+  +sp($sp_menu_threshold)
+    display: none
 .title
   margin: 24px
   font-family: 'K2-v1-Light'
   font-weight: normal
   font-size: 17px
   color: white
+  +sp($sp_menu_threshold)
+    margin-right: calc(24px + #{$sp_menu_width})
+  +sp
+    margin: 10px 16px
+    letter-spacing: 0
   .scene
     margin-left: 26px
+    +sp
+      margin-top: -2px
+      margin-left: 0
+  span
+    +sp
+      display: block
 .splitpanes.default-theme
   overflow: hidden
   /deep/ .splitpanes__splitter
@@ -114,7 +195,12 @@ main
     border: 0
     width: 7px
     z-index: 2
+    margin-left: 0 // デフォルトのスタイルが-1になっていて変な線が生じてしまうので0にする
+    +sp
+      width: 100%
+      height: 7px
   .splitpanes__pane
+    background-color: rgba(0,0,0,0.9)
     &.potree_container
       width: 100%
       height: 100%
@@ -128,10 +214,13 @@ main
         display: flex
         align-items: center
         flex-shrink: 0
-        a
-          margin-left: 0.2em
-          margin-right: 0.2em
-          text-decoration: underline
+        +sp($sp_menu_threshold)
+          font-size: 10px
+        &:not(.full)
+          +sp($sp_menu_threshold)
+            margin-right: $sp_menu_width
+        .text
+          margin-right: auto
         .closeButton
           cursor: pointer
           background-color: #434343
@@ -141,9 +230,10 @@ main
           display: flex
           justify-content: center
           align-items: center
-          margin-left: auto
+          margin-left: 10px
           margin-right: 0
           transition: background-color 0.2s
+          flex-shrink: 0
           svg
             width: 8px
             height: 8px
@@ -162,8 +252,9 @@ main
     &.drawer
       overflow-y: auto
       background-color: black
-      margin-left: -6px
-      height: calc(100% - 1px)
+      +pc
+        margin-left: -6px
+        height: calc(100% - 1px)
       &.border
         border-right: 1px solid #3C3C3C
         border-bottom: 1px solid #3C3C3C
@@ -181,7 +272,7 @@ main
     height: 100%
     background: #111
     position: absolute
-    z-index: 99999999
+    z-index: 99999990
     opacity: 0
     pointer-events: none
     transition: opacity 3s
@@ -230,7 +321,7 @@ main
 
 .controls
   position: absolute
-  z-index: 999999
+  z-index: 99999999
   width: 100%
   height: 100%
   display: flex
@@ -256,19 +347,38 @@ main
     transition: background-color 0.2s
     &:hover
       background-color: lighten(#1D1D1D, 5%)
+    +sp($sp_menu_threshold)
+      font-size: 15px
+      width: 110px
+      height: 40px
+      bottom: 15px
+      right: 15px
+      // with Annotationの時は非表示にする
+      &.hiddenInSP
+        display: none
 .sideBar
   grid-area: sidebar
 </style>
 
 <script>
+// このファイル全体でprettierを無効化する
+/* eslint-disable prettier/prettier */
+import _groupBy from 'lodash/groupBy'
 import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
 import { ExternalLink } from '@karappo-inc/vue-components'
+import AllSoundData from '~/data/sounds.js'
 import IconClose from '~/assets/image/icon-close.svg?inline'
+import SpMenuList from '~/assets/image/spMenu/list.svg?inline'
+import SpMenuNavigate from '~/assets/image/spMenu/navigate.svg?inline'
+import SpMenuSound from '~/assets/image/spMenu/sound.svg?inline'
 export default {
   components: {
     ExternalLink,
-    IconClose
+    IconClose,
+    SpMenuList,
+    SpMenuNavigate,
+    SpMenuSound
   },
   props: {
     file: {
@@ -279,19 +389,44 @@ export default {
   },
   async asyncData({ route, store }) {
     const annotations = store.state.annotations[camelCase(route.params.alias)]
+    // 同位置のアノテーションはgroupにする
+    const annotationGroups = Object.values(
+      _groupBy(annotations, 'position')
+    ).filter((a) => 1 < a.length)
+    annotations.forEach((a, index) => {
+      // groupに属するかどうかをBooleanで持たせる
+      a.grouped = annotationGroups.some(
+        (g) => JSON.stringify(g[0].position) === JSON.stringify(a.position)
+      )
+      // groupの最初のアノテーションかどうかをBooleanで持たせる
+      a.firstInGroup = annotationGroups.some(
+        (g) => g[0].id === a.id
+      )
+    })
     let data = await import(`~/data/gardens/${route.params.alias}.js`)
     data = data.default
 
     return {
+      debugMode: false,
+      infoMode: false,
+      // 以上デバッグ用
+      benchmarkTime: null,
+      isLowPerformance: false,
+      isSP: false,
       annotations,
+      annotationGroups, // 同位置のアノテーションをまとめたグループ
       data,
       tours: null,
       annotationData: '',
       listData: null,
-      drawerAlreadyOpened: false,
+      tourData: null,
       loading: true,
       noticeVisibility: true,
-      rambleTourTimer: null
+      rambleTourTimer: null,
+      // SPモード中の表示切り替えフラグ
+      sideBarSpVisibility: false,
+      keyMapSpVisibility: true,
+      soundSpVisibility: false
     }
   },
   computed: {
@@ -299,31 +434,43 @@ export default {
       return window.viewer
     },
     prevNextVisibility() {
-      return this.listData !== null
+      return this.listData !== null || this.tourData !== null
     },
-    listDataIndexArray() {
-      if (this.listData) {
-        return this.listData.list.map((a) => a.index)
-      }
-      return []
+    listDataIdArray() {
+      return this.listData ? this.listData.list.map((a) => a.id) : []
     },
-    currentIndex() {
+    listCurrentIndex() {
       if (!this.annotationData) {
         return null
       }
-      return this.listDataIndexArray.indexOf(this.annotationData.index)
+      return this.listDataIdArray.indexOf(this.annotationData.id)
+    },
+    tourDataIdArray() {
+      return this.tourData ? this.tourData.list.map((a) => a.id) : []
+    },
+    tourCurrentIndex() {
+      if (!this.annotationData) {
+        return null
+      }
+      return this.tourDataIdArray.indexOf(this.annotationData.id)
     },
     prevDisabled() {
-      if (this.listData && this.listData.name.includes('Ramble Tour')) {
+      if (this.tourData && this.tourData.name.includes('Ramble Tour')) {
         return false
       }
-      return this.currentIndex <= 0
+      if (this.tourDataIdArray.length) {
+        return this.tourCurrentIndex <= 0
+      }
+      return this.listCurrentIndex <= 0
     },
     nextDisabled() {
-      if (this.listData && this.listData.name.includes('Ramble Tour')) {
+      if (this.tourData && this.tourData.name.includes('Ramble Tour')) {
         return false
       }
-      return this.listDataIndexArray.length - 1 <= this.currentIndex
+      if (this.tourDataIdArray.length) {
+        return this.tourDataIdArray.length - 1 <= this.tourCurrentIndex
+      }
+      return this.listDataIdArray.length - 1 <= this.listCurrentIndex
     },
     potreeRenderAreaClass() {
       // eslint-disable-next-line
@@ -342,6 +489,21 @@ export default {
     },
     tourName() {
       return this.$store.getters.tourName
+    },
+    spSideBarVisibility() {
+      return (
+        this.isSP &&
+        !this.drawerVisibility &&
+        this.sideBarSpVisibility &&
+        !this.tourName
+      )
+    },
+    drawerVisibility() {
+      // eslint-disable-next-line
+      return !(this.tourName && this.tourName.includes('without Annotations')) && (this.tourData || this.listData || this.annotationData)
+    },
+    soundDataExists() {
+      return AllSoundData[this.$garden(this.$route)] || false
     }
   },
   watch: {
@@ -349,43 +511,129 @@ export default {
       if (val === null) {
         this.stopRambleTourWithoutAnnotations()
       }
+    },
+    // sideBarSpVisibility, keyMapSpVisibility, soundSpVisibility は同時にtrueにならないようにする
+    sideBarSpVisibility(val) {
+      if (val) {
+        this.keyMapSpVisibility = false
+        this.soundSpVisibility = false
+      }
+    },
+    keyMapSpVisibility(val) {
+      if (val) {
+        this.soundSpVisibility = false
+        this.sideBarSpVisibility = false
+      }
+    },
+    soundSpVisibility(val) {
+      if (val) {
+        this.keyMapSpVisibility = false
+        this.sideBarSpVisibility = false
+      }
+    },
+    annotationData(val) {
+      // 点群上のアノテーションのハイライト処理
+      if (val) {
+        const annotation = window.viewer.scene.annotations.children.find(
+          (a) => a.data.id === val.id
+        )
+        if (annotation) {
+          this.highlightAnnotation(annotation.domElement[0])
+        } else {
+          const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(val)
+          this.highlightAnnotation(firstAnnotationInSameGroup.domElement[0])
+        }
+      } else {
+        this.clearAnnotationHighlight()
+      }
+    },
+    listData(val) {
+      // 点群上のアノテーションのハイライト処理
+      if (val) {
+        if (val.name === 'Group') {
+          const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(val.list[0])
+          this.highlightAnnotation(firstAnnotationInSameGroup.domElement[0])
+        }
+      } else {
+        this.clearAnnotationHighlight()
+      }
     }
   },
   async mounted() {
-    FONTPLUS.start()
-    if (this.$device.isMobile) {
-      return
+    if (FONTPLUS) {
+      FONTPLUS.start()
     }
+
+    // GET変数にdebugがtrueだったらdebugModeをtrueにする
+    this.debugMode = new URLSearchParams(window.location.search).has('debug')
+    this.infoMode = new URLSearchParams(window.location.search).has('info')
+
+    // 処理速度を計測するためのベンチマーク
+    function runBenchmark() {
+      const iterations = 1000000
+      const startTime = performance.now()
+      for (let i = 0; i < iterations; i++) {
+        // ベンチマークのための単純な計算
+        Math.sqrt(i)
+      }
+      const endTime = performance.now()
+      return endTime - startTime
+    }
+    this.benchmarkTime = runBenchmark()
+
+    this.isLowPerformance = this.$isMobileOrTablet() ? 1.5 < this.benchmarkTime : false
+
+    this.calcIsSp()
+
     const viewer = new Potree.Viewer(this.$refs.potree_render_area)
     window.viewer = viewer
     viewer.setFOV(75)
-    viewer.setPointBudget(this.$store.getters.pointBudget)
     viewer.loadSettingsFromURL()
     viewer.setBackground('originalColor')
+    viewer.setEDLEnabled(true)
+    viewer.setEDLRadius(0) // default: 1.4
+    viewer.setEDLStrength(0) // default: 0.4
+
+    // EDLの不透明度とパフォーマンス
+    // - EDLの不透明度が高い（値が大きい、例: 0.8〜1.0）場合:
+    //   - EDL効果が強く、視覚的な深さやエッジの強調が顕著になります。
+    //   - 視覚的な詳細が増えるため、GPUの負荷が増加し、パフォーマンスが低下する可能性があります。
+    // - EDLの不透明度が低い（値が小さい、例: 0.0〜0.2）場合:
+    //   - EDL効果が弱く、視覚的な深さやエッジの強調が控えめになります。
+    //   - 視覚的な詳細が減少し、GPUの負荷が軽減され、パフォーマンスが向上する可能性があります。
+    // viewer.setEDLOpacity(0.85) // default: 1.0
+    viewer.setEDLOpacity(this.isLowPerformance ? 0.75 : 0.85) // default: 1.0
+
+    // ポイントバジェット
+    // 同時に表示するポイント（点）の最大数を制限するための設定
+    viewer.setPointBudget(this.isLowPerformance ? 200000 : 2000000)
 
     // Controls
-    this.setControlMode(this.$store.getters.controlMode)
+    this.setControlMode(0) // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
 
-    viewer.loadGUI(() => {
-      viewer.setLanguage('en')
-      $('#menu_tools').next().show()
-      $('#menu_scene').next().show()
-      // viewer.toggleSidebar() // Open sidebar
-    })
-    const { pointcloud } = await Potree.loadPointCloud(this.data.pointcloud)
-    const material = pointcloud.material
-    material.activeAttributeName = 'rgba'
-    material.pointSizeType = Potree.PointSizeType.ADAPTIVE
-
-    const config = () => {
-      viewer.setEDLEnabled(this.$store.getters.EDLEnabled)
-      viewer.setEDLRadius(this.$store.getters.EDLRadius)
-      viewer.setEDLStrength(this.$store.getters.EDLStrength)
-      viewer.setEDLOpacity(this.$store.getters.EDLOpacity)
-      viewer.setPointBudget(this.$store.getters.pointBudget)
-      material.shape = this.$store.getters.shape
-      material.size = this.$store.getters.size
+    if (this.debugMode) {
+      viewer.loadGUI(() => {
+        viewer.setLanguage('en')
+        $('#menu_tools').next().show()
+        $('#menu_scene').next().show()
+        // viewer.toggleSidebar() // Open sidebar
+      })
     }
+    const { pointcloud } = await Potree.loadPointCloud(this.data.pointcloud)
+    pointcloud.material.activeAttributeName = 'rgba'
+    pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE
+
+    // Potree.PointShape.SQUARE が一番低負荷
+    // ただし、見た目の印象に大きな影響を与える
+    // pointcloud.material.shape = this.isLowPerformance ? Potree.PointShape.SQUARE : Potree.PointShape.CIRCLE
+    pointcloud.material.shape = Potree.PointShape.CIRCLE
+
+    // pointcloud.material.size = this.isLowPerformance ? 1 : 0.66
+    pointcloud.material.size = 0.66
+
+    // 色の詳細を減らすことで、レンダリング負荷を軽減可能。点群データが非常にカラフルである場合に特に有効。
+    // ただし、見た目の印象に大きな影響を与える
+    // pointcloud.material.rgbGamma = this.isLowPerformance ? 2.2 : 1 // default: 1
 
     viewer.scene.addPointCloud(pointcloud)
 
@@ -419,63 +667,91 @@ export default {
       tours.push(animation)
     })
     this.tours = tours
-    this.$store.commit('cameraAnimationCount', tours.length)
 
     if (this.annotations) {
-      this.annotations.forEach((data, index) => {
-        data.index = index
-        data.cameraTarget = data.cameraTarget || data.position // cameraTargetがない場合はpositionで代替
-        const a = new Potree.Annotation(data)
+      this.annotations
+        .filter((a) => !a.grouped)
+        .forEach((data) => {
+          const a = new Potree.Annotation(data)
+          // Cancel Potree default behavior
+          a.domElement.off('mouseenter')
+          a.domElement.off('mouseleave')
+          // クリックした時の処理
+          a.addEventListener('click', this.onClickAnnotation)
+          window.viewer.scene.annotations.add(a)
+        })
+    }
+    if (this.annotationGroups) {
+      this.annotationGroups.forEach((data) => {
+        const a = new Potree.Annotation(data[0], data.length - 1)
         // Cancel Potree default behavior
         a.domElement.off('mouseenter')
         a.domElement.off('mouseleave')
         // クリックした時の処理
-        a.addEventListener('click', this.clickAnnotation)
-        a.addEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
+        a.addEventListener('click', this.onClickAnnotation)
         window.viewer.scene.annotations.add(a)
       })
     }
 
     // Set Events
     this.$nuxt.$on('closeDrawer', this.closeDrawer)
-    this.$nuxt.$on('settingUpdated', config)
-    this.$nuxt.$on('setControlMode', this.setControlMode)
     this.$nuxt.$on('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$on('selectList', this.selectList)
-    this.$nuxt.$on('showAnnotation', this.showAnnotation)
-    this.$nuxt.$on('showAnnotationById', this.showAnnotationById)
+    this.$nuxt.$on('clickAnnotationLink', this.onClickAnnotationLink)
     this.$nuxt.$on('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.addEventListener('camera_changed', this.update)
-
-    config()
+    window.addEventListener('resize', this.calcIsSp)
+    document.addEventListener('keydown', this.keydown)
+    document.addEventListener('keyup', this.keyup)
 
     setTimeout(() => {
       this.loading = false
     }, 1000)
   },
   beforeDestroy() {
-    if (this.$device.isMobile) {
-      return
-    }
     this.$nuxt.$off('closeDrawer', this.closeDrawer)
-    this.$nuxt.$off('settingUpdated')
-    this.$nuxt.$off('setControlMode', this.setControlMode)
     this.$nuxt.$off('startCameraAnimation', this.startCameraAnimation)
     this.$nuxt.$off('selectList', this.selectList)
-    this.$nuxt.$off('showAnnotation', this.showAnnotation)
-    this.$nuxt.$off('showAnnotationById', this.showAnnotationById)
+    this.$nuxt.$off('clickAnnotationLink', this.onClickAnnotationLink)
     this.$nuxt.$off('startRambleTourWithoutAnnotations', this.startRambleTourWithoutAnnotations) // eslint-disable-line
     window.viewer.removeEventListener('camera_changed', this.update)
+    window.removeEventListener('resize', this.calcIsSp)
+    document.removeEventListener('keydown', this.keydown)
+    document.removeEventListener('keyup', this.keyup)
     if (window.viewer.scene.annotations) {
       window.viewer.scene.annotations.children.forEach((a) => {
-        a.removeEventListener('click', this.clickAnnotation)
-        a.removeEventListener('onCameraAnimationComplete', this.onCameraAnimationComplete) // eslint-disable-line
+        a.removeEventListener('click', this.onClickAnnotation)
       })
     }
     // potreeのdestroy方法が不明なので、とりあえず残されたDOMを削除する
     document.querySelectorAll('#profile_window,.sp-container').forEach((e) => e.remove()) // eslint-disable-line
   },
   methods: {
+    keydown(e) {
+      const canvas = document.querySelector('canvas');
+      // canvas要素にフォーカスがない場合はフォーカスを設定
+      if (document.activeElement !== canvas) {
+        canvas.focus();
+      }
+      // TODO もし今後、検索機能などキーボード入力を前提とした機能を追加する場合は、
+      // 以下のようにイベントをキャンバスに伝達する方法の方が良いかもしれない。
+      // イベントをキャンバスに伝達
+      // if (e.target !== canvas) {
+      //   const eventClone = new KeyboardEvent(e.type, e);
+      //   canvas.dispatchEvent(eventClone);
+      // }
+    },
+    keyup(e) {
+      const canvas = document.querySelector('canvas');
+      // canvas要素にフォーカスがない場合はフォーカスを設定
+      if (document.activeElement !== canvas) {
+        canvas.focus();
+      }
+    },
+    calcIsSp() {
+      const pcSpThreshold = 749
+      this.isSP = window.innerWidth <= pcSpThreshold
+    },
     setControlMode(mode) {
       switch (mode) {
         case 0:
@@ -492,69 +768,190 @@ export default {
           window.viewer.setControls(window.viewer.orbitControls)
           break
       }
-      // モードを保存
-      this.$store.commit('controlMode', mode)
     },
     startCameraAnimation(index) {
       this.tours[index].play()
     },
-    getAnnotationById(id, annotations) {
-      const list = annotations.filter((a) => a.data.id === id)
-      if (list.length) {
-        return list[0]
-      }
-      console.error(`id=${id} のアノテーションが見つかりませんでした`)
-    },
-    prev(globalIndex) {
-      let index = this.listDataIndexArray.indexOf(globalIndex) - 1
-      if (index < 0) {
-        index = this.listDataIndexArray.length - 1
-      }
-      this.showAnnotation(this.listDataIndexArray[index])
-    },
-    next(globalIndex) {
-      let index = this.listDataIndexArray.indexOf(globalIndex) + 1
-      if (this.listDataIndexArray.length <= index) {
-        index = 0
-      }
-      this.showAnnotation(this.listDataIndexArray[index])
-    },
-    showAnnotation(globalIndex) {
-      const annotation = window.viewer.scene.annotations.children[globalIndex]
-      if (this.$store.getters.pageName.includes('Tour')) {
-        annotation.click_inTour()
+    prev(id) {
+      let idArray = null
+      if (this.tourData) {
+        idArray = this.tourDataIdArray
+      } else if (this.listData) {
+        idArray = this.listDataIdArray
       } else {
-        annotation.click()
-      }
-    },
-    showAnnotationById(id) {
-      const annotations = window.viewer.scene.annotations.children
-      this.getAnnotationById(id, annotations).click()
-    },
-    clickAnnotation(e) {
-      if (this.annotationData || this.listData) {
-        this.drawerAlreadyOpened = true // あとで開く処理はスキップ
-        this.clearSelectedAnnotation()
-        // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
-        this.$nextTick(() => {
-          this.annotationData = e.target.data
-          e.target.domElement.get(0).classList.add('highlighted')
-        })
-      } else {
-        this.drawerAlreadyOpened = false // あとで開くのでここでは何もしない
-      }
-    },
-    onCameraAnimationComplete(e) {
-      if (this.drawerAlreadyOpened) {
-        // 既にdrawerが開いているのでなにもしない
+        console.error('prev: tourData, listData どちらも存在しません')
         return
       }
-      this.clearSelectedAnnotation()
-      // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
-      this.$nextTick(() => {
-        this.annotationData = e.target.data
-        e.target.domElement.get(0).classList.add('highlighted')
-      })
+
+      let index = idArray.indexOf(id) - 1
+      if (index < 0) {
+        index = idArray.length - 1
+      }
+      this.openAnnotationById(idArray[index])
+    },
+    next(id) {
+      let idArray = null
+      if (this.tourData) {
+        idArray = this.tourDataIdArray
+      } else if (this.listData) {
+        idArray = this.listDataIdArray
+      } else {
+        console.error('prev: tourData, listData どちらも存在しません')
+        return
+      }
+      let index = idArray.indexOf(id) + 1
+      if (idArray.length <= index) {
+        index = 0
+      }
+      this.openAnnotationById(idArray[index])
+    },
+    getFirstAnnotationInSameGroup(annotation) {
+      return window.viewer.scene.annotations.children.find(
+        (a) => JSON.stringify(a.data.position) ===JSON.stringify(annotation.position)
+      )
+    },
+    // すでにannotationのグループが開いているかどうか
+    isOpenSameGroup(annotation) {
+      if (
+        annotation &&
+        annotation.data &&
+        annotation.data.grouped &&
+        this.listData
+      ) {
+        const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(annotation)
+        if (firstAnnotationInSameGroup) {
+          // eslint-disable-next-line
+          return this.listData.list[0].id === firstAnnotationInSameGroup.data.id
+        }
+      }
+      return false
+    },
+    // Annotation表示の呼び出し関係の関数の説明
+    // - openAnnotationById
+    //   - 外部（AnnotationList、DrawerList、SoundBarなど）から呼び出される
+    //   - リスト中のアノテーションがクリックされた時の処理
+    //   - annotation.clickを起点とした処理からは呼ばれないはずで、逆にこの関数内でannotation.clickを呼び出す
+    // - onClickAnnotation
+    //   - 内部呼び出しのみ
+    //   - 点群上のアノテーションがクリックされた時に呼び出される
+    //   - annotation.clickは、このvueファイルからも決して呼ばないこと
+    // - highlightAnnotation
+    //   - 内部呼び出しのみ → さらにannotationDataとlistDataのwatch内のみ）呼び出すこと！
+    //   - 点群上のアノテーションのハイライト処理
+    //
+    // onClickAnnotation: 点群中のannotationのクリック
+    // openAnnotationById: リスト中のアノテーションリンクのクリック
+
+    // Annotationグループは、リスト内には存在せず、かならず点群上にあるAnnotationをクリックすることで表示される
+
+    // Annotationグループのクリック関係は、下記のように処理が分かれる
+    // - 点群上のグループがクリックされたとき
+    //   - グループをDrawerで開く
+    //     - listDataが存在する場合は上書き
+    // - リスト中のリンクがクリックされたとき
+    //   - アノテーションをDrawerで開く
+    //     - listDataは維持
+    //   - openAnnotationById → annotation.click
+
+
+    openAnnotationById(id) {
+      // console.log('⭐️ openAnnotationById', id)
+
+      // 【重要】点群上のAnnotation.click以外のアクションを起点として、annotationを表示する
+      // スタックトレースを取得して、Annotation.clickを起点とした処理中で呼び出された場合はエラーを出力する
+      const stackTrace = new Error().stack
+      if (stackTrace.includes('Annotation.click')) {
+        console.error("openAnnotationByIdは、Annotation.clickを起点とした処理中で呼び出されていますが、これは意図した動作ではありません。コードを見直して、呼び出されないようにしてください")
+        return
+      }
+      // ここからは必ず、Annotation.clickを起点とした処理ではない
+
+      // 画面上に表示されているアノテーションを探す
+      const annotation = window.viewer.scene.annotations.children.find(
+        (a) => a.data.id === id
+      )
+      if (annotation) {
+        // リストからアノテーショングループに属するアノテーションをクリックした時に、ここを通る
+        annotation.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
+        this.$nextTick(() => {
+          this.annotationData = annotation.data
+        })
+        return
+      }
+
+      // 画面上に表示されていないグループに含まれるアノテーションを探す
+      const annotationData = this.annotations.find((a) => a.id === id)
+      if (annotationData) {
+        // 同じグループの先頭アノテーションを探す
+        const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(annotationData)
+        firstAnnotationInSameGroup.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
+        // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
+        this.$nextTick(() => {
+          this.annotationData = annotationData
+        })
+        return
+      }
+
+      console.error(`id=${id} のアノテーションが見つかりませんでした`)
+    },
+    getAnnotationGroupByPosition(position) {
+      return this.annotationGroups.find(
+        (g) => JSON.stringify(g[0].position) === JSON.stringify(position)
+      )
+    },
+    // 基本的にはannotationData に annotationDataを代入するだけだが、
+    // 条件分岐によって、listData にも代入することがある
+    // 呼び出し元
+    // - openAnnotationById
+    // - onClickAnnotation
+    // - onCameraAnimationComplete
+    highlightAnnotation(annotationElement) {
+      this.clearAnnotationHighlight()
+      annotationElement.classList.add('highlighted')
+    },
+    clearAnnotationHighlight() {
+      // eslint-disable-next-line
+      document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
+    },
+
+    // onClickAnnotation: 点群中のannotationのクリックイベントハンドラ
+    onClickAnnotation(e) {
+      // console.log('▪️▪️▪️ onClickAnnotation ▪️▪️▪️', e.target.domElement.get(0))
+      // この関数内でのみ、groupとannotationの切り替えが必要なので、下記関数を定義して処理をまとめる。
+      // annotationData に直接代入する方法と混在すると用途が分かりにくくなるので、methods化したりしないこと
+      const setAnnotationData = (data) => {
+        // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
+        this.$nextTick(() => {
+          if (data.grouped && !this.$store.getters.pageName.includes('Tour')) {
+            this.listData = {
+              name: 'Group',
+              list: this.getAnnotationGroupByPosition(data.position)
+            }
+          } else {
+            this.annotationData = data
+          }
+        })
+      }
+      if (this.annotationData || this.listData || this.tourData) {
+        // 何かのリスト表示中に、アノテーショングループがクリックされた時に、リストはクリアして、グループを表示する処理が必要
+        if (this.listData) {
+          this.listData = null
+          this.$store.commit('pageName', '')
+        }
+        setAnnotationData(e.target.data)
+      } else {
+        // カメラの移動が終わった時に、アノテーションを表示する
+        const onCameraAnimationComplete = (e) => {
+          setAnnotationData(e.target.data)
+          e.target.removeEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
+        }
+        e.target.addEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
+      }
+    },
+    // onClickAnnotationLink: リスト中のアノテーションリンクのクリックイベントハンドラ
+    onClickAnnotationLink(id) {
+      // console.log('▪️▪️▪️ onClickAnnotationLink ▪️▪️▪️', id)
+      this.openAnnotationById(id)
     },
     update() {
       const camera = window.viewer.scene.getActiveCamera()
@@ -588,14 +985,14 @@ export default {
       }
     },
     selectList(name) {
-      this.clearSelectedAnnotation()
+      // console.log('selectList', name)
+      this.tourData = null
+      this.clearAnnotationData()
       this.$store.commit('pageName', name)
-      let list = []
-      switch (name) {
-        case 'Annotations':
-          list = this.annotations
-          break
-        case 'Guided Tour':
+
+      if (name.includes('Tour')) {
+        let list = []
+        if (name === 'Guided Tour') {
           // guidedTourの順でannotationをリスト化する
           this.data.guidedTour.forEach((id) => {
             for (const a of this.annotations) {
@@ -605,31 +1002,40 @@ export default {
               }
             }
           })
-          break
-        case 'Ramble Tour':
-          // guidedTourの順でannotationをリスト化する
+        } else if (name === 'Ramble Tour') {
+          // Ramble Tourの場合
+          // "Ramble Tour with Annotations"なのか"Ramble Tour without Annotations"なのかによって
+          // tourDataが変わってくるので、一旦ここでは全アノテーションをシャッフルしてリスト化しておくが、もし without... の場合はのちに上書きする
           list = _shuffle(this.annotations)
-          break
-        default:
+        }
+        this.tourData = {
+          name,
+          list
+        }
+      } else {
+        let list = []
+        if (name === 'Annotations') {
+          list = this.annotations
+        } else {
           list = this.annotations.filter((a) => a.category.includes(name))
-          break
-      }
-      this.listData = {
-        name,
-        list
+        }
+        this.listData = {
+          name,
+          list,
+          tagIndexStr: '' // フィルターの状態を保持するためここに保存
+        }
       }
     },
-    clearSelectedAnnotation() {
+    clearAnnotationData() {
       this.annotationData = null
-      // eslint-disable-next-line
-      document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
     },
     closeDrawer() {
       // clear List
       this.$store.commit('tourName', null)
       this.$store.commit('pageName', '')
-      this.clearSelectedAnnotation()
+      this.clearAnnotationData()
       this.listData = null
+      this.tourData = null
     },
     saveCameraInfo() {
       // const camera = window.viewer.scene.getActiveCamera()
@@ -637,18 +1043,20 @@ export default {
       // this.$store.commit('cameraTarget', ??) // TODO targetの取得方法
     },
     startRambleTourWithoutAnnotations() {
-      this.$nuxt.$emit('showAnnotation', this.listData.list[0].index)
+      // 点群上にあるアノテーションのみでリスト化（グループの子要素のアノテーションは同じ位置になるので含めない）
+      this.tourData.list = _shuffle(this.annotations.filter((a) => !a.grouped || a.firstInGroup))
+      this.openAnnotationById(this.tourData.list[0].id)
       if (this.rambleTourTimer) {
         clearInterval(this.rambleTourTimer)
       }
       this.rambleTourTimer = setInterval(() => {
-        this.next(this.listData.list[this.currentIndex].index)
+        this.next(this.annotationData.id)
       }, 15000)
     },
     stopRambleTourWithoutAnnotations() {
       if (this.rambleTourTimer) {
         this.$store.commit('pageName', '')
-        this.clearSelectedAnnotation()
+        this.clearAnnotationData()
         clearInterval(this.rambleTourTimer)
         this.rambleTourTimer = null
       }

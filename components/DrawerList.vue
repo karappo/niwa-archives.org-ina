@@ -3,7 +3,7 @@
   header
     h1(:data-name="title") {{ title }}
     .filter(v-if="tags.length && !data.name.includes('Tour')")
-      FilterSelectBox(:options="tags" :value.sync="tagIndexStr")
+      FilterSelectBox(:options="tags" :value.sync="data.tagIndexStr")
     DrawerCloseButton
   article
     template(v-if="data.name === 'Guided Tour'")
@@ -37,7 +37,7 @@ article
     color: #BCBCBC
     margin-bottom: 1em
   .bigBtn + h3
-    margin-top: 70px
+    margin-top: 28px
 
 .description
   font-size: 14px
@@ -50,7 +50,7 @@ article
   display: flex
   justify-content: center
   align-items: center
-  margin: 30px 0
+  margin: 13px 0
   padding: 20px
   border-radius: 5px
   cursor: pointer
@@ -59,9 +59,13 @@ article
     background-color: #112526
     &:hover
       background-color: darken($color_guidedTour, 10%)
+    +sp(1024px)
+      background-color: darken($color_guidedTour, 10%)
   &.rambleTour
     background-color: #252134
     &:hover
+      background-color: darken($color_rambleTour, 30%)
+    +sp(1024px)
       background-color: darken($color_rambleTour, 30%)
 .empty
   color: #898989
@@ -105,7 +109,6 @@ export default {
   },
   data() {
     return {
-      tagIndexStr: '',
       groups: null // Oral Archivesのときにdata.listをグルーピングして保持する
     }
   },
@@ -117,7 +120,7 @@ export default {
       return this.$getTags(this.data.list)
     },
     tagIndex() {
-      return parseInt(this.tagIndexStr, 10)
+      return parseInt(this.data.tagIndexStr, 10)
     },
     selectedTag() {
       return this.tags[this.tagIndex]
@@ -139,8 +142,6 @@ export default {
     data: {
       immediate: true,
       async handler(data) {
-        this.tagIndexStr = '' // タグをリセット
-
         if (data.name === 'Oral Archives') {
           const groups = _groupBy(data.list, (item) => {
             return item.youtube.id()
@@ -162,8 +163,12 @@ export default {
     }
   },
   mounted() {
-    FONTPLUS.start()
     this.$nuxt.$on('setTagIndexStr', this.setTagIndexStr)
+    this.$nextTick(() => {
+      if (FONTPLUS) {
+        FONTPLUS.start()
+      }
+    })
   },
   beforeDestroy() {
     this.$nuxt.$off('setTagIndexStr', this.setTagIndexStr)
@@ -175,7 +180,7 @@ export default {
     setTag(tag) {
       const index = this.tags.indexOf(tag)
       if (0 <= index) {
-        this.tagIndexStr = this.tags.indexOf(tag) + ''
+        this.data.tagIndexStr = this.tags.indexOf(tag) + ''
       } else {
         console.error(`「${tag}」というタグは見つかりませんでした`)
       }
@@ -187,7 +192,7 @@ export default {
     startTour(tourName) {
       this.$store.commit('tourName', tourName)
       this.$nextTick(() => {
-        this.$nuxt.$emit('showAnnotation', this.data.list[0].index)
+        this.$nuxt.$emit('clickAnnotationLink', this.data.list[0].id)
       })
     },
     filterByTag(list) {

@@ -1,39 +1,181 @@
 <template lang="pug">
 .container
-  .key Q
-  .key W
-  .key E
-  .key R
-  .key T
+  .pcLayout
+    .key Q
+    .key W
+    .key E
+    .key R
+    .key T
 
-  .btn.panLeft(@mousedown="mousedown('Q')" title="Pan Left")
-  .btn.forward(@mousedown="mousedown('W')" title="Forward")
-  .btn.panRight(@mousedown="mousedown('E')" title="Pan Right")
-  .btn.up(@mousedown="mousedown('R')" title="Up")
-  .btn.tiltUp(@mousedown="mousedown('T')" title="Tilt Up")
+    .btn.panLeft(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="Q"
+      title="Pan Left"
+    )
+    .btn.forward(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="W"
+      title="Forward"
+    )
+    .btn.panRight(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="E"
+      title="Pan Right"
+    )
+    .btn.up(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="R"
+      title="Up"
+    )
+    .btn.tiltUp(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="T"
+      title="Tilt Up"
+    )
 
-  .btn.left(@mousedown="mousedown('A')" title="Left")
-  .btn.backward(@mousedown="mousedown('S')" title="Backward")
-  .btn.right(@mousedown="mousedown('D')" title="Right")
-  .btn.down(@mousedown="mousedown('F')" title="Down")
-  .btn.tiltDown(@mousedown="mousedown('G')" title="Tilt Down")
+    .btn.left(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="A"
+      title="Left"
+    )
+    .btn.backward(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="S"
+      title="Backward"
+    )
+    .btn.right(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="D"
+      title="Right"
+    )
+    .btn.down(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="F"
+      title="Down"
+    )
+    .btn.tiltDown(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="G"
+      title="Tilt Down"
+    )
 
-  .key A
-  .key S
-  .key D
-  .key F
-  .key G
+    .key A
+    .key S
+    .key D
+    .key F
+    .key G
+  .spLayout(v-if="spVisibility")
+    .empty
+    .btn.forward(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="W"
+      title="Forward"
+    )
+    .empty
+    .gutter
+    .btn.up(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="R"
+      title="Up"
+    )
+
+    .btn.left(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="A"
+      title="Left"
+    )
+    .btn.backward(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="S"
+      title="Backward"
+    )
+    .btn.right(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="D"
+      title="Right"
+    )
+    .gutter
+    .btn.down(
+      @pointerdown="start"
+      @pointerup="end"
+      @pointerleave="end"
+      data-key="F"
+      title="Down"
+    )
 </template>
 
 <style lang="sass" scoped>
+// タブレットでもSPレイアウトを使用するため、閾値をPCレイアウトの閾値よりも大きく
+$pc_sp_threshold: 1024px
+@import ~/assets/style/general/pc-sp
+@import ~/assets/style/const
 .container
+  margin: auto 20px 20px auto
+  pointer-events: none
+  .pcLayout,
+  .spLayout
+    > *
+      pointer-events: auto
+      // iOS Safari / Chrome で長押しで選択されたり、コンテキストメニューが出てしまわないようにする
+      -webkit-touch-callout: none
+      -webkit-user-select: none
+      -khtml-user-select: none
+      -moz-user-select: none
+      -ms-user-select: none
+      user-select: none
+  +sp
+    margin: auto 22px 22px 22px
+
+@media (max-width: $sp_menu_threshold) and (max-height: 380px)
+  .container
+    margin-right: calc(22px + #{$sp_menu_width} + 11px) !important
+
+.pcLayout
   display: grid
   grid-template-columns: 21px 21px 21px 21px 21px
   grid-template-rows: 20px 20px 21px 21px
   column-gap: 5px
   row-gap: 5px
-  grid-template-areas: 'key key key key key' 'key key key key key' 'key key key key key' 'key key key key key'
-  margin: auto 20px 20px auto
+  +sp
+    display: none
+.spLayout
+  display: none
+  grid-template-columns: 62px 62px 62px auto 62px
+  grid-template-rows: 62px 62px
+  column-gap: 17px
+  row-gap: 17px
+  +sp
+    display: grid !important
 .key,
 .btn
   color: white
@@ -52,8 +194,15 @@
   background-repeat: no-repeat
   background-position: center
   transition: background-color 0.2s
+  touch-action: none // ピンチインアウトを無効化
   &:hover
+    +pc
+      background-color: #333
+  &.touched
     background-color: #333
+  +sp
+    border-radius: 10px
+    background-color: rgba(29, 29, 29, 0.80)
 .panLeft
   background-image: url(~assets/image/pan.svg)
 .panRight
@@ -67,24 +216,43 @@
   transform: rotate(-90deg)
 .forward
   background-image: url(~assets/image/arrow.svg)
+  +sp
+    background-size: 29px auto
 .backward
   background-image: url(~assets/image/arrow.svg)
   transform: rotate(180deg)
+  +sp
+    background-size: 29px auto
 .left
   background-image: url(~assets/image/arrow.svg)
   transform: rotate(-90deg)
+  +sp
+    background-size: auto 29px
 .right
   background-image: url(~assets/image/arrow.svg)
   transform: rotate(90deg)
+  +sp
+    background-size: auto 29px
 .up
   background-image: url(~assets/image/arrow-outline.svg)
+  +sp
+    background-size: 29px auto
 .down
   background-image: url(~assets/image/arrow-outline.svg)
   transform: rotate(180deg)
+  +sp
+    background-size: 29px auto
 </style>
 
 <script>
 export default {
+  props: {
+    spVisibility: {
+      type: Boolean,
+      require: true,
+      default: true
+    }
+  },
   data() {
     return {
       currentKey: null,
@@ -97,17 +265,12 @@ export default {
       return document.body.querySelector('#potree_render_area canvas:not(.ol-unselectable)')
     }
   },
-  mounted() {
-    document.addEventListener('mouseup', this.mouseup)
-  },
-  beforeDestroy() {
-    document.removeEventListener('mouseup', this.mouseup)
-  },
   methods: {
-    mousedown(key) {
-      if (!key) {
-        return
-      }
+    start(e) {
+      e.target.classList.add('touched')
+      const key = e.target.dataset.key
+      if (!key) return
+
       this.currentKey = key
       this.currentKeyCode = key.charCodeAt(0)
       this.canvas.dispatchEvent(
@@ -118,15 +281,17 @@ export default {
         })
       )
     },
-    mouseup() {
-      if (!(this.currentKey && this.currentKeyCode)) {
-        return
-      }
+    end(e) {
+      e.target.classList.remove('touched')
+      const key = e.target.dataset.key
+      if (!key) return
+
+      const keyCode = key.charCodeAt(0)
       this.canvas.dispatchEvent(
         new KeyboardEvent('keyup', {
-          key: this.currentKey,
-          keyCode: this.currentKeyCode,
-          code: `Key${this.currentKey.toUpperCase()}`
+          key,
+          keyCode,
+          code: `Key${key.toUpperCase()}`
         })
       )
     }

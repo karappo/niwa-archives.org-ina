@@ -48,7 +48,7 @@
   transform: translate(-50%, 0)
   opacity: 1 !important
   &:hover
-    z-index: 99999999 !important
+    z-index: 99999990 !important
 
   --category-color: #{$color_annotationDefault}
   &[data-category='Viewpoints/Still Images']
@@ -67,19 +67,35 @@
     --category-color: #{$color_dnaData}
   &[data-category='Oral Archives']
     --category-color: #{$color_oralArchives}
-
+  &[data-is_group='true']
+    .annotation-titlebar
+      margin-top: -6px
+  +sp
+    display: flex
+    flex-direction: column-reverse
+    justify-content: center
+    overflow: visible
   .annotation-titlebar
-    display: inline-block
+    display: inline-flex
+    align-items: center
     border: 0
-    border-radius: 14px
-    padding: 0 15px
     box-shadow: none !important
-    top: -24px
-    left: 19px
     position: absolute
-    transition: .4s cubic-bezier(0.18, 0.93, 0.49, 0.99)
-    transition-property: clip-path
+    transition: clip-path .4s cubic-bezier(0.18, 0.93, 0.49, 0.99), color 0.2s
     clip-path: inset(0 100% 0 0)
+    overflow: visible
+    background-color: transparent
+    color: #696969
+    &:hover
+      color: white
+    +pc
+      top: -28px
+      left: 14px
+    +sp
+      position: relative
+      top: -47px
+      left: 3px
+      padding-bottom: 16px
     &:before
       position: absolute
       content: ''
@@ -87,16 +103,38 @@
       width: 2px
       height: 20px
       background-color: black
-      transform: rotate(45deg) translate(-2px, 14px)
+      transform: translate(0px, 10px) rotate(45deg)
       z-index: -1
+      +sp
+        height: 15px
+        transform: none
+        top: 26px
+        left: 50%
     .annotation-label
-      color: #696969
+      flex-shrink: 0
+      background-color: black
+      border-radius: 14px
+      padding: 0 15px
       font-family: 'K2-v1-Bold', $yugothic
       font-size: 12px
       line-height: 2.2
-      transition: color 0.2s
-      &:hover
-        color: white
+      overflow: visible
+    .group-count
+      flex-shrink: 0
+      width: 37px
+      height: 37px
+      border-radius: 50%
+      background-color: black
+      font-family: 'K2-v1-Bold', $yugothic
+      font-size: 17px
+      line-height: 1
+      display: flex
+      justify-content: center
+      align-items: center
+      position: relative
+      .group-count-inner
+        position: relative
+        top: 1px
   .annotation-marker
     cursor: pointer
     z-index: 1 // macOS Safariでホバーしたときにマスキングが外れる症状への対処
@@ -114,11 +152,12 @@
     float: right
     text-align: right
   &.highlighted
+    z-index: 99999990 !important
     .annotation-marker
       > div
         animation: markerAnim 0.4s infinite
         animation-direction: alternate
-    .annotation-label
+    .annotation-titlebar
       color: white
   &[data-camera-dist=far]
     // 非表示
@@ -136,7 +175,11 @@
   &[data-camera-dist=nearer]
     .annotation-titlebar
       clip-path: inset(0)
-      left: 55px
-      top: -50px
+      +pc
+        left: 52px
+        top: -50px
+      +sp
+        top: -90px
+
     .annotation-marker
       @extend %marker_thumb

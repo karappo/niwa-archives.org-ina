@@ -7,17 +7,17 @@
       @click="clickAutoplay"
       :class="{enabled: $store.getters.autoplay}"
       title="オートプレイ：自動的に次のアノテーションを表示・再生します"
-    ) Autoplay
+    ) Auto<span class="play">play</span>
     template(v-if="prevNextVisibility")
       a.prev(
         @click="prev"
-        :title="`Previus`"
+        title="Previus"
         :class="{disabled: prevDisabled}"
       )
         IconPrev
       a.next(
         @click="next"
-        :title="`Next`"
+        title="Next"
         :class="{disabled: nextDisabled}"
       )
         IconNext
@@ -33,8 +33,14 @@
     .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
     img.image(v-if="data.image" :src="data.image")
     a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
-    .youtube(v-if="data.youtube")
-      youtube(ref="youtube" :video-id="data.youtube.id()" :player-vars="playerVars" @ended="goToNextAnnotation")
+    .youtube(v-if="flagForYoutube && data.youtube")
+      youtube(
+        ref="youtube"
+        :video-id="data.youtube.id()"
+        :player-vars="playerVars"
+        @playing="youtubeOnPlaying"
+        @ended="goToNextAnnotation"
+      )
       .cover(
         ref="cover"
         :class="{hidden: !cover}"
@@ -72,6 +78,17 @@ header
     margin-right: 8px
     &.enabled
       border-color: white !important
+      +sp
+        color: #fff !important
+    +sp
+      padding: 0 10px
+      margin-right: 0
+      background: transparent !important // activeやhoverの時に背景色が変わるのを防ぐために!importantつけている
+      border: 0
+      font-size: 14px
+      color: #898989 !important // activeやhoverの時に背景色が変わるのを防ぐために!importantつけている
+      .play
+        display: none
   .backTolist
     font-family: 'Font Awesome 5 Pro-Light-300'
     width: 34px
@@ -251,19 +268,18 @@ export default {
     nextDisabled: {
       type: Boolean,
       default: false
+    },
+    isSP: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
-    if (this.data.youtube) {
-      const playerVars = this.data.youtube.getParams()
-      playerVars.autoplay = 1
-      return {
-        playerVars,
-        cover: false
-      }
-    }
     return {
-      timerID: null
+      playerVars: null,
+      cover: null,
+      timerID: null,
+      flagForYoutube: true // data.youtubeの値が変わった時に再描画されない問題への対処
     }
   },
   computed: {
@@ -271,6 +287,9 @@ export default {
       return this.$getTitle(this.data.category)
     },
     belongingList() {
+      // TODO ここ、グループに属するannotationのことを考慮できていなさそう
+      // window.viewer.scene.annotations.children ではなく this.annotations で判定するべきかも？
+      // でも、その時ほんとに動作大丈夫か？
       // eslint-disable-next-line
       return window.viewer.scene.annotations.children.filter((a) => a.data.category === this.data.category)
     },
@@ -285,13 +304,47 @@ export default {
       return this.category === 'DNA Data'
     }
   },
-  mounted() {
-    FONTPLUS.start()
-    if (
-      !this.data.youtube &&
-      (this.$store.getters.autoplay || this.$store.getters.tourName)
-    ) {
-      this.startTimer()
+  watch: {
+    data: {
+      immediate: true, // 監視開始時（コンポーネントがマウントされた直後）にも反応するようにする
+      handler(data) {
+        // 初期化時の処理
+        // mountedは、このコンポーネントの再描画時に呼ばれないので、ここで処理する
+
+        if (this.data.youtube) {
+          this.flagForYoutube = false // 一旦要素を消すためにフラグをfalseにする ※2
+
+          const playerVars = this.data.youtube.getParams()
+          playerVars.autoplay = 1
+          this.playerVars = playerVars
+          this.cover = false
+        }
+
+        // ※1
+        if (this.$isMobileOrTablet()) {
+          // Youtubeの自動再生できないので、時間が来たら次へ
+          this.startGoToNextTimer()
+        } else if (
+          !data.youtube &&
+          !data.movie &&
+          (this.$store.getters.autoplay || this.$store.getters.tourName)
+        ) {
+          this.startGoToNextTimer()
+        }
+
+        this.$nextTick(() => {
+          // 再度、要素を表示するためにフラグをtrueにする（※2とセット）
+          if (this.data.youtube) {
+            this.flagForYoutube = true
+          }
+          // スクロール位置の初期化
+          this.$el.parentElement.scrollTop = 0
+          // フォント
+          if (FONTPLUS) {
+            FONTPLUS.start()
+          }
+        })
+      }
     }
   },
   methods: {
@@ -308,7 +361,7 @@ export default {
         !this.nextDisabled &&
         (this.$store.getters.autoplay || this.$store.getters.tourName)
       ) {
-        this.$emit('next', this.data.index)
+        this.$emit('next', this.data.id)
       } else {
         this.cover = true
         this.player.seekTo(this.playerVars.start || 0)
@@ -322,12 +375,18 @@ export default {
     clickAutoplay() {
       this.$store.commit('autoplay', !this.$store.getters.autoplay)
       if (this.$store.getters.autoplay) {
-        this.startTimer()
+        this.startGoToNextTimer()
       }
     },
-    startTimer() {
+    startGoToNextTimer() {
       // 一定時間後に次へ
       this.timerID = setTimeout(this.goToNextAnnotation, 15000)
+    },
+    youtubeOnPlaying() {
+      // かならず ※1 と条件を揃えること
+      if (this.$isMobileOrTablet()) {
+        this.clearTimer()
+      }
     },
     tagClick(tag) {
       this.$nuxt.$emit('selectList', 'Annotations')
@@ -343,11 +402,11 @@ export default {
     },
     prev() {
       this.clearTimer()
-      this.$emit('prev', this.data.index)
+      this.$emit('prev', this.data.id)
     },
     next() {
       this.clearTimer()
-      this.$emit('next', this.data.index)
+      this.$emit('next', this.data.id)
     }
   }
 }

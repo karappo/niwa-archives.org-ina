@@ -2,7 +2,8 @@ const site_title = 'Incomplete Niwa Archives 終らない庭のアーカイヴ'
 const site_description = '2019年4月より始動した庭園アーカイヴ・プロジェクトは、現代のテクノロジーを駆使して、日本庭園の多様な側面をデータ化した新しい総合的アーカイヴを研究開発するものです。'
 // TODO: 環境変数から読み込むなどしてstagingなどにも対応する
 // const baseUrl = 'https://special.ycam.jp/niwa/'
-const baseUrl = 'https://niwa.ycam.jp'
+// const baseUrl = 'https://niwa.ycam.jp'
+const baseUrl = 'https://niwa-archives.org'
 
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
@@ -110,9 +111,9 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/device',
     '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
-    'nuxt-device-detect',
     'nuxt-ua'
   ],
 
@@ -131,6 +132,9 @@ export default {
   //   port: 3000, // デフォルト: 3000
   //   host: '0.0.0.0' // デフォルト: localhost
   // },
+  // そのほかにやること
+  // - ウェブフォントFONTPLUSの管理画面にIPを追加
+  // - [GoogleCloudPlatform](https://console.cloud.google.com/apis/credentials/key/c238b06c-505e-4198-91bf-6557605ab380?hl=ja&project=proxies-of-client)の管理画面から、ウェブサイトの制限のところにドメインまたはIPを追加すること。
 
   generate: {
     routes: [
@@ -142,6 +146,7 @@ export default {
       '/murin_an-summer/',
       '/murin_an-winter/',
       '/ryogen_in/',
+      '/debug/',
       '/joei_ji/'
     ]
   }

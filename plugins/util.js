@@ -1,20 +1,25 @@
 /* eslint-disable */
-// ブラウザやOSによってキーの判定方法が複雑なのでここに一元化する
-//
-// // 使用例
-// onKeydown(e) {
-//   const key = this.$key(e)
-// }
-// TODO:
-// keyCodeはdeprecatedらしいので、使わない方法を模索したい
-// https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-//
-// Dependencies:
-// - [nuxt-ua](https://www.npmjs.com/package/nuxt-ua)
-//
 import _flattenDeep from 'lodash/flattenDeep'
 import _map from 'lodash/map'
 import _uniq from 'lodash/uniq'
+
+// iPad13+は、検知できないので自前で判定
+// https://www.bit-hive.com/articles/20190820
+const isIPad13 = () => {
+  if (
+    navigator.platform === 'MacIntel' &&
+    navigator.userAgent.includes('Safari') &&
+    !navigator.userAgent.includes('Chrome')
+  ) {
+    if (navigator.standalone !== undefined) {
+      // iPad OS Safari
+      return true
+    } else {
+      // macOS Safari
+    }
+  }
+  return false
+}
 export default ({ app }, inject) => {
   inject('getTitle', (category) => {
     return category
@@ -44,5 +49,9 @@ export default ({ app }, inject) => {
     } else {
       return null
     }
+  })
+  inject('isIPad13', isIPad13),
+  inject('isMobileOrTablet', () => {
+    return app.$device.isMobileOrTablet || isIPad13()
   })
 }
