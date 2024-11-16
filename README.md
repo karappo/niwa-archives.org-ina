@@ -4,7 +4,6 @@
 |:--------------|:---------|:---------------------------------|:-----------------|
 | Production    | さくら    | https://niwa-archives.org/       |                  |
 | Staging       | Heteml   | https://stg.niwa-archives.org/   | niwa:archives    |
-| 旧サイト ※      | AWS S3   | https://niwa.ycam.jp             |                  |
 | Development   | nuxt     | http://localhost:3000            |                  |
 
 ※ トップページのみ残存
@@ -54,7 +53,7 @@ yarn dev
 基本的に、pointcolud/は`.depignore`で無視しているので、点群データも更新したい場合は`.depignore`を一時的に修正してdeployすること
 
 ```sh
-yarn deploy (procution|staging|ycam)
+yarn deploy (procution|staging)
 ```
 
 ## 1. 点群データのサブサンプリング
