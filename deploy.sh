@@ -8,12 +8,8 @@ elif [ $1 = 'staging' ]; then
   DEP_ENV='STAGING'
   DEP_TARGET='rurihikohara@rurihikohara.sakura.ne.jp:/home/rurihikohara/www/stg.niwa-archives.org'
   DEP_PORT='22'
-elif [ $1 = 'ycam' ]; then
-  DEP_ENV='PRODUCTION'
-  DEP_TARGET='www@niwa2.ycam.jp:/home/www/html/niwa2'
-  DEP_PORT='10022'
 else
-  echo "引数にデプロイ先( production | staging | ycam )を指定してください。"
+  echo "引数にデプロイ先( production | staging )を指定してください。"
   exit 1
 fi
 
