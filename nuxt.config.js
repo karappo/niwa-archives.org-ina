@@ -10,6 +10,11 @@ export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
 
+  router: {
+    trailingSlash: true,
+    middleware: ['redirection', 'spreadsheets']
+  },
+
   ssr: false,
 
   manifest: {
@@ -119,11 +124,6 @@ export default {
     '~plugins/splitpanes',
     '~plugins/vue-youtube'
   ],
-
-  router: {
-    trailingSlash: true,
-    middleware: ['redirection', 'spreadsheets']
-  },
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
