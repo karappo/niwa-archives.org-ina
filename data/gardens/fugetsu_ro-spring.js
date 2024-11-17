@@ -1,7 +1,7 @@
 export default {
   title: 'Fugetsuro - Spring',
   pointcloud:
-    '/assets/pointclouds/20231016_20230403_Fugetsuro_RCEdit_10mm.las_converted/metadata.json',
+    '20231016_20230403_Fugetsuro_RCEdit_10mm.las_converted/metadata.json',
   variations: ['spring', 'summer', 'autumn', 'winter'],
   initCamera() {
     // viewer.fitToScreen()
