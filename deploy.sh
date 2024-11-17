@@ -2,11 +2,11 @@
 echo "Deploy to '$1'"
 if [ $1 = 'production' ]; then
   DEP_ENV='PRODUCTION'
-  DEP_TARGET='rurihikohara@rurihikohara.sakura.ne.jp:/home/rurihikohara/www/niwa-archives.org'
+  DEP_TARGET='rurihikohara@rurihikohara.sakura.ne.jp:/home/rurihikohara/www/niwa-archives.org/ina'
   DEP_PORT='22'
 elif [ $1 = 'staging' ]; then
   DEP_ENV='STAGING'
-  DEP_TARGET='rurihikohara@rurihikohara.sakura.ne.jp:/home/rurihikohara/www/stg.niwa-archives.org'
+  DEP_TARGET='rurihikohara@rurihikohara.sakura.ne.jp:/home/rurihikohara/www/stg.niwa-archives.org/ina'
   DEP_PORT='22'
 else
   echo "引数にデプロイ先( production | staging )を指定してください。"

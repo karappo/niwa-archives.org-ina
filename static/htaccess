@@ -13,3 +13,15 @@
 # https://special.ycam.jp/niwa/assets/Towards_a_New_Archive_of_Gardens.pdfへのリンクを転送
 Redirect /niwa/assets/Towards_a_New_Archive_of_Gardens.pdf /2019/Towards_a_New_Archive_of_Gardens.pdf
 # RedirectMatch (.*)Towards_a_New_Archive_of_Gardens¥.pdf$ /2019/Towards_a_New_Archive_of_Gardens.pdf # これは効かなかった
+
+# INAがルートにあった時のURLを現在のパスにリダイレクト
+Redirect / /ina/
+Redirect /fugetsu_ro-spring/ /ina/fugetsu_ro-spring/
+Redirect /fugetsu_ro-summer/ /ina/fugetsu_ro-summer/
+Redirect /fugetsu_ro-autumn/ /ina/fugetsu_ro-autumn/
+Redirect /fugetsu_ro-winter/ /ina/fugetsu_ro-winter/
+Redirect /murin_an-snow/ /ina/murin_an-snow/
+Redirect /murin_an-summer/ /ina/murin_an-summer/
+Redirect /murin_an-winter/ /ina/murin_an-winter/
+Redirect /ryogen_in/ /ina/ryogen_in/
+Redirect /joei_ji/ /ina/joei_ji/
