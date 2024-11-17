@@ -1,7 +1,7 @@
 export default {
   title: 'Fugetsuro - Summer',
   pointcloud:
-    '/assets/pointclouds/Fugetsuro_Summer_WithTeahouse_1mm_cleaned_nonormal_small_noduplicates.laz_converted/metadata.json',
+    'Fugetsuro_Summer_WithTeahouse_1mm_cleaned_nonormal_small_noduplicates.laz_converted/metadata.json',
   variations: ['spring', 'summer', 'autumn', 'winter'],
   initCamera() {
     // viewer.fitToScreen()

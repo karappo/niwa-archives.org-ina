@@ -619,7 +619,7 @@ export default {
         // viewer.toggleSidebar() // Open sidebar
       })
     }
-    const { pointcloud } = await Potree.loadPointCloud(this.data.pointcloud)
+    const { pointcloud } = await Potree.loadPointCloud(`/ina/assets/pointclouds/${this.data.pointcloud}`)
     pointcloud.material.activeAttributeName = 'rgba'
     pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE
 

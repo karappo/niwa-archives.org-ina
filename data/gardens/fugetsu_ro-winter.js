@@ -1,7 +1,7 @@
 export default {
   title: 'Fugetsuro - Winter',
   pointcloud:
-    '/assets/pointclouds/Fugetsuro_Winter_20221024_clean_nonormal_small_noduplicate.laz_converted/metadata.json',
+    'Fugetsuro_Winter_20221024_clean_nonormal_small_noduplicate.laz_converted/metadata.json',
   variations: ['spring', 'summer', 'autumn', 'winter'],
   initCamera() {
     // viewer.fitToScreen()
