@@ -4,13 +4,14 @@ const siteDescription =
 // TODO: 環境変数から読み込むなどしてstagingなどにも対応する
 // const baseUrl = 'https://special.ycam.jp/niwa/'
 // const baseUrl = 'https://niwa.ycam.jp'
-const baseUrl = 'https://niwa-archives.org'
+const baseUrl = 'https://niwa-archives.org/ina/'
 
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
 
   router: {
+    base: '/ina/',
     trailingSlash: true,
     middleware: ['redirection', 'spreadsheets']
   },
@@ -67,17 +68,17 @@ export default {
       {
         rel: 'stylesheet',
         type: 'text/css',
-        href: '/assets/potree/build/potree/potree.css'
+        href: '/ina/assets/potree/build/potree/potree.css'
       },
       {
         rel: 'stylesheet',
         type: 'text/css',
-        href: '/assets/potree/libs/jstree/themes/mixed/style.css'
+        href: '/ina/assets/potree/libs/jstree/themes/mixed/style.css'
       },
       {
         rel: 'stylesheet',
         type: 'text/css',
-        href: '/assets/potree/libs/jquery-ui/jquery-ui.css'
+        href: '/ina/assets/potree/libs/jquery-ui/jquery-ui.css'
       }
     ],
     script: [
@@ -86,20 +87,20 @@ export default {
           '//webfont.fontplus.jp/accessor/script/fontplus.js?Kda7jDZHaBw%3D&box=BAYjMHHVKVM%3D&aa=1&ab=2',
         defer: true
       },
-      { src: '/assets/potree/libs/jquery/jquery-3.1.1.min.js' },
-      { src: '/assets/potree/libs/spectrum/spectrum.js' },
-      { src: '/assets/potree/libs/jquery-ui/jquery-ui.min.js' },
-      { src: '/assets/potree/libs/three.js/build/three.min.js' },
-      { src: '/assets/potree/libs/three.js/extra/lines.js' },
-      { src: '/assets/potree/libs/other/BinaryHeap.js' },
-      { src: '/assets/potree/libs/tween/tween.min.js' },
-      { src: '/assets/potree/libs/d3/d3.js' },
-      { src: '/assets/potree/libs/proj4/proj4.js' },
-      { src: '/assets/potree/libs/openlayers3/ol.js' },
-      { src: '/assets/potree/libs/i18next/i18next.js' },
-      { src: '/assets/potree/libs/jstree/jstree.js' },
-      { src: '/assets/potree/build/potree/potree.js' },
-      { src: '/assets/potree/libs/plasio/js/laslaz.js' }
+      { src: '/ina/assets/potree/libs/jquery/jquery-3.1.1.min.js' },
+      { src: '/ina/assets/potree/libs/spectrum/spectrum.js' },
+      { src: '/ina/assets/potree/libs/jquery-ui/jquery-ui.min.js' },
+      { src: '/ina/assets/potree/libs/three.js/build/three.min.js' },
+      { src: '/ina/assets/potree/libs/three.js/extra/lines.js' },
+      { src: '/ina/assets/potree/libs/other/BinaryHeap.js' },
+      { src: '/ina/assets/potree/libs/tween/tween.min.js' },
+      { src: '/ina/assets/potree/libs/d3/d3.js' },
+      { src: '/ina/assets/potree/libs/proj4/proj4.js' },
+      { src: '/ina/assets/potree/libs/openlayers3/ol.js' },
+      { src: '/ina/assets/potree/libs/i18next/i18next.js' },
+      { src: '/ina/assets/potree/libs/jstree/jstree.js' },
+      { src: '/ina/assets/potree/build/potree/potree.js' },
+      { src: '/ina/assets/potree/libs/plasio/js/laslaz.js' }
     ]
   },
 

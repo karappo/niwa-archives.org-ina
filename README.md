@@ -1,10 +1,10 @@
 # Incomplete Niwa Archives
 
-| Environment   | サーバー  | URL                              | BasicAuth(id:pw) |
-|:--------------|:---------|:---------------------------------|:-----------------|
-| Production    | さくら    | https://niwa-archives.org/       |                  |
-| Staging       | Heteml   | https://stg.niwa-archives.org/   | niwa:archives    |
-| Development   | nuxt     | http://localhost:3000            |                  |
+| Environment   | サーバー  | URL                                  | BasicAuth(id:pw) |
+|:--------------|:---------|:-------------------------------------|:-----------------|
+| Production    | さくら    | https://niwa-archives.org/ina/       |                  |
+| Staging       | Heteml   | https://stg.niwa-archives.org/ina/   | niwa:archives    |
+| Development   | nuxt     | http://localhost:3000/ina/           |                  |
 
 ※ トップページのみ残存
 
