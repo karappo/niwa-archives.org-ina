@@ -25,3 +25,6 @@ Redirect /murin_an-summer/ /ina/murin_an-summer/
 Redirect /murin_an-winter/ /ina/murin_an-winter/
 Redirect /ryogen_in/ /ina/ryogen_in/
 Redirect /joei_ji/ /ina/joei_ji/
+
+# /pie_charts/* を /ina/pie_charts/* にリダイレクト
+RedirectMatch ^/pie_charts/(.*)$ /ina/pie_charts/$1
