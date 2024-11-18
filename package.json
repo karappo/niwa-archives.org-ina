@@ -9,8 +9,6 @@
     "start": "nuxt start",
     "pregenerate": "rm -rf dist",
     "generate": "nuxt generate",
-    "rename": "mv ./dist/htaccess ./dist/.htaccess; mv ./dist/htpasswd ./dist/.htpasswd",
-    "rename-back": "mv ./dist/.htaccess ./dist/htaccess; mv ./dist/.htpasswd ./dist/htpasswd",
     "deploy": "sh deploy.sh",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "yarn lint:js"
