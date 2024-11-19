@@ -17,5 +17,18 @@ if yarn generate; then
   # Remove useless files
   find ./dist/ -name '.DS_Store' -type f -delete
   find ./dist/ -name '.nojekyll' -type f -delete
+
+  # rename
+  mv ./dist/htaccess ./dist/.htaccess
+
+  # remove "DEP_XXX_RM "
+  ext=".temp_bakup" # extension of backup files which are created before replacement
+  find ./dist/ -name "*.htaccess" -exec sed -i$ext "s|#DEP_REMOTE_RM ||" {} \;
+  find ./dist/ -name "*.htaccess" -exec sed -i$ext "s|#DEP_"$DEP_ENV"_RM ||" {} \;
+  find ./dist/ -name "*$ext" -exec rm {} \; # delete backup files
+  # Deploy
   rsync -aIzh --perms --owner --group --stats --delete -e "ssh -p $DEP_PORT" "--exclude-from=$PWD/.depignore" ./dist/ $DEP_TARGET
+
+  # rename back
+  mv ./dist/.htaccess ./dist/htaccess
 fi
