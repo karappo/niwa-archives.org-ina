@@ -168,16 +168,16 @@ export default {
 
   generate: {
     routes: [
+      // '/debug/',
       '/fugetsu_ro-spring/',
       '/fugetsu_ro-summer/',
       '/fugetsu_ro-autumn/',
       '/fugetsu_ro-winter/',
+      '/joei_ji/',
       '/murin_an-snow/',
       '/murin_an-summer/',
       '/murin_an-winter/',
-      '/ryogen_in/',
-      // '/debug/',
-      '/joei_ji/'
+      '/ryogen_in/'
     ]
   }
 }
