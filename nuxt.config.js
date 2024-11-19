@@ -173,6 +173,7 @@ export default {
       '/fugetsu_ro-summer/',
       '/fugetsu_ro-autumn/',
       '/fugetsu_ro-winter/',
+      '/hosoo/',
       '/joei_ji/',
       '/murin_an-snow/',
       '/murin_an-summer/',
