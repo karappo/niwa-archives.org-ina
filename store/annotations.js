@@ -1,16 +1,17 @@
 // -------------------------------
 // ※ ページが増えたときはここに追加
 const pages = [
+  'debug',
+  'fugetsuRoAutumn',
+  'fugetsuRoSpring',
+  'fugetsuRoSummer',
+  'fugetsuRoWinter',
+  'hosoo',
   'joeiJi',
   'murinAnSnow',
   'murinAnSummer',
   'murinAnWinter',
-  'ryogenIn',
-  'debug',
-  'fugetsuRoSpring',
-  'fugetsuRoSummer',
-  'fugetsuRoAutumn',
-  'fugetsuRoWinter'
+  'ryogenIn'
 ]
 // -------------------------------
 const mapStates = () => {
