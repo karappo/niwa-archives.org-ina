@@ -4,7 +4,7 @@ export default {
   initCamera() {
     // viewer.fitToScreen()
     window.viewer.scene.view.position.set(1.238, -43.205, 63.257)
-    window.viewer.scene.view.lookAt(new THREE.Vector3(1.168, -43.18, 60.258))
+    window.viewer.scene.view.lookAt(new THREE.Vector3(1.238, -43.205, 60.257))
   },
   guidedTour: [],
   tours: []
