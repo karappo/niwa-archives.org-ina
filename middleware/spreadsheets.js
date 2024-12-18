@@ -11,107 +11,109 @@ export default async function ({ store }) {
     const keys = array[1].values.map((x) => x.formattedValue)
     for (let i = 2; i < array.length; i++) {
       // ===== データ整形 =====
-      const values = array[i].values.map((x) => x.formattedValue)
-      const data = {}
-      const valueOf = (_key) => values[keys.indexOf(_key)]
-      values.forEach((element, index) => {
-        let key = keys[index]
-        let value = element
-        if (!value) {
-          return
-        }
-        // 配列化
-        if (['position', 'cameraPosition', 'cameraTarget'].includes(key)) {
-          // 数値以外の文字列が入っていたら無効化
-          if (/^[-0-9., ]+$/.test(value)) {
-            value = value.split(',').map((v) => parseFloat(v))
-          } else {
-            value = null
+      if (array[i].values && array[i].values.length) {
+        const values = array[i].values.map((x) => x.formattedValue)
+        const data = {}
+        const valueOf = (_key) => values[keys.indexOf(_key)]
+        values.forEach((element, index) => {
+          let key = keys[index]
+          let value = element
+          if (!value) {
+            return
           }
-        } else if (key === 'attachment') {
-          // アタッチメントの種類に応じてkeyも切り替える。
-          // これにより、「image, youtubeなど、別々のキーにしてそのうちいずれか一つ」というような難しい制限と同じ効果が得られる。
-          if (/\/\/www\.dropbox\.com/.test(value)) {
-            value = removeParams(value)
-            if (/\.(gif|png|jpe?g)$/i.test(value)) {
-              key = 'image'
-            } else if (/\.pdf$/i.test(value)) {
-              key = 'pdf'
+          // 配列化
+          if (['position', 'cameraPosition', 'cameraTarget'].includes(key)) {
+            // 数値以外の文字列が入っていたら無効化
+            if (/^[-0-9., ]+$/.test(value)) {
+              value = value.split(',').map((v) => parseFloat(v))
+            } else {
+              value = null
             }
-            // 通常共有リンクの`?dl=0`が付いているはずなので、一旦除去し、最後に`?raw=1`をつけて直リンクにする
-            value = value + '?raw=1'
-          } else if (/\/\/www\.youtube\.com/.test(value)) {
-            key = 'youtube'
-            value = new YouTube(url2obj(value))
-          } else if (/\/\/youtu\.be\/([^/]*)/.test(value)) {
-            key = 'youtube'
-            const v = value.match(/\/\/youtu\.be\/([^/?]*)/)[1] // まずid（v）だけ取得しておく
-            value = url2obj(value)
-            value.v = v // vをマージ
-            value = new YouTube(value)
-          } else if (/\/\/drive\.google\.com/.test(value)) {
-            // eslint-disable-next-line
-            if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.test(value)) {
+          } else if (key === 'attachment') {
+            // アタッチメントの種類に応じてkeyも切り替える。
+            // これにより、「image, youtubeなど、別々のキーにしてそのうちいずれか一つ」というような難しい制限と同じ効果が得られる。
+            if (/\/\/www\.dropbox\.com/.test(value)) {
+              value = removeParams(value)
+              if (/\.(gif|png|jpe?g)$/i.test(value)) {
+                key = 'image'
+              } else if (/\.pdf$/i.test(value)) {
+                key = 'pdf'
+              }
+              // 通常共有リンクの`?dl=0`が付いているはずなので、一旦除去し、最後に`?raw=1`をつけて直リンクにする
+              value = value + '?raw=1'
+            } else if (/\/\/www\.youtube\.com/.test(value)) {
+              key = 'youtube'
+              value = new YouTube(url2obj(value))
+            } else if (/\/\/youtu\.be\/([^/]*)/.test(value)) {
+              key = 'youtube'
+              const v = value.match(/\/\/youtu\.be\/([^/?]*)/)[1] // まずid（v）だけ取得しておく
+              value = url2obj(value)
+              value.v = v // vをマージ
+              value = new YouTube(value)
+            } else if (/\/\/drive\.google\.com/.test(value)) {
               // eslint-disable-next-line
-              console.error(`"${valueOf('title')}"(${i+1}行目)の"attachment"の値が不正です。"//drive.google.com/file/d/xxxx" の形式である必要があります。`, value)
-            }
-            // eslint-disable-next-line
-            const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
-            // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得（'movie'は2024/7に削除したので現在は'image','pdf'のみ）
-            const type = valueOf('attachmentType')
-            switch (type) {
-              case 'image':
-                value = `https://drive.google.com/thumbnail?id=${id}&sz=w2000`
-                break
-              case 'pdf':
-                value = `https://drive.google.com/uc?export=view&id=${id}`
-                break
-              default:
+              if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.test(value)) {
                 // eslint-disable-next-line
-                console.error(`"${valueOf('title')}"(${i+1}行目)の"attachmentType"が間違っています`, type)
-            }
-            key = type
-          } else if (
-            // WordPressのメディアライブラリ
-            // eslint-disable-next-line
-            /\/\/(stg\.)?niwa-archives.org\/wp\/wp-content\/uploads\//.test(value)
-          ) {
-            if (/\.(apng|avif|gif|png|jpe?g|tiff?|webp)$/i.test(value)) {
-              key = 'image'
-            } else if (/\.pdf$/i.test(value)) {
-              key = 'pdf'
+                console.error(`"${valueOf('title')}"(${i+1}行目)の"attachment"の値が不正です。"//drive.google.com/file/d/xxxx" の形式である必要があります。`, value)
+              }
+              // eslint-disable-next-line
+              const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
+              // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得（'movie'は2024/7に削除したので現在は'image','pdf'のみ）
+              const type = valueOf('attachmentType')
+              switch (type) {
+                case 'image':
+                  value = `https://drive.google.com/thumbnail?id=${id}&sz=w2000`
+                  break
+                case 'pdf':
+                  value = `https://drive.google.com/uc?export=view&id=${id}`
+                  break
+                default:
+                  // eslint-disable-next-line
+                  console.error(`"${valueOf('title')}"(${i+1}行目)の"attachmentType"が間違っています`, type)
+              }
+              key = type
             } else if (
-              /\.(m4v|mov|mp4|mpeg|mpg|ogg|qt|webm|wmv)$/i.test(value)
+              // WordPressのメディアライブラリ
+              // eslint-disable-next-line
+              /\/\/(stg\.)?niwa-archives.org\/wp\/wp-content\/uploads\//.test(value)
             ) {
-              key = 'movie'
+              if (/\.(apng|avif|gif|png|jpe?g|tiff?|webp)$/i.test(value)) {
+                key = 'image'
+              } else if (/\.pdf$/i.test(value)) {
+                key = 'pdf'
+              } else if (
+                /\.(m4v|mov|mp4|mpeg|mpg|ogg|qt|webm|wmv)$/i.test(value)
+              ) {
+                key = 'movie'
+              }
             }
           }
+          data[key] = value
+        })
+        // ===== /データ整形 =====
+        // ===== バリデーション（この時点で要件を満たさないものはふるい落とす） =====
+        if (!(data.id && data.title && data.position && data.category)) {
+          continue
         }
-        data[key] = value
-      })
-      // ===== /データ整形 =====
-      // ===== バリデーション（この時点で要件を満たさないものはふるい落とす） =====
-      if (!(data.id && data.title && data.position && data.category)) {
-        continue
-      }
-      // ===== 追加のデータ整形 =====
-      if (data.tags) {
-        data.tags = data.tags.split(',').map((t) => t.trim())
-      }
-      if (data.cameraTarget) {
-        data.cameraPosition = data.position
-      } else {
-        // cameraTargetがない場合はpositionで代替
-        data.cameraTarget = data.position
+        // ===== 追加のデータ整形 =====
+        if (data.tags) {
+          data.tags = data.tags.split(',').map((t) => t.trim())
+        }
+        if (data.cameraTarget) {
+          data.cameraPosition = data.position
+        } else {
+          // cameraTargetがない場合はpositionで代替
+          data.cameraTarget = data.position
 
-        if (!data.cameraPosition) {
-          // cameraPositionが未設定の場合、決め打ちのcameraPositionを設定
-          // eslint-disable-next-line
-          data.cameraPosition = [data.position[0] - 1, data.position[1] - 3, data.position[2] + 1]
+          if (!data.cameraPosition) {
+            // cameraPositionが未設定の場合、決め打ちのcameraPositionを設定
+            // eslint-disable-next-line
+            data.cameraPosition = [data.position[0] - 1, data.position[1] - 3, data.position[2] + 1]
+          }
         }
+        // ===== データ格納 =====
+        collection.push(data)
       }
-      // ===== データ格納 =====
-      collection.push(data)
     }
     return collection
   }
