@@ -168,7 +168,6 @@ export default {
 
   generate: {
     routes: [
-      // '/debug/',
       '/fugetsu_ro-spring/',
       '/fugetsu_ro-summer/',
       '/fugetsu_ro-autumn/',
