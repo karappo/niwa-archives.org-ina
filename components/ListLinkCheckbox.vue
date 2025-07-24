@@ -1,7 +1,12 @@
-<template lang="pug">
-.linkCheck(:class="{disabled}")
-  ListLink(:listName="listName" :icon="icon") {{ title }}
-  el-checkbox(v-if="!disabled" v-model="visibility" :indeterminate="indeterminate")
+<template>
+  <div :class="['linkCheck', { disabled }]">
+    <ListLink :listName="listName" :icon="icon">{{ title }}</ListLink>
+    <el-checkbox
+      v-if="!disabled"
+      v-model="visibility"
+      :indeterminate="indeterminate"
+    ></el-checkbox>
+  </div>
 </template>
 
 <style lang="sass" scoped>
