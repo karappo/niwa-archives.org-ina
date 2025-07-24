@@ -116,7 +116,6 @@
 </template>
 
 <style lang="sass" scoped>
-// @import ~/assets/style/const
 @import ~/assets/style/drawer-common
 article
   font-size: 14px

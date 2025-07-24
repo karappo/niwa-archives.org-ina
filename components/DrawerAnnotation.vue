@@ -85,7 +85,6 @@
 </style>
 
 <style lang="sass" scoped>
-@import ~/assets/style/const
 @import ~/assets/style/drawer-common
 header
   .autoplay

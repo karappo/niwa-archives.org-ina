@@ -4,7 +4,6 @@
 </template>
 
 <style lang="sass" scoped>
-@import ~/assets/style/const
 .close
   height: 34px
   width: 34px

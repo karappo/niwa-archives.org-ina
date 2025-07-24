@@ -16,7 +16,6 @@
 </template>
 
 <style lang="sass" scoped>
-@import ~/assets/style/const
 .selectBox
   min-width: 156px
   height: 40px

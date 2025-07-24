@@ -11,7 +11,6 @@
 </template>
 
 <style lang="sass" scoped>
-@import ../assets/style/const
 .btn
   cursor: pointer
   font-family: 'K2-v1-Heavy'

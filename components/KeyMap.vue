@@ -135,7 +135,6 @@
 </template>
 
 <style lang="sass" scoped>
-@import ~/assets/style/const
 .container
   margin: auto 20px 20px auto
   pointer-events: none

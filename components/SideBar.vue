@@ -41,7 +41,6 @@ aside
 </template>
 
 <style lang="sass" scoped>
-@import ~/assets/style/const
 $pc_sp_threshold: 428px
 @import ~/assets/style/general/pc-sp
 aside

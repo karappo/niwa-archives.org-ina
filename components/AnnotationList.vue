@@ -16,7 +16,6 @@
 </template>
 
 <style lang="sass" scoped>
-@import ~/assets/style/const
 .list
   display: block
   padding: 0
