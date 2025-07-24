@@ -1,18 +1,20 @@
-<template lang="pug">
-.selectBox
-  select(
-    :value="value"
-    @change="$emit('update:value', $event.target.value)"
-  )
-    option(v-if="allowEmpty")
-    option(
-      v-for="(item, index) in options"
-      :key="index"
-      :label="item.label || item"
-      :value="index"
-    ) {{ item.label || item }}
-  .icon
-    TriangleArrow
+<template>
+  <div class="selectBox">
+    <select :value="value" @change="$emit('update:value', $event.target.value)">
+      <option v-if="allowEmpty"></option>
+      <option
+        v-for="(item, index) in options"
+        :key="index"
+        :label="item.label || item"
+        :value="index"
+      >
+        {{ item.label || item }}
+      </option>
+    </select>
+    <div class="icon">
+      <TriangleArrow />
+    </div>
+  </div>
 </template>
 
 <style lang="sass" scoped>
