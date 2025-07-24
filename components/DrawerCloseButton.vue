@@ -1,6 +1,7 @@
-<template lang="pug">
-.close.button(title="Close" @click="$nuxt.$emit('closeDrawer')")
-  IconClose
+<template>
+  <div class="close button" title="Close" @click="$nuxt.$emit('closeDrawer')">
+    <IconClose />
+  </div>
 </template>
 
 <style lang="sass" scoped>
