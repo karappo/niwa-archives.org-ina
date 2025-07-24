@@ -1,71 +1,122 @@
-<template lang="pug">
-.content
-  header
-    h2.category(:data-name="category") {{ category }}
-    a.autoplay(
-      v-if="$store.getters.pageName === 'Oral Archives'"
-      @click="clickAutoplay"
-      :class="{enabled: $store.getters.autoplay}"
-      title="オートプレイ：自動的に次のアノテーションを表示・再生します"
-    ) Auto<span class="play">play</span>
-    template(v-if="prevNextVisibility")
-      a.prev(
-        @click="prev"
-        title="Previus"
-        :class="{disabled: prevDisabled}"
-      )
-        IconPrev
-      a.next(
-        @click="next"
-        title="Next"
-        :class="{disabled: nextDisabled}"
-      )
-        IconNext
-      a.backTolist(
-        v-if="!$store.getters.tourName"
-        @click="$emit('backToList')"
-        :title="`Back to list`"
-      )
-        IconList
-    StopTourButton.button(v-if="$store.getters.tourName" :icon="true")
-    DrawerCloseButton(v-else)
-  article
-    .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
-    img.image(v-if="data.image" :src="data.image")
-    a.button.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
-    .youtube(v-if="flagForYoutube && data.youtube")
-      youtube(
-        ref="youtube"
-        :video-id="data.youtube.id()"
-        :player-vars="playerVars"
-        @playing="youtubeOnPlaying"
-        @ended="goToNextAnnotation"
-      )
-      .cover(
-        ref="cover"
-        :class="{hidden: !cover}"
-        @click="replayVideo()"
-      )
-        .icon 
-    h1 {{ data.title }}
-    .description(
-      v-if="data.description"
-      :class="{noBr}"
-      v-html="data.description"
-    )
-    .tags(v-if="data.tags")
-      h5 Tags
-      .tag(v-for="tag in data.tags" @click="tagClick(tag)" :class="{disabled: $store.getters.tourName}")
-        span \#{{ tag }}
-        span.num {{ annotations.filter((_a) => _a.tags && _a.tags.includes(tag)).length }}
-    .speaker(v-if="data.speaker")
-      h5 Speaker
-      .clf
-        .thumb(:style="`background-image: url(${data.youtube.thumbnailUrl()});`")
-        .text(v-html="data.speaker")
-    .dateTime(v-if="data.dateTime")
-      h5 Date
-      p {{ showDateTime(data.dateTime) }}
+<template>
+  <div class="content">
+    <header>
+      <h2 class="category" :data-name="category">{{ category }}</h2>
+      <a
+        v-if="$store.getters.pageName === 'Oral Archives'"
+        class="autoplay"
+        :class="{ enabled: $store.getters.autoplay }"
+        title="オートプレイ：自動的に次のアノテーションを表示・再生します"
+        @click="clickAutoplay"
+      >
+        Auto<span class="play">play</span>
+      </a>
+      <template v-if="prevNextVisibility">
+        <a
+          title="Previus"
+          class="prev"
+          :class="{ disabled: prevDisabled }"
+          @click="prev"
+        >
+          <IconPrev />
+        </a>
+        <a
+          title="Next"
+          class="next"
+          :class="{ disabled: nextDisabled }"
+          @click="next"
+        >
+          <IconNext />
+        </a>
+        <a
+          v-if="!$store.getters.tourName"
+          class="backTolist"
+          :title="`Back to list`"
+          @click="$emit('backToList')"
+        >
+          <IconList />
+        </a>
+      </template>
+      <StopTourButton
+        v-if="$store.getters.tourName"
+        class="button"
+        :icon="true"
+      />
+      <DrawerCloseButton v-else />
+    </header>
+    <article>
+      <div
+        v-if="isGuidedTour && data.commentForGuidedTour"
+        class="commentForGuidedTour"
+        v-html="data.commentForGuidedTour"
+      ></div>
+      <img v-if="data.image" :src="data.image" class="image" />
+      <a
+        v-if="data.pdf"
+        class="button download"
+        :href="data.pdf"
+        target="_blank"
+      >
+        PDFをみる
+      </a>
+      <div v-if="flagForYoutube && data.youtube" class="youtube">
+        <youtube
+          ref="youtube"
+          :video-id="data.youtube.id()"
+          :player-vars="playerVars"
+          @playing="youtubeOnPlaying"
+          @ended="goToNextAnnotation"
+        ></youtube>
+        <div
+          ref="cover"
+          class="cover"
+          :class="{ hidden: !cover }"
+          @click="replayVideo()"
+        >
+          <div class="icon"></div>
+        </div>
+      </div>
+      <h1>{{ data.title }}</h1>
+      <div
+        v-if="data.description"
+        class="description"
+        :class="{ noBr }"
+        v-html="data.description"
+      ></div>
+      <div v-if="data.tags" class="tags">
+        <h5>Tags</h5>
+        <div
+          v-for="tag in data.tags"
+          :key="tag"
+          class="tag"
+          :class="{ disabled: $store.getters.tourName }"
+          @click="tagClick(tag)"
+        >
+          <span>#{{ tag }}</span>
+          <span class="num">
+            {{
+              annotations.filter((_a) => _a.tags && _a.tags.includes(tag))
+                .length
+            }}
+          </span>
+        </div>
+      </div>
+      <div v-if="data.speaker" class="speaker">
+        <h5>Speaker</h5>
+        <div class="clf">
+          <div
+            class="thumb"
+            :style="`background-image: url(${data.youtube.thumbnailUrl()});`"
+          ></div>
+          <div class="text" v-html="data.speaker"></div>
+        </div>
+      </div>
+      <div v-if="data.dateTime" class="dateTime">
+        <h5>Date</h5>
+        <p>{{ showDateTime(data.dateTime) }}</p>
+      </div>
+    </article>
+  </div>
 </template>
 
 <style scoped>
