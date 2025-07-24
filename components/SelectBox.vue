@@ -16,8 +16,6 @@
 </template>
 
 <style lang="sass" scoped>
-$pc_sp_threshold: 428px
-@import ~/assets/style/general/pc-sp
 .selectBox
   height: 30px
   background: var(--button-bg-color)
@@ -28,8 +26,6 @@ $pc_sp_threshold: 428px
   &:hover
     background-color: #1A1A1A
     color: white
-  +sp
-    height: 38px
   select
     cursor: pointer
     -webkit-appearance: none
@@ -43,8 +39,6 @@ $pc_sp_threshold: 428px
     color: #ADADAD
     font-size: 12px
     padding: 7px 50px 8px 10px
-    +sp
-      font-size: 15px
   .icon
     pointer-events: none
     position: absolute
@@ -56,8 +50,6 @@ $pc_sp_threshold: 428px
     display: flex
     justify-content: center
     align-items: center
-    +sp
-      width: 38px
   &:hover
     select
       color: white
@@ -65,6 +57,13 @@ $pc_sp_threshold: 428px
       svg
         path
           fill: white
+@media only screen and (max-width: 428px)
+  .selectBox
+    height: 38px
+    select
+      font-size: 15px
+    .icon
+      width: 38px
 </style>
 
 <script>
