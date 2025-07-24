@@ -1,137 +1,156 @@
-<template lang="pug">
-.container
-  .pcLayout
-    .key Q
-    .key W
-    .key E
-    .key R
-    .key T
+<template>
+  <div class="container">
+    <div class="pcLayout">
+      <div class="key">Q</div>
+      <div class="key">W</div>
+      <div class="key">E</div>
+      <div class="key">R</div>
+      <div class="key">T</div>
 
-    .btn.panLeft(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="Q"
-      title="Pan Left"
-    )
-    .btn.forward(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="W"
-      title="Forward"
-    )
-    .btn.panRight(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="E"
-      title="Pan Right"
-    )
-    .btn.up(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="R"
-      title="Up"
-    )
-    .btn.tiltUp(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="T"
-      title="Tilt Up"
-    )
+      <div
+        class="btn panLeft"
+        data-key="Q"
+        title="Pan Left"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div
+        class="btn forward"
+        data-key="W"
+        title="Forward"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div
+        class="btn panRight"
+        data-key="E"
+        title="Pan Right"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div
+        class="btn up"
+        data-key="R"
+        title="Up"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div
+        class="btn tiltUp"
+        data-key="T"
+        title="Tilt Up"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
 
-    .btn.left(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="A"
-      title="Left"
-    )
-    .btn.backward(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="S"
-      title="Backward"
-    )
-    .btn.right(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="D"
-      title="Right"
-    )
-    .btn.down(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="F"
-      title="Down"
-    )
-    .btn.tiltDown(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="G"
-      title="Tilt Down"
-    )
+      <div
+        class="btn left"
+        data-key="A"
+        title="Left"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div
+        class="btn backward"
+        data-key="S"
+        title="Backward"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div
+        class="btn right"
+        data-key="D"
+        title="Right"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div
+        class="btn down"
+        data-key="F"
+        title="Down"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div
+        class="btn tiltDown"
+        data-key="G"
+        title="Tilt Down"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
 
-    .key A
-    .key S
-    .key D
-    .key F
-    .key G
-  .spLayout(v-if="spVisibility")
-    .empty
-    .btn.forward(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="W"
-      title="Forward"
-    )
-    .empty
-    .gutter
-    .btn.up(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="R"
-      title="Up"
-    )
+      <div class="key">A</div>
+      <div class="key">S</div>
+      <div class="key">D</div>
+      <div class="key">F</div>
+      <div class="key">G</div>
+    </div>
+    <div v-if="spVisibility" class="spLayout">
+      <div class="empty"></div>
+      <div
+        class="btn forward"
+        data-key="W"
+        title="Forward"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div class="empty"></div>
+      <div class="gutter"></div>
+      <div
+        class="btn up"
+        data-key="R"
+        title="Up"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
 
-    .btn.left(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="A"
-      title="Left"
-    )
-    .btn.backward(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="S"
-      title="Backward"
-    )
-    .btn.right(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="D"
-      title="Right"
-    )
-    .gutter
-    .btn.down(
-      @pointerdown="start"
-      @pointerup="end"
-      @pointerleave="end"
-      data-key="F"
-      title="Down"
-    )
+      <div
+        class="btn left"
+        data-key="A"
+        title="Left"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div
+        class="btn backward"
+        data-key="S"
+        title="Backward"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div
+        class="btn right"
+        data-key="D"
+        title="Right"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+      <div class="gutter"></div>
+      <div
+        class="btn down"
+        data-key="F"
+        title="Down"
+        @pointerdown="start"
+        @pointerup="end"
+        @pointerleave="end"
+      ></div>
+    </div>
+  </div>
 </template>
 
 <style lang="sass" scoped>
