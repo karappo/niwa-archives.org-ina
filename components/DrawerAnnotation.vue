@@ -27,12 +27,12 @@
         :title="`Back to list`"
       )
         IconList
-    StopTourButton(v-if="$store.getters.tourName" :icon="true")
+    StopTourButton.button(v-if="$store.getters.tourName" :icon="true")
     DrawerCloseButton(v-else)
   article
     .commentForGuidedTour(v-if="isGuidedTour && data.commentForGuidedTour" v-html="data.commentForGuidedTour")
     img.image(v-if="data.image" :src="data.image")
-    a.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
+    a.button.download(v-if="data.pdf" :href="data.pdf" target='_blank') PDFをみる
     .youtube(v-if="flagForYoutube && data.youtube")
       youtube(
         ref="youtube"
@@ -117,7 +117,6 @@ header
   .next
     margin-left: 1px
   /deep/ .stopTourButton
-    @extend %button
     height: 34px
     padding-left: 18px
     font-size: 14px
@@ -166,7 +165,6 @@ header
     padding: 20px 23px
     border-radius: 10px
   .download
-    @extend %button
     padding: 20px
   .youtube
     position: relative

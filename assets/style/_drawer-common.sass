@@ -1,4 +1,3 @@
-@import const
 // ヘッダー部分などDrawerで共通の部分
 .content
   color: white
@@ -15,25 +14,25 @@ header
   > h2
     --border-color: #255553
     &[data-name='Still Images']
-      --border-color: #{$color_stillImages}
+      --border-color: var(--color--still-images)
     &[data-name='Movies']
-      --border-color: #{$color_movies}
+      --border-color: var(--color--movies)
     &[data-name='Stones']
-      --border-color: #{$color_stones}
+      --border-color: var(--color--stones)
     &[data-name='Plants']
-      --border-color: #{$color_plants}
+      --border-color: var(--color--plants)
     &[data-name='Creatures']
-      --border-color: #{$color_creatures}
+      --border-color: var(--color--creatures)
     &[data-name='Artifacts']
-      --border-color: #{$color_artifacts}
+      --border-color: var(--color--artifacts)
     &[data-name='DNA Data']
-      --border-color: #{$color_dnaData}
+      --border-color: var(--color--dna-data)
     &[data-name='Oral Archives']
-      --border-color: #{$color_oralArchives}
+      --border-color: var(--color--oral-archives)
     &[data-name='Guided Tour']
-      --border-color: #{$color_guidedTour}
+      --border-color: var(--color--guided-tour)
     &[data-name='Ramble Tour']
-      --border-color: #{$color_rambleTour}
+      --border-color: var(--color--ramble-tour)
     &[data-name='Group']
       --border-color: #747474
     margin: 0

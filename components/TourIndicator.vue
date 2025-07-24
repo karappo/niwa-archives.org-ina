@@ -7,7 +7,8 @@
 </template>
 
 <style lang="sass" scoped>
-@import ~/assets/style/mixins
+$pc_sp_threshold: 428px
+@import ~/assets/style/general/pc-sp
 @keyframes flash
   0%
     opacity: 1

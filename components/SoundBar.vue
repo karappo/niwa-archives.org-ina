@@ -25,10 +25,10 @@
             .progress(:style="progressStyle()")
         .time {{ currentTime }} / {{ totalTime }}
       .movieAndAmbisonics(v-if="data.movieId || data.ambisonicsUrl")
-        nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").link.movie
+        nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").button.link.movie
           | Movie
           span.icon 
-        ExternalLink.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
+        ExternalLink.button.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
           | Ambisonics
           span.icon 
     dl.place
@@ -47,7 +47,8 @@
 
 <style lang="sass" scoped>
 @import ~/assets/style/const
-@import ~/assets/style/mixins
+$pc_sp_threshold: 428px
+@import ~/assets/style/general/pc-sp
 .soundBar
   --background-color: black
   background-color: var(--background-color)
@@ -58,7 +59,7 @@
   font-family: 'K2-v1-Bold'
   margin-bottom: -100%
   transition: margin 0.8s
-  +sp($sp_menu_threshold)
+  +sp(749px)
     font-size: 15px
     .selectBox
       order: 1
@@ -92,17 +93,17 @@
     width: 1px
     height: 100%
     background-color: #3C3C3C
-  +sp($sp_menu_threshold)
+  +sp(749px)
     display: none
   &[data-sp-visibility='true']
-    +sp($sp_menu_threshold)
+    +sp(749px)
       display: block
   &.visible
     margin-bottom: -44px
     &:hover
       margin-bottom: 0
       transition: margin 0.08s
-    +sp($sp_menu_threshold)
+    +sp(749px)
       margin-bottom: 0
     .toggleBtn
       .icon
@@ -110,7 +111,7 @@
 .spHeader
   display: none
   position: relative
-  +sp($sp_menu_threshold)
+  +sp(749px)
     display: flex
     align-items: center
     justify-content: space-between
@@ -145,7 +146,7 @@
   cursor: pointer
   z-index: 10
   justify-content: space-between
-  +sp($sp_menu_threshold)
+  +sp(749px)
     display: none
   span.text
     margin-left: 10px
@@ -163,7 +164,7 @@
   grid-template-rows: repeat(2, 1fr)
   row-gap: 15px
   column-gap: 20px
-  +sp($sp_menu_threshold)
+  +sp(749px)
     display: flex
     flex-direction: column
     padding: 0 20px 20px
@@ -226,10 +227,9 @@
   white-space: nowrap
   color: #898989
   flex-shrink: 0
-  +sp($sp_menu_threshold)
+  +sp(749px)
     letter-spacing: 0
 .link
-  @extend %button
   margin-left: 8px
   border-radius: 5px
   white-space: nowrap
@@ -264,7 +264,7 @@ dl
     font-family: 'K2-v1-Bold'
     font-size: 12px
     border-right: 1px solid var(--background-color)
-    +sp($sp_menu_threshold)
+    +sp(749px)
       font-size: 15px
   dd
     padding-left: 12px
@@ -273,7 +273,7 @@ dl
     width: 100%
     margin-left: 0
     margin-right: 0
-    +sp($sp_menu_threshold)
+    +sp(749px)
       font-size: 14px
       font-weight: bold
     a.disabled
@@ -285,7 +285,7 @@ dl
     .creature + .creature
       margin-left: 1.5em
 .creatures
-  +sp($sp_menu_threshold)
+  +sp(749px)
     display: block
     background-color: transparent
     width: auto

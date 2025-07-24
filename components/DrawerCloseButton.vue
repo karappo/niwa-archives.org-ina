@@ -1,12 +1,11 @@
 <template lang="pug">
-.close(title="Close" @click="$nuxt.$emit('closeDrawer')")
+.close.button(title="Close" @click="$nuxt.$emit('closeDrawer')")
   IconClose
 </template>
 
 <style lang="sass" scoped>
 @import ~/assets/style/const
 .close
-  @extend %button
   height: 34px
   width: 34px
   font-size: 12px

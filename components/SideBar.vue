@@ -42,7 +42,8 @@ aside
 
 <style lang="sass" scoped>
 @import ~/assets/style/const
-@import ~/assets/style/mixins
+$pc_sp_threshold: 428px
+@import ~/assets/style/general/pc-sp
 aside
   background-color: #000
   color: #898989
@@ -55,7 +56,7 @@ aside
     padding-bottom: var(--main-min-height)
 .spHeader
   display: none
-  +sp($sp_menu_threshold)
+  +sp(749px)
     --size: 54px
     height: var(--size)
     display: flex

@@ -16,7 +16,8 @@
 </template>
 
 <style lang="sass" scoped>
-@import ~/assets/style/mixins
+$pc_sp_threshold: 428px
+@import ~/assets/style/general/pc-sp
 .selectBox
   height: 30px
   background: var(--button-bg-color)

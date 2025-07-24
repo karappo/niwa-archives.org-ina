@@ -22,27 +22,27 @@
   align-items: center
   margin-left: 20px
 
-  --bg-color: #{$color_annotationDefault}
+  --bg-color: #4d4d4d
   &[data-name='Viewpoints/Still Images']
-    --bg-color: #{$color_stillImages}
+    --bg-color: var(--color--still-images)
   &[data-name='Viewpoints/Movies']
-    --bg-color: #{$color_movies}
+    --bg-color: var(--color--movies)
   &[data-name='Elements/Stones']
-    --bg-color: #{$color_stones}
+    --bg-color: var(--color--stones)
   &[data-name='Elements/Plants']
-    --bg-color: #{$color_plants}
+    --bg-color: var(--color--plants)
   &[data-name='Elements/Creatures']
-    --bg-color: #{$color_creatures}
+    --bg-color: var(--color--creatures)
   &[data-name='Elements/Artifacts']
-    --bg-color: #{$color_artifacts}
+    --bg-color: var(--color--artifacts)
   &[data-name='Elements/DNA Data']
-    --bg-color: #{$color_dnaData}
+    --bg-color: var(--color--dna-data)
   &[data-name='Oral Archives']
-    --bg-color: #{$color_oralArchives}
+    --bg-color: var(--color--oral-archives)
   &[data-name='Guided Tour']
-    --bg-color: #{$color_guidedTour}
+    --bg-color: var(--color--guided-tour)
   &[data-name='Ramble Tour']
-    --bg-color: #{$color_rambleTour}
+    --bg-color: var(--color--ramble-tour)
 
   &:hover
     color: rgba(255,255,255,0.8)

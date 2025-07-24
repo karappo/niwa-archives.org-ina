@@ -1,6 +1,6 @@
 <template lang="pug">
 .selectBox
-  select(
+  select.button(
     :value="value"
     @change="$emit('update:value', $event.target.value)"
   )
@@ -34,7 +34,6 @@
     width: 100%
     height: 100%
     padding: 7px 50px 8px 14px
-    @extend %button
   .icon
     pointer-events: none
     position: absolute

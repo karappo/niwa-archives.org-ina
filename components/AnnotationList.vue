@@ -53,21 +53,21 @@
       align-items: center
       --bg-color: transparent
       &[data-category='Viewpoints/Still Images']
-        --bg-color: #{$color_stillImages}
+        --bg-color: var(--color--still-images)
       &[data-category='Viewpoints/Movies']
-        --bg-color: #{$color_movies}
+        --bg-color: var(--color--movies)
       &[data-category='Elements/Stones']
-        --bg-color: #{$color_stones}
+        --bg-color: var(--color--stones)
       &[data-category='Elements/Plants']
-        --bg-color: #{$color_plants}
+        --bg-color: var(--color--plants)
       &[data-category='Elements/Creatures']
-        --bg-color: #{$color_creatures}
+        --bg-color: var(--color--creatures)
       &[data-category='Elements/Artifacts']
-        --bg-color: #{$color_artifacts}
+        --bg-color: var(--color--artifacts)
       &[data-category='Elements/DNA Data']
-        --bg-color: #{$color_dnaData}
+        --bg-color: var(--color--dna-data)
       &[data-category='Oral Archives']
-        --bg-color: #{$color_oralArchives}
+        --bg-color: var(--color--oral-archives)
       .dot
         display: inline-block
         width: 6px

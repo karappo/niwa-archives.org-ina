@@ -1,7 +1,9 @@
 @import general/fixes
 @import general/reset-2
-@import const
 @import annotation
+
+// thresholds
+// $sp_menu_threshold: 749px
 
 @font-face
   font-family: 'K2-v1-Heavy'
@@ -76,16 +78,24 @@ body
   --button-bg-color: #242424
   --textbox-bg-color: #151515
 
-  --color--still-images: $color_stillImages
-  --color--movies: $color_movies
-  --color--stones: $color_stones
-  --color--plants: $color_plants
-  --color--creatures: $color_creatures
-  --color--artifacts: $color_artifacts
-  --color--dna-data: $color_dnaData
-  --color--oral-archives: $color_oralArchives
+  --color--still-images: #3197FF
+  --color--movies: #3543B1
+  --color--stones: #5D8FFF
+  --color--plants: #53EB93
+  --color--creatures: #FF9B89
+  --color--artifacts: #e3e668
+  --color--dna-data: #A452E0
+  --color--oral-archives: #E516D5
+
+  --color--guided-tour: #007B5A
+  --color--guided-tour--darken: #005a4e // darken(var(--color--guided-tour), 10%) の代わりに決めうちの値
+  --color--ramble-tour: #642BFF
+  --color--ramble-tour--darken: #3f1a99 // darken(var(--color--ramble-tour), 30%) の代わりに決めうちの値
 
   --main-min-height: 70px
+
+  --sp-menu-width: 60px
+
 
   &.top
     overflow-y: scroll
@@ -128,3 +138,36 @@ a.disabled
 // #potree_quick_buttons,
 // #sidebar_root
 //   display: none
+
+.button
+  background: var(--button-bg-color)
+  border: 3px solid var(--button-bg-color)
+  color: #898989
+  font-family: 'K2-v1-Bold'
+  font-weight: normal
+  font-size: 14px
+  display: flex
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  flex-shrink: 0
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s
+  svg
+    line,
+    path
+      transition: stroke 0.2s
+    rect
+      transition: fill 0.2s
+  &:not([disabled]):hover
+    background-color: #1A1A1A
+    border-color: #1A1A1A
+    color: white
+    svg
+      line,
+      path
+        stroke: white
+      rect
+        fill: white
+  &[disabled]
+    cursor: not-allowed
+    opacity: 0.5

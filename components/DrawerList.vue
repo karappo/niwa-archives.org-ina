@@ -58,15 +58,15 @@ article
   &.guidedTour
     background-color: #112526
     &:hover
-      background-color: darken($color_guidedTour, 10%)
+      background-color: var(--color--guided-tour--darken)
     +sp(1024px)
-      background-color: darken($color_guidedTour, 10%)
+      background-color: var(--color--guided-tour--darken)
   &.rambleTour
     background-color: #252134
     &:hover
-      background-color: darken($color_rambleTour, 30%)
+      background-color: var(--color--ramble-tour--darken)
     +sp(1024px)
-      background-color: darken($color_rambleTour, 30%)
+      background-color: var(--color--ramble-tour--darken)
 .empty
   color: #898989
 .groups

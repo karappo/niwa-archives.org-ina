@@ -135,9 +135,6 @@
 </template>
 
 <style lang="sass" scoped>
-// タブレットでもSPレイアウトを使用するため、閾値をPCレイアウトの閾値よりも大きく
-$pc_sp_threshold: 1024px
-@import ~/assets/style/general/pc-sp
 @import ~/assets/style/const
 .container
   margin: auto 20px 20px auto
@@ -153,12 +150,6 @@ $pc_sp_threshold: 1024px
       -moz-user-select: none
       -ms-user-select: none
       user-select: none
-  +sp
-    margin: auto 22px 22px 22px
-
-@media (max-width: $sp_menu_threshold) and (max-height: 380px)
-  .container
-    margin-right: calc(22px + #{$sp_menu_width} + 11px) !important
 
 .pcLayout
   display: grid
@@ -166,16 +157,12 @@ $pc_sp_threshold: 1024px
   grid-template-rows: 20px 20px 21px 21px
   column-gap: 5px
   row-gap: 5px
-  +sp
-    display: none
 .spLayout
   display: none
   grid-template-columns: 62px 62px 62px auto 62px
   grid-template-rows: 62px 62px
   column-gap: 17px
   row-gap: 17px
-  +sp
-    display: grid !important
 .key,
 .btn
   color: white
@@ -195,14 +182,8 @@ $pc_sp_threshold: 1024px
   background-position: center
   transition: background-color 0.2s
   touch-action: none // ピンチインアウトを無効化
-  &:hover
-    +pc
-      background-color: #333
   &.touched
     background-color: #333
-  +sp
-    border-radius: 10px
-    background-color: rgba(29, 29, 29, 0.80)
 .panLeft
   background-image: url(~assets/image/pan.svg)
 .panRight
@@ -216,31 +197,52 @@ $pc_sp_threshold: 1024px
   transform: rotate(-90deg)
 .forward
   background-image: url(~assets/image/arrow.svg)
-  +sp
-    background-size: 29px auto
 .backward
   background-image: url(~assets/image/arrow.svg)
   transform: rotate(180deg)
-  +sp
-    background-size: 29px auto
 .left
   background-image: url(~assets/image/arrow.svg)
   transform: rotate(-90deg)
-  +sp
-    background-size: auto 29px
 .right
   background-image: url(~assets/image/arrow.svg)
   transform: rotate(90deg)
-  +sp
-    background-size: auto 29px
 .up
   background-image: url(~assets/image/arrow-outline.svg)
-  +sp
-    background-size: 29px auto
 .down
   background-image: url(~assets/image/arrow-outline.svg)
   transform: rotate(180deg)
-  +sp
+
+// タブレットでもSPレイアウトを使用するため、閾値をPCレイアウトの閾値よりも大きく
+
+@media (max-width: 1024px) and (max-height: 380px)
+  .container
+    margin-right: calc(22px + var(--sp-menu-width) + 11px) !important
+
+@media only screen and (min-width: 1025px)
+  .btn:hover
+    background-color: #333
+
+@media only screen and (max-width: 1024px)
+  .container
+    margin: auto 22px 22px 22px
+  .pcLayout
+    display: none
+  .spLayout
+    display: grid !important
+  .btn
+    border-radius: 10px
+    background-color: rgba(29, 29, 29, 0.80)
+  .forward
+    background-size: 29px auto
+  .backward
+    background-size: 29px auto
+  .left
+    background-size: auto 29px
+  .right
+    background-size: auto 29px
+  .up
+    background-size: 29px auto
+  .down
     background-size: 29px auto
 </style>
 

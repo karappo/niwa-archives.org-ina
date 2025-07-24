@@ -113,7 +113,8 @@
 
 <style lang="sass" scoped>
 @import ~/assets/style/const
-@import ~/assets/style/mixins
+$pc_sp_threshold: 428px
+@import ~/assets/style/general/pc-sp
 .root
   width: 100%
   height: var(--vh)
@@ -140,7 +141,7 @@ main
   z-index: 100
 nav.spMenu
   display: none
-  +sp($sp_menu_threshold)
+  +sp(749px)
     display: flex
     flex-direction: column
     position: absolute
@@ -148,8 +149,8 @@ nav.spMenu
     right: 0
     z-index: 100
   .btn
-    width: $sp_menu_width
-    height: $sp_menu_width
+    width: var(--sp-menu-width)
+    height: var(--sp-menu-width)
     flex-shrink: 0
     background-color: rgba(0,0,0,0.7)
     display: flex
@@ -167,7 +168,7 @@ nav.spMenu
   height: 100%
   margin: 0
   border-left: 0
-  +sp($sp_menu_threshold)
+  +sp(749px)
     display: none
 .title
   margin: 24px
@@ -175,8 +176,8 @@ nav.spMenu
   font-weight: normal
   font-size: 17px
   color: white
-  +sp($sp_menu_threshold)
-    margin-right: calc(24px + #{$sp_menu_width})
+  +sp(749px)
+    margin-right: calc(24px + var(--sp-menu-width))
   +sp
     margin: 10px 16px
     letter-spacing: 0
@@ -214,11 +215,11 @@ nav.spMenu
         display: flex
         align-items: center
         flex-shrink: 0
-        +sp($sp_menu_threshold)
+        +sp(749px)
           font-size: 10px
         &:not(.full)
-          +sp($sp_menu_threshold)
-            margin-right: $sp_menu_width
+          +sp(749px)
+            margin-right: var(--sp-menu-width)
         .text
           margin-right: auto
         .closeButton
@@ -347,7 +348,7 @@ nav.spMenu
     transition: background-color 0.2s
     &:hover
       background-color: lighten(#1D1D1D, 5%)
-    +sp($sp_menu_threshold)
+    +sp(749px)
       font-size: 15px
       width: 110px
       height: 40px
