@@ -8,19 +8,6 @@
 $pc_sp_threshold: 990px
 @import general/pc-sp
 
-$weights: 'Heavy','Bold','Regular','Light','XLight','Thin','Hairline'
-@each $weight in $weights
-  @font-face
-    font-family: 'K2-v1-#{$weight}'
-    font-weight: normal
-    src: url('~assets/font/k2/K2-v1-#{$weight}.woff2') format('woff2'), url('~assets/font/k2/K2-v1-#{$weight}.woff') format('woff')
-
-$weights: 'Pro-Solid-900','Pro-Regular-400','Pro-Light-300', 'Brands-Regular-400', 'Duotone-Solid-900'
-@each $weight in $weights
-  @font-face
-    font-family: 'Font Awesome 5 #{$weight}'
-    font-weight: normal
-    src: url('~assets/font/awesome/Font Awesome 5 #{$weight}.otf') format('opentype')
 
 // Annotation Colors
 $color_annotationDefault: #4d4d4d
