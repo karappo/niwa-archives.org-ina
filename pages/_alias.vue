@@ -108,7 +108,7 @@
           class="btn"
           :class="{ active: sideBarSpVisibility }"
           @click="sideBarSpVisibility = !sideBarSpVisibility"
-          >
+        >
           <SpMenuList />
         </div>
         <div
