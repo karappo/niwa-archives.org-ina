@@ -114,13 +114,13 @@
       | 点群数：<br>
       | 59,793,125<br>
 </template>
-
-<style lang="sass" scoped>
-@import ~/assets/style/drawer-common
-article
-  font-size: 14px
-  line-height: 2
-  color: #898989
+<style scoped>
+@import '@/assets/style/_drawer-common.css';
+article {
+  font-size: 14px;
+  line-height: 2;
+  color: #898989;
+}
 </style>
 
 <script>

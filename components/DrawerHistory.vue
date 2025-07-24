@@ -61,7 +61,7 @@
 </template>
 
 <style lang="sass" scoped>
-@import ~/assets/style/drawer-common
+@import ~/assets/style/_drawer-common.css
 article
   font-size: 14px
   line-height: 2

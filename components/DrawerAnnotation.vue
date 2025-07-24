@@ -85,7 +85,7 @@
 </style>
 
 <style lang="sass" scoped>
-@import ~/assets/style/drawer-common
+@import ~/assets/style/_drawer-common.css
 header
   .autoplay
     padding: 0 14px

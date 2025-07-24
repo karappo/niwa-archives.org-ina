@@ -28,7 +28,7 @@
 </template>
 
 <style lang="sass" scoped>
-@import ~/assets/style/drawer-common
+@import ~/assets/style/_drawer-common.css
 article
   h3
     font-family: 'K2-v1-Bold'
