@@ -1,18 +1,34 @@
-<template lang="pug">
-.annotationList
-  ul.list(v-if="list.length" :class="{thin}")
-    li(v-for="(o, i) in list" @click="$nuxt.$emit('clickAnnotationLink', o.id)")
-      .thumb(v-if="!isOralArchives" :style="`background-image: url(${thumbURL(o)});`")
-
-      span.index(v-if="isOralArchives") {{ i + 1 }}
-      span.type(v-else)
-        TypeImage(v-if="o.image")
-        TypeVideo(v-if="o.youtube")
-
-      span.title {{ o.title }}
-      .dotWrap(v-if="typeVisibility" :data-category="o.category" :title="o.category")
-        .dot
-  .empty(v-else) データがありません
+<template>
+  <div class="annotationList">
+    <ul v-if="list.length" :class="{ thin }" class="list">
+      <li
+        v-for="(o, i) in list"
+        :key="o.id"
+        @click="$nuxt.$emit('clickAnnotationLink', o.id)"
+      >
+        <div
+          v-if="!isOralArchives"
+          class="thumb"
+          :style="`background-image: url(${thumbURL(o)});`"
+        ></div>
+        <span v-if="isOralArchives" class="index">{{ i + 1 }}</span>
+        <span v-else class="type">
+          <TypeImage v-if="o.image"></TypeImage>
+          <TypeVideo v-if="o.youtube"></TypeVideo>
+        </span>
+        <span class="title">{{ o.title }}</span>
+        <div
+          v-if="typeVisibility"
+          class="dotWrap"
+          :data-category="o.category"
+          :title="o.category"
+        >
+          <div class="dot"></div>
+        </div>
+      </li>
+    </ul>
+    <div v-else class="empty">データがありません</div>
+  </div>
 </template>
 
 <style lang="sass" scoped>
