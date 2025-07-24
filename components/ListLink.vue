@@ -1,13 +1,15 @@
-<template lang="pug">
-.btn(
-  @click="$nuxt.$emit('selectList', listName)"
-  :data-name="listName"
-  :class="{current: $store.getters.pageName === listName}"
-)
-  .dot.icon(v-if="icon==='dot'")
-  IconTour.tour(v-else-if="icon==='tour'")
-  IconHyphen.tour(v-else-if="icon==='hyphen'")
-  | {{ title }}
+<template>
+  <div
+    :data-name="listName"
+    :class="{ current: $store.getters.pageName === listName }"
+    class="btn"
+    @click="$nuxt.$emit('selectList', listName)"
+  >
+    <span v-if="icon === 'dot'" class="dot icon"></span>
+    <IconTour v-else-if="icon === 'tour'" class="tour"></IconTour>
+    <IconHyphen v-else-if="icon === 'hyphen'" class="tour"></IconHyphen>
+    {{ title }}
+  </div>
 </template>
 
 <style lang="sass" scoped>
