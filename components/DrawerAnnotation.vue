@@ -60,7 +60,7 @@
         span.num {{ annotations.filter((_a) => _a.tags && _a.tags.includes(tag)).length }}
     .speaker(v-if="data.speaker")
       h5 Speaker
-      .unit
+      .clf
         .thumb(:style="`background-image: url(${data.youtube.thumbnailUrl()});`")
         .text(v-html="data.speaker")
     .dateTime(v-if="data.dateTime")
@@ -68,8 +68,23 @@
       p {{ showDateTime(data.dateTime) }}
 </template>
 
+<style scoped>
+.clf:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.clf:before {
+  content: '';
+  display: block;
+  clear: both;
+}
+.clf {
+  display: block;
+}
+</style>
+
 <style lang="sass" scoped>
-@import ~/assets/style/general/clf
 @import ~/assets/style/const
 @import ~/assets/style/drawer-common
 header
@@ -210,8 +225,6 @@ header
         font-family: 'K2-v1-Regular'
         margin-left: 1em
   .speaker
-    .unit
-      @extend .clf
     .thumb
       background-size: 180% // 上下に黒帯が入った正方形なのでceoverにするとNG
       background-position: center
