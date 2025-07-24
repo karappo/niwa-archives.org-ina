@@ -1,9 +1,12 @@
-<template lang="pug">
-.tourModeIndicator
-  template(v-if="this.$store.getters.tourName==='Guided Tour'")
-    | {{ label }} - {{ denominator }}/{{ numerator }}
-  template(v-else)
-    | {{ label }}
+<template>
+  <div class="tourModeIndicator">
+    <template v-if="$store.getters.tourName === 'Guided Tour'">
+      {{ label }} - {{ denominator }}/{{ numerator }}
+    </template>
+    <template v-else>
+      {{ label }}
+    </template>
+  </div>
 </template>
 
 <style lang="sass" scoped>

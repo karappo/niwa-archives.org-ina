@@ -1,7 +1,8 @@
-<template lang="pug">
-.stopTourButton(@click="$store.commit('tourName', null)")
-  | Stop Tour
-  IconStop(v-if="icon")
+<template>
+  <div class="stopTourButton" @click="$store.commit('tourName', null)">
+    Stop Tour
+    <IconStop v-if="icon" />
+  </div>
 </template>
 
 <script>
