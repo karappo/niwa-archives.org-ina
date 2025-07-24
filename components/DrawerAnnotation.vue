@@ -135,7 +135,8 @@ header
       h4,
       h5,
       h6
-        @extend %font_bolder
+        font-family: 'K2-v1-Bold', 'TsukuGoPro-E', '游ゴシック体', 'Yu Gothic', 'YuGothic', YuGothic, 'Lucida Grande','Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','HiraKakuProN-W3','メイリオ','Meiryo','ＭＳ ゴシック','MS Gothic',Osaka,Verdana,arial,helvetica,sans-serif
+        font-weight: normal
       h2
         margin: 1.6em 0 0.3rem
         color: #ddd
