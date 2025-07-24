@@ -1,43 +1,85 @@
-<template lang="pug">
-aside
-  .wrap
-    .spHeader
-      .closeBtn(@click="$emit('spClose')")
-        SideBarClose
-    //- nuxt-link.backToTop(to="/")
-    //-   span Back to top
-    //-   MenuArrow
-    h2 Outlines
-    section.outlines
-      ListLink(listName='History' icon='hyphen') History
-      ListLink(listName='Plans' icon='hyphen') Plans
-      ListLink(listName='3D Data' icon='hyphen') 3D Data
-      SelectBox.variations(
-        v-if="variations.length"
-        :options="variations"
-        :value.sync="variationIndex"
-      )
-    h2
-      ListLinkCheckbox(listName='Annotations')
-    section.viewpoints
-      h3
-        ListLinkCheckbox(listName='Viewpoints')
-      ListLinkCheckbox(listName='Viewpoints/Still Images' icon='dot')
-      ListLinkCheckbox(listName='Viewpoints/Movies' icon='dot')
-    section.elements
-      h3
-        ListLinkCheckbox(listName='Elements')
-      ListLinkCheckbox(listName='Elements/Stones' icon='dot')
-      ListLinkCheckbox(listName='Elements/Plants' icon='dot')
-      ListLinkCheckbox(listName='Elements/Creatures' icon='dot')
-      ListLinkCheckbox(listName='Elements/Artifacts' icon='dot')
-      ListLinkCheckbox(listName='Elements/DNA Data' icon='dot')
-    section.orals
-      ListLinkCheckbox(listName='Oral Archives' icon='dot')
-    h2 Tour Modes
-    section.tours
-      ListLink(v-if="guidedTourExists" listName='Guided Tour' icon='tour')
-      ListLink(listName='Ramble Tour' icon='tour')
+<template>
+  <aside>
+    <div class="wrap">
+      <div class="spHeader">
+        <div class="closeBtn" @click="$emit('spClose')">
+          <SideBarClose />
+        </div>
+      </div>
+      <!-- <nuxt-link class="backToTop" to="/">
+        <span>Back to top</span>
+        <MenuArrow></MenuArrow>
+      </nuxt-link> -->
+      <h2>Outlines</h2>
+      <section class="outlines">
+        <ListLink listName="History" icon="hyphen">History</ListLink>
+        <ListLink listName="Plans" icon="hyphen">Plans</ListLink>
+        <ListLink listName="3D Data" icon="hyphen">3D Data</ListLink>
+        <SelectBox
+          v-if="variations.length"
+          v-model="variationIndex"
+          :options="variations"
+          class="variations"
+        ></SelectBox>
+      </section>
+      <h2>
+        <ListLinkCheckbox listName="Annotations"></ListLinkCheckbox>
+      </h2>
+      <section class="viewpoints">
+        <h3>
+          <ListLinkCheckbox listName="Viewpoints"></ListLinkCheckbox>
+        </h3>
+        <ListLinkCheckbox
+          listName="Viewpoints/Still Images"
+          icon="dot"
+        ></ListLinkCheckbox>
+        <ListLinkCheckbox
+          listName="Viewpoints/Movies"
+          icon="dot"
+        ></ListLinkCheckbox>
+      </section>
+      <section class="elements">
+        <h3>
+          <ListLinkCheckbox listName="Elements"></ListLinkCheckbox>
+        </h3>
+        <ListLinkCheckbox
+          listName="Elements/Stones"
+          icon="dot"
+        ></ListLinkCheckbox>
+        <ListLinkCheckbox
+          listName="Elements/Plants"
+          icon="dot"
+        ></ListLinkCheckbox>
+        <ListLinkCheckbox
+          listName="Elements/Creatures"
+          icon="dot"
+        ></ListLinkCheckbox>
+        <ListLinkCheckbox
+          listName="Elements/Artifacts"
+          icon="dot"
+        ></ListLinkCheckbox>
+        <ListLinkCheckbox
+          listName="Elements/DNA Data"
+          icon="dot"
+        ></ListLinkCheckbox>
+      </section>
+      <section class="orals">
+        <ListLinkCheckbox
+          listName="Oral Archives"
+          icon="dot"
+        ></ListLinkCheckbox>
+      </section>
+      <h2>Tour Modes</h2>
+      <section class="tours">
+        <ListLink
+          v-if="guidedTourExists"
+          listName="Guided Tour"
+          icon="tour"
+        ></ListLink>
+        <ListLink listName="Ramble Tour" icon="tour"></ListLink>
+      </section>
+    </div>
+  </aside>
 </template>
 
 <style lang="sass" scoped>
@@ -149,11 +191,11 @@ h3
 </style>
 
 <script>
-import MenuArrow from '~/assets/image/menu-arrow.svg?inline'
+// import MenuArrow from '~/assets/image/menu-arrow.svg?inline'
 import SideBarClose from '~/assets/image/sideBar/close.svg?inline'
 export default {
   components: {
-    MenuArrow,
+    // MenuArrow,
     SideBarClose
   },
   props: {
