@@ -1,114 +1,142 @@
-<template lang="pug">
-.root
-  main
-    splitpanes.default-theme(:horizontal="isSP")
-      pane.potree_container(
-        size="60"
-      )
-        .notice(
-          v-if="isLowPerformance && noticeVisibility"
-          :class="{full: spSideBarVisibility}"
-        )
-          .text 3Dの点群の解像度を下げて表示しています。高解像度でご覧頂くには、より処理の速い端末かデスクトップ版ブラウザをご利用下さい。
-          .closeButton(@click="noticeVisibility = false")
-            IconClose
-        .potree_wrap
-          #potree_render_area(
-            ref="potree_render_area"
-            :class="potreeRenderAreaClass"
-          )
-            .debugMenuButton(v-if="debugMode" @click="viewer.toggleSidebar()")
-            .controls
-              h1.title(@dblclick="data.initCamera()")
-                span.global Incomplete Niwa Archives
-                span.scene {{ data.title }}
-                template(v-if="infoMode")
-                  br
-                  span(style="font-size: 13px;") Benchmark Time: {{ benchmarkTime }}
-                  br
-                  span(style="font-size: 13px;") Low Performance Mode: {{ isLowPerformance }}
-              template(v-if="tourName")
-                TourIndicator(
-                  :numerator="tourData.list.length"
-                  :denominator="tourCurrentIndex + 1"
-                )
-                StopTourButton(:class="{hiddenInSP: tourName !== 'Ramble Tour without Annotations'}")
-              template(v-else)
-                KeyMap(:spVisibility="!drawerVisibility && keyMapSpVisibility")
-          #potree_sidebar_container
-      //- drawerとSpのSidebarは、同じpaneを使い回す。そうしないと、高さが合わなくなる
-      //- https://app.asana.com/0/1186397743907793/1207018579945583/f
-      pane.drawer(
-        v-if="drawerVisibility || spSideBarVisibility"
-        :size="isSP ? 60 : 40"
-        min-size="25"
-        max-size="75"
-        :class="{border: !tourName}"
-      )
-        template(v-if="drawerVisibility")
-          DrawerHistory(
-            v-if="$store.getters.pageName === 'History'"
-          )
-          Drawer3DData(
-            v-else-if="$store.getters.pageName === '3D Data'"
-          )
-          DrawerAnnotation(
-            v-else-if="annotationData"
-            :data="annotationData"
-            :annotations="annotations"
-            :prevNextVisibility="prevNextVisibility"
-            :prevDisabled="prevDisabled"
-            :nextDisabled="nextDisabled"
-            :isSP="isSP"
-            @backToList="clearAnnotationData"
-            @prev="prev"
-            @next="next"
-          )
-          DrawerList(
-            v-else-if="tourData"
-            :data="tourData"
-          )
-          DrawerList(
-            v-else-if="listData"
-            :data="listData"
-          )
-        template(v-else-if="spSideBarVisibility")
-          SideBar(
-            :guidedTourExists="0 < data.guidedTour.length"
-            :variations="data.variations"
-            :spVisibility="!drawerVisibility && sideBarSpVisibility"
-            @spClose="sideBarSpVisibility = false"
-            @saveCameraInfo="saveCameraInfo"
-          )
-    SoundBar(
-      :annotations="annotations"
-      :spVisibility="!drawerVisibility && soundSpVisibility"
-      @spClose="soundSpVisibility = false"
-    )
-    nav.spMenu(v-if="!drawerVisibility && !sideBarSpVisibility")
-      .btn(
-        @click="sideBarSpVisibility = !sideBarSpVisibility"
-        :class="{active: sideBarSpVisibility}"
-      )
-        SpMenuList
-      .btn(
-        @click="keyMapSpVisibility = !keyMapSpVisibility"
-        :class="{active: keyMapSpVisibility}"
-      )
-        SpMenuNavigate
-      .btn(
-        v-if="soundDataExists"
-        @click="soundSpVisibility = !soundSpVisibility"
-        :class="{active: soundSpVisibility}"
-      )
-        SpMenuSound
-  SideBar.sideBar(
-    v-if="!tourName"
-    :guidedTourExists="0 < data.guidedTour.length"
-    :variations="data.variations"
-    @spClose="sideBarSpVisibility = false"
-    @saveCameraInfo="saveCameraInfo"
-  )
+<template>
+  <div class="root">
+    <main>
+      <splitpanes class="default-theme" :horizontal="isSP">
+        <pane class="potree_container" size="60">
+          <div
+            v-if="isLowPerformance && noticeVisibility"
+            class="notice"
+            :class="{ full: spSideBarVisibility }"
+          >
+            <div class="text">
+              3Dの点群の解像度を下げて表示しています。高解像度でご覧頂くには、より処理の速い端末かデスクトップ版ブラウザをご利用下さい。
+            </div>
+            <div class="closeButton" @click="noticeVisibility = false">
+              <IconClose />
+            </div>
+          </div>
+          <div class="potree_wrap">
+            <div
+              id="potree_render_area"
+              ref="potree_render_area"
+              :class="potreeRenderAreaClass"
+            >
+              <div
+                v-if="debugMode"
+                class="debugMenuButton"
+                @click="viewer.toggleSidebar()"
+              ></div>
+              <div class="controls">
+                <h1 class="title" @dblclick="data.initCamera()">
+                  <span class="global">Incomplete Niwa Archives</span>
+                  <span class="scene">{{ data.title }}</span>
+                  <template v-if="infoMode">
+                    <br />
+                    <span style="font-size: 13px">
+                      Benchmark Time: {{ benchmarkTime }}
+                    </span>
+                    <br />
+                    <span style="font-size: 13px">
+                      Low Performance Mode: {{ isLowPerformance }}
+                    </span>
+                  </template>
+                </h1>
+                <template v-if="tourName">
+                  <TourIndicator
+                    :numerator="tourData.list.length"
+                    :denominator="tourCurrentIndex + 1"
+                  />
+                  <StopTourButton
+                    :class="{
+                      hiddenInSP: tourName !== 'Ramble Tour without Annotations'
+                    }"
+                  />
+                </template>
+                <template v-else>
+                  <KeyMap
+                    :spVisibility="!drawerVisibility && keyMapSpVisibility"
+                  />
+                </template>
+              </div>
+            </div>
+          </div>
+        </pane>
+        <pane
+          v-if="drawerVisibility || spSideBarVisibility"
+          class="drawer"
+          :size="isSP ? 60 : 40"
+          min-size="25"
+          max-size="75"
+          :class="{ border: !tourName }"
+        >
+          <template v-if="drawerVisibility">
+            <DrawerHistory v-if="$store.getters.pageName === 'History'" />
+            <Drawer3DData v-else-if="$store.getters.pageName === '3D Data'" />
+            <DrawerAnnotation
+              v-else-if="annotationData"
+              :data="annotationData"
+              :annotations="annotations"
+              :prevNextVisibility="prevNextVisibility"
+              :prevDisabled="prevDisabled"
+              :nextDisabled="nextDisabled"
+              :isSP="isSP"
+              @backToList="clearAnnotationData"
+              @prev="prev"
+              @next="next"
+            />
+            <DrawerList v-else-if="tourData" :data="tourData" />
+            <DrawerList v-else-if="listData" :data="listData" />
+          </template>
+          <template v-else-if="spSideBarVisibility">
+            <SideBar
+              :guidedTourExists="0 < data.guidedTour.length"
+              :variations="data.variations"
+              :spVisibility="!drawerVisibility && sideBarSpVisibility"
+              @spClose="sideBarSpVisibility = false"
+              @saveCameraInfo="saveCameraInfo"
+            />
+          </template>
+        </pane>
+      </splitpanes>
+      <SoundBar
+        :annotations="annotations"
+        :spVisibility="!drawerVisibility && soundSpVisibility"
+        @spClose="soundSpVisibility = false"
+      />
+      <nav class="spMenu" v-if="!drawerVisibility && !sideBarSpVisibility">
+        <div
+          class="btn"
+          @click="sideBarSpVisibility = !sideBarSpVisibility"
+          :class="{ active: sideBarSpVisibility }"
+        >
+          <SpMenuList />
+        </div>
+        <div
+          class="btn"
+          @click="keyMapSpVisibility = !keyMapSpVisibility"
+          :class="{ active: keyMapSpVisibility }"
+        >
+          <SpMenuNavigate />
+        </div>
+        <div
+          v-if="soundDataExists"
+          class="btn"
+          @click="soundSpVisibility = !soundSpVisibility"
+          :class="{ active: soundSpVisibility }"
+        >
+          <SpMenuSound />
+        </div>
+      </nav>
+    </main>
+    <SideBar
+      v-if="!tourName"
+      class="sideBar"
+      :guidedTourExists="0 < data.guidedTour.length"
+      :variations="data.variations"
+      @spClose="sideBarSpVisibility = false"
+      @saveCameraInfo="saveCameraInfo"
+    />
+  </div>
 </template>
 
 <style lang="sass" scoped>
@@ -364,7 +392,6 @@ nav.spMenu
 import _groupBy from 'lodash/groupBy'
 import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
-import { ExternalLink } from '@karappo-inc/vue-components'
 import AllSoundData from '~/data/sounds.js'
 import IconClose from '~/assets/image/icon-close.svg?inline'
 import SpMenuList from '~/assets/image/spMenu/list.svg?inline'
@@ -372,7 +399,6 @@ import SpMenuNavigate from '~/assets/image/spMenu/navigate.svg?inline'
 import SpMenuSound from '~/assets/image/spMenu/sound.svg?inline'
 export default {
   components: {
-    ExternalLink,
     IconClose,
     SpMenuList,
     SpMenuNavigate,
