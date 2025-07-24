@@ -1,6 +1,6 @@
 <template>
   <div :class="['linkCheck', { disabled }]">
-    <ListLink :listName="listName" :icon="icon">{{ title }}</ListLink>
+    <ListLink :list-name="listName" :icon="icon">{{ title }}</ListLink>
     <el-checkbox
       v-if="!disabled"
       v-model="visibility"

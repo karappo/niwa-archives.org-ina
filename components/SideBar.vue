@@ -12,9 +12,9 @@
       </nuxt-link> -->
       <h2>Outlines</h2>
       <section class="outlines">
-        <ListLink listName="History" icon="hyphen">History</ListLink>
-        <ListLink listName="Plans" icon="hyphen">Plans</ListLink>
-        <ListLink listName="3D Data" icon="hyphen">3D Data</ListLink>
+        <ListLink list-name="History" icon="hyphen">History</ListLink>
+        <ListLink list-name="Plans" icon="hyphen">Plans</ListLink>
+        <ListLink list-name="3D Data" icon="hyphen">3D Data</ListLink>
         <SelectBox
           v-if="variations.length"
           v-model="variationIndex"
@@ -23,49 +23,49 @@
         ></SelectBox>
       </section>
       <h2>
-        <ListLinkCheckbox listName="Annotations"></ListLinkCheckbox>
+        <ListLinkCheckbox list-name="Annotations"></ListLinkCheckbox>
       </h2>
       <section class="viewpoints">
         <h3>
-          <ListLinkCheckbox listName="Viewpoints"></ListLinkCheckbox>
+          <ListLinkCheckbox list-name="Viewpoints"></ListLinkCheckbox>
         </h3>
         <ListLinkCheckbox
-          listName="Viewpoints/Still Images"
+          list-name="Viewpoints/Still Images"
           icon="dot"
         ></ListLinkCheckbox>
         <ListLinkCheckbox
-          listName="Viewpoints/Movies"
+          list-name="Viewpoints/Movies"
           icon="dot"
         ></ListLinkCheckbox>
       </section>
       <section class="elements">
         <h3>
-          <ListLinkCheckbox listName="Elements"></ListLinkCheckbox>
+          <ListLinkCheckbox list-name="Elements"></ListLinkCheckbox>
         </h3>
         <ListLinkCheckbox
-          listName="Elements/Stones"
+          list-name="Elements/Stones"
           icon="dot"
         ></ListLinkCheckbox>
         <ListLinkCheckbox
-          listName="Elements/Plants"
+          list-name="Elements/Plants"
           icon="dot"
         ></ListLinkCheckbox>
         <ListLinkCheckbox
-          listName="Elements/Creatures"
+          list-name="Elements/Creatures"
           icon="dot"
         ></ListLinkCheckbox>
         <ListLinkCheckbox
-          listName="Elements/Artifacts"
+          list-name="Elements/Artifacts"
           icon="dot"
         ></ListLinkCheckbox>
         <ListLinkCheckbox
-          listName="Elements/DNA Data"
+          list-name="Elements/DNA Data"
           icon="dot"
         ></ListLinkCheckbox>
       </section>
       <section class="orals">
         <ListLinkCheckbox
-          listName="Oral Archives"
+          list-name="Oral Archives"
           icon="dot"
         ></ListLinkCheckbox>
       </section>
@@ -73,10 +73,10 @@
       <section class="tours">
         <ListLink
           v-if="guidedTourExists"
-          listName="Guided Tour"
+          list-name="Guided Tour"
           icon="tour"
         ></ListLink>
-        <ListLink listName="Ramble Tour" icon="tour"></ListLink>
+        <ListLink list-name="Ramble Tour" icon="tour"></ListLink>
       </section>
     </div>
   </aside>
