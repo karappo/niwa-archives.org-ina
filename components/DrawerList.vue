@@ -58,13 +58,13 @@ article
     background-color: #112526
     &:hover
       background-color: var(--color--guided-tour--darken)
-    +sp(1024px)
+    @media only screen and (max-width: 1024px)
       background-color: var(--color--guided-tour--darken)
   &.rambleTour
     background-color: #252134
     &:hover
       background-color: var(--color--ramble-tour--darken)
-    +sp(1024px)
+    @media only screen and (max-width: 1024px)
       background-color: var(--color--ramble-tour--darken)
 .empty
   color: #898989

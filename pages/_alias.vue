@@ -112,21 +112,19 @@
 </template>
 
 <style lang="sass" scoped>
-$pc_sp_threshold: 428px
-@import ~/assets/style/general/pc-sp
 .root
   width: 100%
   height: var(--vh)
   background: #000
   display: flex
-  +sp
+  @media only screen and (max-width: 428px)
     flex-direction: column
 main
   display: flex
   flex-direction: column
   width: 100%
   position: relative
-  +sp
+  @media only screen and (max-width: 428px)
     height: 100%
     min-height: var(--main-min-height)
 .debugMenuButton
@@ -140,7 +138,7 @@ main
   z-index: 100
 nav.spMenu
   display: none
-  +sp(749px)
+  @media only screen and (max-width: 749px)
     display: flex
     flex-direction: column
     position: absolute
@@ -167,7 +165,7 @@ nav.spMenu
   height: 100%
   margin: 0
   border-left: 0
-  +sp(749px)
+  @media only screen and (max-width: 749px)
     display: none
 .title
   margin: 24px
@@ -175,18 +173,18 @@ nav.spMenu
   font-weight: normal
   font-size: 17px
   color: white
-  +sp(749px)
+  @media only screen and (max-width: 749px)
     margin-right: calc(24px + var(--sp-menu-width))
-  +sp
+  @media only screen and (max-width: 428px)
     margin: 10px 16px
     letter-spacing: 0
   .scene
     margin-left: 26px
-    +sp
+    @media only screen and (max-width: 428px)
       margin-top: -2px
       margin-left: 0
   span
-    +sp
+    @media only screen and (max-width: 428px)
       display: block
 .splitpanes.default-theme
   overflow: hidden
@@ -196,7 +194,7 @@ nav.spMenu
     width: 7px
     z-index: 2
     margin-left: 0 // デフォルトのスタイルが-1になっていて変な線が生じてしまうので0にする
-    +sp
+    @media only screen and (max-width: 428px)
       width: 100%
       height: 7px
   .splitpanes__pane
@@ -214,10 +212,10 @@ nav.spMenu
         display: flex
         align-items: center
         flex-shrink: 0
-        +sp(749px)
+        @media only screen and (max-width: 749px)
           font-size: 10px
         &:not(.full)
-          +sp(749px)
+          @media only screen and (max-width: 749px)
             margin-right: var(--sp-menu-width)
         .text
           margin-right: auto
@@ -252,7 +250,7 @@ nav.spMenu
     &.drawer
       overflow-y: auto
       background-color: black
-      +pc
+      @media only screen and (min-width: 429px)
         margin-left: -6px
         height: calc(100% - 1px)
       &.border
@@ -347,7 +345,7 @@ nav.spMenu
     transition: background-color 0.2s
     &:hover
       background-color: lighten(#1D1D1D, 5%)
-    +sp(749px)
+    @media only screen and (max-width: 749px)
       font-size: 15px
       width: 110px
       height: 40px

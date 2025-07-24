@@ -8,8 +8,6 @@ header
   display: flex
   align-items: center
   padding: 25px 25px 28px 0
-  +sp
-    padding: 20px 20px 20px 0
   > h1,
   > h2
     --border-color: #255553
@@ -46,8 +44,6 @@ header
     min-width: 0
     font-family: 'K2-v1-Bold'
     font-size: 18px
-    +sp
-      padding-left: 15px
   .filter
     display: flex
     align-items: center
@@ -57,14 +53,11 @@ header
       color: #898989
       margin-right: 1em
   a
-    @extend %button
     font-size: 12px
     height: 34px
 
 article
   padding: 0 25px
-  +sp
-    padding: 0 20px
   h1
     margin: 30px auto 30px 0
     text-overflow: ellipsis
@@ -85,3 +78,12 @@ article
   .image
     width: 100%
     height: auto
+
+@media only screen and (max-width: 990px)
+  header
+    padding: 20px 20px 20px 0
+    > h1,
+    > h2
+      padding-left: 15px
+  article
+    padding: 0 20px

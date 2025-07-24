@@ -7,8 +7,6 @@
 </template>
 
 <style lang="sass" scoped>
-$pc_sp_threshold: 428px
-@import ~/assets/style/general/pc-sp
 @keyframes flash
   0%
     opacity: 1
@@ -33,10 +31,10 @@ $pc_sp_threshold: 428px
     margin-left: 13px
     animation: flash 0.5s ease-in-out infinite
     animation-direction: alternate
-    +sp
+    @media only screen and (max-width: 428px)
       margin-left: 0
       margin-right: 10px
-  +sp
+  @media only screen and (max-width: 428px)
     flex-direction: row-reverse
     top: auto
     right: auto

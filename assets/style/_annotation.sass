@@ -69,7 +69,7 @@
   &[data-is_group='true']
     .annotation-titlebar
       margin-top: -6px
-  +sp
+  @media only screen and (max-width: 990px)
     display: flex
     flex-direction: column-reverse
     justify-content: center
@@ -87,10 +87,10 @@
     color: #696969
     &:hover
       color: white
-    +pc
+    @media only screen and (min-width: 991px)
       top: -28px
       left: 14px
-    +sp
+    @media only screen and (max-width: 990px)
       position: relative
       top: -47px
       left: 3px
@@ -104,7 +104,7 @@
       background-color: black
       transform: translate(0px, 10px) rotate(45deg)
       z-index: -1
-      +sp
+      @media only screen and (max-width: 990px)
         height: 15px
         transform: none
         top: 26px
@@ -174,10 +174,10 @@
   &[data-camera-dist=nearer]
     .annotation-titlebar
       clip-path: inset(0)
-      +pc
+      @media only screen and (min-width: 991px)
         left: 52px
         top: -50px
-      +sp
+      @media only screen and (max-width: 990px)
         top: -90px
 
     .annotation-marker

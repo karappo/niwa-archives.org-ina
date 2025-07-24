@@ -41,21 +41,19 @@ aside
 </template>
 
 <style lang="sass" scoped>
-$pc_sp_threshold: 428px
-@import ~/assets/style/general/pc-sp
 aside
   background-color: #000
   color: #898989
   z-index: 1
   border-left: 1px solid #3C3C3C
   overflow-y: auto
-  +sp
+  @media only screen and (max-width: 428px)
     height: 100%
   > .wrap
     padding-bottom: var(--main-min-height)
 .spHeader
   display: none
-  +sp(749px)
+  @media only screen and (max-width: 749px)
     --size: 54px
     height: var(--size)
     display: flex
