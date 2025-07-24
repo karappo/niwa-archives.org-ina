@@ -1,0 +1,219 @@
+@import './general/fixes.css';
+@import './general/reset-2.css';
+/* thresholds */
+/* Componentsでも閾値を共有できるように、common.sassではなく、ここで設定する */
+/* JSでも pcSpThreshold とう変数名でこの値を定義しているので、変更する際は注意！変更前にまず検索すること！ */
+/* $pc_sp_threshold: 990px */
+/* @import general/pc-sp */
+
+@font-face {
+  font-family: 'K2-v1-Heavy';
+  font-weight: normal;
+  src: url('~assets/font/k2/K2-v1-Heavy.woff2') format('woff2'), url('~assets/font/k2/K2-v1-Heavy.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'K2-v1-Bold';
+  font-weight: normal;
+  src: url('~assets/font/k2/K2-v1-Bold.woff2') format('woff2'), url('~assets/font/k2/K2-v1-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'K2-v1-Regular';
+  font-weight: normal;
+  src: url('~assets/font/k2/K2-v1-Regular.woff2') format('woff2'), url('~assets/font/k2/K2-v1-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'K2-v1-Light';
+  font-weight: normal;
+  src: url('~assets/font/k2/K2-v1-Light.woff2') format('woff2'), url('~assets/font/k2/K2-v1-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'K2-v1-XLight';
+  font-weight: normal;
+  src: url('~assets/font/k2/K2-v1-XLight.woff2') format('woff2'), url('~assets/font/k2/K2-v1-XLight.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'K2-v1-Thin';
+  font-weight: normal;
+  src: url('~assets/font/k2/K2-v1-Thin.woff2') format('woff2'), url('~assets/font/k2/K2-v1-Thin.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'K2-v1-Hairline';
+  font-weight: normal;
+  src: url('~assets/font/k2/K2-v1-Hairline.woff2') format('woff2'), url('~assets/font/k2/K2-v1-Hairline.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Pro-Solid-900';
+  font-weight: normal;
+  src: url('~assets/font/awesome/Font Awesome 5 Pro-Solid-900.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Pro-Regular-400';
+  font-weight: normal;
+  src: url('~assets/font/awesome/Font Awesome 5 Pro-Regular-400.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Pro-Light-300';
+  font-weight: normal;
+  src: url('~assets/font/awesome/Font Awesome 5 Pro-Light-300.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Brands-Regular-400';
+  font-weight: normal;
+  src: url('~assets/font/awesome/Font Awesome 5 Brands-Regular-400.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Duotone-Solid-900';
+  font-weight: normal;
+  src: url('~assets/font/awesome/Font Awesome 5 Duotone-Solid-900.otf') format('opentype');
+}
+
+body {
+  margin: 0;
+  background-color: black;
+  color: white;
+  font-family: 'K2-v1-Bold', 'TsukuGoPro-B', '游ゴシック体', 'Yu Gothic', 'YuGothic', YuGothic, 'Lucida Grande','Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','HiraKakuProN-W3','メイリオ','Meiryo','ＭＳ ゴシック','MS Gothic',Osaka,Verdana,arial,helvetica,sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+
+  --button-bg-color: #242424;
+  --textbox-bg-color: #151515;
+
+  --color--still-images: #3197FF;
+  --color--movies: #3543B1;
+  --color--stones: #5D8FFF;
+  --color--plants: #53EB93;
+  --color--creatures: #FF9B89;
+  --color--artifacts: #e3e668;
+  --color--dna-data: #A452E0;
+  --color--oral-archives: #E516D5;
+
+  --color--guided-tour: #007B5A;
+  --color--guided-tour--darken: #005a4e; /* darken(var(--color--guided-tour), 10%) の代わりに決めうちの値 */
+  --color--ramble-tour: #642BFF;
+  --color--ramble-tour--darken: #3f1a99; /* darken(var(--color--ramble-tour), 30%) の代わりに決めうちの値 */
+
+  --main-min-height: 70px;
+
+  --sp-menu-width: 60px;
+
+  &.top {
+    overflow-y: scroll;
+    background-color: #0B101A;
+  }
+
+  &.noScroll {
+    overflow: hidden;
+  }
+}
+
+/* SPでpotree純正のデバッグサイドバーが下にスクロールすると見えてしまうのを防ぐ */
+/* https://app.asana.com/0/1186397743907793/1205698370326375/f */
+.sp-container {
+  display: none;
+}
+
+a[href] {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+#potree_quick_buttons {
+  display: none;
+}
+
+.potree_failpage {
+  margin: 0;
+  background-color: #111;
+  padding: 20px;
+
+  a {
+    color: white !important;
+  }
+
+  h1 {
+    margin: 1em 0;
+  }
+
+  #potree_error_console {
+    margin-top: 50px;
+    font-size: 10px;
+    color: #333;
+  }
+}
+
+/* スクロールバー */
+::-webkit-scrollbar {
+  width: 2px;
+  background-color: transparent;
+}
+
+/* 一時的に消す */
+/* #potree_quick_buttons, */
+/* #sidebar_root */
+/*   display: none */
+
+.button {
+  background: var(--button-bg-color);
+  border: 3px solid var(--button-bg-color);
+  color: #898989;
+  font-family: 'K2-v1-Bold';
+  font-weight: normal;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+  svg {
+    line,
+    path {
+      transition: stroke 0.2s;
+    }
+
+    rect {
+      transition: fill 0.2s;
+    }
+  }
+
+  &:not([disabled]):hover {
+    background-color: #1A1A1A;
+    border-color: #1A1A1A;
+    color: white;
+
+    svg {
+      line,
+      path {
+        stroke: white;
+      }
+
+      rect {
+        fill: white;
+      }
+    }
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
