@@ -1,48 +1,107 @@
-<template lang="pug">
-.soundBar(
-  v-if="list"
-  :class="{visible, border: !$store.getters.tourName}"
-  :data-sp-visibility="spVisibility"
-)
-  audio(ref='player')
-  .toggleBtn(@click="visible = !visible")
-    span.text Sounds
-    TriangleArrow.icon
-  .spHeader
-    span.text Sounds
-    .closeBtn(@click="$emit('spClose')")
-      SpClose
-  .content
-    SelectBox.selectBox(:options="list" :value.sync="index")
-    .controlsAndMovies
-      .controls
-        .playPauseBtn(@click="togglePlay()")
-          Play(v-if="paused")
-          Pause(v-else)
-        .seekBarHitArea(ref='seekBarHitArea' @click.stop="seekBarClick")
-          .return(ref='return')
-          .seekBar
-            .progress(:style="progressStyle()")
-        .time {{ currentTime }} / {{ totalTime }}
-      .movieAndAmbisonics(v-if="data.movieId || data.ambisonicsUrl")
-        nuxt-link(v-if="data.movieId" to='TODO' :class="{disabled: $store.getters.tourName}").button.link.movie
-          | Movie
-          span.icon 
-        ExternalLink.button.link.ambisonics(v-if="data.ambisonicsUrl" :href="data.ambisonicsUrl" :class="{disabled: $store.getters.tourName}")
-          | Ambisonics
-          span.icon 
-    dl.place
-      dt Place
-      dd
-        template(v-if="data.place" )
-          a(@click="placeClick(data.place.annotation)" :class="{disabled: $store.getters.tourName}") {{ data.place.label }}
-    dl.creatures(:class="{empty: !(data.creatures && data.creatures.length)}")
-      dt Creatures
-      dd
-        template(v-if="data.creatures && data.creatures.length")
-          template(v-for="creature in data.creatures")
-            a.creature(v-if="tags.includes(creature)" @click="tagClick(creature)" :class="{disabled: $store.getters.tourName}") {{ tag }}
-            span.creature(v-else) {{ creature }}
+<template>
+  <div
+    v-if="list"
+    :class="{
+      visible,
+      border: !$store.getters.tourName
+    }"
+    :data-sp-visibility="spVisibility"
+    class="soundBar"
+  >
+    <audio ref="player"></audio>
+    <div class="toggleBtn" @click="visible = !visible">
+      <span class="text">Sounds</span>
+      <TriangleArrow class="icon"></TriangleArrow>
+    </div>
+    <div class="spHeader">
+      <span class="text">Sounds</span>
+      <div class="closeBtn" @click="$emit('spClose')">
+        <SpClose></SpClose>
+      </div>
+    </div>
+    <div class="content">
+      <SelectBox v-model="index" :options="list" class="selectBox"></SelectBox>
+      <div class="controlsAndMovies">
+        <div class="controls">
+          <div class="playPauseBtn" @click="togglePlay()">
+            <span v-if="paused"><Play /></span>
+            <span v-else><Pause /></span>
+          </div>
+          <div
+            ref="seekBarHitArea"
+            class="seekBarHitArea"
+            @click.stop="seekBarClick"
+          >
+            <div ref="return" class="return"></div>
+            <div class="seekBar">
+              <div class="progress" :style="progressStyle()"></div>
+            </div>
+          </div>
+          <div class="time">{{ currentTime }} / {{ totalTime }}</div>
+        </div>
+        <div
+          v-if="data.movieId || data.ambisonicsUrl"
+          class="movieAndAmbisonics"
+        >
+          <nuxt-link
+            v-if="data.movieId"
+            to="TODO"
+            :class="{ disabled: $store.getters.tourName }"
+            class="button link movie"
+          >
+            Movie
+            <span class="icon"></span>
+          </nuxt-link>
+          <ExternalLink
+            v-if="data.ambisonicsUrl"
+            :href="data.ambisonicsUrl"
+            :class="{ disabled: $store.getters.tourName }"
+            class="button link ambisonics"
+          >
+            Ambisonics
+            <span class="icon"></span>
+          </ExternalLink>
+        </div>
+      </div>
+      <dl class="place">
+        <dt>Place</dt>
+        <dd>
+          <template v-if="data.place">
+            <a
+              :class="{ disabled: $store.getters.tourName }"
+              @click="placeClick(data.place.annotation)"
+            >
+              {{ data.place.label }}
+            </a>
+          </template>
+        </dd>
+      </dl>
+      <dl
+        :class="{ empty: !(data.creatures && data.creatures.length) }"
+        class="creatures"
+      >
+        <dt>Creatures</dt>
+        <dd>
+          <template v-if="data.creatures && data.creatures.length">
+            <template v-for="(creature, i) in data.creatures">
+              <a
+                v-if="tags.includes(creature)"
+                :key="`link-${i}`"
+                :class="{ disabled: $store.getters.tourName }"
+                class="creature"
+                @click="tagClick(creature)"
+              >
+                {{ tag }}
+              </a>
+              <span v-else :key="`span-${i}`" class="creature">
+                {{ creature }}
+              </span>
+            </template>
+          </template>
+        </dd>
+      </dl>
+    </div>
+  </div>
 </template>
 
 <style lang="sass" scoped>
