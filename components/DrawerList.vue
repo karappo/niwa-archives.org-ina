@@ -57,7 +57,7 @@
             </div>
             <AnnotationList
               :list="filterByTag(val)"
-              :typeVisibility="typeVisibility"
+              :type-visibility="typeVisibility"
               :thin="true"
             ></AnnotationList>
           </div>
@@ -65,7 +65,7 @@
         <AnnotationList
           v-else
           :list="filterByTag(data.list)"
-          :typeVisibility="typeVisibility"
+          :type-visibility="typeVisibility"
         ></AnnotationList>
       </template>
     </article>

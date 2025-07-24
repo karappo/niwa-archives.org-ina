@@ -54,7 +54,7 @@
                 </template>
                 <template v-else>
                   <KeyMap
-                    :spVisibility="!drawerVisibility && keyMapSpVisibility"
+                    :sp-visibility="!drawerVisibility && keyMapSpVisibility"
                   />
                 </template>
               </div>
@@ -76,9 +76,9 @@
               v-else-if="annotationData"
               :data="annotationData"
               :annotations="annotations"
-              :prevNextVisibility="prevNextVisibility"
-              :prevDisabled="prevDisabled"
-              :nextDisabled="nextDisabled"
+              :prev-next-visibility="prevNextVisibility"
+              :prev-disabled="prevDisabled"
+              :next-disabled="nextDisabled"
               :isSP="isSP"
               @backToList="clearAnnotationData"
               @prev="prev"
@@ -89,9 +89,9 @@
           </template>
           <template v-else-if="spSideBarVisibility">
             <SideBar
-              :guidedTourExists="0 < data.guidedTour.length"
+              :guided-tour-exists="0 < data.guidedTour.length"
               :variations="data.variations"
-              :spVisibility="!drawerVisibility && sideBarSpVisibility"
+              :sp-visibility="!drawerVisibility && sideBarSpVisibility"
               @spClose="sideBarSpVisibility = false"
               @saveCameraInfo="saveCameraInfo"
             />
@@ -100,29 +100,29 @@
       </splitpanes>
       <SoundBar
         :annotations="annotations"
-        :spVisibility="!drawerVisibility && soundSpVisibility"
+        :sp-visibility="!drawerVisibility && soundSpVisibility"
         @spClose="soundSpVisibility = false"
       />
-      <nav class="spMenu" v-if="!drawerVisibility && !sideBarSpVisibility">
+      <nav v-if="!drawerVisibility && !sideBarSpVisibility" class="spMenu">
         <div
           class="btn"
-          @click="sideBarSpVisibility = !sideBarSpVisibility"
           :class="{ active: sideBarSpVisibility }"
-        >
+          @click="sideBarSpVisibility = !sideBarSpVisibility"
+          >
           <SpMenuList />
         </div>
         <div
           class="btn"
-          @click="keyMapSpVisibility = !keyMapSpVisibility"
           :class="{ active: keyMapSpVisibility }"
+          @click="keyMapSpVisibility = !keyMapSpVisibility"
         >
           <SpMenuNavigate />
         </div>
         <div
           v-if="soundDataExists"
           class="btn"
-          @click="soundSpVisibility = !soundSpVisibility"
           :class="{ active: soundSpVisibility }"
+          @click="soundSpVisibility = !soundSpVisibility"
         >
           <SpMenuSound />
         </div>
@@ -131,7 +131,7 @@
     <SideBar
       v-if="!tourName"
       class="sideBar"
-      :guidedTourExists="0 < data.guidedTour.length"
+      :guided-tour-exists="0 < data.guidedTour.length"
       :variations="data.variations"
       @spClose="sideBarSpVisibility = false"
       @saveCameraInfo="saveCameraInfo"
