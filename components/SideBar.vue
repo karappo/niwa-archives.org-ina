@@ -170,9 +170,6 @@ h2 + section {
   margin-top: 10px;
   width: 121px;
   min-width: 0;
-  /deep/ select {
-    text-transform: capitalize;
-  }
 }
 h2 {
   background-color: #171717;
