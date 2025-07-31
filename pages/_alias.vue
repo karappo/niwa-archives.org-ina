@@ -79,7 +79,7 @@
               :prev-next-visibility="prevNextVisibility"
               :prev-disabled="prevDisabled"
               :next-disabled="nextDisabled"
-              :isSP="isSP"
+              :is-sp="isSP"
               @backToList="clearAnnotationData"
               @prev="prev"
               @next="next"
