@@ -72,73 +72,100 @@
   </div>
 </template>
 
-<style lang="sass" scoped>
-@import ~/assets/style/_drawer-common.css
-article
-  h3
-    font-family: 'K2-v1-Bold'
-    font-size: 16px
-    color: #BCBCBC
-    margin-bottom: 1em
-  .bigBtn + h3
-    margin-top: 28px
+<style lang="css" scoped>
+@import '~/assets/style/_drawer-common.css';
 
-.description
-  font-size: 14px
-  line-height: 2
-  color: #898989
-.bigBtn
-  font-size: 17px
-  font-family: 'K2-v1-Bold'
-  color: white
-  display: flex
-  justify-content: center
-  align-items: center
-  margin: 13px 0
-  padding: 20px
-  border-radius: 5px
-  cursor: pointer
-  transition: background-color .1s
-  &.guidedTour
-    background-color: #112526
-    &:hover
-      background-color: var(--color--guided-tour--darken)
-    @media only screen and (max-width: 1024px)
-      background-color: var(--color--guided-tour--darken)
-  &.rambleTour
-    background-color: #252134
-    &:hover
-      background-color: var(--color--ramble-tour--darken)
-    @media only screen and (max-width: 1024px)
-      background-color: var(--color--ramble-tour--darken)
-.empty
-  color: #898989
-.groups
-  .group + .group
-    margin-top: 60px
-  .group
-    .head
-      display: flex
-      align-items: center
-      margin-bottom: 3px
-      background-color: #1A1A1A
-      h5
-        padding-left: 20px
-        font-size: 15px
-        overflow: hidden
-        text-overflow: ellipsis
-        white-space: nowrap
-        flex: 1
-        color: #898989
-        margin-top: 0
-        margin-bottom: 0
-      .thumb
-        width: 120px
-        height: 80px
-        background-size: 180%
-        background-position: center
-        margin-left: 10px
-        border-left: 3px solid black
+article {
+  h3 {
+    font-family: 'K2-v1-Bold';
+    font-size: 16px;
+    color: #bcbcbc;
+    margin-bottom: 1em;
+  }
+  .bigBtn + h3 {
+    margin-top: 28px;
+  }
+}
+
+.description {
+  font-size: 14px;
+  line-height: 2;
+  color: #898989;
+}
+
+.bigBtn {
+  font-size: 17px;
+  font-family: 'K2-v1-Bold';
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 13px 0;
+  padding: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.1s;
+
+  &.guidedTour {
+    background-color: #112526;
+    @media only screen and (max-width: 1024px) {
+      background-color: var(--color--guided-tour--darken);
+    }
+    &:hover {
+      background-color: var(--color--guided-tour--darken);
+    }
+  }
+
+  &.rambleTour {
+    background-color: #252134;
+    @media only screen and (max-width: 1024px) {
+      background-color: var(--color--ramble-tour--darken);
+    }
+    &:hover {
+      background-color: var(--color--ramble-tour--darken);
+    }
+  }
+}
+
+.empty {
+  color: #898989;
+}
+
+.groups {
+  .group + .group {
+    margin-top: 60px;
+  }
+
+  .group {
+    .head {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3px;
+      background-color: #1a1a1a;
+
+      h5 {
+        padding-left: 20px;
+        font-size: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1;
+        color: #898989;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .thumb {
+        width: 120px;
+        height: 80px;
+        background-size: 180%;
+        background-position: center;
+        margin-left: 10px;
+        border-left: 3px solid black;
+      }
+    }
+  }
+}
 </style>
 
 <script>
