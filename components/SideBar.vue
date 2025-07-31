@@ -215,7 +215,7 @@ h3 {
 </style>
 
 <style>
-/* 下記のコードは本当はdeepでscopedの方の.linkCheckの中に入れたい */
+/* 下記のコードは本当はdeepでscopedの方に入れたい */
 aside.sideBar {
   .variations {
     select {

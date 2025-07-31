@@ -22,7 +22,7 @@
 </style>
 
 <style>
-/* 下記のコードは本当はdeepでscopedの方の.linkCheckの中に入れたい */
+/* 下記のコードは本当はdeepでscopedの方に入れたい */
 .linkCheck {
   .el-checkbox {
     margin-right: 12px;
