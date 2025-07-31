@@ -9,30 +9,43 @@
   </div>
 </template>
 
-<style lang="sass" scoped>
-.linkCheck
-  display: flex
-  align-items: center
-  justify-content: space-between
-  &.disabled
-    opacity: 0.5
-    pointer-events: none
-  /deep/ .el-checkbox
-    margin-right: 12px
-  /deep/ .el-checkbox__input.is-checked .el-checkbox__inner
-    background-color: #434343
-    border-color: #434343
-  /deep/ .el-checkbox__inner
-    border-color: transparent
-    background-color: #434343
-  /deep/ .el-checkbox__inner::after
-    border: 2px solid #D3D3D3
-    border-left: 0
-    border-top: 0
-    top: 0
-    transition: none
-  /deep/ .el-checkbox__input.is-indeterminate .el-checkbox__inner::before
-    background-color: #D3D3D3
+<style scoped>
+.linkCheck {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+</style>
+
+<style>
+/* 下記のコードは本当はdeepでscopedの方の.linkCheckの中に入れたい */
+.linkCheck {
+  .el-checkbox {
+    margin-right: 12px;
+  }
+  .el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: #434343;
+    border-color: #434343;
+  }
+  .el-checkbox__inner {
+    border-color: transparent;
+    background-color: #434343;
+  }
+  .el-checkbox__inner::after {
+    border: 2px solid #d3d3d3;
+    border-left: 0;
+    border-top: 0;
+    top: 0;
+    transition: none;
+  }
+  .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
+    background-color: #d3d3d3;
+  }
+}
 </style>
 
 <script>
