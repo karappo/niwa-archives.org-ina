@@ -5,3 +5,6 @@ TODO:
 2025.7.24
 brannch: feature/remove-sass上で作業。一旦、pugをhtmlに変換まではできた。
 次回、いよいよsass剥がしを始める！
+
+2025.7.31
+sass剥がし一通り終了。
