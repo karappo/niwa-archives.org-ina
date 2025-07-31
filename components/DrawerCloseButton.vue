@@ -4,12 +4,13 @@
   </div>
 </template>
 
-<style lang="sass" scoped>
-.close
-  height: 34px
-  width: 34px
-  font-size: 12px
-  transition: color 0.2s
+<style scoped>
+.close {
+  height: 34px;
+  width: 34px;
+  font-size: 12px;
+  transition: color 0.2s;
+}
 </style>
 
 <script>
