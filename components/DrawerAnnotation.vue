@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="drawerAnnotation">
     <header>
       <h2 class="category" :data-name="category">{{ category }}</h2>
       <a
@@ -120,6 +120,8 @@
 </template>
 
 <style scoped>
+@import '~/assets/style/_drawer-common.css';
+
 .clf:after {
   content: '';
   display: block;
@@ -133,167 +135,237 @@
 .clf {
   display: block;
 }
+
+header {
+  .autoplay {
+    padding: 0 14px;
+    margin-right: 8px;
+    &.enabled {
+      border-color: white !important;
+      @media only screen and (max-width: 990px) {
+        color: #fff !important;
+      }
+    }
+    @media only screen and (max-width: 990px) {
+      padding: 0 10px;
+      margin-right: 0;
+      background: transparent !important; /* activeやhoverの時に背景色が変わるのを防ぐために!importantつけている */
+      border: 0;
+      font-size: 14px;
+      color: #898989 !important; /* activeやhoverの時に背景色が変わるのを防ぐために!importantつけている */
+      .play {
+        display: none;
+      }
+    }
+  }
+  .backTolist {
+    font-family: 'Font Awesome 5 Pro-Light-300';
+    width: 34px;
+    height: 34px;
+    margin-left: 1px;
+    margin-right: 1px;
+  }
+  .prev,
+  .next {
+    width: 34px;
+    height: 34px;
+  }
+  .next {
+    margin-left: 1px;
+  }
+}
+
+.drawerAnnotation {
+  .description,
+  .commentForGuidedTour {
+    color: #9b9b9b;
+    font-size: 14px;
+    line-height: calc(29 / 14);
+    margin-bottom: 15px;
+    &:not(.noBr) {
+      white-space: pre-wrap; /* nl2br */
+    }
+  }
+  .commentForGuidedTour {
+    background-color: #151515;
+    color: white;
+    padding: 20px 23px;
+    border-radius: 10px;
+  }
+  .download {
+    padding: 20px;
+  }
+  .youtube {
+    position: relative;
+    padding-top: calc(
+      225 / 400 * 100%
+    ); /* ここでアスペクト比（height / width）を設定 */
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    .cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .cover {
+      font-family: 'Font Awesome 5 Pro-Light-300';
+      font-size: 50px;
+      color: white;
+      background: #0e0e0e;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      .icon {
+        opacity: 0.5;
+        transition: opacity 0.2s;
+      }
+      &:hover {
+        .icon {
+          opacity: 1;
+        }
+      }
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+  .tags {
+    font-size: 12px;
+    line-height: 2;
+    .tag + .tag {
+      margin-left: 8px;
+    }
+    .tag {
+      display: inline-flex;
+      background-color: #242424;
+      color: #d6d6d6;
+      border-radius: 5px;
+      padding: 3px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 1em;
+      &.disabled {
+        opacity: 0.3;
+        pointer-events: none;
+      }
+      &:not(.disabled):hover {
+        background-color: lighten(#242424, 10%);
+      }
+      span.num {
+        color: #7c7c7c;
+        font-family: 'K2-v1-Regular';
+        margin-left: 1em;
+      }
+    }
+  }
+  .speaker {
+    .thumb {
+      background-size: 180%; /* 上下に黒帯が入った正方形なのでceoverにするとNG */
+      background-position: center;
+      width: 87px;
+      height: 87px;
+      border-radius: 5px;
+      float: left;
+    }
+    .text {
+      float: left;
+      margin-left: 20px;
+    }
+  }
+  .dateTime {
+    font-size: 14px;
+    margin-top: 50px;
+    color: #8b8b8b;
+  }
+}
 </style>
 
-<style lang="sass" scoped>
-@import ~/assets/style/_drawer-common.css
-header
-  .autoplay
-    padding: 0 14px
-    margin-right: 8px
-    &.enabled
-      border-color: white !important
-      @media only screen and (max-width: 990px)
-        color: #fff !important
-    @media only screen and (max-width: 990px)
-      padding: 0 10px
-      margin-right: 0
-      background: transparent !important // activeやhoverの時に背景色が変わるのを防ぐために!importantつけている
-      border: 0
-      font-size: 14px
-      color: #898989 !important // activeやhoverの時に背景色が変わるのを防ぐために!importantつけている
-      .play
-        display: none
-  .backTolist
-    font-family: 'Font Awesome 5 Pro-Light-300'
-    width: 34px
-    height: 34px
-    margin-left: 1px
-    margin-right: 1px
-  .prev,
-  .next
-    width: 34px
-    height: 34px
-  .next
-    margin-left: 1px
-  /deep/ .stopTourButton
-    height: 34px
-    padding-left: 18px
-    font-size: 14px
-    margin-left: 1px
-    transition: color 0.2s
-    svg
-      margin-left: 14px
-      margin-right: 14px
-      line
-        transition: stroke 0.2s
-    &:hover
-      svg
-        line
-          stroke: white
-.content
+<style>
+/* 下記のコードは本当はdeepでscopedの方の.linkCheckの中に入れたい */
+.drawerAnnotation {
+  header {
+    .stopTourButton {
+      height: 34px;
+      padding-left: 18px;
+      font-size: 14px;
+      margin-left: 1px;
+      transition: color 0.2s;
+      svg {
+        margin-left: 14px;
+        margin-right: 14px;
+        line {
+          transition: stroke 0.2s;
+        }
+      }
+      &:hover {
+        svg {
+          line {
+            stroke: white;
+          }
+        }
+      }
+    }
+  }
   .description,
-  .commentForGuidedTour
-    color: #9B9B9B
-    font-size: 14px
-    line-height: calc(29 / 14)
-    margin-bottom: 15px
-    &:not(.noBr)
-      white-space: pre-wrap // nl2br
-    /deep/
-      a
-        color: #A452E0
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6
-        font-family: 'K2-v1-Bold', 'TsukuGoPro-E', '游ゴシック体', 'Yu Gothic', 'YuGothic', YuGothic, 'Lucida Grande','Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','HiraKakuProN-W3','メイリオ','Meiryo','ＭＳ ゴシック','MS Gothic',Osaka,Verdana,arial,helvetica,sans-serif
-        font-weight: normal
-      h2
-        margin: 1.6em 0 0.3rem
-        color: #ddd
-        font-size: 1.8rem
-      h3
-        margin: 1.4em 0 0
-        color: #DDD
-        font-size: 1.4rem
-  .commentForGuidedTour
-    background-color: #151515
-    color: white
-    padding: 20px 23px
-    border-radius: 10px
-  .download
-    padding: 20px
-  .youtube
-    position: relative
-    padding-top: calc(225 / 400 * 100%) // ここでアスペクト比（height / width）を設定
-    overflow: hidden
-    max-width: 100%
-    height: auto
-    margin-bottom: 20px
-    .cover,
-    /deep/ iframe
-      position: absolute
-      top: 0
-      left: 0
-      width: 100%
-      height: 100%
-      z-index: 1
-    .cover
-      font-family: 'Font Awesome 5 Pro-Light-300'
-      font-size: 50px
-      color: white
-      background: #0e0e0e
-      z-index: 2
-      display: flex
-      justify-content: center
-      align-items: center
-      cursor: pointer
-      .icon
-        opacity: 0.5
-        transition: opacity 0.2s
-      &:hover
-        .icon
-          opacity: 1
-      &.hidden
-        display: none
-  .tags
-    font-size: 12px
-    line-height: 2
-    .tag + .tag
-      margin-left: 8px
-    .tag
-      display: inline-flex
-      background-color: #242424
-      color: #D6D6D6
-      border-radius: 5px
-      padding: 3px 10px
-      font-size: 14px
-      cursor: pointer
-      margin-bottom: 1em
-      &.disabled
-        opacity: 0.3
-        pointer-events: none
-      &:not(.disabled):hover
-        background-color: lighten(#242424, 10%)
-      span.num
-        color: #7C7C7C
-        font-family: 'K2-v1-Regular'
-        margin-left: 1em
-  .speaker
-    .thumb
-      background-size: 180% // 上下に黒帯が入った正方形なのでceoverにするとNG
-      background-position: center
-      width: 87px
-      height: 87px
-      border-radius: 5px
-      float: left
-    .text
-      float: left
-      margin-left: 20px
-      /deep/ h6
-        font-size: 14px
-        color: white
-      /deep/ p
-        font-size: 12px
-        color: #9B9B9B
-        margin-top: 14px
-  .dateTime
-    font-size: 14px
-    margin-top: 50px
-    color: #8B8B8B
+  .commentForGuidedTour {
+    a {
+      color: #a452e0;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'K2-v1-Bold', 'TsukuGoPro-E', '游ゴシック体', 'Yu Gothic',
+        'YuGothic', YuGothic, 'Lucida Grande', 'Hiragino Kaku Gothic Pro',
+        'ヒラギノ角ゴ Pro W3', 'HiraKakuProN-W3', 'メイリオ', 'Meiryo',
+        'ＭＳ ゴシック', 'MS Gothic', Osaka, Verdana, arial, helvetica,
+        sans-serif;
+      font-weight: normal;
+    }
+    h2 {
+      margin: 1.6em 0 0.3rem;
+      color: #ddd;
+      font-size: 1.8rem;
+    }
+    h3 {
+      margin: 1.4em 0 0;
+      color: #ddd;
+      font-size: 1.4rem;
+    }
+  }
+  .youtube {
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+  }
+  .speaker {
+    .text {
+      h6 {
+        font-size: 14px;
+        color: white;
+      }
+      p {
+        font-size: 12px;
+        color: #9b9b9b;
+        margin-top: 14px;
+      }
+    }
+  }
+}
 </style>
 
 <script>
