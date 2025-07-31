@@ -4,7 +4,7 @@
       <h2 class="category" :data-name="category">{{ category }}</h2>
       <a
         v-if="$store.getters.pageName === 'Oral Archives'"
-        class="autoplay"
+        class="button autoplay"
         :class="{ enabled: $store.getters.autoplay }"
         title="オートプレイ：自動的に次のアノテーションを表示・再生します"
         @click="clickAutoplay"
@@ -14,7 +14,7 @@
       <template v-if="prevNextVisibility">
         <a
           title="Previus"
-          class="prev"
+          class="button prev"
           :class="{ disabled: prevDisabled }"
           @click="prev"
         >
@@ -22,7 +22,7 @@
         </a>
         <a
           title="Next"
-          class="next"
+          class="button next"
           :class="{ disabled: nextDisabled }"
           @click="next"
         >
@@ -30,7 +30,7 @@
         </a>
         <a
           v-if="!$store.getters.tourName"
-          class="backTolist"
+          class="button backTolist"
           :title="`Back to list`"
           @click="$emit('backToList')"
         >
