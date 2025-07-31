@@ -139,251 +139,330 @@
   </div>
 </template>
 
-<style lang="sass" scoped>
-.root
-  width: 100%
-  height: var(--vh)
-  background: #000
-  display: flex
-  @media only screen and (max-width: 428px)
-    flex-direction: column
-main
-  display: flex
-  flex-direction: column
-  width: 100%
-  position: relative
-  @media only screen and (max-width: 428px)
-    height: 100%
-    min-height: var(--main-min-height)
-.debugMenuButton
-  width: 20px
-  height: 20px
-  background: green
-  position: absolute
-  top: 0
-  left: 0
-  cursor: pointer
-  z-index: 100
-nav.spMenu
-  display: none
-  @media only screen and (max-width: 749px)
-    display: flex
-    flex-direction: column
-    position: absolute
-    top: 0
-    right: 0
-    z-index: 100
-  .btn
-    width: var(--sp-menu-width)
-    height: var(--sp-menu-width)
-    flex-shrink: 0
-    background-color: rgba(0,0,0,0.7)
-    display: flex
-    justify-content: center
-    align-items: center
-    -webkit-tap-highlight-color: transparent
-    &.active
-      > svg
-        opacity: 0.5
-  .btn + .btn
-    border-top: 1px solid #3D3D3D
-.sideBar
-  flex-shrink: 0
-  width: 165px
-  height: 100%
-  margin: 0
-  border-left: 0
-  @media only screen and (max-width: 749px)
-    display: none
-.title
-  margin: 24px
-  font-family: 'K2-v1-Light'
-  font-weight: normal
-  font-size: 17px
-  color: white
-  @media only screen and (max-width: 749px)
-    margin-right: calc(24px + var(--sp-menu-width))
-  @media only screen and (max-width: 428px)
-    margin: 10px 16px
-    letter-spacing: 0
-  .scene
-    margin-left: 26px
-    @media only screen and (max-width: 428px)
-      margin-top: -2px
-      margin-left: 0
-  span
-    @media only screen and (max-width: 428px)
-      display: block
-.splitpanes.default-theme
-  overflow: hidden
-  /deep/ .splitpanes__splitter
-    background-color: transparent
-    border: 0
-    width: 7px
-    z-index: 2
-    margin-left: 0 // デフォルトのスタイルが-1になっていて変な線が生じてしまうので0にする
-    @media only screen and (max-width: 428px)
-      width: 100%
-      height: 7px
-  .splitpanes__pane
-    background-color: rgba(0,0,0,0.9)
-    &.potree_container
-      width: 100%
-      height: 100%
-      display: flex
-      flex-direction: column
-      .notice
-        background-color: #C9E2D4
-        color: black
-        font-size: 13px
-        padding: 15px
-        display: flex
-        align-items: center
-        flex-shrink: 0
-        @media only screen and (max-width: 749px)
-          font-size: 10px
-        &:not(.full)
-          @media only screen and (max-width: 749px)
-            margin-right: var(--sp-menu-width)
-        .text
-          margin-right: auto
-        .closeButton
-          cursor: pointer
-          background-color: #434343
-          width: 18px
-          height: 18px
-          border-radius: 50%
-          display: flex
-          justify-content: center
-          align-items: center
-          margin-left: 10px
-          margin-right: 0
-          transition: background-color 0.2s
-          flex-shrink: 0
-          svg
-            width: 8px
-            height: 8px
-            line
-              stroke: #D3D3D3
-              transition: stroke 0.2s
-          &:hover
-            background-color: black
-            svg
-              line
-                stroke: white
-      .potree_wrap
-        position: relative
-        width: 100%
-        height: 100%
-    &.drawer
-      overflow-y: auto
-      background-color: black
-      @media only screen and (min-width: 429px)
-        margin-left: -6px
-        height: calc(100% - 1px)
-      &.border
-        border-right: 1px solid #3C3C3C
-        border-bottom: 1px solid #3C3C3C
-#potree_render_area
-  width: 100%
-  height: 100%
-  &::before
-    content: ''
-    font-size: 30px
-    color: white
-    display: flex
-    justify-content: center
-    align-items: center
-    width: 100%
-    height: 100%
-    background: #111
-    position: absolute
-    z-index: 99999990
-    opacity: 0
-    pointer-events: none
-    transition: opacity 3s
-  &.disabled
-    pointer-events: none
-  &.loading
-    &::before
-      content: 'Loading...'
-      opacity: 1
-      pointer-events: auto
-  /deep/
-    canvas
-      outline: none
+<style scoped>
+.root {
+  width: 100%;
+  height: var(--vh);
+  background: #000;
+  display: flex;
+  @media only screen and (max-width: 428px) {
+    flex-direction: column;
+  }
+}
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  @media only screen and (max-width: 428px) {
+    height: 100%;
+    min-height: var(--main-min-height);
+  }
+}
+.debugMenuButton {
+  width: 20px;
+  height: 20px;
+  background: green;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  z-index: 100;
+}
+nav.spMenu {
+  display: none;
+  @media only screen and (max-width: 749px) {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
+  }
+  .btn {
+    width: var(--sp-menu-width);
+    height: var(--sp-menu-width);
+    flex-shrink: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    &.active > svg {
+      opacity: 0.5;
+    }
+  }
+  .btn + .btn {
+    border-top: 1px solid #3d3d3d;
+  }
+}
+.sideBar {
+  flex-shrink: 0;
+  width: 165px;
+  height: 100%;
+  margin: 0;
+  border-left: 0;
+  @media only screen and (max-width: 749px) {
+    display: none;
+  }
+}
+.title {
+  margin: 24px;
+  font-family: 'K2-v1-Light';
+  font-weight: normal;
+  font-size: 17px;
+  color: white;
+  @media only screen and (max-width: 749px) {
+    margin-right: calc(24px + var(--sp-menu-width));
+  }
+  @media only screen and (max-width: 428px) {
+    margin: 10px 16px;
+    letter-spacing: 0;
+  }
+  .scene {
+    margin-left: 26px;
+    @media only screen and (max-width: 428px) {
+      margin-top: -2px;
+      margin-left: 0;
+    }
+  }
+  span {
+    @media only screen and (max-width: 428px) {
+      display: block;
+    }
+  }
+}
+.splitpanes.default-theme {
+  overflow: hidden;
+  .splitpanes__pane {
+    background-color: rgba(0, 0, 0, 0.9);
+    &.potree_container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      .notice {
+        background-color: #c9e2d4;
+        color: black;
+        font-size: 13px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        @media only screen and (max-width: 749px) {
+          font-size: 10px;
+        }
+        &:not(.full) {
+          @media only screen and (max-width: 749px) {
+            margin-right: var(--sp-menu-width);
+          }
+        }
+        .text {
+          margin-right: auto;
+        }
+        .closeButton {
+          cursor: pointer;
+          background-color: #434343;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-left: 10px;
+          margin-right: 0;
+          transition: background-color 0.2s;
+          flex-shrink: 0;
+          svg {
+            width: 8px;
+            height: 8px;
+            line {
+              stroke: #d3d3d3;
+              transition: stroke 0.2s;
+            }
+          }
+          &:hover {
+            background-color: black;
+            svg {
+              line {
+                stroke: white;
+              }
+            }
+          }
+        }
+      }
+      .potree_wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    &.drawer {
+      overflow-y: auto;
+      background-color: black;
+      @media only screen and (min-width: 429px) {
+        margin-left: -6px;
+        height: calc(100% - 1px);
+      }
+      &.border {
+        border-right: 1px solid #3c3c3c;
+        border-bottom: 1px solid #3c3c3c;
+      }
+    }
+  }
+}
+#potree_render_area {
+  width: 100%;
+  height: 100%;
+  &::before {
+    content: '';
+    font-size: 30px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    position: absolute;
+    z-index: 99999990;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 3s;
+  }
+  &.disabled {
+    pointer-events: none;
+  }
+  &.loading {
+    &::before {
+      content: 'Loading...';
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+.controls {
+  position: absolute;
+  z-index: 99999999;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  > * {
+    pointer-events: auto;
+  }
+  /deep/ .stopTourButton {
+    position: absolute;
+    width: 160px;
+    height: 50px;
+    bottom: 25px;
+    right: 25px;
+    font-family: 'K2-v1-Bold';
+    font-size: 17px;
+    color: white;
+    background-color: #1d1d1d;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: lighten(#1d1d1d, 5%);
+    }
+    @media only screen and (max-width: 749px) {
+      font-size: 15px;
+      width: 110px;
+      height: 40px;
+      bottom: 15px;
+      right: 15px;
+      /* with Annotationの時は非表示にする */
+      &.hiddenInSP {
+        display: none;
+      }
+    }
+  }
+}
+.sideBar {
+  grid-area: sidebar;
+}
+</style>
 
-  // アノテーションの表示切り替え
-  /deep/ .annotation
-    visibility: hidden
-  &.rambleTourWithoutAnnotations
-    /deep/ .annotation.highlighted
-      visibility: visible
-  &:not(.rambleTourWithoutAnnotations) // Ramble Tour中はこのクラスがなくなる
-    &.viewpointsStillImages
-      /deep/ .annotation[data-category="Viewpoints/Still Images"]
-        visibility: visible
-    &.viewpointsMovies
-      /deep/ .annotation[data-category="Viewpoints/Movies"]
-        visibility: visible
-    &.elementsStones
-      /deep/ .annotation[data-category="Elements/Stones"]
-        visibility: visible
-    &.elementsPlants
-      /deep/ .annotation[data-category="Elements/Plants"]
-        visibility: visible
-    &.elementsCreatures
-      /deep/ .annotation[data-category="Elements/Creatures"]
-        visibility: visible
-    &.elementsArtifacts
-      /deep/ .annotation[data-category="Elements/Artifacts"]
-        visibility: visible
-    &.elementsDnaData
-      /deep/ .annotation[data-category="Elements/DNA Data"]
-        visibility: visible
-    &.oralArchives
-      /deep/ .annotation[data-category="Oral Archives"]
-        visibility: visible
-
-.controls
-  position: absolute
-  z-index: 99999999
-  width: 100%
-  height: 100%
-  display: flex
-  flex-direction: column
-  pointer-events: none
-  > *
-    pointer-events: auto
-  /deep/ .stopTourButton
-    position: absolute
-    width: 160px
-    height: 50px
-    bottom: 25px
-    right: 25px
-    font-family: 'K2-v1-Bold'
-    font-size: 17px
-    color: white
-    background-color: #1D1D1D
-    border-radius: 5px
-    display: flex
-    justify-content: center
-    align-items: center
-    cursor: pointer
-    transition: background-color 0.2s
-    &:hover
-      background-color: lighten(#1D1D1D, 5%)
-    @media only screen and (max-width: 749px)
-      font-size: 15px
-      width: 110px
-      height: 40px
-      bottom: 15px
-      right: 15px
-      // with Annotationの時は非表示にする
-      &.hiddenInSP
-        display: none
-.sideBar
-  grid-area: sidebar
+<style>
+/* 下記のコードは本当はdeepでscopedの方に入れたい */
+.root {
+  .splitpanes.default-theme {
+    .splitpanes__splitter {
+      background-color: transparent;
+      border: 0;
+      width: 7px;
+      z-index: 2;
+      margin-left: 0; /* デフォルトのスタイルが-1になっていて変な線が生じてしまうので0にする */
+      @media only screen and (max-width: 428px) {
+        width: 100%;
+        height: 7px;
+      }
+    }
+  }
+  #potree_render_area {
+    &.rambleTourWithoutAnnotations {
+      .annotation.highlighted {
+        visibility: visible;
+      }
+    }
+    /* Ramble Tour中はこのクラスがなくなる */
+    &:not(.rambleTourWithoutAnnotations) {
+      &.viewpointsStillImages {
+        .annotation[data-category='Viewpoints/Still Images'] {
+          visibility: visible;
+        }
+      }
+      &.viewpointsMovies {
+        .annotation[data-category='Viewpoints/Movies'] {
+          visibility: visible;
+        }
+      }
+      &.elementsStones {
+        .annotation[data-category='Elements/Stones'] {
+          visibility: visible;
+        }
+      }
+      &.elementsPlants {
+        .annotation[data-category='Elements/Plants'] {
+          visibility: visible;
+        }
+      }
+      &.elementsCreatures {
+        .annotation[data-category='Elements/Creatures'] {
+          visibility: visible;
+        }
+      }
+      &.elementsArtifacts {
+        .annotation[data-category='Elements/Artifacts'] {
+          visibility: visible;
+        }
+      }
+      &.elementsDnaData {
+        .annotation[data-category='Elements/DNA Data'] {
+          visibility: visible;
+        }
+      }
+      &.oralArchives {
+        .annotation[data-category='Oral Archives'] {
+          visibility: visible;
+        }
+      }
+    }
+    canvas {
+      outline: none;
+    }
+    /* アノテーションの表示切り替え */
+    .annotation {
+      visibility: hidden;
+    }
+  }
+}
 </style>
 
 <script>
