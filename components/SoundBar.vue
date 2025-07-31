@@ -117,34 +117,34 @@
   transition: margin 0.8s;
   @media only screen and (max-width: 749px) {
     font-size: 15px;
-  }
-  .selectBox {
-    order: 1;
-  }
-  .controlsAndMovies {
-    order: 3;
-    margin-top: 15px;
-    display: block;
-    .movieAndAmbisonics {
-      margin-top: 30px;
-      margin-left: 0; /* 中のボタンのマージンを打ち消す */
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 11px;
-      .link {
-        margin-left: 0;
-        width: auto;
-        font-size: 15px;
+    .selectBox {
+      order: 1;
+    }
+    .controlsAndMovies {
+      order: 3;
+      margin-top: 15px;
+      display: block;
+      .movieAndAmbisonics {
+        margin-top: 30px;
+        margin-left: 0; /* 中のボタンのマージンを打ち消す */
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 11px;
+        .link {
+          margin-left: 0;
+          width: auto;
+          font-size: 15px;
+        }
       }
     }
-  }
-  .place {
-    order: 2;
-  }
-  .creatures {
-    order: 4;
-    &.empty {
-      display: none;
+    .place {
+      order: 2;
+    }
+    .creatures {
+      order: 4;
+      &.empty {
+        display: none;
+      }
     }
   }
   /* border-rightだと表示領域外になってしまうため、疑似要素で… */
