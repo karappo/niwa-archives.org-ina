@@ -153,115 +153,161 @@
   </div>
 </template>
 
-<style lang="sass" scoped>
-.container
-  margin: auto 20px 20px auto
-  pointer-events: none
-  .pcLayout,
-  .spLayout
-    > *
-      pointer-events: auto
-      // iOS Safari / Chrome で長押しで選択されたり、コンテキストメニューが出てしまわないようにする
-      -webkit-touch-callout: none
-      -webkit-user-select: none
-      -khtml-user-select: none
-      -moz-user-select: none
-      -ms-user-select: none
-      user-select: none
+<style scoped>
+.container {
+  margin: auto 20px 20px auto;
+  pointer-events: none;
+}
+.container .pcLayout,
+.container .spLayout > * {
+  pointer-events: auto;
+  /* iOS Safari / Chrome で長押しで選択されたり、コンテキストメニューが出てしまわないようにする */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
-.pcLayout
-  display: grid
-  grid-template-columns: 21px 21px 21px 21px 21px
-  grid-template-rows: 20px 20px 21px 21px
-  column-gap: 5px
-  row-gap: 5px
-.spLayout
-  display: none
-  grid-template-columns: 62px 62px 62px auto 62px
-  grid-template-rows: 62px 62px
-  column-gap: 17px
-  row-gap: 17px
+.pcLayout {
+  display: grid;
+  grid-template-columns: 21px 21px 21px 21px 21px;
+  grid-template-rows: 20px 20px 21px 21px;
+  column-gap: 5px;
+  row-gap: 5px;
+}
+
+.spLayout {
+  display: none;
+  grid-template-columns: 62px 62px 62px auto 62px;
+  grid-template-rows: 62px 62px;
+  column-gap: 17px;
+  row-gap: 17px;
+}
+
 .key,
-.btn
-  color: white
-  position: relative
-  display: flex
-  justify-content: center
-  align-items: center
-  font-size: 12px
-  font-family: 'K2-v1-Bold'
-.key
-  pointer-events: none
-.btn
-  cursor: pointer
-  border-radius: 3px
-  background-color: black
-  background-repeat: no-repeat
-  background-position: center
-  transition: background-color 0.2s
-  touch-action: none // ピンチインアウトを無効化
-  &.touched
-    background-color: #333
-.panLeft
-  background-image: url(~assets/image/pan.svg)
-.panRight
-  background-image: url(~assets/image/pan.svg)
-  transform: rotate(180deg)
-.tiltUp
-  background-image: url(~assets/image/pan.svg)
-  transform: rotate(90deg)
-.tiltDown
-  background-image: url(~assets/image/pan.svg)
-  transform: rotate(-90deg)
-.forward
-  background-image: url(~assets/image/arrow.svg)
-.backward
-  background-image: url(~assets/image/arrow.svg)
-  transform: rotate(180deg)
-.left
-  background-image: url(~assets/image/arrow.svg)
-  transform: rotate(-90deg)
-.right
-  background-image: url(~assets/image/arrow.svg)
-  transform: rotate(90deg)
-.up
-  background-image: url(~assets/image/arrow-outline.svg)
-.down
-  background-image: url(~assets/image/arrow-outline.svg)
-  transform: rotate(180deg)
+.btn {
+  color: white;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-family: 'K2-v1-Bold';
+}
 
-// タブレットでもSPレイアウトを使用するため、閾値をPCレイアウトの閾値よりも大きく
+.key {
+  pointer-events: none;
+}
 
-@media (max-width: 1024px) and (max-height: 380px)
-  .container
-    margin-right: calc(22px + var(--sp-menu-width) + 11px) !important
+.btn {
+  cursor: pointer;
+  border-radius: 3px;
+  background-color: black;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-color 0.2s;
+  touch-action: none; /* ピンチインアウトを無効化 */
+}
 
-@media only screen and (min-width: 1025px)
-  .btn:hover
-    background-color: #333
+.btn.touched {
+  background-color: #333;
+}
 
-@media only screen and (max-width: 1024px)
-  .container
-    margin: auto 22px 22px 22px
-  .pcLayout
-    display: none
-  .spLayout
-    display: grid !important
-  .btn
-    border-radius: 10px
-    background-color: rgba(29, 29, 29, 0.80)
-  .forward
-    background-size: 29px auto
-  .backward
-    background-size: 29px auto
-  .left
-    background-size: auto 29px
-  .right
-    background-size: auto 29px
-  .up
-    background-size: 29px auto
-  .down
-    background-size: 29px auto
+.panLeft {
+  background-image: url(~assets/image/pan.svg);
+}
+
+.panRight {
+  background-image: url(~assets/image/pan.svg);
+  transform: rotate(180deg);
+}
+
+.tiltUp {
+  background-image: url(~assets/image/pan.svg);
+  transform: rotate(90deg);
+}
+
+.tiltDown {
+  background-image: url(~assets/image/pan.svg);
+  transform: rotate(-90deg);
+}
+
+.forward {
+  background-image: url(~assets/image/arrow.svg);
+}
+
+.backward {
+  background-image: url(~assets/image/arrow.svg);
+  transform: rotate(180deg);
+}
+
+.left {
+  background-image: url(~assets/image/arrow.svg);
+  transform: rotate(-90deg);
+}
+
+.right {
+  background-image: url(~assets/image/arrow.svg);
+  transform: rotate(90deg);
+}
+
+.up {
+  background-image: url(~assets/image/arrow-outline.svg);
+}
+
+.down {
+  background-image: url(~assets/image/arrow-outline.svg);
+  transform: rotate(180deg);
+}
+
+/* タブレットでもSPレイアウトを使用するため、閾値をPCレイアウトの閾値よりも大きく */
+@media (max-width: 1024px) and (max-height: 380px) {
+  .container {
+    margin-right: calc(22px + var(--sp-menu-width) + 11px) !important;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .btn:hover {
+    background-color: #333;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .container {
+    margin: auto 22px 22px 22px;
+  }
+  .pcLayout {
+    display: none;
+  }
+  .spLayout {
+    display: grid !important;
+  }
+  .btn {
+    border-radius: 10px;
+    background-color: rgba(29, 29, 29, 0.8);
+  }
+  .forward {
+    background-size: 29px auto;
+  }
+  .backward {
+    background-size: 29px auto;
+  }
+  .left {
+    background-size: auto 29px;
+  }
+  .right {
+    background-size: auto 29px;
+  }
+  .up {
+    background-size: 29px auto;
+  }
+  .down {
+    background-size: 29px auto;
+  }
+}
 </style>
 
 <script>
