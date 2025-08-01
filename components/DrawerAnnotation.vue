@@ -103,7 +103,7 @@
       </div>
       <div v-if="data.speaker" class="speaker">
         <h5>Speaker</h5>
-        <div class="clf">
+        <div class="speakerContent">
           <div
             class="thumb"
             :style="`background-image: url(${data.youtube.thumbnailUrl()});`"
@@ -121,20 +121,6 @@
 
 <style scoped>
 @import '~/assets/style/_drawer-common.css';
-
-.clf:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-.clf:before {
-  content: '';
-  display: block;
-  clear: both;
-}
-.clf {
-  display: block;
-}
 
 header {
   .autoplay {
@@ -266,17 +252,18 @@ header {
     }
   }
   .speaker {
-    .thumb {
-      background-size: 180%; /* 上下に黒帯が入った正方形なのでceoverにするとNG */
-      background-position: center;
-      width: 87px;
-      height: 87px;
-      border-radius: 5px;
-      float: left;
-    }
-    .text {
-      float: left;
-      margin-left: 20px;
+    .speakerContent {
+      display: flex;
+      margin: 0;
+      gap: 20px;
+      .thumb {
+        background-size: 180%; /* 上下に黒帯が入った正方形なのでceoverにするとNG */
+        background-position: center;
+        width: 87px;
+        height: 87px;
+        border-radius: 5px;
+        flex-shrink: 0;
+      }
     }
   }
   .dateTime {
