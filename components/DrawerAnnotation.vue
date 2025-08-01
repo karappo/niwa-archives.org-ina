@@ -85,20 +85,22 @@
       ></div>
       <div v-if="data.tags" class="tags">
         <h5>Tags</h5>
-        <div
-          v-for="tag in data.tags"
-          :key="tag"
-          class="tag"
-          :class="{ disabled: $store.getters.tourName }"
-          @click="tagClick(tag)"
-        >
-          <span>#{{ tag }}</span>
-          <span class="num">
-            {{
-              annotations.filter((_a) => _a.tags && _a.tags.includes(tag))
-                .length
-            }}
-          </span>
+        <div class="tagsContent">
+          <div
+            v-for="tag in data.tags"
+            :key="tag"
+            class="tag"
+            :class="{ disabled: $store.getters.tourName }"
+            @click="tagClick(tag)"
+          >
+            <span>#{{ tag }}</span>
+            <span class="num">
+              {{
+                annotations.filter((_a) => _a.tags && _a.tags.includes(tag))
+                  .length
+              }}
+            </span>
+          </div>
         </div>
       </div>
       <div v-if="data.speaker" class="speaker">
@@ -225,29 +227,30 @@ header {
   .tags {
     font-size: 12px;
     line-height: 2;
-    .tag + .tag {
-      margin-left: 8px;
-    }
-    .tag {
-      display: inline-flex;
-      background-color: #242424;
-      color: #d6d6d6;
-      border-radius: 5px;
-      padding: 3px 10px;
-      font-size: 14px;
-      cursor: pointer;
-      margin-bottom: 1em;
-      &.disabled {
-        opacity: 0.3;
-        pointer-events: none;
-      }
-      &:not(.disabled):hover {
-        background-color: lighten(#242424, 10%);
-      }
-      span.num {
-        color: #7c7c7c;
-        font-family: 'K2-v1-Regular';
-        margin-left: 1em;
+    .tagsContent {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      .tag {
+        display: inline-flex;
+        background-color: #242424;
+        color: #d6d6d6;
+        border-radius: 5px;
+        padding: 3px 10px;
+        font-size: 14px;
+        cursor: pointer;
+        &.disabled {
+          opacity: 0.3;
+          pointer-events: none;
+        }
+        &:not(.disabled):hover {
+          background-color: lighten(#242424, 10%);
+        }
+        span.num {
+          color: #7c7c7c;
+          font-family: 'K2-v1-Regular';
+          margin-left: 1em;
+        }
       }
     }
   }
