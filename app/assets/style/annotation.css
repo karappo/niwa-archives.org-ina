@@ -1,0 +1,264 @@
+@keyframes markerAnim {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+.annotation {
+  transform: translate(-50%, 0);
+  opacity: 1 !important;
+
+  &:hover {
+    z-index: 99999990 !important;
+  }
+
+  --category-color: #4d4d4d;
+
+  &[data-category='Viewpoints/Still Images'] {
+    --category-color: var(--color--still-images);
+  }
+
+  &[data-category='Viewpoints/Movies'] {
+    --category-color: var(--color--movies);
+  }
+
+  &[data-category='Elements/Stones'] {
+    --category-color: var(--color--stones);
+  }
+
+  &[data-category='Elements/Plants'] {
+    --category-color: var(--color--plants);
+  }
+
+  &[data-category='Elements/Creatures'] {
+    --category-color: var(--color--creatures);
+  }
+
+  &[data-category='Elements/Artifacts'] {
+    --category-color: var(--color--artifacts);
+  }
+
+  &[data-category='Elements/DNA Data'] {
+    --category-color: var(--color--dna-data);
+  }
+
+  &[data-category='Oral Archives'] {
+    --category-color: var(--color--oral-archives);
+  }
+
+  &[data-is_group='true'] {
+    .annotation-titlebar {
+      margin-top: -6px;
+    }
+  }
+
+  @media only screen and (max-width: 990px) {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .annotation-titlebar {
+    display: inline-flex;
+    align-items: center;
+    border: 0;
+    box-shadow: none !important;
+    position: absolute;
+    transition: clip-path .4s cubic-bezier(0.18, 0.93, 0.49, 0.99), color 0.2s;
+    clip-path: inset(0 100% 0 0);
+    overflow: visible;
+    background-color: transparent;
+    color: #696969;
+
+    &:hover {
+      color: white;
+    }
+
+    @media only screen and (min-width: 991px) {
+      top: -28px;
+      left: 14px;
+    }
+
+    @media only screen and (max-width: 990px) {
+      position: relative;
+      top: -47px;
+      left: 3px;
+      padding-bottom: 16px;
+    }
+
+    &:before {
+      position: absolute;
+      content: '';
+      display: block;
+      width: 2px;
+      height: 20px;
+      background-color: black;
+      transform: translate(0px, 10px) rotate(45deg);
+      z-index: -1;
+
+      @media only screen and (max-width: 990px) {
+        height: 15px;
+        transform: none;
+        top: 26px;
+        left: 50%;
+      }
+    }
+
+    .annotation-label {
+      flex-shrink: 0;
+      background-color: black;
+      border-radius: 14px;
+      padding: 0 15px;
+      font-family: 'K2-v1-Bold', '游ゴシック体', 'Yu Gothic', 'YuGothic', YuGothic, 'Lucida Grande','Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','HiraKakuProN-W3','メイリオ','Meiryo','ＭＳ ゴシック','MS Gothic',Osaka,Verdana,arial,helvetica,sans-serif;
+      font-size: 12px;
+      line-height: 2.2;
+      overflow: visible;
+    }
+
+    .group-count {
+      flex-shrink: 0;
+      width: 37px;
+      height: 37px;
+      border-radius: 50%;
+      background-color: black;
+      font-family: 'K2-v1-Bold', '游ゴシック体', 'Yu Gothic', 'YuGothic', YuGothic, 'Lucida Grande','Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','HiraKakuProN-W3','メイリオ','Meiryo','ＭＳ ゴシック','MS Gothic',Osaka,Verdana,arial,helvetica,sans-serif;
+      font-size: 17px;
+      line-height: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      .group-count-inner {
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+
+  .annotation-marker {
+    cursor: pointer;
+    z-index: 1; /* macOS Safariでホバーしたときにマスキングが外れる症状への対処 */
+  }
+
+  .annotation-prev,
+  .annotation-next {
+    display: none;
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    padding: 0 10px;
+    min-width: 60px;
+  }
+
+  .annotation-prev {
+    float: left;
+  }
+
+  .annotation-next {
+    float: right;
+    text-align: right;
+  }
+
+  &.highlighted {
+    z-index: 99999990 !important;
+
+    .annotation-marker {
+      > div {
+        animation: markerAnim 0.4s infinite;
+        animation-direction: alternate;
+      }
+    }
+
+    .annotation-titlebar {
+      color: white;
+    }
+  }
+
+  /* 非表示 */
+  /* &[data-camera-dist=far] {
+  } */
+
+  &[data-camera-dist=middle] .annotation-marker,
+  &[data-camera-dist=near] .annotation-marker {
+    --size: 4px;
+    content: '';
+    display: block;
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    top: calc(var(--size) / -2);
+    left: calc(50% - (var(--size) / 2));
+    border-radius: 100px;
+    border: 4px solid var(--category-color);
+
+    > div {
+      display: none;
+    }
+  }
+
+  &[data-camera-dist=middle] {
+    &:hover {
+      .annotation-titlebar {
+        clip-path: inset(0);
+      }
+    }
+  }
+
+  &[data-camera-dist=near] {
+    .annotation-titlebar {
+      clip-path: inset(0);
+    }
+  }
+
+  &[data-camera-dist=nearer] {
+    .annotation-titlebar {
+      clip-path: inset(0);
+
+      @media only screen and (min-width: 991px) {
+        left: 52px;
+        top: -50px;
+      }
+
+      @media only screen and (max-width: 990px) {
+        top: -90px;
+      }
+    }
+
+    .annotation-marker {
+      --size: 80px;
+      --border-width: 6px;
+      content: '';
+      display: block;
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+      top: calc(var(--size) / -2 - var(--border-width));
+      left: calc(50% - (var(--size) / 2));
+      background-color: black;
+      border-radius: var(--size);
+      border: var(--border-width) solid var(--category-color);
+      overflow: hidden;
+
+      > div {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+      }
+
+      &:hover {
+        > div {
+          opacity: 1 !important;
+        }
+      }
+    }
+  }
+}
