@@ -494,22 +494,33 @@ const annotationsStore = useAnnotationsStore()
 
 const route = useRoute()
 
-const annotations = annotationsStore[camelCase(route.params.alias)] || []
-const annotationGroups = Object.values(
-  _groupBy(annotations, 'position')
-).filter((a) => 1 < a.length)
+const { data: asyncData, pending: loading } = useAsyncData('alias-data', async () => {
+  let data = await import(`~/data/gardens/${route.params.alias}.js`)
+  data = data.default
 
-annotations.forEach((a, index) => {
-  a.grouped = annotationGroups.some(
-    (g) => JSON.stringify(g[0].position) === JSON.stringify(a.position)
-  )
-  a.firstInGroup = annotationGroups.some(
-    (g) => g[0].id === a.id
-  )
+  return {
+    data
+  }
 })
 
-let data = await import(`~/data/gardens/${route.params.alias}.js`)
-data = data.default
+const data = computed(() => asyncData.value?.data || {})
+
+const annotations = computed(() => {
+  if (process.client) {
+    return annotationsStore[camelCase(route.params.alias)] || []
+  }
+  return []
+})
+
+const annotationGroups = computed(() => {
+  if (process.client) {
+    const annotations = annotationsStore[camelCase(route.params.alias)] || []
+    return Object.values(
+      _groupBy(annotations, 'position')
+    ).filter((a) => 1 < a.length)
+  }
+  return []
+})
 
 const debugMode = ref(false)
 const infoMode = ref(false)
@@ -520,7 +531,6 @@ const tours = ref(null)
 const annotationData = ref('')
 const listData = ref(null)
 const tourData = ref(null)
-const loading = ref(true)
 const noticeVisibility = ref(true)
 const rambleTourTimer = ref(null)
 const sideBarSpVisibility = ref(false)
