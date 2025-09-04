@@ -562,7 +562,7 @@ const nextDisabled = computed(() => {
   return listDataIdArray.value.length - 1 <= listCurrentIndex.value
 })
 const potreeRenderAreaClass = computed(() => {
-  const visibilities = JSON.parse(JSON.stringify(store.getters.annotationVisibilities))
+  const visibilities = JSON.parse(JSON.stringify(mainStore.annotationVisibilities || {}))
   Object.keys(visibilities).forEach(function(key) {
     visibilities[camelCase(key)] = visibilities[key]
     delete visibilities[key]
@@ -573,7 +573,7 @@ const potreeRenderAreaClass = computed(() => {
   res.disabled = tourName.value !== null
   return res
 })
-const tourName = computed(() => store.getters.tourName)
+const tourName = computed(() => mainStore.tourName)
 const spSideBarVisibility = computed(() => {
   return (
     isSP.value &&
@@ -688,14 +688,14 @@ onMounted(async () => {
   viewerInstance.scene.addPointCloud(pointcloud)
 
   if (
-    store.getters.cameraPosition &&
-    store.getters.cameraTarget
+    mainStore.cameraPosition &&
+    mainStore.cameraTarget
   ) {
     window.viewer.scene.view.position.set(
-      ...store.getters.cameraPosition
+      ...mainStore.cameraPosition
     )
     window.viewer.scene.view.lookAt(
-      new THREE.Vector3(...store.getters.cameraTarget)
+      new THREE.Vector3(...mainStore.cameraTarget)
     )
   } else {
     data.initCamera()
@@ -875,7 +875,7 @@ function openAnnotationById(id) {
     (a) => a.data.id === id
   )
   if (annotation) {
-    annotation.moveHere(store.getters.pageName.includes('Tour') ? 10000 : null)
+    annotation.moveHere(mainStore.pageName?.includes('Tour') ? 10000 : null)
     nextTick(() => {
       annotationData.value = annotation.data
     })
@@ -885,7 +885,7 @@ function openAnnotationById(id) {
   const annotationDataItem = annotations.find((a) => a.id === id)
   if (annotationDataItem) {
     const firstAnnotationInSameGroup = getFirstAnnotationInSameGroup(annotationDataItem)
-    firstAnnotationInSameGroup.moveHere(store.getters.pageName.includes('Tour') ? 10000 : null)
+    firstAnnotationInSameGroup.moveHere(mainStore.pageName?.includes('Tour') ? 10000 : null)
     nextTick(() => {
       annotationData.value = annotationDataItem
     })
@@ -913,7 +913,7 @@ function clearAnnotationHighlight() {
 function onClickAnnotation(e) {
   const setAnnotationData = (data) => {
     nextTick(() => {
-      if (data.grouped && !store.getters.pageName.includes('Tour')) {
+      if (data.grouped && !mainStore.pageName?.includes('Tour')) {
         listData.value = {
           name: 'Group',
           list: getAnnotationGroupByPosition(data.position)
@@ -926,7 +926,7 @@ function onClickAnnotation(e) {
   if (annotationData.value || listData.value || tourData.value) {
     if (listData.value) {
       listData.value = null
-      store.commit('pageName', '')
+      mainStore.pageName('')
     }
     setAnnotationData(e.target.data)
   } else {
@@ -975,7 +975,7 @@ function update() {
 function selectList(name) {
   tourData.value = null
   clearAnnotationData()
-  store.commit('pageName', name)
+  mainStore.pageName(name)
 
   if (name.includes('Tour')) {
     let list = []
@@ -1015,8 +1015,8 @@ function clearAnnotationData() {
 }
 
 function closeDrawer() {
-  store.commit('tourName', null)
-  store.commit('pageName', '')
+  mainStore.tourName(null)
+  mainStore.pageName('')
   clearAnnotationData()
   listData.value = null
   tourData.value = null
@@ -1041,7 +1041,7 @@ function startRambleTourWithoutAnnotations() {
 
 function stopRambleTourWithoutAnnotations() {
   if (rambleTourTimer.value) {
-    store.commit('pageName', '')
+    mainStore.pageName('')
     clearAnnotationData()
     clearInterval(rambleTourTimer.value)
     rambleTourTimer.value = null
