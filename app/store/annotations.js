@@ -1,3 +1,5 @@
+import { defineStore } from 'pinia'
+
 // -------------------------------
 // ※ ページが増えたときはここに追加
 const pages = [

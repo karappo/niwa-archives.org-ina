@@ -1,3 +1,5 @@
+import { defineStore } from 'pinia'
+
 export const useMainStore = defineStore('main', {
   state: () => ({
     lastUpdateDateTime: {}, // 各スプレッドシートの最終更新日時を保持
