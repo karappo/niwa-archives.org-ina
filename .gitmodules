@@ -1,3 +1,7 @@
 [submodule "app/static/assets/potree"]
 	path = app/static/assets/potree
 	url = git@github.com:naokazuterada/potree.git
+[submodule "app/assets/style/general"]
+	path = app/assets/style/general
+	url = git@github.com:naokazuterada/general.git
+	branch = css
