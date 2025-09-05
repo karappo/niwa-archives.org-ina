@@ -13,9 +13,13 @@
     "@pinia/nuxt": "^0.11.2",
     "change-case": "^5.4.4",
     "dayjs": "^1.11.18",
+    "element-plus": "^2.11.1",
     "nuxt": "^4.1.0",
     "pinia": "^3.0.3",
+    "splitpanes": "^4.0.4",
     "vue": "^3.5.20",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "vue-scrollto": "^2.20.0",
+    "vue3-youtube": "^0.1.9"
   }
 }
