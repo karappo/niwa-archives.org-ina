@@ -595,7 +595,8 @@ const spSideBarVisibility = computed(() => {
 const drawerVisibility = computed(() => {
   return !(tourName.value && tourName.value.includes('without Annotations')) && (tourData.value || listData.value || annotationData.value)
 })
-const soundDataExists = computed(() => AllSoundData[useNuxtApp().$garden(route)] || false)
+const { $garden } = useNuxtApp()
+const soundDataExists = computed(() => AllSoundData[$garden(route)] || false)
 
 watch(tourName, (val) => {
   if (val === null) {
