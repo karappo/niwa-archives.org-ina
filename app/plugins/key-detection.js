@@ -1,0 +1,48 @@
+/* eslint-disable */
+// ブラウザやOSによってキーの判定方法が複雑なのでここに一元化する
+//
+// // 使用例
+// onKeydown(e) {
+//   const key = this.$key(e)
+// }
+// TODO:
+// keyCodeはdeprecatedらしいので、使わない方法を模索したい
+// https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+//
+// Dependencies:
+// - [nuxt-ua](https://www.npmjs.com/package/nuxt-ua)
+//
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.provide('key', (e) => {
+    const key = e.key.toLowerCase()
+    // OS間共通 ======================
+    if (e.keyCode === 13) { // 日本語変換時の確定が反応してしまわないようにkeyCodeで判定
+      return 'enter'
+    }
+
+    // Space キー
+    if (e.keyCode === 32) {
+      return 'space'
+    }
+    // Mac ==========================
+    if (nuxtApp.$ua.is.macos) {
+      // Chrome以外 ------------------
+      if (!nuxtApp.$ua.is.chrome) {
+        if (e.code.toLowerCase() === 'space' && e.keyCode === 229 && !e.isComposing) {
+          return 'space'
+        }
+      }
+    }
+    // Windows ======================
+    else if (nuxtApp.$ua.is.windows) {
+      // Chrome ---------------------
+      if (nuxtApp.$ua.is.chrome) {
+        if ((e.code && e.code.toLowerCase() === 'space') && e.keyCode === 229 && !e.isComposing) {
+          return 'space'
+        }
+      }
+    }
+
+    return key
+  })
+})
