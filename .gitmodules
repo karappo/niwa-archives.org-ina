@@ -1,0 +1,3 @@
+[submodule "app/static/assets/potree"]
+	path = app/static/assets/potree
+	url = git@github.com:naokazuterada/potree.git
