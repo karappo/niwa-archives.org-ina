@@ -1,0 +1,3 @@
+# 季節のある庭をデフォルトの季節へリダイレクト
+RedirectMatch ^/(ina/)?fugetsu_ro/(.*)$ /ina/fugetsu_ro-spring/$2
+RedirectMatch ^/(ina/)?murin_an/(.*)$ /ina/murin_an-snow/$2
