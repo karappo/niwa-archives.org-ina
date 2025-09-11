@@ -24,8 +24,7 @@ logs
 !.env.example
 
 _temp/
-app/static/assets/pointclouds/*
-!app/static/assets/pointclouds/.gitkeep
-app/static/assets/sound/*
-!app/static/assets/sound/.gitkeep
-app/static/2020/assets/sessyutei.mp3
+public/assets/pointclouds/*
+!public/assets/pointclouds/.gitkeep
+public/assets/sound/*
+!public/assets/sound/.gitkeep

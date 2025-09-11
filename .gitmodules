@@ -1,10 +1,7 @@
-[submodule "app/static/assets/potree"]
-	path = app/static/assets/potree
+[submodule "public/assets/potree"]
+	path = public/assets/potree
 	url = git@github.com:naokazuterada/potree.git
 [submodule "app/assets/style/general"]
 	path = app/assets/style/general
 	url = git@github.com:naokazuterada/general.git
 	branch = css
-[submodule "/Users/terada/Sites/niwa-archives.org-ina-new/static/assets/potree"]
-	path = /Users/terada/Sites/niwa-archives.org-ina-new/static/assets/potree
-	url = git@github.com:naokazuterada/potree.git
