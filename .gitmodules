@@ -5,3 +5,6 @@
 	path = app/assets/style/general
 	url = git@github.com:naokazuterada/general.git
 	branch = css
+[submodule "/Users/terada/Sites/niwa-archives.org-ina-new/static/assets/potree"]
+	path = /Users/terada/Sites/niwa-archives.org-ina-new/static/assets/potree
+	url = git@github.com:naokazuterada/potree.git
