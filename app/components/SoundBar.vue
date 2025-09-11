@@ -3,7 +3,7 @@
     v-if="list"
     :class="{
       visible,
-      border: !$store.getters.tourName
+      border: !mainStore.tourName
     }"
     :data-sp-visibility="spVisibility"
     class="soundBar"
@@ -46,7 +46,7 @@
           <nuxt-link
             v-if="data.movieId"
             to="TODO"
-            :class="{ disabled: $store.getters.tourName }"
+            :class="{ disabled: mainStore.tourName }"
             class="button link movie"
           >
             Movie
@@ -55,7 +55,7 @@
           <ExternalLink
             v-if="data.ambisonicsUrl"
             :href="data.ambisonicsUrl"
-            :class="{ disabled: $store.getters.tourName }"
+            :class="{ disabled: mainStore.tourName }"
             class="button link ambisonics"
           >
             Ambisonics
@@ -68,7 +68,7 @@
         <dd>
           <template v-if="data.place">
             <a
-              :class="{ disabled: $store.getters.tourName }"
+              :class="{ disabled: mainStore.tourName }"
               @click="placeClick(data.place.annotation)"
             >
               {{ data.place.label }}
@@ -87,7 +87,7 @@
               <a
                 v-if="tags.includes(creature)"
                 :key="`link-${i}`"
-                :class="{ disabled: $store.getters.tourName }"
+                :class="{ disabled: mainStore.tourName }"
                 class="creature"
                 @click="tagClick(creature)"
               >
@@ -419,152 +419,146 @@ audio {
 }
 </style>
 
-<script>
-// import dayjs from 'dayjs'
+<script setup>
 import AllSoundData from '~/data/sounds.js'
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg?inline'
 import Play from '~/assets/image/SoundBar/play.svg?inline'
 import Pause from '~/assets/image/SoundBar/pause.svg?inline'
 import SpClose from '~/assets/image/SoundBar/sp-close.svg?inline'
-export default {
-  components: {
-    TriangleArrow,
-    Play,
-    Pause,
-    SpClose
+import { useMainStore } from '~/store/index.js'
+const mainStore = useMainStore()
+import { useAnnotationsStore } from '~/store/annotations.js'
+const annotationsStore = useAnnotationsStore()
+
+const props = defineProps({
+  annotations: {
+    type: Array,
+    required: true,
+    default: null
   },
-  props: {
-    annotations: {
-      type: Array,
-      require: true,
-      default: null
-    },
-    spVisibility: {
-      type: Boolean,
-      require: true,
-      default: false
-    }
-  },
-  data() {
-    return {
-      visible: true,
-      index: '0', // SelectBoxに渡す関係でStringにしておく必要がある
-      list: AllSoundData[this.$garden(this.$route)] || null,
-      currentTime: '00:00',
-      totalTime: '00:00',
-      paused: true,
-      duration: 0,
-      percent: 0 // Number: 0 ~ 100
-    }
-  },
-  computed: {
-    data() {
-      return this.list[parseInt(this.index, 10)]
-    },
-    file() {
-      return this.data.src
-    },
-    player() {
-      return this.$refs.player
-    },
-    tags() {
-      return this.$getTags(this.annotations)
-    }
-  },
-  watch: {
-    index() {
-      if (!this.paused) {
-        this.pause()
-      }
-      this.player.src = this.data.src
-      this.player.load()
-    }
-  },
-  mounted() {
-    if (this.list) {
-      this.player.addEventListener('playing', this.playing)
-      this.player.addEventListener('pause', this.pause)
-      this.player.addEventListener('timeupdate', this.timeupdate)
-      this.player.addEventListener('loadedmetadata', this.loadedmetadata)
-      this.player.src = this.data.src
-      this.player.load()
-    }
-  },
-  beforeDestroy() {
-    if (this.list) {
-      this.player.removeEventListener('playing', this.playing)
-      this.player.removeEventListener('pause', this.pause)
-      this.player.removeEventListener('timeupdate', this.timeupdate)
-      this.player.removeEventListener('loadedmetadata', this.loadedmetadata)
-    }
-  },
-  methods: {
-    playing() {
-      this.paused = false
-    },
-    pause() {
-      this.paused = true
-    },
-    togglePlay() {
-      if (this.player.paused) {
-        this.player.play()
-      } else {
-        this.player.pause()
-      }
-    },
-    timeupdate() {
-      const current = Math.floor(this.player.currentTime)
-      const duration = Math.floor(this.player.duration)
-      this.percent = (current / duration) * 100
-      this.currentTime = current ? this.playTime(current) : '00:00'
-    },
-    loadedmetadata() {
-      const current = Math.floor(this.player.currentTime)
-      const duration = Math.floor(this.player.duration)
-      this.percent = 0
-      this.currentTime = current ? this.playTime(current) : '00:00'
-      this.totalTime = duration ? this.playTime(duration) : '00:00'
-    },
-    playTime(t) {
-      let hms = ''
-      const h = (t / 3600) | 0
-      const m = ((t % 3600) / 60) | 0
-      const s = t % 60
-      const z2 = (v) => {
-        const s = '00' + v
-        return s.substr(s.length - 2, 2)
-      }
-      if (h !== 0) {
-        hms = h + ':' + z2(m) + ':' + z2(s)
-      } else if (m !== 0) {
-        hms = z2(m) + ':' + z2(s)
-      } else {
-        hms = '00:' + z2(s)
-      }
-      return hms
-    },
-    progressStyle() {
-      return {
-        width: `${this.percent}%`
-      }
-    },
-    seekBarClick(e) {
-      if (e.target === this.$refs.return) {
-        this.player.currentTime = 0
-      } else {
-        // eslint-disable-next-line
-        this.player.currentTime = this.player.duration * (e.offsetX / this.$refs.seekBarHitArea.offsetWidth)
-      }
-    },
-    placeClick(annotationId) {
-      this.$nuxt.$emit('clickAnnotationLink', annotationId)
-    },
-    tagClick(tag) {
-      this.$nuxt.$emit('selectList', 'Annotations')
-      this.$nextTick(function () {
-        this.$nuxt.$emit('setTagIndexStr', tag)
-      })
-    }
+  spVisibility: {
+    type: Boolean,
+    required: true,
+    default: false
   }
+})
+
+const visible = ref(true)
+const index = ref('0') // SelectBoxに渡す関係でStringにしておく必要がある
+const route = useRoute()
+const { $garden, $getTags, $nuxt } = useNuxtApp()
+const list = computed(() => AllSoundData[$garden(route)] || null)
+const currentTime = ref('00:00')
+const totalTime = ref('00:00')
+const paused = ref(true)
+const duration = ref(0)
+const percent = ref(0) // Number: 0 ~ 100
+
+const data = computed(() => list.value[parseInt(index.value, 10)])
+const file = computed(() => data.value.src)
+const player = ref(null)
+const tags = computed(() => $getTags(props.annotations))
+
+watch(index, () => {
+  if (!paused.value) {
+    pause()
+  }
+  player.value.src = data.value.src
+  player.value.load()
+})
+
+onMounted(() => {
+  if (list.value) {
+    player.value.addEventListener('playing', playing)
+    player.value.addEventListener('pause', pause)
+    player.value.addEventListener('timeupdate', timeupdate)
+    player.value.addEventListener('loadedmetadata', loadedmetadata)
+    player.value.src = data.value.src
+    player.value.load()
+  }
+})
+
+onBeforeUnmount(() => {
+  if (list.value) {
+    player.value.removeEventListener('playing', playing)
+    player.value.removeEventListener('pause', pause)
+    player.value.removeEventListener('timeupdate', timeupdate)
+    player.value.removeEventListener('loadedmetadata', loadedmetadata)
+  }
+})
+
+function playing() {
+  paused.value = false
+}
+
+function pause() {
+  paused.value = true
+}
+
+function togglePlay() {
+  if (player.value.paused) {
+    player.value.play()
+  } else {
+    player.value.pause()
+  }
+}
+
+function timeupdate() {
+  const current = Math.floor(player.value.currentTime)
+  const duration = Math.floor(player.value.duration)
+  percent.value = (current / duration) * 100
+  currentTime.value = current ? playTime(current) : '00:00'
+}
+
+function loadedmetadata() {
+  const current = Math.floor(player.value.currentTime)
+  const duration = Math.floor(player.value.duration)
+  percent.value = 0
+  currentTime.value = current ? playTime(current) : '00:00'
+  totalTime.value = duration ? playTime(duration) : '00:00'
+}
+
+function playTime(t) {
+  let hms = ''
+  const h = (t / 3600) | 0
+  const m = ((t % 3600) / 60) | 0
+  const s = t % 60
+  const z2 = (v) => {
+    const s = '00' + v
+    return s.substr(s.length - 2, 2)
+  }
+  if (h !== 0) {
+    hms = h + ':' + z2(m) + ':' + z2(s)
+  } else if (m !== 0) {
+    hms = z2(m) + ':' + z2(s)
+  } else {
+    hms = '00:' + z2(s)
+  }
+  return hms
+}
+
+function progressStyle() {
+  return {
+    width: `${percent.value}%`
+  }
+}
+
+function seekBarClick(e) {
+  if (e.target === player.value.$refs.return) {
+    player.value.currentTime = 0
+  } else {
+    player.value.currentTime = player.value.duration * (e.offsetX / player.value.$refs.seekBarHitArea.offsetWidth)
+  }
+}
+
+function placeClick(annotationId) {
+  $nuxt.$emit('clickAnnotationLink', annotationId)
+}
+
+function tagClick(tag) {
+  $nuxt.$emit('selectList', 'Annotations')
+  nextTick(() => {
+    $nuxt.$emit('setTagIndexStr', tag)
+  })
 }
 </script>
