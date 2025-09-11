@@ -1,0 +1,11 @@
+/*
+本文: 仮名だけ詰まり、約物はベタ
+見出し: 仮名+約物の両方が詰まる
+*/
+body {
+  font-feature-settings: "pkna" 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-feature-settings: "pkna" 1, "palt" 1;
+}

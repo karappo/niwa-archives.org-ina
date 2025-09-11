@@ -1,25 +1,48 @@
 {
-  "name": "nuxt-app",
+  "name": "incomplete-niwa-archives",
   "type": "module",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
     "dev": "nuxt dev",
+    "prebuild": "rm -rf dist",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "pregenerate": "rm -rf dist",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "deploy": "sh deploy.sh",
+    "lint:js": "eslint .",
+    "lint": "npm run lint:js",
     "postinstall": "nuxt prepare"
   },
+  "config": {
+    "nuxt": {
+      "host": "localhost",
+      "port": "3000"
+    }
+  },
   "dependencies": {
-    "@pinia/nuxt": "^0.11.2",
-    "change-case": "^5.4.4",
-    "dayjs": "^1.11.18",
-    "element-plus": "^2.11.1",
+    "@nuxtjs/device": "^3.2.4",
+    "@pinia/nuxt": "^0.6.0",
+    "change-case": "^4.1.2",
+    "dayjs": "^1.10.6",
+    "element-plus": "^2.8.7",
+    "lodash": "^4.17.21",
     "nuxt": "^4.1.0",
-    "pinia": "^3.0.3",
-    "splitpanes": "^4.0.4",
-    "vue": "^3.5.20",
-    "vue-router": "^4.5.1",
+    "ofetch": "^1.4.1",
+    "splitpanes": "^3.1.5",
+    "vue": "^3.5.11",
+    "vue-router": "^4.4.5",
     "vue-scrollto": "^2.20.0",
     "vue3-youtube": "^0.1.9"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^0.7.6",
+    "@types/lodash": "^4.17.12",
+    "@types/node": "^22.8.1",
+    "eslint": "^9.13.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
   }
 }
