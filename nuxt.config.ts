@@ -104,14 +104,7 @@ export default defineNuxtConfig({
     '~/assets/style/annotation.css'
   ],
 
-  plugins: [
-    '~/plugins/element-plus.client.ts',
-    '~/plugins/util.ts',
-    '~/plugins/vue-scrollto.client.ts',
-    '~/plugins/key-detection.client.ts',
-    '~/plugins/splitpanes.client.ts',
-    '~/plugins/vue-youtube.client.ts'
-  ],
+  // plugins are auto-discovered from app/plugins/
 
   components: true,
 
