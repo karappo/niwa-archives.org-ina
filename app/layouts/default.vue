@@ -1,5 +1,5 @@
 <template>
-  <nuxt />
+  <NuxtPage />
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
       `${window.innerHeight}px`
     )
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('resize', this.resize)
   },
   methods: {
