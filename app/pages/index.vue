@@ -1,4 +1,11 @@
-<script>
+<template>
+  <div>Redirecting...</div>
+</template>
+
+<script setup>
 // このページは存在しない。
-// middleware/redirection.js でリダイレクトしている。
+// リダイレクト処理を実行
+onMounted(() => {
+  navigateTo('/fugetsu_ro-spring/')
+})
 </script>
