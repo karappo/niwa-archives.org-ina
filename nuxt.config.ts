@@ -122,6 +122,13 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    plugins: [
+      // SVG support using vite-svg-loader
+      require('vite-svg-loader')({
+        // Convert SVGs to Vue components
+        defaultImport: 'component'
+      })
+    ],
     css: {
       preprocessorOptions: {
         scss: {

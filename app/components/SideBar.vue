@@ -229,8 +229,8 @@ aside.sideBar {
 </style>
 
 <script>
-// import MenuArrow from '~/assets/image/menu-arrow.svg?inline'
-import SideBarClose from '~/assets/image/sideBar/close.svg?inline'
+// import MenuArrow from '~/assets/image/menu-arrow.svg'
+import SideBarClose from '~/assets/image/sideBar/close.svg'
 export default {
   components: {
     // MenuArrow,

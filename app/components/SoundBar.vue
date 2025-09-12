@@ -421,10 +421,10 @@ audio {
 
 <script setup>
 import AllSoundData from '~/data/sounds.js'
-import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg?inline'
-import Play from '~/assets/image/SoundBar/play.svg?inline'
-import Pause from '~/assets/image/SoundBar/pause.svg?inline'
-import SpClose from '~/assets/image/SoundBar/sp-close.svg?inline'
+import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg'
+import Play from '~/assets/image/SoundBar/play.svg'
+import Pause from '~/assets/image/SoundBar/pause.svg'
+import SpClose from '~/assets/image/SoundBar/sp-close.svg'
 import { useMainStore } from '~/stores/main.js'
 const mainStore = useMainStore()
 import { useAnnotationsStore } from '~/stores/annotations.js'

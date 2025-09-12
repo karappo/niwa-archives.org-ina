@@ -64,7 +64,7 @@
 </style>
 
 <script>
-import TriangleArrow from '~/assets/image/filter-triangle-arrow-down.svg?inline'
+import TriangleArrow from '~/assets/image/filter-triangle-arrow-down.svg'
 export default {
   components: {
     TriangleArrow

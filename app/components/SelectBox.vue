@@ -82,7 +82,7 @@
 </style>
 
 <script>
-import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg?inline'
+import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg'
 export default {
   components: {
     TriangleArrow

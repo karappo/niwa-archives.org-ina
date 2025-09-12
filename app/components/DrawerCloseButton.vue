@@ -14,7 +14,7 @@
 </style>
 
 <script>
-import IconClose from '~/assets/image/icon-close.svg?inline'
+import IconClose from '~/assets/image/icon-close.svg'
 export default {
   components: {
     IconClose

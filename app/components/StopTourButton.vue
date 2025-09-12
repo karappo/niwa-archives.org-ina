@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import IconStop from '~/assets/image/icon-stop.svg?inline'
+import IconStop from '~/assets/image/icon-stop.svg'
 import { useMainStore } from '~/stores/main'
 
 export default {

@@ -86,8 +86,8 @@
 
 <script setup>
 import { defineProps, computed } from 'vue'
-import IconHyphen from '~/assets/image/icon-hyphen.svg?inline'
-import IconTour from '~/assets/image/icon-tour.svg?inline'
+import IconHyphen from '~/assets/image/icon-hyphen.svg'
+import IconTour from '~/assets/image/icon-tour.svg'
 import { useMainStore } from '~/stores/main.js'
 const mainStore = useMainStore()
 const { $getTitle } = useNuxtApp()

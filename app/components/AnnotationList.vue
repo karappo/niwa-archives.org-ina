@@ -150,8 +150,8 @@
 </style>
 
 <script>
-import TypeImage from '~/assets/image/type-image.svg?inline'
-import TypeVideo from '~/assets/image/type-video.svg?inline'
+import TypeImage from '~/assets/image/type-image.svg'
+import TypeVideo from '~/assets/image/type-video.svg'
 import { useMainStore } from '~/stores/main'
 
 export default {

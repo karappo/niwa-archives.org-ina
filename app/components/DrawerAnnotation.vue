@@ -360,9 +360,9 @@ header {
 
 <script>
 import dayjs from 'dayjs'
-import IconPrev from '~/assets/image/icon-prev.svg?inline'
-import IconNext from '~/assets/image/icon-next.svg?inline'
-import IconList from '~/assets/image/icon-list.svg?inline'
+import IconPrev from '~/assets/image/icon-prev.svg'
+import IconNext from '~/assets/image/icon-next.svg'
+import IconList from '~/assets/image/icon-list.svg'
 import { useMainStore } from '~/stores/main'
 
 export default {
