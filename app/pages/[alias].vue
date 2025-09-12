@@ -475,6 +475,10 @@ import _groupBy from 'lodash/groupBy'
 import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
 import AllSoundData from '~/data/sounds.js'
+import IconClose from '~/assets/image/icon-close.svg'
+import SpMenuList from '~/assets/image/spMenu/list.svg'
+import SpMenuNavigate from '~/assets/image/spMenu/navigate.svg'
+import SpMenuSound from '~/assets/image/spMenu/sound.svg'
 
 // Reactive data
 const debugMode = ref(false)
