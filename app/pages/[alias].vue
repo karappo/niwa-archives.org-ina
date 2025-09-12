@@ -508,7 +508,6 @@ const potreeRenderArea = ref(null)
 const route = useRoute()
 const router = useRouter()
 const mainStore = useMainStore()
-const annotationsStore = useAnnotationsStore()
 // const { $device } = useDevice() // Will be fixed when device module is properly configured
 
 // Computed properties
@@ -711,13 +710,47 @@ watch(listData, (val) => {
   }
 })
 
-// Lifecycle
-onMounted(async () => {
-  try {
-    const alias = route.params.alias
+// データ読み込み完了フラグ
+const isDataLoaded = ref(false)
 
-    // For now, use empty array for annotations (will be replaced when we integrate stores)
-    const annotationsData = []
+// データ読み込み処理を関数として分離
+const loadPageData = async () => {
+  try {
+    // 既に読み込み済みの場合はスキップ
+    console.log('loadPageData called, isDataLoaded.value:', isDataLoaded.value)
+    if (isDataLoaded.value) {
+      console.log('Data already loaded, skipping')
+      return
+    }
+
+    // 並行実行を防ぐため、関数開始時点でフラグを設定
+    isDataLoaded.value = true
+    console.log('Setting isDataLoaded to true at start')
+
+    const alias = route.params.alias
+    const annotationsStore = useAnnotationsStore()
+
+    console.log('------------ loadPageData ----------------')
+    console.log('annotationsStore:', annotationsStore)
+    console.log('alias:', alias)
+    console.log('camelCase(alias):', camelCase(alias))
+    
+    // annotationsストアから直接ページデータを取得
+    const pageKey = camelCase(alias)
+    const annotationsData = annotationsStore[pageKey]
+    
+    console.log('pageKey:', pageKey)
+    console.log('annotationsData:', annotationsData)
+    
+    if (!annotationsData) {
+      console.log('Annotation data not yet available for this alias')
+      // データがない場合はフラグをリセット
+      isDataLoaded.value = false
+      return
+    }
+
+    console.log('annotationsStore', annotationsStore)
+    console.log('annotationsData', annotationsData)
 
     // 同位置のアノテーションはgroupにする
     const annotationGroupsData = Object.values(
@@ -743,9 +776,42 @@ onMounted(async () => {
     annotations.value = annotationsData
     annotationGroups.value = annotationGroupsData
     data.value = gardenData
+
+    console.log('Page data loaded successfully')
   } catch (error) {
     console.error('Failed to load page data:', error)
+    // エラー時はフラグをリセット
+    isDataLoaded.value = false
   }
+}
+
+// アノテーションストアの変化を監視
+const annotationsStore = useAnnotationsStore()
+watch(
+  () => annotationsStore[camelCase(route.params.alias)],
+  (newData) => {
+    console.log('Watcher triggered, newData:', !!newData, 'isDataLoaded:', isDataLoaded.value)
+    if (newData && Array.isArray(newData) && newData.length > 0 && !isDataLoaded.value) {
+      console.log('Annotations data detected, calling loadPageData')
+      loadPageData()
+    }
+  },
+  { deep: true, immediate: true }
+)
+
+// ルート変更時にフラグをリセット
+watch(
+  () => route.params.alias,
+  () => {
+    console.log('Route changed, resetting data loaded flag')
+    isDataLoaded.value = false
+  }
+)
+
+// Lifecycle
+onMounted(async () => {
+  // 初期読み込み試行
+  await loadPageData()
 
   if (typeof window !== 'undefined' && window.FONTPLUS) {
     window.FONTPLUS.start()

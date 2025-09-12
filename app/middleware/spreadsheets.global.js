@@ -27,8 +27,11 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       for (const [key, value] of Object.entries(spreadsheetData.annotations)) {
         annotationsStore.setPageAnnotations(key, value)
       }
+      
+      console.log('Spreadsheet data loaded successfully into stores from client side')
     } catch (error) {
       console.error('Failed to load spreadsheet data:', error)
+      throw error // ページ遷移を止めるためにエラーを再スロー
     }
   }
 })
