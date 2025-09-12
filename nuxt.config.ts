@@ -114,7 +114,7 @@ export default defineNuxtConfig({
   ],
 
   device: {
-    refreshOnResize: true
+    // refreshOnResize option has been deprecated and removed
   },
 
   build: {
