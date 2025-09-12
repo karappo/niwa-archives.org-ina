@@ -39,7 +39,6 @@
     border: 2px solid #d3d3d3 !important;
     border-left: 0 !important;
     border-top: 0 !important;
-    top: 0;
     transition: none;
   }
   .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
