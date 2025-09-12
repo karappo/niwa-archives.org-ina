@@ -791,4 +791,8 @@ useHead({
     class: 'detail'
   }
 })
+
+definePageMeta({
+  middleware: 'spreadsheets'
+})
 </script>
