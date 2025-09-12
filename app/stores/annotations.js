@@ -27,7 +27,7 @@ export const useAnnotationsStore = defineStore('annotations', {
   getters: {
     // 動的getters for each page
     ...pages.reduce((getters, page) => {
-      getters[page] = (state) => state[page]
+      getters[`get${page.charAt(0).toUpperCase() + page.slice(1)}`] = (state) => state[page]
       return getters
     }, {})
   },
