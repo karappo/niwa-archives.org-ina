@@ -1,7 +1,7 @@
 <template>
   <div
     :data-name="listName"
-    :class="{ current: $store.getters.pageName === listName }"
+    :class="{ current: mainStore.pageName === listName }"
     class="btn"
     @click="$nuxt.$emit('selectList', listName)"
   >
@@ -84,33 +84,31 @@
 }
 </style>
 
-<script>
+<script setup>
+import { defineProps, computed } from 'vue'
 import IconHyphen from '~/assets/image/icon-hyphen.svg?inline'
 import IconTour from '~/assets/image/icon-tour.svg?inline'
-export default {
-  components: {
-    IconHyphen,
-    IconTour
+import { useMainStore } from '~/stores/main.js'
+const mainStore = useMainStore()
+const { $getTitle } = useNuxtApp()
+
+const props = defineProps({
+  listName: {
+    type: String,
+    required: true,
+    default: ''
   },
-  props: {
-    listName: {
-      type: String,
-      required: true,
-      default: ''
-    },
-    dot: {
-      type: Boolean,
-      default: true
-    },
-    icon: {
-      type: String,
-      default: null
-    }
+  dot: {
+    type: Boolean,
+    default: true
   },
-  computed: {
-    title() {
-      return this.$getTitle(this.listName)
-    }
+  icon: {
+    type: String,
+    default: null
   }
-}
+})
+
+const title = computed(() => {
+  return $getTitle(props.listName)
+})
 </script>

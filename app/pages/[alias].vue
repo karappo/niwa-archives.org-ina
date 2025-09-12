@@ -27,9 +27,9 @@
                 @click="viewer.toggleSidebar()"
               ></div>
               <div class="controls">
-                <h1 class="title" @dblclick="data.initCamera()">
+                <h1 class="title" @dblclick="data && data.initCamera()">
                   <span class="global">Incomplete Niwa Archives</span>
-                  <span class="scene">{{ data.title }}</span>
+                  <span class="scene">{{ data ? data.title : '' }}</span>
                   <template v-if="infoMode">
                     <br />
                     <span style="font-size: 13px">
@@ -70,8 +70,8 @@
           :class="{ border: !tourName }"
         >
           <template v-if="drawerVisibility">
-            <DrawerHistory v-if="$store.getters.pageName === 'History'" />
-            <Drawer3DData v-else-if="$store.getters.pageName === '3D Data'" />
+            <DrawerHistory v-if="mainStore.getPageName === 'History'" />
+            <Drawer3DData v-else-if="mainStore.getPageName === '3D Data'" />
             <DrawerAnnotation
               v-else-if="annotationData"
               :data="annotationData"
@@ -465,6 +465,7 @@ nav.spMenu {
 }
 </style>
 
+
 <script>
 // このファイル全体でprettierを無効化する
 /* eslint-disable prettier/prettier */
@@ -490,35 +491,16 @@ export default {
       default: null
     }
   },
-  async asyncData({ route, store }) {
-    const annotations = store.state.annotations[camelCase(route.params.alias)]
-    // 同位置のアノテーションはgroupにする
-    const annotationGroups = Object.values(
-      _groupBy(annotations, 'position')
-    ).filter((a) => 1 < a.length)
-    annotations.forEach((a, index) => {
-      // groupに属するかどうかをBooleanで持たせる
-      a.grouped = annotationGroups.some(
-        (g) => JSON.stringify(g[0].position) === JSON.stringify(a.position)
-      )
-      // groupの最初のアノテーションかどうかをBooleanで持たせる
-      a.firstInGroup = annotationGroups.some(
-        (g) => g[0].id === a.id
-      )
-    })
-    let data = await import(`~/data/gardens/${route.params.alias}.js`)
-    data = data.default
-
+  data() {
     return {
       debugMode: false,
       infoMode: false,
-      // 以上デバッグ用
       benchmarkTime: null,
       isLowPerformance: false,
       isSP: false,
-      annotations,
-      annotationGroups, // 同位置のアノテーションをまとめたグループ
-      data,
+      annotations: [],
+      annotationGroups: [],
+      data: null,
       tours: null,
       annotationData: '',
       listData: null,
@@ -526,13 +508,19 @@ export default {
       loading: true,
       noticeVisibility: true,
       rambleTourTimer: null,
-      // SPモード中の表示切り替えフラグ
       sideBarSpVisibility: false,
       keyMapSpVisibility: true,
       soundSpVisibility: false
     }
   },
   computed: {
+    // Pinia store access
+    mainStore() {
+      return useMainStore()
+    },
+    annotationsStore() {
+      return useAnnotationsStore()
+    },
     viewer() {
       return window.viewer
     },
@@ -577,7 +565,7 @@ export default {
     },
     potreeRenderAreaClass() {
       // eslint-disable-next-line
-      const visibilities = JSON.parse(JSON.stringify(this.$store.getters.annotationVisibilities))
+      const visibilities = JSON.parse(JSON.stringify(this.mainStore.getAnnotationVisibilities))
       // キーをクラス名で使える値に変更
       Object.keys(visibilities).forEach(function (key) {
         visibilities[camelCase(key)] = visibilities[key]
@@ -591,7 +579,7 @@ export default {
       return res
     },
     tourName() {
-      return this.$store.getters.tourName
+      return this.mainStore.getTourName
     },
     spSideBarVisibility() {
       return (
@@ -606,7 +594,8 @@ export default {
       return !(this.tourName && this.tourName.includes('without Annotations')) && (this.tourData || this.listData || this.annotationData)
     },
     soundDataExists() {
-      return AllSoundData[this.$garden(this.$route)] || false
+      const garden = this.getGardenFromRoute(this.$route)
+      return AllSoundData[garden] || false
     }
   },
   watch: {
@@ -663,8 +652,44 @@ export default {
     }
   },
   async mounted() {
-    if (FONTPLUS) {
-      FONTPLUS.start()
+    // Load page data (replacing asyncData functionality)
+    try {
+      const alias = this.$route.params.alias
+      const camelCaseAlias = camelCase(alias)
+      
+      // For now, use empty array for annotations (will be replaced when we integrate stores)
+      const annotations = []
+      
+      // 同位置のアノテーションはgroupにする
+      const annotationGroups = Object.values(
+        _groupBy(annotations, 'position')
+      ).filter((a) => a.length > 1)
+      
+      annotations.forEach((a) => {
+        // groupに属するかどうかをBooleanで持たせる
+        a.grouped = annotationGroups.some(
+          (g) => JSON.stringify(g[0].position) === JSON.stringify(a.position)
+        )
+        // groupの最初のアノテーションかどうかをBooleanで持たせる
+        a.firstInGroup = annotationGroups.some(
+          (g) => g[0].id === a.id
+        )
+      })
+      
+      // Load garden data
+      let data = await import(`~/data/gardens/${alias}.js`)
+      data = data.default
+
+      // Apply loaded data
+      this.annotations = annotations
+      this.annotationGroups = annotationGroups
+      this.data = data
+    } catch (error) {
+      console.error('Failed to load page data:', error)
+    }
+
+    if (typeof window !== 'undefined' && window.FONTPLUS) {
+      window.FONTPLUS.start()
     }
 
     // GET変数にdebugがtrueだったらdebugModeをtrueにする
@@ -741,14 +766,14 @@ export default {
     viewer.scene.addPointCloud(pointcloud)
 
     if (
-      this.$store.getters.cameraPosition &&
-      this.$store.getters.cameraTarget
+      this.mainStore.getCameraPosition &&
+      this.mainStore.getCameraTarget
     ) {
       window.viewer.scene.view.position.set(
-        ...this.$store.getters.cameraPosition
+        ...this.mainStore.getCameraPosition
       )
       window.viewer.scene.view.lookAt(
-        new THREE.Vector3(...this.$store.getters.cameraTarget)
+        new THREE.Vector3(...this.mainStore.getCameraTarget)
       )
     } else {
       this.data.initCamera()
@@ -830,6 +855,15 @@ export default {
     document.querySelectorAll('#profile_window,.sp-container').forEach((e) => e.remove()) // eslint-disable-line
   },
   methods: {
+    getGardenFromRoute(route) {
+      // 'joei_ji', 'murin_an' などを返す (plugin/util.ts の garden 関数と同等)
+      const arr = route.params.alias.split('-')
+      if (arr.length >= 2) {
+        return arr[0]
+      } else {
+        return route.params.alias
+      }
+    },
     keydown(e) {
       const canvas = document.querySelector('canvas');
       // canvas要素にフォーカスがない場合はフォーカスを設定
@@ -975,7 +1009,7 @@ export default {
       )
       if (annotation) {
         // リストからアノテーショングループに属するアノテーションをクリックした時に、ここを通る
-        annotation.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
+        annotation.moveHere(this.mainStore.getPageName.includes('Tour') ? 10000 : null)
         this.$nextTick(() => {
           this.annotationData = annotation.data
         })
@@ -987,7 +1021,7 @@ export default {
       if (annotationData) {
         // 同じグループの先頭アノテーションを探す
         const firstAnnotationInSameGroup = this.getFirstAnnotationInSameGroup(annotationData)
-        firstAnnotationInSameGroup.moveHere(this.$store.getters.pageName.includes('Tour') ? 10000 : null)
+        firstAnnotationInSameGroup.moveHere(this.mainStore.getPageName.includes('Tour') ? 10000 : null)
         // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
         this.$nextTick(() => {
           this.annotationData = annotationData
@@ -1025,7 +1059,7 @@ export default {
       const setAnnotationData = (data) => {
         // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
         this.$nextTick(() => {
-          if (data.grouped && !this.$store.getters.pageName.includes('Tour')) {
+          if (data.grouped && !this.mainStore.getPageName.includes('Tour')) {
             this.listData = {
               name: 'Group',
               list: this.getAnnotationGroupByPosition(data.position)
@@ -1039,7 +1073,7 @@ export default {
         // 何かのリスト表示中に、アノテーショングループがクリックされた時に、リストはクリアして、グループを表示する処理が必要
         if (this.listData) {
           this.listData = null
-          this.$store.commit('pageName', '')
+          this.mainStore.setPageName('')
         }
         setAnnotationData(e.target.data)
       } else {
@@ -1062,6 +1096,9 @@ export default {
       if (this.annotations) {
         // ここでカメラポジションとの比較
         this.annotations.forEach((a) => {
+          if (!a || !a.title) {
+            return
+          }
           if (a.category === 'Plans') {
             // Plansのものは描画しない
             return
@@ -1091,7 +1128,7 @@ export default {
       // console.log('selectList', name)
       this.tourData = null
       this.clearAnnotationData()
-      this.$store.commit('pageName', name)
+      this.mainStore.setPageName(name)
 
       if (name.includes('Tour')) {
         let list = []
@@ -1134,8 +1171,8 @@ export default {
     },
     closeDrawer() {
       // clear List
-      this.$store.commit('tourName', null)
-      this.$store.commit('pageName', '')
+      this.mainStore.setTourName(null)
+      this.mainStore.setPageName('')
       this.clearAnnotationData()
       this.listData = null
       this.tourData = null
@@ -1158,7 +1195,7 @@ export default {
     },
     stopRambleTourWithoutAnnotations() {
       if (this.rambleTourTimer) {
-        this.$store.commit('pageName', '')
+        this.mainStore.setPageName('')
         this.clearAnnotationData()
         clearInterval(this.rambleTourTimer)
         this.rambleTourTimer = null

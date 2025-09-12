@@ -170,7 +170,10 @@ article {
 
 <script>
 import _groupBy from 'lodash/groupBy'
+import { useMainStore } from '~/stores/main'
+
 export default {
+  emits: ['startRambleTourWithoutAnnotations', 'clickAnnotationLink'],
   props: {
     data: {
       type: Object,
@@ -257,13 +260,15 @@ export default {
       }
     },
     startRambleTourWithoutAnnotations() {
-      this.$store.commit('tourName', 'Ramble Tour without Annotations')
-      this.$nuxt.$emit('startRambleTourWithoutAnnotations')
+      const store = useMainStore()
+      store.setTourName('Ramble Tour without Annotations')
+      this.$emit('startRambleTourWithoutAnnotations')
     },
     startTour(tourName) {
-      this.$store.commit('tourName', tourName)
+      const store = useMainStore()
+      store.setTourName(tourName)
       this.$nextTick(() => {
-        this.$nuxt.$emit('clickAnnotationLink', this.data.list[0].id)
+        this.$emit('clickAnnotationLink', this.data.list[0].id)
       })
     },
     filterByTag(list) {

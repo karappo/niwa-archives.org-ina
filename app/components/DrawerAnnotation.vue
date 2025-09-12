@@ -3,9 +3,9 @@
     <header>
       <h2 class="category" :data-name="category">{{ category }}</h2>
       <a
-        v-if="$store.getters.pageName === 'Oral Archives'"
+        v-if="pageName === 'Oral Archives'"
         class="button autoplay"
-        :class="{ enabled: $store.getters.autoplay }"
+        :class="{ enabled: autoplay }"
         title="オートプレイ：自動的に次のアノテーションを表示・再生します"
         @click="clickAutoplay"
       >
@@ -29,7 +29,7 @@
           <IconNext />
         </a>
         <a
-          v-if="!$store.getters.tourName"
+          v-if="!tourName"
           class="button backTolist"
           :title="`Back to list`"
           @click="$emit('backToList')"
@@ -38,7 +38,7 @@
         </a>
       </template>
       <StopTourButton
-        v-if="$store.getters.tourName"
+        v-if="tourName"
         class="button"
         :icon="true"
       />
@@ -90,7 +90,7 @@
             v-for="tag in data.tags"
             :key="tag"
             class="tag"
-            :class="{ disabled: $store.getters.tourName }"
+            :class="{ disabled: tourName }"
             @click="tagClick(tag)"
           >
             <span>#{{ tag }}</span>
@@ -363,6 +363,8 @@ import dayjs from 'dayjs'
 import IconPrev from '~/assets/image/icon-prev.svg?inline'
 import IconNext from '~/assets/image/icon-next.svg?inline'
 import IconList from '~/assets/image/icon-list.svg?inline'
+import { useMainStore } from '~/stores/main'
+
 export default {
   components: {
     IconPrev,
@@ -407,6 +409,18 @@ export default {
     }
   },
   computed: {
+    pageName() {
+      const store = useMainStore()
+      return store.getPageName
+    },
+    tourName() {
+      const store = useMainStore()
+      return store.getTourName
+    },
+    autoplay() {
+      const store = useMainStore()
+      return store.autoplay
+    },
     category() {
       return this.$getTitle(this.data.category)
     },
@@ -421,7 +435,7 @@ export default {
       return this.$refs.youtube.player
     },
     isGuidedTour() {
-      return this.$store.getters.pageName === 'Guided Tour'
+      return this.pageName === 'Guided Tour'
     },
     noBr() {
       // DNA Dataの時はHTMLが複雑なので、自動で改行させない
@@ -451,7 +465,7 @@ export default {
         } else if (
           !data.youtube &&
           !data.movie &&
-          (this.$store.getters.autoplay || this.$store.getters.tourName)
+          (this.autoplay || this.tourName)
         ) {
           this.startGoToNextTimer()
         }
@@ -483,7 +497,7 @@ export default {
     goToNextAnnotation() {
       if (
         !this.nextDisabled &&
-        (this.$store.getters.autoplay || this.$store.getters.tourName)
+        (this.autoplay || this.tourName)
       ) {
         this.$emit('next', this.data.id)
       } else {
@@ -497,8 +511,9 @@ export default {
       this.player.playVideo()
     },
     clickAutoplay() {
-      this.$store.commit('autoplay', !this.$store.getters.autoplay)
-      if (this.$store.getters.autoplay) {
+      const store = useMainStore()
+      store.setAutoplay(!this.autoplay)
+      if (this.autoplay) {
         this.startGoToNextTimer()
       }
     },

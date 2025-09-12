@@ -1,5 +1,5 @@
 <template>
-  <div class="stopTourButton" @click="$store.commit('tourName', null)">
+  <div class="stopTourButton" @click="stopTour">
     Stop Tour
     <IconStop v-if="icon" />
   </div>
@@ -7,6 +7,8 @@
 
 <script>
 import IconStop from '~/assets/image/icon-stop.svg?inline'
+import { useMainStore } from '~/stores/main'
+
 export default {
   components: {
     IconStop
@@ -15,6 +17,12 @@ export default {
     icon: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    stopTour() {
+      const store = useMainStore()
+      store.setTourName(null)
     }
   }
 }

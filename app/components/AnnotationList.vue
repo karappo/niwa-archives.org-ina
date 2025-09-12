@@ -4,7 +4,7 @@
       <li
         v-for="(o, i) in list"
         :key="o.id"
-        @click="$nuxt.$emit('clickAnnotationLink', o.id)"
+        @click="$emit('clickAnnotationLink', o.id)"
       >
         <div
           v-if="!isOralArchives"
@@ -152,6 +152,8 @@
 <script>
 import TypeImage from '~/assets/image/type-image.svg?inline'
 import TypeVideo from '~/assets/image/type-video.svg?inline'
+import { useMainStore } from '~/stores/main'
+
 export default {
   components: {
     TypeImage,
@@ -174,9 +176,11 @@ export default {
       default: false
     }
   },
+  emits: ['clickAnnotationLink'],
   computed: {
     isOralArchives() {
-      return this.$store.getters.pageName === 'Oral Archives'
+      const store = useMainStore()
+      return store.getPageName === 'Oral Archives'
     }
   },
   methods: {

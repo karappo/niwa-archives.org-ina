@@ -48,64 +48,73 @@
 }
 </style>
 
-<script>
+<script setup>
 import _uniq from 'lodash/uniq'
 import { camelCase } from 'change-case'
-export default {
-  props: {
-    listName: {
-      type: String,
-      required: true,
-      default: ''
-    },
-    icon: {
-      type: String,
-      default: null
-    }
+import { useMainStore } from '~/stores/main.js'
+const mainStore = useMainStore()
+import { useAnnotationsStore } from '~/stores/annotations.js'
+console.log('--------------------------------1')
+const annotationsStore = useAnnotationsStore()
+console.log(annotationsStore)
+console.log('--------------------------------2')
+const { $getTitle } = useNuxtApp()
+
+const props = defineProps({
+  listName: {
+    type: String,
+    required: true,
+    default: ''
   },
-  computed: {
-    title() {
-      return this.$getTitle(this.listName)
-    },
-    disabled() {
-      if (this.listName === 'Annotations') {
-        return false
-      }
-      // eslint-disable-next-line
-      const annotations = this.$store.state.annotations[camelCase(this.$route.params.alias)]
-      // eslint-disable-next-line
-      return !annotations.filter((a) => a.category.includes(this.listName)).length
-    },
-    visibility: {
-      get() {
-        return this.$store.getters.annotationVisibilities[this.listName]
-      },
-      set(value) {
-        const key = this.listName
-        this.$store.commit('annotationVisibilities', { key, value })
-      }
-    },
-    indeterminate() {
-      if (this.listName === 'Annotations') {
-        const childrenValues = []
-        // eslint-disable-next-line
-        Object.keys(this.$store.getters.annotationVisibilities).map((key) => {
-          childrenValues.push(this.$store.getters.annotationVisibilities[key])
-        })
-        return 1 < _uniq(childrenValues).length
-      }
-      if (['Viewpoints', 'Elements'].includes(this.listName)) {
-        const childrenValues = []
-        // eslint-disable-next-line
-        Object.keys(this.$store.getters.annotationVisibilities).map((key) => {
-          if (key.includes(`${this.listName}/`)) {
-            childrenValues.push(this.$store.getters.annotationVisibilities[key])
-          }
-        })
-        return 1 < _uniq(childrenValues).length
-      }
-      return false
-    }
+  icon: {
+    type: String,
+    default: null
   }
-}
+})
+
+const route = useRoute()
+
+const title = computed(() => {
+  return $getTitle(props.listName)
+})
+
+const disabled = computed(() => {
+  if (props.listName === 'Annotations') {
+    return false
+  }
+  console.log('============', camelCase(route.params.alias))
+  const annotations = annotationsStore[camelCase(route.params.alias)]
+  if (!annotations || !Array.isArray(annotations)) {
+    return true
+  }
+  return !annotations.filter(a => a.category.includes(props.listName)).length
+})
+
+const visibility = computed({
+  get() {
+    return mainStore.annotationVisibilities[props.listName]
+  },
+  set(value) {
+    const key = props.listName
+    mainStore.annotationVisibilities({ key, value })
+  }
+})
+
+const indeterminate = computed(() => {
+  if (props.listName === 'Annotations') {
+    const childrenValues = Object.keys(mainStore.annotationVisibilities).map(key => {
+      return mainStore.annotationVisibilities[key]
+    })
+    return 1 < _uniq(childrenValues).length
+  }
+  if (['Viewpoints', 'Elements'].includes(props.listName)) {
+    const childrenValues = Object.keys(mainStore.annotationVisibilities).map(key => {
+      if (key.includes(`${props.listName}/`)) {
+        return mainStore.annotationVisibilities[key]
+      }
+    })
+    return 1 < _uniq(childrenValues).length
+  }
+  return false
+})
 </script>

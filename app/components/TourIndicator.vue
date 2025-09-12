@@ -1,6 +1,6 @@
 <template>
   <div class="tourModeIndicator">
-    <template v-if="$store.getters.tourName === 'Guided Tour'">
+    <template v-if="tourName === 'Guided Tour'">
       {{ label }} - {{ denominator }}/{{ numerator }}
     </template>
     <template v-else>
@@ -56,6 +56,8 @@
 </style>
 
 <script>
+import { useMainStore } from '~/stores/main'
+
 export default {
   props: {
     numerator: {
@@ -68,8 +70,12 @@ export default {
     }
   },
   computed: {
+    tourName() {
+      const store = useMainStore()
+      return store.getTourName
+    },
     label() {
-      return this.$store.getters.tourName.replace(/ with(out)? Annotations/, '')
+      return this.tourName ? this.tourName.replace(/ with(out)? Annotations/, '') : ''
     }
   }
 }
