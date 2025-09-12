@@ -1,10 +1,10 @@
-export default function ({ route, redirect }) {
+export default defineNuxtRouteMiddleware((to) => {
   // TODO ここhtaccessに移動できるかも？
-  if (route.path === '/') {
-    redirect(301, '/fugetsu_ro-spring/')
-  } else if (route.path === '/fugetsu_ro-july/') {
-    redirect(301, '/fugetsu_ro-summer/')
-  } else if (route.path === '/fugetsu_ro-february/') {
-    redirect(301, '/fugetsu_ro-winter/')
+  if (to.path === '/ina/') {
+    return navigateTo('/ina/fugetsu_ro-spring/', { redirectCode: 301 })
+  } else if (to.path === '/ina/fugetsu_ro-july/') {
+    return navigateTo('/ina/fugetsu_ro-summer/', { redirectCode: 301 })
+  } else if (to.path === '/ina/fugetsu_ro-february/') {
+    return navigateTo('/ina/fugetsu_ro-winter/', { redirectCode: 301 })
   }
-}
+})
