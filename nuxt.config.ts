@@ -9,7 +9,16 @@ const baseUrl = 'https://niwa-archives.org/ina/'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  
+
+  runtimeConfig: {
+    // Private keys (only available on server-side)
+    // Public keys (exposed to client-side)
+    public: {
+      spreadsheetId: process.env.SPREADSHEET_ID,
+      apiKey: process.env.API_KEY
+    }
+  },
+
   nitro: {
     prerender: {
       routes: [

@@ -128,8 +128,16 @@ const convertToCollection = (array) => {
 }
 
 export async function loadSpreadsheetData() {
+  const config = useRuntimeConfig()
+  const SPREADSHEET_ID = config.public.spreadsheetId
+  const API_KEY = config.public.apiKey
+  
+  if (!SPREADSHEET_ID || !API_KEY) {
+    throw new Error('Spreadsheet ID or API key is not configured in environment variables')
+  }
+  
   const gss = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${process.env.SPREADSHEET_ID}/?key=${process.env.API_KEY}&includeGridData=true`
+    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/?key=${API_KEY}&includeGridData=true`
   ).then((res) => res.json())
   
   if (gss.error) {
