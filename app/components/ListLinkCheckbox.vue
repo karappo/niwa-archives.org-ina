@@ -54,10 +54,7 @@ import { camelCase } from 'change-case'
 import { useMainStore } from '~/stores/main.js'
 const mainStore = useMainStore()
 import { useAnnotationsStore } from '~/stores/annotations.js'
-console.log('--------------------------------1')
 const annotationsStore = useAnnotationsStore()
-console.log(annotationsStore)
-console.log('--------------------------------2')
 const { $getTitle } = useNuxtApp()
 
 const props = defineProps({
@@ -82,7 +79,6 @@ const disabled = computed(() => {
   if (props.listName === 'Annotations') {
     return false
   }
-  console.log('============', camelCase(route.params.alias))
   const annotations = annotationsStore[camelCase(route.params.alias)]
   if (!annotations || !Array.isArray(annotations)) {
     return true
