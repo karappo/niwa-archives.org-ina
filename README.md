@@ -36,7 +36,7 @@ arch -x86_64 nodenv install xx.xx.xx
 git clone --recursive git@github.com:karappo/IncompleteNiwaArchives.git
 
 # Ready potree to create build dir.
-cd static/potree
+cd public/assets/potree
 npm i
 
 cd ../../
