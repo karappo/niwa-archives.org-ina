@@ -55,28 +55,28 @@
 }
 </style>
 
-<script>
+<script setup>
+import { computed } from 'vue'
 import { useMainStore } from '~/stores/main'
 
-export default {
-  props: {
-    numerator: {
-      type: Number,
-      required: true
-    },
-    denominator: {
-      type: Number,
-      required: true
-    }
+const props = defineProps({
+  numerator: {
+    type: Number,
+    required: true
   },
-  computed: {
-    tourName() {
-      const store = useMainStore()
-      return store.getTourName
-    },
-    label() {
-      return this.tourName ? this.tourName.replace(/ with(out)? Annotations/, '') : ''
-    }
+  denominator: {
+    type: Number,
+    required: true
   }
-}
+})
+
+const store = useMainStore()
+
+const tourName = computed(() => {
+  return store.getTourName
+})
+
+const label = computed(() => {
+  return tourName.value ? tourName.value.replace(/ with(out)? Annotations/, '') : ''
+})
 </script>

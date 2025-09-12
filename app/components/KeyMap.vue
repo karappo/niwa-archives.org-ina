@@ -310,57 +310,55 @@
 }
 </style>
 
-<script>
-export default {
-  props: {
-    spVisibility: {
-      type: Boolean,
-      require: true,
-      default: true
-    }
-  },
-  data() {
-    return {
-      currentKey: null,
-      currentKeyCode: null
-    }
-  },
-  computed: {
-    canvas() {
-      // eslint-disable-next-line
-      return document.body.querySelector('#potree_render_area canvas:not(.ol-unselectable)')
-    }
-  },
-  methods: {
-    start(e) {
-      e.target.classList.add('touched')
-      const key = e.target.dataset.key
-      if (!key) return
+<script setup>
+import { ref, computed } from 'vue'
 
-      this.currentKey = key
-      this.currentKeyCode = key.charCodeAt(0)
-      this.canvas.dispatchEvent(
-        new KeyboardEvent('keydown', {
-          key,
-          keyCode: this.currentKeyCode,
-          code: `Key${key.toUpperCase()}`
-        })
-      )
-    },
-    end(e) {
-      e.target.classList.remove('touched')
-      const key = e.target.dataset.key
-      if (!key) return
-
-      const keyCode = key.charCodeAt(0)
-      this.canvas.dispatchEvent(
-        new KeyboardEvent('keyup', {
-          key,
-          keyCode,
-          code: `Key${key.toUpperCase()}`
-        })
-      )
-    }
+const props = defineProps({
+  spVisibility: {
+    type: Boolean,
+    require: true,
+    default: true
   }
+})
+
+const currentKey = ref(null)
+const currentKeyCode = ref(null)
+
+const canvas = computed(() => {
+  if (process.client) {
+    return document.body.querySelector('#potree_render_area canvas:not(.ol-unselectable)')
+  }
+  return null
+})
+
+const start = (e) => {
+  e.target.classList.add('touched')
+  const key = e.target.dataset.key
+  if (!key) return
+
+  currentKey.value = key
+  currentKeyCode.value = key.charCodeAt(0)
+  canvas.value?.dispatchEvent(
+    new KeyboardEvent('keydown', {
+      key,
+      keyCode: currentKeyCode.value,
+      code: `Key${key.toUpperCase()}`
+    })
+  )
+}
+
+const end = (e) => {
+  e.target.classList.remove('touched')
+  const key = e.target.dataset.key
+  if (!key) return
+
+  const keyCode = key.charCodeAt(0)
+  canvas.value?.dispatchEvent(
+    new KeyboardEvent('keyup', {
+      key,
+      keyCode,
+      code: `Key${key.toUpperCase()}`
+    })
+  )
 }
 </script>

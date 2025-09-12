@@ -81,30 +81,28 @@
 }
 </style>
 
-<script>
+<script setup>
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg'
-export default {
-  components: {
-    TriangleArrow
+
+defineProps({
+  value: {
+    type: String,
+    require: true,
+    default: '0'
   },
-  props: {
-    value: {
-      type: String,
-      require: true,
-      default: '0'
-    },
-    options: {
-      type: Array,
-      require: true,
-      default() {
-        return []
-      }
-    },
-    allowEmpty: {
-      type: Boolean,
-      require: false,
-      defatul: false
+  options: {
+    type: Array,
+    require: true,
+    default() {
+      return []
     }
+  },
+  allowEmpty: {
+    type: Boolean,
+    require: false,
+    default: false
   }
-}
+})
+
+defineEmits(['update:value'])
 </script>

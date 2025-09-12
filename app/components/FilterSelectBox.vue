@@ -63,25 +63,23 @@
 }
 </style>
 
-<script>
+<script setup>
 import TriangleArrow from '~/assets/image/filter-triangle-arrow-down.svg'
-export default {
-  components: {
-    TriangleArrow
+
+defineProps({
+  value: {
+    type: String,
+    require: true,
+    default: '0'
   },
-  props: {
-    value: {
-      type: String,
-      require: true,
-      default: '0'
-    },
-    options: {
-      type: Array,
-      require: true,
-      default() {
-        return []
-      }
+  options: {
+    type: Array,
+    require: true,
+    default() {
+      return []
     }
   }
-}
+})
+
+defineEmits(['update:value'])
 </script>

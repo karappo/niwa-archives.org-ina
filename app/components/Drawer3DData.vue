@@ -131,12 +131,10 @@ article {
 }
 </style>
 
-<script>
-export default {
-  mounted() {
-    if (FONTPLUS) {
-      FONTPLUS.start()
-    }
+<script setup>
+onMounted(() => {
+  if (typeof FONTPLUS !== 'undefined') {
+    FONTPLUS.start()
   }
-}
+})
 </script>

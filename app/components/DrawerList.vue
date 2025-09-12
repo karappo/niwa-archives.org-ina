@@ -168,115 +168,110 @@ article {
 }
 </style>
 
-<script>
+<script setup>
 import _groupBy from 'lodash/groupBy'
 import { useMainStore } from '~/stores/main'
 
-export default {
-  emits: ['startRambleTourWithoutAnnotations', 'clickAnnotationLink'],
-  props: {
-    data: {
-      type: Object,
-      require: true,
-      default: null
-    }
-  },
-  data() {
-    return {
-      groups: null // Oral Archivesのときにdata.listをグルーピングして保持する
-    }
-  },
-  computed: {
-    title() {
-      return this.$getTitle(this.data.name)
-    },
-    tags() {
-      return this.$getTags(this.data.list)
-    },
-    tagIndex() {
-      return parseInt(this.data.tagIndexStr, 10)
-    },
-    selectedTag() {
-      return this.tags[this.tagIndex]
-    },
-    typeVisibility() {
-      return ![
-        'Viewpoints/Still Images',
-        'Viewpoints/Movies',
-        'Elements/Stones',
-        'Elements/Plants',
-        'Elements/Creatures',
-        'Elements/Artifacts',
-        'Elements/DNA Data',
-        'Oral Archives'
-      ].includes(this.data.name)
-    }
-  },
-  watch: {
-    data: {
-      immediate: true,
-      async handler(data) {
-        if (data.name === 'Oral Archives') {
-          const groups = _groupBy(data.list, (item) => {
-            return item.youtube.id()
-          })
-          // videoIdがkeyになっているのをYoutubeタイトルをキーに
-          const res = {}
-          for (const videoId of Object.keys(groups)) {
-            const data = await fetch(
-              `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.API_KEY}`
-            ).then((res) => res.json())
-            res[data.items[0].snippet.title] = groups[videoId]
-          }
-          this.groups = res
-        } else {
-          // TODO ここ要るのか確認
-          this.groups = null
-        }
-      }
-    }
-  },
-  mounted() {
-    this.$nuxt.$on('setTagIndexStr', this.setTagIndexStr)
-    this.$nextTick(() => {
-      if (FONTPLUS) {
-        FONTPLUS.start()
-      }
-    })
-  },
-  beforeDestroy() {
-    this.$nuxt.$off('setTagIndexStr', this.setTagIndexStr)
-  },
-  methods: {
-    setTagIndexStr(tag) {
-      this.setTag(tag)
-    },
-    setTag(tag) {
-      const index = this.tags.indexOf(tag)
-      if (0 <= index) {
-        this.data.tagIndexStr = this.tags.indexOf(tag) + ''
-      } else {
-        console.error(`「${tag}」というタグは見つかりませんでした`)
-      }
-    },
-    startRambleTourWithoutAnnotations() {
-      const store = useMainStore()
-      store.setTourName('Ramble Tour without Annotations')
-      this.$emit('startRambleTourWithoutAnnotations')
-    },
-    startTour(tourName) {
-      const store = useMainStore()
-      store.setTourName(tourName)
-      this.$nextTick(() => {
-        this.$emit('clickAnnotationLink', this.data.list[0].id)
-      })
-    },
-    filterByTag(list) {
-      if (!this.selectedTag) {
-        return list
-      }
-      return list.filter((o) => o.tags && o.tags.includes(this.selectedTag))
-    }
+const props = defineProps({
+  data: {
+    type: Object,
+    require: true,
+    default: null
+  }
+})
+
+const emit = defineEmits(['startRambleTourWithoutAnnotations', 'clickAnnotationLink'])
+
+// Reactive data
+const groups = ref(null) // Oral Archivesのときにdata.listをグルーピングして保持する
+
+// Store and composables
+const store = useMainStore()
+const { $getTitle, $getTags, $nuxt } = useNuxtApp()
+
+// Computed properties
+const title = computed(() => $getTitle(props.data?.name))
+const tags = computed(() => $getTags(props.data?.list))
+const tagIndex = computed(() => parseInt(props.data?.tagIndexStr, 10))
+const selectedTag = computed(() => tags.value[tagIndex.value])
+const typeVisibility = computed(() => {
+  return ![
+    'Viewpoints/Still Images',
+    'Viewpoints/Movies',
+    'Elements/Stones',
+    'Elements/Plants',
+    'Elements/Creatures',
+    'Elements/Artifacts',
+    'Elements/DNA Data',
+    'Oral Archives'
+  ].includes(props.data?.name)
+})
+
+// Methods
+function setTagIndexStr(tag) {
+  setTag(tag)
+}
+
+function setTag(tag) {
+  const index = tags.value.indexOf(tag)
+  if (0 <= index) {
+    props.data.tagIndexStr = tags.value.indexOf(tag) + ''
+  } else {
+    console.error(`「${tag}」というタグは見つかりませんでした`)
   }
 }
+
+function startRambleTourWithoutAnnotations() {
+  store.setTourName('Ramble Tour without Annotations')
+  emit('startRambleTourWithoutAnnotations')
+}
+
+function startTour(tourName) {
+  store.setTourName(tourName)
+  nextTick(() => {
+    emit('clickAnnotationLink', props.data.list[0].id)
+  })
+}
+
+function filterByTag(list) {
+  if (!selectedTag.value) {
+    return list
+  }
+  return list.filter((o) => o.tags && o.tags.includes(selectedTag.value))
+}
+
+// Watch for data changes
+watch(() => props.data, async (data) => {
+  if (data?.name === 'Oral Archives') {
+    const groupedData = _groupBy(data.list, (item) => {
+      return item.youtube.id()
+    })
+    // videoIdがkeyになっているのをYoutubeタイトルをキーに
+    const res = {}
+    for (const videoId of Object.keys(groupedData)) {
+      const response = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.API_KEY}`
+      ).then((res) => res.json())
+      res[response.items[0].snippet.title] = groupedData[videoId]
+    }
+    groups.value = res
+  } else {
+    // TODO ここ要るのか確認
+    groups.value = null
+  }
+}, { immediate: true })
+
+// Lifecycle hooks
+onMounted(() => {
+  $nuxt.$on('setTagIndexStr', setTagIndexStr)
+  nextTick(() => {
+    if (typeof FONTPLUS !== 'undefined') {
+      FONTPLUS.start()
+    }
+  })
+})
+
+onBeforeUnmount(() => {
+  $nuxt.$off('setTagIndexStr', setTagIndexStr)
+})
 </script>

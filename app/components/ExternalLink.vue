@@ -4,14 +4,11 @@
   </a>
 </template>
 
-<script>
-export default {
-  name: 'ExternalLink',
-  props: {
-    href: {
-      type: String,
-      required: true
-    }
+<script setup>
+defineProps({
+  href: {
+    type: String,
+    required: true
   }
-}
+})
 </script>

@@ -89,16 +89,12 @@ article {
 }
 </style>
 
-<script>
+<script setup>
 import ExternalLink from '~/components/ExternalLink.vue'
-export default {
-  components: {
-    ExternalLink
-  },
-  mounted() {
-    if (FONTPLUS) {
-      FONTPLUS.start()
-    }
+
+onMounted(() => {
+  if (typeof FONTPLUS !== 'undefined') {
+    FONTPLUS.start()
   }
-}
+})
 </script>

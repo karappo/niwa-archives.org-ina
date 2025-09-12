@@ -5,25 +5,20 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import IconStop from '~/assets/image/icon-stop.svg'
 import { useMainStore } from '~/stores/main'
 
-export default {
-  components: {
-    IconStop
-  },
-  props: {
-    icon: {
-      type: Boolean,
-      default: false
-    }
-  },
-  methods: {
-    stopTour() {
-      const store = useMainStore()
-      store.setTourName(null)
-    }
+const props = defineProps({
+  icon: {
+    type: Boolean,
+    default: false
   }
+})
+
+const store = useMainStore()
+
+const stopTour = () => {
+  store.setTourName(null)
 }
 </script>

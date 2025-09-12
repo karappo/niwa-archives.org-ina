@@ -1,5 +1,5 @@
 <template>
-  <div class="close button" title="Close" @click="$nuxt.$emit('closeDrawer')">
+  <div class="close button" title="Close" @click="$emit('closeDrawer')">
     <IconClose />
   </div>
 </template>
@@ -13,11 +13,8 @@
 }
 </style>
 
-<script>
+<script setup>
 import IconClose from '~/assets/image/icon-close.svg'
-export default {
-  components: {
-    IconClose
-  }
-}
+
+defineEmits(['closeDrawer'])
 </script>

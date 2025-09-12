@@ -358,195 +358,190 @@ header {
 }
 </style>
 
-<script>
+<script setup>
 import dayjs from 'dayjs'
 import IconPrev from '~/assets/image/icon-prev.svg'
 import IconNext from '~/assets/image/icon-next.svg'
 import IconList from '~/assets/image/icon-list.svg'
 import { useMainStore } from '~/stores/main'
 
-export default {
-  components: {
-    IconPrev,
-    IconNext,
-    IconList
+const props = defineProps({
+  data: {
+    type: Object,
+    require: true,
+    default: null
   },
-  props: {
-    data: {
-      type: Object,
-      require: true,
-      default: null
-    },
-    annotations: {
-      type: Array,
-      require: true,
-      default: null
-    },
-    prevNextVisibility: {
-      type: Boolean,
-      require: true,
-      default: false
-    },
-    prevDisabled: {
-      type: Boolean,
-      default: false
-    },
-    nextDisabled: {
-      type: Boolean,
-      default: false
-    },
-    isSP: {
-      type: Boolean,
-      default: false
-    }
+  annotations: {
+    type: Array,
+    require: true,
+    default: null
   },
-  data() {
-    return {
-      playerVars: null,
-      cover: null,
-      timerID: null,
-      flagForYoutube: true // data.youtubeの値が変わった時に再描画されない問題への対処
-    }
+  prevNextVisibility: {
+    type: Boolean,
+    require: true,
+    default: false
   },
-  computed: {
-    pageName() {
-      const store = useMainStore()
-      return store.getPageName
-    },
-    tourName() {
-      const store = useMainStore()
-      return store.getTourName
-    },
-    autoplay() {
-      const store = useMainStore()
-      return store.autoplay
-    },
-    category() {
-      return this.$getTitle(this.data.category)
-    },
-    belongingList() {
-      // TODO ここ、グループに属するannotationのことを考慮できていなさそう
-      // window.viewer.scene.annotations.children ではなく this.annotations で判定するべきかも？
-      // でも、その時ほんとに動作大丈夫か？
-      // eslint-disable-next-line
-      return window.viewer.scene.annotations.children.filter((a) => a.data.category === this.data.category)
-    },
-    player() {
-      return this.$refs.youtube.player
-    },
-    isGuidedTour() {
-      return this.pageName === 'Guided Tour'
-    },
-    noBr() {
-      // DNA Dataの時はHTMLが複雑なので、自動で改行させない
-      return this.category === 'DNA Data'
-    }
+  prevDisabled: {
+    type: Boolean,
+    default: false
   },
-  watch: {
-    data: {
-      immediate: true, // 監視開始時（コンポーネントがマウントされた直後）にも反応するようにする
-      handler(data) {
-        // 初期化時の処理
-        // mountedは、このコンポーネントの再描画時に呼ばれないので、ここで処理する
+  nextDisabled: {
+    type: Boolean,
+    default: false
+  },
+  isSP: {
+    type: Boolean,
+    default: false
+  }
+})
 
-        if (this.data.youtube) {
-          this.flagForYoutube = false // 一旦要素を消すためにフラグをfalseにする ※2
+const emit = defineEmits(['next', 'prev', 'backToList'])
 
-          const playerVars = this.data.youtube.getParams()
-          playerVars.autoplay = 1
-          this.playerVars = playerVars
-          this.cover = false
-        }
+// Reactive data
+const playerVars = ref(null)
+const cover = ref(null)
+const timerID = ref(null)
+const flagForYoutube = ref(true) // data.youtubeの値が変わった時に再描画されない問題への対処
 
-        // ※1
-        if (this.$isMobileOrTablet()) {
-          // Youtubeの自動再生できないので、時間が来たら次へ
-          this.startGoToNextTimer()
-        } else if (
-          !data.youtube &&
-          !data.movie &&
-          (this.autoplay || this.tourName)
-        ) {
-          this.startGoToNextTimer()
-        }
+// Template refs
+const youtube = ref(null)
 
-        this.$nextTick(() => {
-          // 再度、要素を表示するためにフラグをtrueにする（※2とセット）
-          if (this.data.youtube) {
-            this.flagForYoutube = true
-          }
-          // スクロール位置の初期化
-          this.$el.parentElement.scrollTop = 0
-          // フォント
-          if (FONTPLUS) {
-            FONTPLUS.start()
-          }
-        })
-      }
-    }
-  },
-  methods: {
-    showDateTime(dateTime) {
-      const d = dayjs(dateTime)
-      let format = 'YYYY/MM/DD'
-      if (!(d.hour() === 0 && d.minute() === 0 && d.second() === 0)) {
-        format += ' HH:mm'
-      }
-      return d.format(format)
-    },
-    goToNextAnnotation() {
-      if (
-        !this.nextDisabled &&
-        (this.autoplay || this.tourName)
-      ) {
-        this.$emit('next', this.data.id)
-      } else {
-        this.cover = true
-        this.player.seekTo(this.playerVars.start || 0)
-        this.player.pauseVideo()
-      }
-    },
-    replayVideo() {
-      this.cover = false
-      this.player.playVideo()
-    },
-    clickAutoplay() {
-      const store = useMainStore()
-      store.setAutoplay(!this.autoplay)
-      if (this.autoplay) {
-        this.startGoToNextTimer()
-      }
-    },
-    startGoToNextTimer() {
-      // 一定時間後に次へ
-      this.timerID = setTimeout(this.goToNextAnnotation, 15000)
-    },
-    youtubeOnPlaying() {
-      // かならず ※1 と条件を揃えること
-      if (this.$isMobileOrTablet()) {
-        this.clearTimer()
-      }
-    },
-    tagClick(tag) {
-      this.$nuxt.$emit('selectList', 'Annotations')
-      this.$nextTick(function () {
-        this.$nuxt.$emit('setTagIndexStr', tag)
-      })
-    },
-    clearTimer() {
-      if (this.timerID) {
-        clearTimeout(this.timerID)
-        this.timerID = null
-      }
-    },
-    prev() {
-      this.clearTimer()
-      this.$emit('prev', this.data.id)
-    },
-    next() {
-      this.clearTimer()
-      this.$emit('next', this.data.id)
-    }
+// Store
+const store = useMainStore()
+const { $getTitle, $isMobileOrTablet, $nuxt } = useNuxtApp()
+
+// Computed properties
+const pageName = computed(() => store.getPageName)
+const tourName = computed(() => store.getTourName)
+const autoplay = computed(() => store.autoplay)
+const category = computed(() => $getTitle(props.data?.category))
+
+const belongingList = computed(() => {
+  // TODO ここ、グループに属するannotationのことを考慮できていなさそう
+  // window.viewer.scene.annotations.children ではなく props.annotations で判定するべきかも？
+  // でも、その時ほんとに動作大丈夫か？
+  // eslint-disable-next-line
+  return window.viewer?.scene?.annotations?.children?.filter((a) => a.data.category === props.data?.category) || []
+})
+
+const player = computed(() => youtube.value?.player)
+const isGuidedTour = computed(() => pageName.value === 'Guided Tour')
+const noBr = computed(() => {
+  // DNA Dataの時はHTMLが複雑なので、自動で改行させない
+  return category.value === 'DNA Data'
+})
+
+// Methods
+function showDateTime(dateTime) {
+  const d = dayjs(dateTime)
+  let format = 'YYYY/MM/DD'
+  if (!(d.hour() === 0 && d.minute() === 0 && d.second() === 0)) {
+    format += ' HH:mm'
+  }
+  return d.format(format)
+}
+
+function goToNextAnnotation() {
+  if (
+    !props.nextDisabled &&
+    (autoplay.value || tourName.value)
+  ) {
+    emit('next', props.data.id)
+  } else {
+    cover.value = true
+    player.value?.seekTo(playerVars.value?.start || 0)
+    player.value?.pauseVideo()
   }
 }
+
+function replayVideo() {
+  cover.value = false
+  player.value?.playVideo()
+}
+
+function clickAutoplay() {
+  store.setAutoplay(!autoplay.value)
+  if (autoplay.value) {
+    startGoToNextTimer()
+  }
+}
+
+function startGoToNextTimer() {
+  // 一定時間後に次へ
+  timerID.value = setTimeout(goToNextAnnotation, 15000)
+}
+
+function youtubeOnPlaying() {
+  // かならず ※1 と条件を揃えること
+  if ($isMobileOrTablet()) {
+    clearTimer()
+  }
+}
+
+function tagClick(tag) {
+  $nuxt.$emit('selectList', 'Annotations')
+  nextTick(() => {
+    $nuxt.$emit('setTagIndexStr', tag)
+  })
+}
+
+function clearTimer() {
+  if (timerID.value) {
+    clearTimeout(timerID.value)
+    timerID.value = null
+  }
+}
+
+function prev() {
+  clearTimer()
+  emit('prev', props.data.id)
+}
+
+function next() {
+  clearTimer()
+  emit('next', props.data.id)
+}
+
+// Watch for data changes
+watch(() => props.data, (data) => {
+  // 初期化時の処理
+  // mountedは、このコンポーネントの再描画時に呼ばれないので、ここで処理する
+
+  if (props.data?.youtube) {
+    flagForYoutube.value = false // 一旦要素を消すためにフラグをfalseにする ※2
+
+    const vars = props.data.youtube.getParams()
+    vars.autoplay = 1
+    playerVars.value = vars
+    cover.value = false
+  }
+
+  // ※1
+  if ($isMobileOrTablet()) {
+    // Youtubeの自動再生できないので、時間が来たら次へ
+    startGoToNextTimer()
+  } else if (
+    !data?.youtube &&
+    !data?.movie &&
+    (autoplay.value || tourName.value)
+  ) {
+    startGoToNextTimer()
+  }
+
+  nextTick(() => {
+    // 再度、要素を表示するためにフラグをtrueにする（※2とセット）
+    if (props.data?.youtube) {
+      flagForYoutube.value = true
+    }
+    // スクロール位置の初期化
+    const el = getCurrentInstance()?.proxy?.$el
+    if (el?.parentElement) {
+      el.parentElement.scrollTop = 0
+    }
+    // フォント
+    if (typeof FONTPLUS !== 'undefined') {
+      FONTPLUS.start()
+    }
+  })
+}, { immediate: true })
 </script>

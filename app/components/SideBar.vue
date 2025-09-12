@@ -228,38 +228,38 @@ aside.sideBar {
 }
 </style>
 
-<script>
+<script setup>
 // import MenuArrow from '~/assets/image/menu-arrow.svg'
 import SideBarClose from '~/assets/image/sideBar/close.svg'
-export default {
-  components: {
-    // MenuArrow,
-    SideBarClose
+
+const props = defineProps({
+  guidedTourExists: {
+    type: Boolean,
+    default: true
   },
-  props: {
-    guidedTourExists: {
-      type: Boolean,
-      default: true
-    },
-    variations: {
-      type: Array,
-      default: () => []
-    }
-  },
-  data() {
-    return {
-      // SelectBoxに渡す関係でvariationIndexはStringにしておく必要がある
-      variationIndex: String(
-        this.variations.indexOf(this.$variation(this.$route))
-      )
-    }
-  },
-  watch: {
-    variationIndex(val) {
-      this.$emit('saveCameraInfo') // TODO 機能していない
-      const varStr = this.variations[parseInt(val, 10)].toLowerCase()
-      this.$router.push(`../${this.$garden(this.$route)}-${varStr}/`)
-    }
+  variations: {
+    type: Array,
+    default: () => []
   }
-}
+})
+
+const emit = defineEmits(['spClose', 'saveCameraInfo'])
+
+// Composables
+const route = useRoute()
+const router = useRouter()
+const { $variation, $garden } = useNuxtApp()
+
+// Reactive data
+// SelectBoxに渡す関係でvariationIndexはStringにしておく必要がある
+const variationIndex = ref(String(
+  props.variations.indexOf($variation(route))
+))
+
+// Watch for variation changes
+watch(variationIndex, (val) => {
+  emit('saveCameraInfo') // TODO 機能していない
+  const varStr = props.variations[parseInt(val, 10)].toLowerCase()
+  router.push(`../${$garden(route)}-${varStr}/`)
+})
 </script>

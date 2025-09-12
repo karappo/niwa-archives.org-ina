@@ -149,50 +149,45 @@
 }
 </style>
 
-<script>
+<script setup>
 import TypeImage from '~/assets/image/type-image.svg'
 import TypeVideo from '~/assets/image/type-video.svg'
 import { useMainStore } from '~/stores/main'
 
-export default {
-  components: {
-    TypeImage,
-    TypeVideo
-  },
-  props: {
-    list: {
-      type: Array,
-      require: true,
-      default() {
-        return []
-      }
-    },
-    typeVisibility: {
-      type: Boolean,
-      default: false
-    },
-    thin: {
-      type: Boolean,
-      default: false
+const props = defineProps({
+  list: {
+    type: Array,
+    require: true,
+    default() {
+      return []
     }
   },
-  emits: ['clickAnnotationLink'],
-  computed: {
-    isOralArchives() {
-      const store = useMainStore()
-      return store.getPageName === 'Oral Archives'
-    }
+  typeVisibility: {
+    type: Boolean,
+    default: false
   },
-  methods: {
-    thumbURL(o) {
-      if (o.image) {
-        return o.image
-      } else if (o.youtube) {
-        return o.youtube.thumbnailUrl()
-      } else {
-        return ''
-      }
-    }
+  thin: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const emit = defineEmits(['clickAnnotationLink'])
+
+// Store
+const store = useMainStore()
+
+// Computed properties
+const isOralArchives = computed(() => store.getPageName === 'Oral Archives')
+
+// Methods
+function thumbURL(o) {
+  if (o.image) {
+    return o.image
+  } else if (o.youtube) {
+    return o.youtube.thumbnailUrl()
+  } else {
+    return ''
   }
 }
 </script>

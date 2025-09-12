@@ -3,7 +3,7 @@
     :data-name="listName"
     :class="{ current: mainStore.pageName === listName }"
     class="btn"
-    @click="$nuxt.$emit('selectList', listName)"
+    @click="$emit('selectList', listName)"
   >
     <span v-if="icon === 'dot'" class="dot icon"></span>
     <IconTour v-else-if="icon === 'tour'" class="tour"></IconTour>
@@ -85,10 +85,11 @@
 </style>
 
 <script setup>
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 import IconHyphen from '~/assets/image/icon-hyphen.svg'
 import IconTour from '~/assets/image/icon-tour.svg'
 import { useMainStore } from '~/stores/main.js'
+
 const mainStore = useMainStore()
 const { $getTitle } = useNuxtApp()
 
@@ -107,6 +108,8 @@ const props = defineProps({
     default: null
   }
 })
+
+defineEmits(['selectList'])
 
 const title = computed(() => {
   return $getTitle(props.listName)
