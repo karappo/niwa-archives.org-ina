@@ -715,15 +715,15 @@ watch(listData, (val) => {
 onMounted(async () => {
   try {
     const alias = route.params.alias
-    
+
     // For now, use empty array for annotations (will be replaced when we integrate stores)
     const annotationsData = []
-    
+
     // 同位置のアノテーションはgroupにする
     const annotationGroupsData = Object.values(
       _groupBy(annotationsData, 'position')
     ).filter((a) => a.length > 1)
-    
+
     annotationsData.forEach((a) => {
       // groupに属するかどうかをBooleanで持たせる
       a.grouped = annotationGroupsData.some(
@@ -734,7 +734,7 @@ onMounted(async () => {
         (g) => g[0].id === a.id
       )
     })
-    
+
     // Load garden data
     let importedData = await import(`~/data/gardens/${alias}.js`)
     const gardenData = importedData.default
@@ -774,7 +774,7 @@ onMounted(async () => {
 
   // Simplified Potree initialization for Composition API
   console.log('Potree initialization would happen here')
-  
+
   setTimeout(() => {
     loading.value = false
   }, 1000)
