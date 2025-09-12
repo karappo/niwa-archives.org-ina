@@ -6,7 +6,7 @@
     </header>
     <article>
       <template v-if="$route.params.alias === 'joei_ji'">
-        <img class="image" src="~assets/image/history/joei_ji.jpg" />
+        <img class="image" src="@/assets/image/history/joei_ji.jpg" />
         <h1>常栄寺庭園</h1>
         <p>
           常栄寺は、山口市宮野下の涼山の南麓にある臨済宗東福寺派の寺院です。大内氏の治世の時代、康正元年（1455）、この地に大内政弘の母の菩提寺として妙喜寺が創建されました。それが、時代が変わって毛利氏の時代、慶長年間（1596–1615）に毛利隆元夫人の菩提寺・妙寿寺となり、さらに文久3年（1863）に、それまで上宇野令にあった毛利隆元の菩提寺・常栄寺が当地に移されました。<br />
@@ -26,7 +26,7 @@
         </p>
       </template>
       <template v-else-if="$route.params.alias.includes('murin_an')">
-        <img class="image" src="~assets/image/history/murin_an.jpg" />
+        <img class="image" src="@/assets/image/history/murin_an.jpg" />
         <h1>無鄰菴庭園</h1>
         <p>
           無鄰菴庭園は、明治27-29（1894-96）年に、内閣総理大臣もつとめた山縣有朋（1838-1922）の京都別邸としてつくられたもので、その庭園は七代目・小川治兵衛（植治）（1860-1933）による作庭です。植治は、近代日本庭園の改革者として知られますが、彼がそうした近代の新しい日本庭園の作庭を最初に実現したのが無鄰菴庭園でした。<br />
@@ -54,7 +54,7 @@
         </p>
       </template>
       <template v-else-if="$route.params.alias === 'ryogen_in'">
-        <img class="image" src="~assets/image/history/ryogen_in.jpg" />
+        <img class="image" src="@/assets/image/history/ryogen_in.jpg" />
         <h1>龍源院庭園</h1>
         <p>
           龍源院は数ある大徳寺の塔頭の一つであり、大徳寺南派の本庵です。大徳寺は、京都市北区紫野に所在する臨済宗の寺院。鎌倉時代末期、赤松則村の援助によって、宗峰妙超（大燈国師）を開山とする小庵を起源とします。<br />

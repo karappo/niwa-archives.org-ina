@@ -216,49 +216,49 @@
 }
 
 .panLeft {
-  background-image: url(~assets/image/pan.svg);
+  background-image: url(@/assets/image/pan.svg);
 }
 
 .panRight {
-  background-image: url(~assets/image/pan.svg);
+  background-image: url(@/assets/image/pan.svg);
   transform: rotate(180deg);
 }
 
 .tiltUp {
-  background-image: url(~assets/image/pan.svg);
+  background-image: url(@/assets/image/pan.svg);
   transform: rotate(90deg);
 }
 
 .tiltDown {
-  background-image: url(~assets/image/pan.svg);
+  background-image: url(@/assets/image/pan.svg);
   transform: rotate(-90deg);
 }
 
 .forward {
-  background-image: url(~assets/image/arrow.svg);
+  background-image: url(@/assets/image/arrow.svg);
 }
 
 .backward {
-  background-image: url(~assets/image/arrow.svg);
+  background-image: url(@/assets/image/arrow.svg);
   transform: rotate(180deg);
 }
 
 .left {
-  background-image: url(~assets/image/arrow.svg);
+  background-image: url(@/assets/image/arrow.svg);
   transform: rotate(-90deg);
 }
 
 .right {
-  background-image: url(~assets/image/arrow.svg);
+  background-image: url(@/assets/image/arrow.svg);
   transform: rotate(90deg);
 }
 
 .up {
-  background-image: url(~assets/image/arrow-outline.svg);
+  background-image: url(@/assets/image/arrow-outline.svg);
 }
 
 .down {
-  background-image: url(~assets/image/arrow-outline.svg);
+  background-image: url(@/assets/image/arrow-outline.svg);
   transform: rotate(180deg);
 }
 
