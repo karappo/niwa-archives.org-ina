@@ -171,6 +171,7 @@ article {
 <script setup>
 import _groupBy from 'lodash/groupBy'
 import { useMainStore } from '~/stores/main'
+import { useEventBus } from '~/composables/useEventBus'
 
 const props = defineProps({
   data: {
@@ -180,13 +181,13 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['startRambleTourWithoutAnnotations', 'clickAnnotationLink'])
 
 // Reactive data
 const groups = ref(null) // Oral Archivesのときにdata.listをグルーピングして保持する
 
 // Store and composables
 const store = useMainStore()
+const eventBus = useEventBus()
 const { $getTitle, $getTags, $nuxt } = useNuxtApp()
 
 // Computed properties
@@ -223,13 +224,13 @@ function setTag(tag) {
 
 function startRambleTourWithoutAnnotations() {
   store.setTourName('Ramble Tour without Annotations')
-  emit('startRambleTourWithoutAnnotations')
+  eventBus.emit('startRambleTourWithoutAnnotations')
 }
 
 function startTour(tourName) {
   store.setTourName(tourName)
   nextTick(() => {
-    emit('clickAnnotationLink', props.data.list[0].id)
+    eventBus.emit('clickAnnotationLink', props.data.list[0].id)
   })
 }
 
@@ -263,7 +264,7 @@ watch(() => props.data, async (data) => {
 
 // Lifecycle hooks
 onMounted(() => {
-  $nuxt.$on('setTagIndexStr', setTagIndexStr)
+  eventBus.on('setTagIndexStr', setTagIndexStr)
   nextTick(() => {
     if (typeof FONTPLUS !== 'undefined') {
       FONTPLUS.start()
@@ -272,6 +273,6 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  $nuxt.$off('setTagIndexStr', setTagIndexStr)
+  eventBus.off('setTagIndexStr', setTagIndexStr)
 })
 </script>

@@ -3,7 +3,7 @@
     :data-name="listName"
     :class="{ current: mainStore.pageName === listName }"
     class="btn"
-    @click="emit('selectList', listName)"
+    @click="handleSelectList(listName)"
   >
     <span v-if="icon === 'dot'" class="dot icon"></span>
     <IconTour v-else-if="icon === 'tour'" class="tour"></IconTour>
@@ -89,6 +89,7 @@ import { computed } from 'vue'
 import IconHyphen from '~/assets/image/icon-hyphen.svg'
 import IconTour from '~/assets/image/icon-tour.svg'
 import { useMainStore } from '~/stores/main.js'
+import { useEventBus } from '~/composables/useEventBus'
 
 const mainStore = useMainStore()
 const { $getTitle } = useNuxtApp()
@@ -109,7 +110,13 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['selectList'])
+// EventBus
+const eventBus = useEventBus()
+
+// Functions
+const handleSelectList = (listName) => {
+  eventBus.emit('selectList', listName)
+}
 
 const title = computed(() => {
   return $getTitle(props.listName)

@@ -1,5 +1,5 @@
 <template>
-  <div class="close button" title="Close" @click="emit('closeDrawer')">
+  <div class="close button" title="Close" @click="closeDrawer">
     <IconClose />
   </div>
 </template>
@@ -15,6 +15,11 @@
 
 <script setup>
 import IconClose from '~/assets/image/icon-close.svg'
+import { useEventBus } from '~/composables/useEventBus'
 
-const emit = defineEmits(['closeDrawer'])
+const eventBus = useEventBus()
+
+function closeDrawer() {
+  eventBus.emit('closeDrawer')
+}
 </script>

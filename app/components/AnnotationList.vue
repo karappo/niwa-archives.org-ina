@@ -4,7 +4,7 @@
       <li
         v-for="(o, i) in list"
         :key="o.id"
-        @click="emit('clickAnnotationLink', o.id)"
+        @click="handleClickAnnotationLink(o.id)"
       >
         <div
           v-if="!isOralArchives"
@@ -153,6 +153,7 @@
 import TypeImage from '~/assets/image/type-image.svg'
 import TypeVideo from '~/assets/image/type-video.svg'
 import { useMainStore } from '~/stores/main'
+import { useEventBus } from '~/composables/useEventBus'
 
 const props = defineProps({
   list: {
@@ -172,10 +173,16 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['clickAnnotationLink'])
-
 // Store
 const store = useMainStore()
+
+// EventBus
+const eventBus = useEventBus()
+
+// Functions
+const handleClickAnnotationLink = (id) => {
+  eventBus.emit('clickAnnotationLink', id)
+}
 
 // Computed properties
 const isOralArchives = computed(() => store.getPageName === 'Oral Archives')
