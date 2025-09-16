@@ -500,6 +500,8 @@ const sideBarSpVisibility = ref(false)
 const keyMapSpVisibility = ref(true)
 const soundSpVisibility = ref(false)
 const cameraPositionWatcher = ref(null)
+const cameraPosition = ref(null)
+const cameraTarget = ref(null)
 
 // Template ref
 const potreeRenderArea = ref(null)
@@ -509,6 +511,83 @@ const route = useRoute()
 const router = useRouter()
 const mainStore = useMainStore()
 // const { $device } = useDevice() // Will be fixed when device module is properly configured
+
+// Functions
+const setControlMode = (mode) => {
+  switch (mode) {
+    case 0:
+      // First Person
+      window.viewer.setControls(window.viewer.fpControls)
+      window.viewer.fpControls.lockElevation = true // 高さを維持するか否か
+      break
+    case 1:
+      // Earth
+      window.viewer.setControls(window.viewer.earthControls)
+      break
+    case 2:
+      // Orbit
+      window.viewer.setControls(window.viewer.orbitControls)
+      break
+  }
+}
+
+const calcIsSp = () => {
+  const pcSpThreshold = 749
+  isSP.value = window.innerWidth <= pcSpThreshold
+}
+
+const keydown = (e) => {
+  const canvas = document.querySelector('canvas')
+  // canvas要素にフォーカスがない場合はフォーカスを設定
+  if (document.activeElement !== canvas) {
+    canvas.focus()
+  }
+}
+
+const keyup = (e) => {
+  const canvas = document.querySelector('canvas')
+  // canvas要素にフォーカスがない場合はフォーカスを設定
+  if (document.activeElement !== canvas) {
+    canvas.focus()
+  }
+}
+
+const update = () => {
+  const camera = window.viewer.scene.getActiveCamera()
+  const pos = camera.position.toArray()
+  if (annotations.value) {
+    // ここでカメラポジションとの比較
+    annotations.value.forEach((a) => {
+      if (a.category === 'Plans') {
+        // Plansのものは描画しない
+        return
+      }
+      const annotationPos = new THREE.Vector3(...a.position)
+      const distance = annotationPos.distanceTo(new THREE.Vector3(...pos)) // カメラとAnnotationとの距離
+      const children = window.viewer.scene.annotations.children
+      for (let i = 0; i < children.length; i++) {
+        const _a = children[i]
+        if (_a._title === a.title) {
+          let val = 'middle'
+          if (20 < distance) {
+            val = 'far'
+          } else if (distance <= 5) {
+            val = 'nearer'
+          } else if (distance <= 10) {
+            val = 'near'
+          }
+          $(_a.domElement[0]).attr('data-camera-dist', val)
+          break
+        }
+      }
+    })
+  }
+}
+
+const onClickAnnotation = (e) => {
+  // Placeholder for annotation click handling
+  console.log('Annotation clicked:', e.target.data)
+}
 
 // Computed properties
 const viewer = computed(() => {
@@ -610,11 +689,6 @@ const getFirstAnnotationInSameGroup = (annotation) => {
   return window.viewer.scene.annotations.children.find(
     (a) => JSON.stringify(a.data.position) === JSON.stringify(annotation.position)
   )
-}
-
-const calcIsSp = () => {
-  const pcSpThreshold = 749
-  isSP.value = window.innerWidth <= pcSpThreshold
 }
 
 // Method implementations (simplified for initial Composition API conversion)
@@ -778,6 +852,11 @@ const loadPageData = async () => {
     data.value = gardenData
 
     console.log('Page data loaded successfully')
+
+    // Initialize Potree after data is loaded
+    if (process.client) {
+      await initializePotree()
+    }
   } catch (error) {
     console.error('Failed to load page data:', error)
     // エラー時はフラグをリセット
@@ -808,6 +887,143 @@ watch(
   }
 )
 
+// Potree initialization function
+const initializePotree = async () => {
+  console.log('Starting Potree initialization...')
+
+  // Wait for DOM to be ready
+  await nextTick()
+
+  if (!potreeRenderArea.value) {
+    console.error('Potree render area element not found')
+    return
+  }
+
+  if (!data.value || !data.value.pointcloud) {
+    console.error('Garden data not loaded yet')
+    return
+  }
+
+  const viewer = new Potree.Viewer(potreeRenderArea.value)
+  window.viewer = viewer
+  viewer.setFOV(75)
+  viewer.loadSettingsFromURL()
+  viewer.setBackground('originalColor')
+  viewer.setEDLEnabled(true)
+  viewer.setEDLRadius(0) // default: 1.4
+  viewer.setEDLStrength(0) // default: 0.4
+
+  // EDLの不透明度とパフォーマンス
+  // - EDLの不透明度が高い（値が大きい、例: 0.8〜1.0）場合:
+  //   - EDL効果が強く、視覚的な深さやエッジの強調が顕著になります。
+  //   - 視覚的な詳細が増えるため、GPUの負荷が増加し、パフォーマンスが低下する可能性があります。
+  // - EDLの不透明度が低い（値が小さい、例: 0.0〜0.2）場合:
+  //   - EDL効果が弱く、視覚的な深さやエッジの強調が控えめになります。
+  //   - 視覚的な詳細が減少し、GPUの負荷が軽減され、パフォーマンスが向上する可能性があります。
+  // viewer.setEDLOpacity(0.85) // default: 1.0
+  viewer.setEDLOpacity(isLowPerformance.value ? 0.75 : 0.85) // default: 1.0
+
+  // ポイントバジェット
+  // 同時に表示するポイント（点）の最大数を制限するための設定
+  viewer.setPointBudget(isLowPerformance.value ? 200000 : 2000000)
+
+  // Controls
+  setControlMode(0) // 3つのcontrolsModeのうち、どれにするかを切り替える0,1,2のいずれか
+
+  if (debugMode.value) {
+    viewer.loadGUI(() => {
+      viewer.setLanguage('en')
+      $('#menu_tools').next().show()
+      $('#menu_scene').next().show()
+      // viewer.toggleSidebar() // Open sidebar
+    })
+  }
+
+  try {
+    const { pointcloud } = await Potree.loadPointCloud(`/ina/assets/pointclouds/${data.value.pointcloud}`)
+    pointcloud.material.activeAttributeName = 'rgba'
+    pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE
+
+    // Potree.PointShape.SQUARE が一番低負荷
+    // ただし、見た目の印象に大きな影響を与える
+    // pointcloud.material.shape = isLowPerformance.value ? Potree.PointShape.SQUARE : Potree.PointShape.CIRCLE
+    pointcloud.material.shape = Potree.PointShape.CIRCLE
+
+    // pointcloud.material.size = isLowPerformance.value ? 1 : 0.66
+    pointcloud.material.size = 0.66
+
+    // 色の詳細を減らすことで、レンダリング負荷を軽減可能。点群データが非常にカラフルである場合に特に有効。
+    // ただし、見た目の印象に大きな影響を与える
+    // pointcloud.material.rgbGamma = isLowPerformance.value ? 2.2 : 1 // default: 1
+
+    viewer.scene.addPointCloud(pointcloud)
+
+    // Camera initialization
+    if (cameraPosition.value && cameraTarget.value) {
+      window.viewer.scene.view.position.set(...cameraPosition.value)
+      window.viewer.scene.view.lookAt(new THREE.Vector3(...cameraTarget.value))
+    } else {
+      data.value.initCamera()
+    }
+
+    // Set Camera Animation
+    const toursArray = []
+    data.value.tours.forEach((tourData) => {
+      const animation = new Potree.CameraAnimation(window.viewer)
+      for (let i = 0; i < tourData.positions.length; i++) {
+        const cp = animation.createControlPoint()
+        cp.position.set(...tourData.positions[i])
+        cp.target.set(...tourData.targets[i])
+      }
+      window.viewer.scene.addCameraAnimation(animation)
+      animation.setDuration(20)
+      animation.setVisible(false)
+      toursArray.push(animation)
+    })
+    tours.value = toursArray
+
+    // Add annotations
+    if (annotations.value) {
+      annotations.value
+        .filter((a) => !a.grouped)
+        .forEach((annotationData) => {
+          const a = new Potree.Annotation(annotationData)
+          // Cancel Potree default behavior
+          a.domElement.off('mouseenter')
+          a.domElement.off('mouseleave')
+          // クリックした時の処理
+          a.addEventListener('click', onClickAnnotation)
+          window.viewer.scene.annotations.add(a)
+        })
+    }
+
+    if (annotationGroups.value) {
+      annotationGroups.value.forEach((groupData) => {
+        const a = new Potree.Annotation(groupData[0], groupData.length - 1)
+        // Cancel Potree default behavior
+        a.domElement.off('mouseenter')
+        a.domElement.off('mouseleave')
+        // クリックした時の処理
+        a.addEventListener('click', onClickAnnotation)
+        window.viewer.scene.annotations.add(a)
+      })
+    }
+
+    // Set Events
+    window.viewer.addEventListener('camera_changed', update)
+    window.addEventListener('resize', calcIsSp)
+    document.addEventListener('keydown', keydown)
+    document.addEventListener('keyup', keyup)
+
+  } catch (error) {
+    console.error('Potree initialization failed:', error)
+  }
+
+  setTimeout(() => {
+    loading.value = false
+  }, 1000)
+}
+
 // Lifecycle
 onMounted(async () => {
   // 初期読み込み試行
@@ -837,13 +1053,6 @@ onMounted(async () => {
   isLowPerformance.value = false // $device.isMobileOrTablet ? 1.5 < benchmarkTime.value : false
 
   calcIsSp()
-
-  // Simplified Potree initialization for Composition API
-  console.log('Potree initialization would happen here')
-
-  setTimeout(() => {
-    loading.value = false
-  }, 1000)
 })
 
 onBeforeUnmount(() => {
