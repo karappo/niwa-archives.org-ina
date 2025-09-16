@@ -586,8 +586,37 @@ const update = () => {
 }
 
 const onClickAnnotation = (e) => {
-  // Placeholder for annotation click handling
-  console.log('Annotation clicked:', e.target.data)
+  // console.log('▪️▪️▪️ onClickAnnotation ▪️▪️▪️', e.target.domElement.get(0))
+  // この関数内でのみ、groupとannotationの切り替えが必要なので、下記関数を定義して処理をまとめる。
+  // annotationData に直接代入する方法と混在すると用途が分かりにくくなるので、methods化したりしないこと
+  const setAnnotationData = (data) => {
+    // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
+    nextTick(() => {
+      if (data.grouped && !mainStore.getPageName.includes('Tour')) {
+        listData.value = {
+          name: 'Group',
+          list: getAnnotationGroupByPosition(data.position)
+        }
+      } else {
+        annotationData.value = data
+      }
+    })
+  }
+  if (annotationData.value || listData.value || tourData.value) {
+    // 何かのリスト表示中に、アノテーショングループがクリックされた時に、リストはクリアして、グループを表示する処理が必要
+    if (listData.value) {
+      listData.value = null
+      mainStore.setPageName('')
+    }
+    setAnnotationData(e.target.data)
+  } else {
+    // カメラの移動が終わった時に、アノテーションを表示する
+    const onCameraAnimationComplete = (e) => {
+      setAnnotationData(e.target.data)
+      e.target.removeEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
+    }
+    e.target.addEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
+  }
 }
 
 // Event Bus handler functions
@@ -649,8 +678,7 @@ const selectList = (name) => {
 
 const onClickAnnotationLink = (id) => {
   // console.log('▪️▪️▪️ onClickAnnotationLink ▪️▪️▪️', id)
-  // TODO: Implement openAnnotationById functionality
-  console.log('Opening annotation:', id)
+  openAnnotationById(id)
 }
 
 const clearAnnotationData = () => {
@@ -773,13 +801,63 @@ const getFirstAnnotationInSameGroup = (annotation) => {
   )
 }
 
-// Method implementations (simplified for initial Composition API conversion)
+// Method implementations
 const highlightAnnotation = (domElement) => {
-  console.log('highlightAnnotation called', domElement)
+  clearAnnotationHighlight()
+  domElement.classList.add('highlighted')
 }
 
 const clearAnnotationHighlight = () => {
-  console.log('clearAnnotationHighlight called')
+  document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
+}
+
+const openAnnotationById = (id) => {
+  // console.log('⭐️ openAnnotationById', id)
+
+  // 【重要】点群上のAnnotation.click以外のアクションを起点として、annotationを表示する
+  // スタックトレースを取得して、Annotation.clickを起点とした処理中で呼び出された場合はエラーを出力する
+  const stackTrace = new Error().stack
+  if (stackTrace.includes('Annotation.click')) {
+    console.error("openAnnotationByIdは、Annotation.clickを起点とした処理中で呼び出されていますが、これは意図した動作ではありません。コードを見直して、呼び出されないようにしてください")
+    return
+  }
+  // ここからは必ず、Annotation.clickを起点とした処理ではない
+
+  // 画面上に表示されているアノテーションを探す
+  const annotation = window.viewer?.scene?.annotations?.children?.find(
+    (a) => a.data.id === id
+  )
+  if (annotation) {
+    // リストからアノテーショングループに属するアノテーションをクリックした時に、ここを通る
+    annotation.moveHere(mainStore.getPageName.includes('Tour') ? 10000 : null)
+    nextTick(() => {
+      annotationData.value = annotation.data
+    })
+    return
+  }
+
+  // 画面上に表示されていないグループに含まれるアノテーションを探す
+  const annotationDataItem = annotations.value?.find((a) => a.id === id)
+  if (annotationDataItem) {
+    // 同じグループの先頭アノテーションを探す
+    const firstAnnotationInSameGroup = getFirstAnnotationInSameGroup(annotationDataItem)
+    if (firstAnnotationInSameGroup) {
+      firstAnnotationInSameGroup.moveHere(mainStore.getPageName.includes('Tour') ? 10000 : null)
+      // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
+      nextTick(() => {
+        annotationData.value = annotationDataItem
+      })
+    }
+    return
+  }
+
+  console.error(`id=${id} のアノテーションが見つかりませんでした`)
+}
+
+const getAnnotationGroupByPosition = (position) => {
+  return annotationGroups.value?.find(
+    (g) => JSON.stringify(g[0].position) === JSON.stringify(position)
+  )
 }
 
 const stopRambleTourWithoutAnnotations = () => {
@@ -886,14 +964,14 @@ const loadPageData = async () => {
     console.log('annotationsStore:', annotationsStore)
     console.log('alias:', alias)
     console.log('camelCase(alias):', camelCase(alias))
-    
+
     // annotationsストアから直接ページデータを取得
     const pageKey = camelCase(alias)
     const annotationsData = annotationsStore[pageKey]
-    
+
     console.log('pageKey:', pageKey)
     console.log('annotationsData:', annotationsData)
-    
+
     if (!annotationsData) {
       console.log('Annotation data not yet available for this alias')
       // データがない場合はフラグをリセット
