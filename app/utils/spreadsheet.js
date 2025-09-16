@@ -176,15 +176,13 @@ export async function loadSpreadsheetData() {
 }
 
 class YouTube {
-  #params
-
   constructor(params) {
-    this.#params = params
+    this._params = params
   }
 
   getParams(dontShowLog) {
     let params = { autoplay: 1 }
-    params = Object.assign(params, this.#params) // 複製（autoplayを追加）
+    params = Object.assign(params, this._params) // 複製（autoplayを追加）
     // Remove 'v'
     delete params.v
     if (params.t) {
@@ -200,16 +198,16 @@ class YouTube {
     // eslint-disable-next-line
     const query = Object.keys(params).map(key => key + '=' + params[key]).join('&')
     // eslint-disable-next-line
-    return `https://www.youtube.com/embed/${this.#params.v}${query.length ? '?' + query : ''}`
+    return `https://www.youtube.com/embed/${this._params.v}${query.length ? '?' + query : ''}`
   }
 
   id() {
-    return this.#params.v
+    return this._params.v
   }
 
   thumbnailUrl() {
     // 1,2,3は自動作成されるサムネイルで、0はカスタムサムネイル（未設定の場合は1-3のうち選択された画像）
     // 0が一番解像度高いので0にする
-    return `https://img.youtube.com/vi/${this.#params.v}/0.jpg`
+    return `https://img.youtube.com/vi/${this._params.v}/0.jpg`
   }
 }
