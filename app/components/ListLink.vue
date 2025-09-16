@@ -3,7 +3,7 @@
     :data-name="listName"
     :class="{ current: mainStore.pageName === listName }"
     class="btn"
-    @click="$emit('selectList', listName)"
+    @click="emit('selectList', listName)"
   >
     <span v-if="icon === 'dot'" class="dot icon"></span>
     <IconTour v-else-if="icon === 'tour'" class="tour"></IconTour>
@@ -109,7 +109,7 @@ const props = defineProps({
   }
 })
 
-defineEmits(['selectList'])
+const emit = defineEmits(['selectList'])
 
 const title = computed(() => {
   return $getTitle(props.listName)

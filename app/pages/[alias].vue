@@ -470,6 +470,7 @@ import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMainStore } from '~/stores/main'
 import { useAnnotationsStore } from '~/stores/annotations'
+import { useEventBus } from '~/composables/useEventBus'
 // Import device composable differently for Nuxt 4
 import _groupBy from 'lodash/groupBy'
 import _shuffle from 'lodash/shuffle'
@@ -587,6 +588,87 @@ const update = () => {
 const onClickAnnotation = (e) => {
   // Placeholder for annotation click handling
   console.log('Annotation clicked:', e.target.data)
+}
+
+// Event Bus handler functions
+const closeDrawer = () => {
+  // clear List
+  mainStore.setTourName(null)
+  mainStore.setPageName('')
+  clearAnnotationData()
+  listData.value = null
+  tourData.value = null
+}
+
+const startCameraAnimation = (index) => {
+  if (tours.value && tours.value[index]) {
+    tours.value[index].play()
+  }
+}
+
+const selectList = (name) => {
+  console.log('selectList', name)
+  tourData.value = null
+  clearAnnotationData()
+  mainStore.setPageName(name)
+
+  if (name.includes('Tour')) {
+    let list = []
+    if (name === 'Guided Tour') {
+      // guidedTourの順でannotationをリスト化する
+      data.value.guidedTour.forEach((id) => {
+        for (const a of annotations.value) {
+          if (a.id === id) {
+            list.push(a)
+            return
+          }
+        }
+      })
+    } else if (name === 'Ramble Tour') {
+      // Ramble Tourの場合
+      list = _shuffle(annotations.value)
+    }
+    tourData.value = {
+      name,
+      list
+    }
+  } else {
+    let list = []
+    if (name === 'Annotations') {
+      list = annotations.value
+    } else {
+      list = annotations.value.filter((a) => a.category.includes(name))
+    }
+    listData.value = {
+      name,
+      list,
+      tagIndexStr: '' // フィルターの状態を保持するためここに保存
+    }
+  }
+}
+
+const onClickAnnotationLink = (id) => {
+  // console.log('▪️▪️▪️ onClickAnnotationLink ▪️▪️▪️', id)
+  // TODO: Implement openAnnotationById functionality
+  console.log('Opening annotation:', id)
+}
+
+const clearAnnotationData = () => {
+  annotationData.value = null
+}
+
+const startRambleTourWithoutAnnotations = () => {
+  // 点群上にあるアノテーションのみでリスト化（グループの子要素のアノテーションは同じ位置になるので含めない）
+  if (tourData.value) {
+    tourData.value.list = _shuffle(annotations.value.filter((a) => !a.grouped || a.firstInGroup))
+    onClickAnnotationLink(tourData.value.list[0].id)
+    if (rambleTourTimer.value) {
+      clearInterval(rambleTourTimer.value)
+    }
+    rambleTourTimer.value = setInterval(() => {
+      // next(annotationData.value.id)
+    }, 15000)
+  }
 }
 
 // Computed properties
@@ -707,10 +789,6 @@ const stopRambleTourWithoutAnnotations = () => {
     clearInterval(rambleTourTimer.value)
     rambleTourTimer.value = null
   }
-}
-
-const clearAnnotationData = () => {
-  annotationData.value = null
 }
 
 const prev = (id) => {
@@ -1053,9 +1131,25 @@ onMounted(async () => {
   isLowPerformance.value = false // $device.isMobileOrTablet ? 1.5 < benchmarkTime.value : false
 
   calcIsSp()
+
+  // Set up EventBus listeners
+  const eventBus = useEventBus()
+  eventBus.on('closeDrawer', closeDrawer)
+  eventBus.on('startCameraAnimation', startCameraAnimation)
+  eventBus.on('selectList', selectList)
+  eventBus.on('clickAnnotationLink', onClickAnnotationLink)
+  eventBus.on('startRambleTourWithoutAnnotations', startRambleTourWithoutAnnotations)
 })
 
 onBeforeUnmount(() => {
+  // Clean up EventBus listeners
+  const eventBus = useEventBus()
+  eventBus.off('closeDrawer', closeDrawer)
+  eventBus.off('startCameraAnimation', startCameraAnimation)
+  eventBus.off('selectList', selectList)
+  eventBus.off('clickAnnotationLink', onClickAnnotationLink)
+  eventBus.off('startRambleTourWithoutAnnotations', startRambleTourWithoutAnnotations)
+
   clearInterval(cameraPositionWatcher.value)
   document.querySelectorAll('#profile_window,.sp-container').forEach((e) => e.remove())
 })

@@ -15,7 +15,7 @@
     </div>
     <div class="spHeader">
       <span class="text">Sounds</span>
-      <div class="closeBtn" @click="$emit('spClose')">
+      <div class="closeBtn" @click="emit('spClose')">
         <SpClose></SpClose>
       </div>
     </div>
@@ -428,6 +428,7 @@ import SpClose from '~/assets/image/SoundBar/sp-close.svg'
 import { useMainStore } from '~/stores/main.js'
 const mainStore = useMainStore()
 import { useAnnotationsStore } from '~/stores/annotations.js'
+import { useEventBus } from '~/composables/useEventBus'
 const annotationsStore = useAnnotationsStore()
 
 const props = defineProps({
@@ -442,6 +443,8 @@ const props = defineProps({
     default: false
   }
 })
+
+const emit = defineEmits(['spClose'])
 
 const visible = ref(true)
 const index = ref('0') // SelectBoxに渡す関係でStringにしておく必要がある
@@ -552,13 +555,16 @@ function seekBarClick(e) {
 }
 
 function placeClick(annotationId) {
-  $nuxt.$emit('clickAnnotationLink', annotationId)
+  console.log('placeClick', annotationId)
+  const eventBus = useEventBus()
+  eventBus.emit('clickAnnotationLink', annotationId)
 }
 
 function tagClick(tag) {
-  $nuxt.$emit('selectList', 'Annotations')
+  const eventBus = useEventBus()
+  eventBus.emit('selectList', 'Annotations')
   nextTick(() => {
-    $nuxt.$emit('setTagIndexStr', tag)
+    eventBus.emit('setTagIndexStr', tag)
   })
 }
 </script>

@@ -3,7 +3,7 @@
     <select
       class="button"
       :value="value"
-      @change="$emit('update:value', $event.target.value)"
+      @change="emit('update:value', $event.target.value)"
     >
       <option value="" selected>Filter</option>
       <option
@@ -81,5 +81,5 @@ defineProps({
   }
 })
 
-defineEmits(['update:value'])
+const emit = defineEmits(['update:value'])
 </script>

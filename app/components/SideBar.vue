@@ -2,7 +2,7 @@
   <aside class="sideBar">
     <div class="wrap">
       <div class="spHeader">
-        <div class="closeBtn" @click="$emit('spClose')">
+        <div class="closeBtn" @click="emit('spClose')">
           <SideBarClose />
         </div>
       </div>

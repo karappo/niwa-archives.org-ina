@@ -1,5 +1,5 @@
 <template>
-  <div class="close button" title="Close" @click="$emit('closeDrawer')">
+  <div class="close button" title="Close" @click="emit('closeDrawer')">
     <IconClose />
   </div>
 </template>
@@ -16,5 +16,5 @@
 <script setup>
 import IconClose from '~/assets/image/icon-close.svg'
 
-defineEmits(['closeDrawer'])
+const emit = defineEmits(['closeDrawer'])
 </script>

@@ -32,7 +32,7 @@
           v-if="!tourName"
           class="button backTolist"
           :title="`Back to list`"
-          @click="$emit('backToList')"
+          @click="emit('backToList')"
         >
           <IconList />
         </a>
@@ -364,6 +364,7 @@ import IconPrev from '~/assets/image/icon-prev.svg'
 import IconNext from '~/assets/image/icon-next.svg'
 import IconList from '~/assets/image/icon-list.svg'
 import { useMainStore } from '~/stores/main'
+import { useEventBus } from '~/composables/useEventBus'
 
 const props = defineProps({
   data: {
@@ -479,9 +480,10 @@ function youtubeOnPlaying() {
 }
 
 function tagClick(tag) {
-  $nuxt.$emit('selectList', 'Annotations')
+  const eventBus = useEventBus()
+  eventBus.emit('selectList', 'Annotations')
   nextTick(() => {
-    $nuxt.$emit('setTagIndexStr', tag)
+    eventBus.emit('setTagIndexStr', tag)
   })
 }
 

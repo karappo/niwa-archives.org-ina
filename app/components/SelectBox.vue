@@ -1,6 +1,6 @@
 <template>
   <div class="selectBox">
-    <select :value="value" @change="$emit('update:value', $event.target.value)">
+    <select :value="value" @change="emit('update:value', $event.target.value)">
       <option v-if="allowEmpty"></option>
       <option
         v-for="(item, index) in options"
@@ -104,5 +104,5 @@ defineProps({
   }
 })
 
-defineEmits(['update:value'])
+const emit = defineEmits(['update:value'])
 </script>

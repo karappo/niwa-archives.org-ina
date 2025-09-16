@@ -4,7 +4,7 @@
       <li
         v-for="(o, i) in list"
         :key="o.id"
-        @click="$emit('clickAnnotationLink', o.id)"
+        @click="emit('clickAnnotationLink', o.id)"
       >
         <div
           v-if="!isOralArchives"
