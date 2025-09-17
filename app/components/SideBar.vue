@@ -184,10 +184,6 @@ h3 {
   margin-bottom: 10px;
 }
 .btn {
-  cursor: pointer;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
   &:hover {
     color: rgba(255, 255, 255, 0.8);
   }
