@@ -26,6 +26,7 @@
 .linkCheck {
   .el-checkbox {
     margin-right: 12px;
+    height: auto;
   }
   .el-checkbox__input.is-checked .el-checkbox__inner {
     background-color: #434343 !important;
