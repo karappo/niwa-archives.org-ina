@@ -102,9 +102,10 @@ const indeterminate = computed(() => {
     return 1 < _uniq(childrenValues).length
   }
   if (['Viewpoints', 'Elements'].includes(props.listName)) {
-    const childrenValues = Object.keys(mainStore.annotationVisibilities).map(key => {
+    const childrenValues = []
+    Object.keys(mainStore.annotationVisibilities).map(key => {
       if (key.includes(`${props.listName}/`)) {
-        return mainStore.annotationVisibilities[key]
+        childrenValues.push(mainStore.annotationVisibilities[key])
       }
     })
     return 1 < _uniq(childrenValues).length
