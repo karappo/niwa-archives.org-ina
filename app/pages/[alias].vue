@@ -634,7 +634,6 @@ const startCameraAnimation = (index) => {
 }
 
 const selectList = (name) => {
-  console.log('selectList', name)
   tourData.value = null
   clearAnnotationData()
   mainStore.setPageName(name)
@@ -945,30 +944,19 @@ const isDataLoaded = ref(false)
 const loadPageData = async () => {
   try {
     // 既に読み込み済みの場合はスキップ
-    console.log('loadPageData called, isDataLoaded.value:', isDataLoaded.value)
     if (isDataLoaded.value) {
-      console.log('Data already loaded, skipping')
       return
     }
 
     // 並行実行を防ぐため、関数開始時点でフラグを設定
     isDataLoaded.value = true
-    console.log('Setting isDataLoaded to true at start')
 
     const alias = route.params.alias
     const annotationsStore = useAnnotationsStore()
 
-    console.log('------------ loadPageData ----------------')
-    console.log('annotationsStore:', annotationsStore)
-    console.log('alias:', alias)
-    console.log('camelCase(alias):', camelCase(alias))
-
     // annotationsストアから直接ページデータを取得
     const pageKey = camelCase(alias)
     const annotationsData = annotationsStore[pageKey]
-
-    console.log('pageKey:', pageKey)
-    console.log('annotationsData:', annotationsData)
 
     if (!annotationsData) {
       console.log('Annotation data not yet available for this alias')
@@ -976,9 +964,6 @@ const loadPageData = async () => {
       isDataLoaded.value = false
       return
     }
-
-    console.log('annotationsStore', annotationsStore)
-    console.log('annotationsData', annotationsData)
 
     // 同位置のアノテーションはgroupにする
     const annotationGroupsData = Object.values(

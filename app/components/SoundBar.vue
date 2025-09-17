@@ -555,7 +555,6 @@ function seekBarClick(e) {
 }
 
 function placeClick(annotationId) {
-  console.log('placeClick', annotationId)
   const eventBus = useEventBus()
   eventBus.emit('clickAnnotationLink', annotationId)
 }
