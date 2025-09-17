@@ -74,7 +74,7 @@
   }
   .tour {
     margin-right: 8px;
-    path {
+    &:deep(path) {
       fill: var(--bg-color);
     }
   }
