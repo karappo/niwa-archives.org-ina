@@ -90,8 +90,7 @@ const visibility = computed({
     return mainStore.annotationVisibilities[props.listName]
   },
   set(value) {
-    const key = props.listName
-    mainStore.annotationVisibilities({ key, value })
+    mainStore.setAnnotationVisibilities(props.listName, value)
   }
 })
 
