@@ -290,15 +290,13 @@ header {
       svg {
         margin-left: 14px;
         margin-right: 14px;
-        line {
+        &:deep(line) {
           transition: stroke 0.2s;
         }
       }
       &:hover {
-        svg {
-          line {
-            stroke: white;
-          }
+        svg:deep(line) {
+          stroke: white;
         }
       }
     }

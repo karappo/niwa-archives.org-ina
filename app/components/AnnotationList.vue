@@ -54,18 +54,14 @@
     font-size: 14px;
     height: 60px;
     transition: background 0.2s, color 0.2s;
-    svg {
-      path {
-        transition: fill 0.2s;
-      }
+    svg:deep(path) {
+      transition: fill 0.2s;
     }
     &:hover {
       background-color: darken(#1a1a1a, 5%);
       color: white;
-      svg {
-        path {
-          fill: white;
-        }
+      svg:deep(path) {
+        fill: white;
       }
     }
 

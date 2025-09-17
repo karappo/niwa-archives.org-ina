@@ -185,8 +185,8 @@ a.disabled {
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
   svg {
-    line,
-    path {
+    &:deep(line),
+    &:deep(path) {
       transition: stroke 0.2s;
     }
 
@@ -201,8 +201,8 @@ a.disabled {
     color: white;
 
     svg {
-      line,
-      path {
+      &:deep(line),
+      &:deep(path) {
         stroke: white;
       }
 

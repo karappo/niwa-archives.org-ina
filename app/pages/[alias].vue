@@ -276,17 +276,15 @@ nav.spMenu {
           svg {
             width: 8px;
             height: 8px;
-            line {
+            &:deep(line) {
               stroke: #d3d3d3;
               transition: stroke 0.2s;
             }
           }
           &:hover {
             background-color: black;
-            svg {
-              line {
-                stroke: white;
-              }
+            svg:deep(line) {
+              stroke: white;
             }
           }
         }

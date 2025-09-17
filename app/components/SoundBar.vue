@@ -279,8 +279,8 @@
   flex-shrink: 0;
   &:hover {
     svg {
-      rect,
-      path {
+      &:deep(rect),
+      &:deep(path) {
         fill: white;
       }
     }

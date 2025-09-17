@@ -135,22 +135,16 @@ aside.sideBar {
   }
   svg {
     margin-left: auto;
-    g {
-      path {
-        transition: fill 0.2s;
-      }
+    &:deep(path) {
+      transition: fill 0.2s;
     }
   }
   &:hover {
     span {
       color: white;
     }
-    svg {
-      g {
-        path {
-          fill: white;
-        }
-      }
+    svg:deep(path) {
+      fill: white;
     }
   }
 }

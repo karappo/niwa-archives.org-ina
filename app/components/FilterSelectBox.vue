@@ -33,7 +33,7 @@
     select {
       color: white;
     }
-    .icon svg path {
+    .icon svg:deep(path) {
       fill: white;
     }
   }

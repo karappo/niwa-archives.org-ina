@@ -60,10 +60,8 @@
       color: white;
     }
     .icon {
-      svg {
-        path {
-          fill: white;
-        }
+      svg:deep(path) {
+        fill: white;
       }
     }
   }
