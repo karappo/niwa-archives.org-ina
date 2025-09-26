@@ -199,8 +199,6 @@ header {
       width: 100%;
       height: 100%;
       z-index: 1;
-    }
-    .cover {
       font-family: 'Font Awesome 5 Pro-Light-300';
       font-size: 50px;
       color: white;
