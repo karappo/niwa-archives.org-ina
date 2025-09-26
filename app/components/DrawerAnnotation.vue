@@ -60,13 +60,13 @@
         PDFをみる
       </a>
       <div v-if="flagForYoutube && data.youtube" class="youtube">
-        <youtube
+        <YouTube
           ref="youtube"
-          :video-id="data.youtube.id()"
-          :player-vars="playerVars"
+          :src="data.youtube.id()"
+          :vars="playerVars"
           @playing="youtubeOnPlaying"
           @ended="goToNextAnnotation"
-        ></youtube>
+        ></YouTube>
         <div
           ref="cover"
           class="cover"
