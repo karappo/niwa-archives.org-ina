@@ -64,8 +64,7 @@
           ref="youtube"
           :src="data.youtube.id()"
           :vars="playerVars"
-          @playing="youtubeOnPlaying"
-          @ended="goToNextAnnotation"
+          @state-change="onStateChange"
         ></YouTube>
         <div
           ref="cover"
@@ -468,10 +467,17 @@ function startGoToNextTimer() {
   timerID.value = setTimeout(goToNextAnnotation, 15000)
 }
 
-function youtubeOnPlaying() {
-  // かならず ※1 と条件を揃えること
-  if ($isMobileOrTablet()) {
-    clearTimer()
+function onStateChange(event) {
+  // YouTube player states:
+  // -1: unstarted, 0: ended, 1: playing, 2: paused, 3: buffering, 5: cued
+
+  if (event.data === 1) { // playing
+    // かならず ※1 と条件を揃えること
+    if ($isMobileOrTablet()) {
+      clearTimer()
+    }
+  } else if (event.data === 0) { // ended
+    goToNextAnnotation()
   }
 }
 
