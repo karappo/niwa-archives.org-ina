@@ -691,7 +691,7 @@ const startRambleTourWithoutAnnotations = () => {
       clearInterval(rambleTourTimer.value)
     }
     rambleTourTimer.value = setInterval(() => {
-      // next(annotationData.value.id)
+      next(annotationData.value.id)
     }, 15000)
   }
 }
@@ -867,11 +867,38 @@ const stopRambleTourWithoutAnnotations = () => {
 }
 
 const prev = (id) => {
-  console.log('prev called:', id)
+  let idArray = null
+  if (tourData.value) {
+    idArray = tourDataIdArray.value
+  } else if (listData.value) {
+    idArray = listDataIdArray.value
+  } else {
+    console.error('prev: tourData, listData どちらも存在しません')
+    return
+  }
+
+  let index = idArray.indexOf(id) - 1
+  if (index < 0) {
+    index = idArray.length - 1
+  }
+  openAnnotationById(idArray[index])
 }
 
 const next = (id) => {
-  console.log('next called:', id)
+  let idArray = null
+  if (tourData.value) {
+    idArray = tourDataIdArray.value
+  } else if (listData.value) {
+    idArray = listDataIdArray.value
+  } else {
+    console.error('next: tourData, listData どちらも存在しません')
+    return
+  }
+  let index = idArray.indexOf(id) + 1
+  if (idArray.length <= index) {
+    index = 0
+  }
+  openAnnotationById(idArray[index])
 }
 
 const saveCameraInfo = () => {
