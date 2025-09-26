@@ -67,9 +67,8 @@
           @state-change="onStateChange"
         ></YouTube>
         <div
-          ref="cover"
           class="cover"
-          :class="{ hidden: !cover }"
+          :class="{ hidden: !coverVisibility }"
           @click="replayVideo()"
         >
           <div class="icon"></div>
@@ -395,7 +394,7 @@ const emit = defineEmits(['next', 'prev', 'backToList'])
 
 // Reactive data
 const playerVars = ref(null)
-const cover = ref(null)
+const coverVisibility = ref(false)
 const timerID = ref(null)
 const flagForYoutube = ref(true) // data.youtubeの値が変わった時に再描画されない問題への対処
 
@@ -444,14 +443,14 @@ function goToNextAnnotation() {
   ) {
     emit('next', props.data.id)
   } else {
-    cover.value = true
+    coverVisibility.value = true
     player.value?.seekTo(playerVars.value?.start || 0)
     player.value?.pauseVideo()
   }
 }
 
 function replayVideo() {
-  cover.value = false
+  coverVisibility.value = false
   player.value?.playVideo()
 }
 
@@ -517,7 +516,7 @@ watch(() => props.data, (data) => {
     const vars = props.data.youtube.getParams()
     vars.autoplay = 1
     playerVars.value = vars
-    cover.value = false
+    coverVisibility.value = false
   }
 
   // ※1
