@@ -1,6 +1,6 @@
 <template>
   <div class="selectBox">
-    <select :value="modelValue" @change="emit('update:modelValue', $event.target.value)">
+    <select :id="'selectbox-select-' + uid" :value="modelValue" @change="emit('update:modelValue', $event.target.value)">
       <option v-if="allowEmpty"></option>
       <option
         v-for="(item, index) in options"
@@ -103,4 +103,7 @@ defineProps({
 })
 
 const emit = defineEmits(['update:modelValue'])
+
+// Vue 3でユニークなIDを生成
+const uid = Math.random().toString(36).substr(2, 9)
 </script>
