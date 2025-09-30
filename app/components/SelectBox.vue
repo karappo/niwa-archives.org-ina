@@ -1,6 +1,6 @@
 <template>
   <div class="selectBox">
-    <select :value="value" @change="emit('update:value', $event.target.value)">
+    <select :value="modelValue" @change="emit('update:modelValue', $event.target.value)">
       <option v-if="allowEmpty"></option>
       <option
         v-for="(item, index) in options"
@@ -83,7 +83,7 @@
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg'
 
 defineProps({
-  value: {
+  modelValue: {
     type: String,
     require: true,
     default: '0'
@@ -102,5 +102,5 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['update:value'])
+const emit = defineEmits(['update:modelValue'])
 </script>
