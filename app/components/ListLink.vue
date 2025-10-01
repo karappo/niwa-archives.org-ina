@@ -89,16 +89,13 @@
 </style>
 
 <script setup>
-import { camelCase } from 'change-case'
 import IconHyphen from '~/assets/image/icon-hyphen.svg'
 import IconTour from '~/assets/image/icon-tour.svg'
 import { useMainStore } from '~/stores/main.js'
-import { useAnnotationsStore } from '~/stores/annotations.js'
 import { useEventBus } from '~/composables/useEventBus'
+import { checkListDisabled } from '~/utils/checkListDisabled'
 
 const mainStore = useMainStore()
-const annotationsStore = useAnnotationsStore()
-const route = useRoute()
 const { $getTitle } = useNuxtApp()
 
 const props = defineProps({
@@ -131,11 +128,7 @@ const title = computed(() => {
 
 const disabled = computed(() => {
   if (props.listName === 'Plans') {
-    const annotations = annotationsStore[camelCase(route.params.alias)]
-    if (!annotations || !Array.isArray(annotations)) {
-      return true
-    }
-    return !annotations.filter(a => a.category.includes(props.listName)).length
+    return checkListDisabled(props.listName)
   }
   return false
 })
