@@ -37,14 +37,15 @@ const imageSrc = computed(() => {
 })
 
 onMounted(async () => {
-  if (typeof FONTPLUS !== 'undefined') {
-    FONTPLUS.start()
-  }
-
   // 庭園データを取得してhistoryContentを設定
   const gardenData = await getGardenData(route.params.alias)
   if (gardenData && gardenData.historyContent) {
     historyContent.value = gardenData.historyContent
   }
+  nextTick(() => {
+    if (typeof FONTPLUS !== 'undefined') {
+      FONTPLUS.start()
+    }
+  })
 })
 </script>
