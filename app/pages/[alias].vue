@@ -365,7 +365,7 @@ nav.spMenu {
     cursor: pointer;
     transition: background-color 0.2s;
     &:hover {
-      background-color: lighten(#1d1d1d, 5%);
+      background-color: #2a2a2a;
     }
     @media only screen and (max-width: 749px) {
       font-size: 15px;

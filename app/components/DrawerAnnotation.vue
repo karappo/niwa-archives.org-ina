@@ -240,7 +240,7 @@ header {
           pointer-events: none;
         }
         &:not(.disabled):hover {
-          background-color: lighten(#242424, 10%);
+          background-color: #2e2e2e;
         }
         span.num {
           color: #7c7c7c;

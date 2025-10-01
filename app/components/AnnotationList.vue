@@ -58,7 +58,7 @@
       transition: fill 0.2s;
     }
     &:hover {
-      background-color: darken(#1a1a1a, 5%);
+      background-color: #171717;
       color: white;
       svg:deep(path) {
         fill: white;
