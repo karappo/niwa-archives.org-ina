@@ -241,24 +241,14 @@ const router = useRouter()
 const { $variation, $garden } = useNuxtApp()
 
 // Reactive data
-// SelectBoxに渡す関係でvariationIndexはStringにしておく必要がある
-const index = props.variations.indexOf($variation(route))
-const variationIndex = ref(String(index >= 0 ? index : 0))
-
-// variationsが非同期で読み込まれる場合に対応
-watch(() => props.variations, (newVariations) => {
-  if (newVariations.length > 0) {
-    const newIndex = newVariations.indexOf($variation(route))
-    if (newIndex >= 0) {
-      variationIndex.value = String(newIndex)
-    }
+const variationIndex = computed({
+  get() {
+    return String(props.variations.indexOf($variation(route)))
+  },
+  set(val) {
+    emit('saveCameraInfo')
+    const varStr = props.variations[parseInt(val, 10)].toLowerCase()
+    router.push(`../${$garden(route)}-${varStr}/`)
   }
-}, { immediate: true })
-
-// Watch for variation changes
-watch(variationIndex, (val) => {
-  emit('saveCameraInfo') // TODO 機能していない
-  const varStr = props.variations[parseInt(val, 10)].toLowerCase()
-  router.push(`../${$garden(route)}-${varStr}/`)
 })
 </script>
