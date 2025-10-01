@@ -22,7 +22,7 @@ const isIPad13 = () => {
 
 export default defineNuxtPlugin((nuxtApp) => {
   const { $device } = nuxtApp
-  
+
   return {
     provide: {
       getTitle: (category: string) => {
@@ -56,6 +56,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
       isIPad13,
       isMobileOrTablet: () => {
+        // TODOここ動作している？
         return $device.isMobileOrTablet || isIPad13()
       }
     }
