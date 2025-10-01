@@ -139,6 +139,8 @@ watchEffect(async () => {
     disabled.value = !(await has3DData(route.params.alias))
   } else if (props.listName === 'Plans') {
     disabled.value = checkListDisabled(props.listName)
+  } else if (props.listName === 'Ramble Tour') {
+    disabled.value = checkListDisabled(null)
   } else {
     disabled.value = false
   }
