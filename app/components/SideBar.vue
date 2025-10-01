@@ -242,9 +242,18 @@ const { $variation, $garden } = useNuxtApp()
 
 // Reactive data
 // SelectBoxに渡す関係でvariationIndexはStringにしておく必要がある
-const variationIndex = ref(String(
-  props.variations.indexOf($variation(route))
-))
+const index = props.variations.indexOf($variation(route))
+const variationIndex = ref(String(index >= 0 ? index : 0))
+
+// variationsが非同期で読み込まれる場合に対応
+watch(() => props.variations, (newVariations) => {
+  if (newVariations.length > 0) {
+    const newIndex = newVariations.indexOf($variation(route))
+    if (newIndex >= 0) {
+      variationIndex.value = String(newIndex)
+    }
+  }
+}, { immediate: true })
 
 // Watch for variation changes
 watch(variationIndex, (val) => {
