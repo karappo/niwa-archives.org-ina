@@ -94,9 +94,12 @@ import IconTour from '~/assets/image/icon-tour.svg'
 import { useMainStore } from '~/stores/main.js'
 import { useEventBus } from '~/composables/useEventBus'
 import { checkListDisabled } from '~/utils/checkListDisabled'
+import { useGardenData } from '~/composables/useGardenData'
 
 const mainStore = useMainStore()
+const route = useRoute()
 const { $getTitle } = useNuxtApp()
+const { hasHistory } = useGardenData()
 
 const props = defineProps({
   listName: {
@@ -126,10 +129,16 @@ const title = computed(() => {
   return $getTitle(props.listName)
 })
 
-const disabled = computed(() => {
-  if (props.listName === 'Plans') {
-    return checkListDisabled(props.listName)
+const disabled = ref(false)
+
+// 非同期でdisabledを更新
+watchEffect(async () => {
+  if (props.listName === 'History') {
+    disabled.value = !(await hasHistory(route.params.alias))
+  } else if (props.listName === 'Plans') {
+    disabled.value = checkListDisabled(props.listName)
+  } else {
+    disabled.value = false
   }
-  return false
 })
 </script>
