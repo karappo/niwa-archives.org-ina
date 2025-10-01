@@ -8,9 +8,9 @@ export const murinAnHistoryContent = {
 </p>
 <p>
   鄰菴庭園 ウェブサイト<br />
-  <ExternalLink href="https://murin-an.jp">
+  <a href="https://murin-an.jp" target="_blank" rel="noopener noreferrer">
     https://murin-an.jp
-  </ExternalLink>
+  </a>
 </p>
 <br />
 <br />

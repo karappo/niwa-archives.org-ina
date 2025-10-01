@@ -22,7 +22,6 @@ article {
 </style>
 
 <script setup>
-import ExternalLink from '~/components/ExternalLink.vue'
 import { useGardenData } from '~/composables/useGardenData'
 
 const route = useRoute()
@@ -31,7 +30,7 @@ const { getGardenData } = useGardenData()
 const historyContent = ref(null)
 const imageSrc = computed(() => {
   if (historyContent.value && historyContent.value.image) {
-    return `/image/history/${historyContent.value.image}`
+    return `/ina/image/history/${historyContent.value.image}`
   }
   return ''
 })
