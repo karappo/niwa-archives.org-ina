@@ -135,12 +135,12 @@ const disabled = ref(false)
 watchEffect(async () => {
   if (props.listName === 'History') {
     disabled.value = !(await hasHistory(route.params.alias))
+  } else if (props.listName === 'Plans') {
+    disabled.value = checkListDisabled(props.listName)
   } else if (props.listName === '3D Data') {
     disabled.value = !(await has3DData(route.params.alias))
   } else if (props.listName === 'Guided Tour') {
     disabled.value = !(await hasGuidedTour(route.params.alias))
-  } else if (props.listName === 'Plans') {
-    disabled.value = checkListDisabled(props.listName)
   } else if (props.listName === 'Ramble Tour') {
     disabled.value = checkListDisabled(null)
   } else {
