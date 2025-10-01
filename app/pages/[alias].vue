@@ -499,8 +499,6 @@ const sideBarSpVisibility = ref(false)
 const keyMapSpVisibility = ref(true)
 const soundSpVisibility = ref(false)
 const cameraPositionWatcher = ref(null)
-const cameraPosition = ref(null)
-const cameraTarget = ref(null)
 
 // Template ref
 const potreeRenderArea = ref(null)
@@ -902,7 +900,11 @@ const next = (id) => {
 }
 
 const saveCameraInfo = () => {
-  console.log('saveCameraInfo called')
+  if (window.viewer && window.viewer.scene) {
+    const camera = window.viewer.scene.getActiveCamera()
+    mainStore.setCameraPosition(camera.position.toArray())
+    mainStore.setCameraTarget(window.viewer.scene.view.getPivot().toArray())
+  }
 }
 
 // Watchers
@@ -1125,9 +1127,9 @@ const initializePotree = async () => {
     viewer.scene.addPointCloud(pointcloud)
 
     // Camera initialization
-    if (cameraPosition.value && cameraTarget.value) {
-      window.viewer.scene.view.position.set(...cameraPosition.value)
-      window.viewer.scene.view.lookAt(new THREE.Vector3(...cameraTarget.value))
+    if (mainStore.getCameraPosition && mainStore.getCameraTarget) {
+      window.viewer.scene.view.position.set(...mainStore.getCameraPosition)
+      window.viewer.scene.view.lookAt(new THREE.Vector3(...mainStore.getCameraTarget))
     } else {
       data.value.initCamera()
     }
