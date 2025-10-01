@@ -37,9 +37,9 @@ git clone --recursive git@github.com:karappo/IncompleteNiwaArchives.git
 
 # Ready potree to create build dir.
 cd public/assets/potree
-npm i
+npm install
 
-cd ../../
+cd ../../../
 npm install
 npm run dev
 ```
