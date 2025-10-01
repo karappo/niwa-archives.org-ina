@@ -1,7 +1,7 @@
 <template>
   <div
     :data-name="listName"
-    :class="{ current: mainStore.pageName === listName, disabled }"
+    :class="{ current, disabled }"
     class="btn"
     @click="handleSelectList(listName)"
   >
@@ -146,5 +146,9 @@ watchEffect(async () => {
   } else {
     disabled.value = false
   }
+})
+
+const current = computed(() => {
+  return mainStore.getPageName === props.listName
 })
 </script>

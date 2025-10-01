@@ -217,6 +217,8 @@ aside.sideBar {
 <script setup>
 // import MenuArrow from '~/assets/image/menu-arrow.svg'
 import SideBarClose from '~/assets/image/sideBar/close.svg'
+import { useMainStore } from '~/stores/main.js'
+const mainStore = useMainStore()
 
 const props = defineProps({
   variations: {
@@ -239,6 +241,8 @@ const variationIndex = computed({
   },
   set(val) {
     emit('saveCameraInfo')
+    mainStore.setPageName('')
+    mainStore.setTourName('')
     const varStr = props.variations[parseInt(val, 10)].toLowerCase()
     router.push(`../${$garden(route)}-${varStr}/`)
   }
