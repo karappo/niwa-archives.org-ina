@@ -149,18 +149,7 @@ export default defineNuxtConfig({
       chunkSizeWarningLimit: 1600, // Increase limit to 1600kB for large 3D libraries
       rollupOptions: {
         output: {
-          manualChunks: (id) => {
-            // Group vendor dependencies
-            if (id.includes('node_modules')) {
-              if (id.includes('three')) {
-                return 'vendor-three'
-              }
-              if (id.includes('vue') || id.includes('@vue')) {
-                return 'vendor-vue'
-              }
-              return 'vendor'
-            }
-          }
+          inlineDynamicImports: true
         }
       }
     }
