@@ -9,7 +9,7 @@ export default {
   guidedTour: [],
   tours: [],
   historyContent: {
-    image: '@/assets/image/history/ryogen_in.jpg',
+    image: 'ryogen_in.jpg',
     title: '龍源院庭園',
     body: `<p>
   龍源院は数ある大徳寺の塔頭の一つであり、大徳寺南派の本庵です。大徳寺は、京都市北区紫野に所在する臨済宗の寺院。鎌倉時代末期、赤松則村の援助によって、宗峰妙超（大燈国師）を開山とする小庵を起源とします。<br />

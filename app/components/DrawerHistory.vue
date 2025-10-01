@@ -5,7 +5,7 @@
       <DrawerCloseButton></DrawerCloseButton>
     </header>
     <article v-if="historyContent">
-      <img class="image" :src="historyContent.image" />
+      <img class="image" :src="imageSrc" />
       <h1>{{ historyContent.title }}</h1>
       <div v-html="historyContent.body"></div>
     </article>
@@ -29,6 +29,12 @@ const route = useRoute()
 const { getGardenData } = useGardenData()
 
 const historyContent = ref(null)
+const imageSrc = computed(() => {
+  if (historyContent.value && historyContent.value.image) {
+    return `/image/history/${historyContent.value.image}`
+  }
+  return ''
+})
 
 onMounted(async () => {
   if (typeof FONTPLUS !== 'undefined') {
