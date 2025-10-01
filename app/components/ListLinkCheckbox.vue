@@ -50,11 +50,10 @@
 
 <script setup>
 import _uniq from 'lodash/uniq'
-import { camelCase } from 'change-case'
 import { useMainStore } from '~/stores/main.js'
+import { checkListDisabled } from '~/utils/checkListDisabled'
+
 const mainStore = useMainStore()
-import { useAnnotationsStore } from '~/stores/annotations.js'
-const annotationsStore = useAnnotationsStore()
 const { $getTitle } = useNuxtApp()
 
 const props = defineProps({
@@ -69,8 +68,6 @@ const props = defineProps({
   }
 })
 
-const route = useRoute()
-
 const title = computed(() => {
   return $getTitle(props.listName)
 })
@@ -79,11 +76,7 @@ const disabled = computed(() => {
   if (props.listName === 'Annotations') {
     return false
   }
-  const annotations = annotationsStore[camelCase(route.params.alias)]
-  if (!annotations || !Array.isArray(annotations)) {
-    return true
-  }
-  return !annotations.filter(a => a.category.includes(props.listName)).length
+  return checkListDisabled(props.listName)
 })
 
 const visibility = computed({
