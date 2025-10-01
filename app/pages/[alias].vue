@@ -89,7 +89,6 @@
           </template>
           <template v-else-if="spSideBarVisibility">
             <SideBar
-              :guided-tour-exists="0 < (data?.guidedTour?.length || 0)"
               :variations="data?.variations"
               :sp-visibility="!drawerVisibility && sideBarSpVisibility"
               @spClose="sideBarSpVisibility = false"
@@ -131,7 +130,6 @@
     <SideBar
       v-if="!tourName"
       class="sideBar"
-      :guided-tour-exists="0 < (data?.guidedTour?.length || 0)"
       :variations="data?.variations"
       @spClose="sideBarSpVisibility = false"
       @saveCameraInfo="saveCameraInfo"

@@ -58,10 +58,21 @@ export const useGardenData = () => {
     return !!(gardenData && gardenData.threeDDataContent)
   }
 
+  /**
+   * 指定された庭園にGuided Tour機能があるかチェック
+   * @param {string} alias - 庭園のalias
+   * @returns {Promise<boolean>} Guided Tour機能の有無
+   */
+  const hasGuidedTour = async (alias) => {
+    const gardenData = await getGardenData(alias)
+    return !!(gardenData && gardenData.guidedTour && gardenData.guidedTour.length > 0)
+  }
+
   return {
     getGardenBaseName,
     getGardenData,
     hasHistory,
-    has3DData
+    has3DData,
+    hasGuidedTour
   }
 }

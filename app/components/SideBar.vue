@@ -71,11 +71,7 @@
       </section>
       <h2>Tour Modes</h2>
       <section class="tours">
-        <ListLink
-          v-if="guidedTourExists"
-          list-name="Guided Tour"
-          icon="tour"
-        ></ListLink>
+        <ListLink list-name="Guided Tour" icon="tour"></ListLink>
         <ListLink list-name="Ramble Tour" icon="tour"></ListLink>
       </section>
     </div>
@@ -223,10 +219,6 @@ aside.sideBar {
 import SideBarClose from '~/assets/image/sideBar/close.svg'
 
 const props = defineProps({
-  guidedTourExists: {
-    type: Boolean,
-    default: true
-  },
   variations: {
     type: Array,
     default: () => []
