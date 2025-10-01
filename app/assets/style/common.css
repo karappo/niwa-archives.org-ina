@@ -1,7 +1,7 @@
 @import './general/fixes.css';
 @import './general/reset-2.css';
 /* thresholds */
-/* Componentsでも閾値を共有できるように、common.sassではなく、ここで設定する */
+/* Componentsでも閾値を共有できるように、common.cssではなく、ここで設定する */
 /* JSでも pcSpThreshold とう変数名でこの値を定義しているので、変更する際は注意！変更前にまず検索すること！ */
 /* $pc_sp_threshold: 990px */
 /* @import general/pc-sp */
