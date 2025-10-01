@@ -71,11 +71,7 @@
       </section>
       <h2>Tour Modes</h2>
       <section class="tours">
-        <ListLink
-          v-if="guidedTourExists"
-          list-name="Guided Tour"
-          icon="tour"
-        ></ListLink>
+        <ListLink list-name="Guided Tour" icon="tour"></ListLink>
         <ListLink list-name="Ramble Tour" icon="tour"></ListLink>
       </section>
     </div>
@@ -221,12 +217,10 @@ aside.sideBar {
 <script setup>
 // import MenuArrow from '~/assets/image/menu-arrow.svg'
 import SideBarClose from '~/assets/image/sideBar/close.svg'
+import { useMainStore } from '~/stores/main.js'
+const mainStore = useMainStore()
 
 const props = defineProps({
-  guidedTourExists: {
-    type: Boolean,
-    default: true
-  },
   variations: {
     type: Array,
     default: () => []
@@ -247,6 +241,8 @@ const variationIndex = computed({
   },
   set(val) {
     emit('saveCameraInfo')
+    mainStore.setPageName('')
+    mainStore.setTourName('')
     const varStr = props.variations[parseInt(val, 10)].toLowerCase()
     router.push(`../${$garden(route)}-${varStr}/`)
   }

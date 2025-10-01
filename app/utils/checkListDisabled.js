@@ -10,5 +10,8 @@ export const checkListDisabled = (listName) => {
   if (!annotations || !Array.isArray(annotations)) {
     return true
   }
-  return !annotations.filter(a => a.category.includes(listName)).length
+  if(listName) {
+    return !annotations.filter(a => a.category.includes(listName)).length
+  }
+  return !annotations.length
 }
