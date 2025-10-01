@@ -57,7 +57,7 @@ npm run deploy (procution|staging)
 
 ## potreeのソースコードを修正する場合
 
-`./static/potree`にサブモジュールとして配置しているpotreeのforkを編集する場合は、`npm run start`しておくこと。
+`./public/assets/potree`にサブモジュールとして配置しているpotreeのforkを編集する場合は、`npm run start`しておくこと。
 また、編集内容が確定したら`npm run build`をして、potreeリポジトリ側をcommitし、IncompleteNiwaArchivesのリポジトリにもcommitする。
 
 ## アノテーションに紐付ける画像のサイズはFullHD（1920x1080）とする
