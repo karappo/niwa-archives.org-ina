@@ -48,9 +48,20 @@ export const useGardenData = () => {
     return !!(gardenData && gardenData.historyContent)
   }
 
+  /**
+   * 指定された庭園に3D Data機能があるかチェック
+   * @param {string} alias - 庭園のalias
+   * @returns {Promise<boolean>} 3D Data機能の有無
+   */
+  const has3DData = async (alias) => {
+    const gardenData = await getGardenData(alias)
+    return !!(gardenData && gardenData.threeDDataContent)
+  }
+
   return {
     getGardenBaseName,
     getGardenData,
-    hasHistory
+    hasHistory,
+    has3DData
   }
 }

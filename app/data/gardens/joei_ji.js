@@ -71,5 +71,26 @@ export default {
   <!-- eslint-disable-next-line -->
   重森三玲、重森完途「常栄寺庭園」『室町の庭（三）』日本庭園史大系 第7巻（思想者、1971年）、27-36頁。
 </p>`
-  }
+  },
+  threeDDataContent: `撮影日：2021年4月24日、25日、26日<br />
+<br />
+撮影者：<br />
+井上智博（京都工芸繊維大学 KYOTO Design Lab）<br />
+高原文江（山口情報芸術センター［YCAM］）<br />
+津田和俊（山口情報芸術センター［YCAM］、京都工芸繊維大学 ）<br />
+<br />
+編集者：<br />
+井上智博（京都工芸繊維大学 KYOTO Design Lab）<br />
+<br />
+撮影機材：FARO FocusS 350 / FocusX 130<br />
+精度：4x<br />
+解像度：1/4<br />
+測点数：74<br />
+<br />
+編集ソフトウェア：<br />
+FARO Scene<br />
+CloudCompare<br />
+<br />
+点群数：<br />
+178,885,542`
 }

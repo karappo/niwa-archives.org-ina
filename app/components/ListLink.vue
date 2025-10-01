@@ -99,7 +99,7 @@ import { useGardenData } from '~/composables/useGardenData'
 const mainStore = useMainStore()
 const route = useRoute()
 const { $getTitle } = useNuxtApp()
-const { hasHistory } = useGardenData()
+const { hasHistory, has3DData } = useGardenData()
 
 const props = defineProps({
   listName: {
@@ -135,6 +135,8 @@ const disabled = ref(false)
 watchEffect(async () => {
   if (props.listName === 'History') {
     disabled.value = !(await hasHistory(route.params.alias))
+  } else if (props.listName === '3D Data') {
+    disabled.value = !(await has3DData(route.params.alias))
   } else if (props.listName === 'Plans') {
     disabled.value = checkListDisabled(props.listName)
   } else {
