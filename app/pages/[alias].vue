@@ -348,7 +348,7 @@ nav.spMenu {
   > * {
     pointer-events: auto;
   }
-  :deep(.stopTourButton) {
+  &:deep(.stopTourButton) {
     position: absolute;
     width: 160px;
     height: 50px;
