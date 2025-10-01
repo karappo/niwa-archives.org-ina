@@ -1,7 +1,7 @@
 <template>
   <div
     :data-name="listName"
-    :class="{ current: mainStore.pageName === listName }"
+    :class="{ current: mainStore.pageName === listName, disabled }"
     class="btn"
     @click="handleSelectList(listName)"
   >
@@ -62,6 +62,10 @@
     color: white;
     pointer-events: none;
   }
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 
   .dot {
     display: inline-block;
@@ -85,13 +89,16 @@
 </style>
 
 <script setup>
-import { computed } from 'vue'
+import { camelCase } from 'change-case'
 import IconHyphen from '~/assets/image/icon-hyphen.svg'
 import IconTour from '~/assets/image/icon-tour.svg'
 import { useMainStore } from '~/stores/main.js'
+import { useAnnotationsStore } from '~/stores/annotations.js'
 import { useEventBus } from '~/composables/useEventBus'
 
 const mainStore = useMainStore()
+const annotationsStore = useAnnotationsStore()
+const route = useRoute()
 const { $getTitle } = useNuxtApp()
 
 const props = defineProps({
@@ -120,5 +127,16 @@ const handleSelectList = (listName) => {
 
 const title = computed(() => {
   return $getTitle(props.listName)
+})
+
+const disabled = computed(() => {
+  if (props.listName === 'Plans') {
+    const annotations = annotationsStore[camelCase(route.params.alias)]
+    if (!annotations || !Array.isArray(annotations)) {
+      return true
+    }
+    return !annotations.filter(a => a.category.includes(props.listName)).length
+  }
+  return false
 })
 </script>
