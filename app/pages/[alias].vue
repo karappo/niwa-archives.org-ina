@@ -505,7 +505,7 @@ const potreeRenderArea = ref(null)
 const route = useRoute()
 const router = useRouter()
 const mainStore = useMainStore()
-// const { $device } = useDevice() // Will be fixed when device module is properly configured
+const device = useDevice()
 
 // Functions
 const setControlMode = (mode) => {
@@ -1215,8 +1215,8 @@ onMounted(async () => {
   }
   benchmarkTime.value = runBenchmark()
 
-  // TODO: Fix device detection for Nuxt 4
-  isLowPerformance.value = false // $device.isMobileOrTablet ? 1.5 < benchmarkTime.value : false
+  // デバイスのパフォーマンスチェック
+  isLowPerformance.value = device.isMobileOrTablet ? 1.5 < benchmarkTime.value : false
 
   calcIsSp()
 
