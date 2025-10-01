@@ -77,7 +77,7 @@ export default {
 撮影者：<br />
 井上智博（京都工芸繊維大学 KYOTO Design Lab）<br />
 高原文江（山口情報芸術センター［YCAM］）<br />
-津田和俊（山口情報芸術センター［YCAM］、京都工芸繊維大学 ）<br />
+津田和俊（山口情報芸術センター［YCAM］、京都工芸繊維大学）<br />
 <br />
 編集者：<br />
 井上智博（京都工芸繊維大学 KYOTO Design Lab）<br />
