@@ -14,6 +14,18 @@ interface Tour {
   targets: number[][]
 }
 
+interface Sound {
+  label: string
+  src: string
+  place: {
+    label: string
+    annotation: string
+  }
+  creatures: string[]
+  movieId: string | null
+  ambisonicsUrl: string | null
+}
+
 interface GardenData {
   title: string
   pointcloud: string
@@ -23,4 +35,5 @@ interface GardenData {
   variations?: string[]
   historyContent?: HistoryContent
   threeDDataContent?: string
+  sounds?: Sound[]
 }

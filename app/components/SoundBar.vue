@@ -420,7 +420,6 @@ audio {
 </style>
 
 <script setup>
-import AllSoundData from '~/data/sounds.js'
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg'
 import Play from '~/assets/image/SoundBar/play.svg'
 import Pause from '~/assets/image/SoundBar/pause.svg'
@@ -429,6 +428,7 @@ import { useMainStore } from '~/stores/main.js'
 const mainStore = useMainStore()
 import { useAnnotationsStore } from '~/stores/annotations.js'
 import { useEventBus } from '~/composables/useEventBus'
+import { useGardenData } from '~/composables/useGardenData'
 const annotationsStore = useAnnotationsStore()
 
 const props = defineProps({
@@ -449,8 +449,15 @@ const emit = defineEmits(['spClose'])
 const visible = ref(true)
 const index = ref('0') // SelectBoxに渡す関係でStringにしておく必要がある
 const route = useRoute()
-const { $garden, $getTags, $nuxt } = useNuxtApp()
-const list = computed(() => AllSoundData[$garden(route)] || null)
+const { $getTags, $nuxt } = useNuxtApp()
+const { getGardenData } = useGardenData()
+
+// 庭園データからsoundsを取得
+const list = ref(null)
+watchEffect(async () => {
+  const gardenData = await getGardenData(route.params.alias)
+  list.value = gardenData?.sounds || null
+})
 const currentTime = ref('00:00')
 const totalTime = ref('00:00')
 const paused = ref(true)

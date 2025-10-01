@@ -471,7 +471,6 @@ import { useEventBus } from '~/composables/useEventBus'
 import _groupBy from 'lodash/groupBy'
 import _shuffle from 'lodash/shuffle'
 import { camelCase } from 'change-case'
-import AllSoundData from '~/data/sounds.js'
 import IconClose from '~/assets/image/icon-close.svg'
 import SpMenuList from '~/assets/image/spMenu/list.svg'
 import SpMenuNavigate from '~/assets/image/spMenu/navigate.svg'
@@ -774,8 +773,7 @@ const drawerVisibility = computed(() => {
 })
 
 const soundDataExists = computed(() => {
-  const garden = getGardenFromRoute(route)
-  return AllSoundData[garden] || false
+  return !!(data.value && data.value.sounds && data.value.sounds.length > 0)
 })
 
 // Helper functions
