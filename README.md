@@ -92,3 +92,10 @@ murin_an-snow 1.52GB 最軽
 murin_an-summer 2.6GB
 murin_an-winter 2.68GB
 ryogen_in 1.61GB
+
+## よくあるエラー
+
+consoleに下記のようなエラーがある場合、pointcloud/のデータを確認する。
+```
+Uncaught (in promise) SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON  VM6642:1
+```
