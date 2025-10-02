@@ -93,7 +93,8 @@ export const useMainStore = defineStore('main', {
     },
 
     setTourName(value: string | null): void {
-      this.tourName = value
+      // pageNameと違い''は入れられないようにする
+      this.tourName = value === '' ? null : value
     },
 
     setAutoplay(value: boolean): void {
