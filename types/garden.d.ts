@@ -1,15 +1,15 @@
-interface HistoryContent {
+export interface HistoryContent {
   image: string
   title: string
   body: string
 }
 
-interface Tour {
+export interface Tour {
   positions: number[][]
   targets: number[][]
 }
 
-interface Sound {
+export interface Sound {
   label: string
   src: string
   place: {
@@ -21,7 +21,7 @@ interface Sound {
   ambisonicsUrl: string | null
 }
 
-interface GardenData {
+export interface GardenData {
   title: string
   pointcloud: string
   initCamera: () => void

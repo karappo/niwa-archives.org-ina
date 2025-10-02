@@ -1,6 +1,7 @@
 /**
  * 庭園データを取得するcomposable
  */
+import type { GardenData } from '../../types/garden'
 export const useGardenData = () => {
   /**
    * 庭園の基本名を取得（variationを除いた部分）

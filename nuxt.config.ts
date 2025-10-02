@@ -10,6 +10,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  typescript: {
+    typeCheck: true,
+    strict: true
+  },
+
   runtimeConfig: {
     // Private keys (only available on server-side)
     // Public keys (exposed to client-side)
