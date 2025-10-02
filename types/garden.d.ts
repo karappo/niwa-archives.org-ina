@@ -1,8 +1,3 @@
-declare module '~/data/gardens/*.js' {
-  const gardenData: GardenData
-  export default gardenData
-}
-
 interface HistoryContent {
   image: string
   title: string
@@ -36,4 +31,9 @@ interface GardenData {
   historyContent?: HistoryContent
   threeDDataContent?: string
   sounds?: Sound[]
+}
+
+declare module '~/data/gardens/*.js' {
+  const gardenData: GardenData
+  export default gardenData
 }
