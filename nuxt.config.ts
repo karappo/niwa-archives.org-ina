@@ -104,12 +104,6 @@ export default defineNuxtConfig({
     }
   },
 
-  router: {
-    options: {
-      trailingSlash: true
-    }
-  },
-
   ssr: false,
 
   css: [
