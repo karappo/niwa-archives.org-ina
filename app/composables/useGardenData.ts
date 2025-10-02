@@ -10,7 +10,7 @@ export const useGardenData = () => {
   const getGardenBaseName = (alias: string): string => {
     if (!alias) return ''
     const parts = alias.split('-')
-    return parts.length > 1 ? parts[0] : alias
+    return parts.length > 1 ? parts[0] as string : alias
   }
 
   /**
