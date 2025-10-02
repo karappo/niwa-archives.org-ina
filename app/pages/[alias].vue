@@ -1048,6 +1048,9 @@ watch(
   () => {
     console.log('Route changed, resetting data loaded flag')
     isDataLoaded.value = false
+    // ページ遷移時に状態をクリア
+    mainStore.setPageName('')
+    mainStore.setTourName(null)
   }
 )
 

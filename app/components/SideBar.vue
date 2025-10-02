@@ -241,8 +241,7 @@ const variationIndex = computed({
   },
   set(val) {
     emit('saveCameraInfo')
-    mainStore.setPageName('')
-    mainStore.setTourName('')
+    // ページ遷移時の状態クリアは[alias].vueのwatcherで行う
     const varStr = props.variations[parseInt(val, 10)].toLowerCase()
     router.push(`../${$garden(route)}-${varStr}/`)
   }
