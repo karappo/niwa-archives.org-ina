@@ -73,9 +73,6 @@ const title = computed(() => {
 })
 
 const disabled = computed(() => {
-  if (props.listName === 'Annotations') {
-    return false
-  }
   return checkListDisabled(props.listName)
 })
 

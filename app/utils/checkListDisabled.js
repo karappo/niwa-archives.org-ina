@@ -9,8 +9,9 @@ export const checkListDisabled = (listName) => {
   const annotations = annotationsStore[camelCase(route.params.alias)]
   if (!annotations || !Array.isArray(annotations)) {
     return true
-  }
-  if(listName) {
+  } else if(listName === 'Annotations') {
+    return !annotations.length
+  } else if(listName) {
     return !annotations.filter(a => a.category.includes(listName)).length
   }
   return !annotations.length
