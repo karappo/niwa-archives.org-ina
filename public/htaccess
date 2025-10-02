@@ -1,3 +1,9 @@
+# 末尾スラッシュの追加（ファイル以外）
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteRule ^(.*)$ /$1/ [L,R=301]
+
 # 季節のある庭をデフォルトの季節へリダイレクト
 RedirectMatch ^/(ina/)?fugetsu_ro/(.*)$ /ina/fugetsu_ro-spring/$2
 RedirectMatch ^/(ina/)?murin_an/(.*)$ /ina/murin_an-snow/$2
