@@ -2,7 +2,7 @@ import { useMainStore } from '~/stores/main'
 import { useAnnotationsStore } from '~/stores/annotations'
 import { loadSpreadsheetData } from '~/utils/spreadsheet'
 
-export default defineNuxtRouteMiddleware(async (to, from) => {
+export default defineNuxtRouteMiddleware(async () => {
   // クライアントサイドでのみ実行
   if (process.client) {
     // Pinia storeの初期化

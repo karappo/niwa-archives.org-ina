@@ -8,7 +8,6 @@ const removeParams = (url) => {
 const url2obj = (url) => {
   const search = new URL(url).search.substring(1)
   if (search.length) {
-    // eslint-disable-next-line
     return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
   }
   return {}
@@ -60,12 +59,9 @@ const convertToCollection = (array) => {
             value.v = v // vをマージ
             value = new YouTube(value)
           } else if (/\/\/drive\.google\.com/.test(value)) {
-            // eslint-disable-next-line
             if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.test(value)) {
-              // eslint-disable-next-line
               console.error(`"${valueOf('title')}"(${i+1}行目)の"attachment"の値が不正です。"//drive.google.com/file/d/xxxx" の形式である必要があります。`, value)
             }
-            // eslint-disable-next-line
             const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
             // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得（'movie'は2024/7に削除したので現在は'image','pdf'のみ）
             const type = valueOf('attachmentType')
@@ -77,13 +73,11 @@ const convertToCollection = (array) => {
                 value = `https://drive.google.com/uc?export=view&id=${id}`
                 break
               default:
-                // eslint-disable-next-line
                 console.error(`"${valueOf('title')}"(${i+1}行目)の"attachmentType"が間違っています`, type)
             }
             key = type
           } else if (
             // WordPressのメディアライブラリ
-            // eslint-disable-next-line
             /\/\/(stg\.)?niwa-archives.org\/wp\/wp-content\/uploads\//.test(value)
           ) {
             if (/\.(apng|avif|gif|png|jpe?g|tiff?|webp)$/i.test(value)) {
@@ -116,7 +110,6 @@ const convertToCollection = (array) => {
 
         if (!data.cameraPosition) {
           // cameraPositionが未設定の場合、決め打ちのcameraPositionを設定
-          // eslint-disable-next-line
           data.cameraPosition = [data.position[0] - 1, data.position[1] - 3, data.position[2] + 1]
         }
       }
@@ -180,7 +173,7 @@ class YouTube {
     this._params = params
   }
 
-  getParams(dontShowLog) {
+  getParams() {
     let params = { autoplay: 1 }
     params = Object.assign(params, this._params) // 複製（autoplayを追加）
     // Remove 'v'
@@ -194,10 +187,8 @@ class YouTube {
   }
 
   embedUrl() {
-    const params = this.getParams(true)
-    // eslint-disable-next-line
+    const params = this.getParams()
     const query = Object.keys(params).map(key => key + '=' + params[key]).join('&')
-    // eslint-disable-next-line
     return `https://www.youtube.com/embed/${this._params.v}${query.length ? '?' + query : ''}`
   }
 
