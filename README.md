@@ -95,7 +95,13 @@ ryogen_in 1.61GB
 
 ## よくあるエラー
 
+### JSONエラー
 consoleに下記のようなエラーがある場合、pointcloud/のデータを確認する。
 ```
 Uncaught (in promise) SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON  VM6642:1
 ```
+
+### 型定義の更新
+型定義が見つからない等のエラーがCursorで出る時、修正後にTypeScriptサーバーを再起動してみる。
+1. VS Code/Cursorのコマンドパレットを開く (Cmd+Shift+P)
+2. "TypeScript: Restart TS Server" を実行
