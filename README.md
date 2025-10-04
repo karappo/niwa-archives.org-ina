@@ -37,11 +37,11 @@ git clone --recursive git@github.com:karappo/IncompleteNiwaArchives.git
 
 # Ready potree to create build dir.
 cd public/assets/potree
-npm install
+pnpm install
 
 cd ../../../
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 もし、spreadsheetが読み込めず`Spreadsheetの読み込みでエラー発生`が出る場合は、[GoogleCloudPlatform](https://console.cloud.google.com/apis/credentials/key/c238b06c-505e-4198-91bf-6557605ab380?hl=ja&project=proxies-of-client)の管理画面から、ウェブサイトの制限のところにドメインまたはIPを追加すること。
@@ -51,14 +51,14 @@ npm run dev
 基本的に、pointcolud/は`.depignore`で無視しているので、点群データも更新したい場合は`.depignore`を一時的に修正してdeployすること
 
 ```sh
-npm run deploy (procution|staging)
+pnpm run deploy (procution|staging)
 ```
 
 
 ## potreeのソースコードを修正する場合
 
-`./public/assets/potree`にサブモジュールとして配置しているpotreeのforkを編集する場合は、`npm run start`しておくこと。
-また、編集内容が確定したら`npm run build`をして、potreeリポジトリ側をcommitし、IncompleteNiwaArchivesのリポジトリにもcommitする。
+`./public/assets/potree`にサブモジュールとして配置しているpotreeのforkを編集する場合は、`pnpm run start`しておくこと。
+また、編集内容が確定したら`pnpm run build`をして、potreeリポジトリ側をcommitし、IncompleteNiwaArchivesのリポジトリにもcommitする。
 
 ## アノテーションに紐付ける画像のサイズはFullHD（1920x1080）とする
 

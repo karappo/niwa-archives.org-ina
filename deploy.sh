@@ -13,7 +13,7 @@ else
   exit 1
 fi
 
-if npm run generate; then
+if pnpm run generate; then
   # Remove useless files
   find ./dist/ -name '.DS_Store' -type f -delete
   find ./dist/ -name '.nojekyll' -type f -delete
