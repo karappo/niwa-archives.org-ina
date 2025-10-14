@@ -426,10 +426,8 @@ import Pause from '~/assets/image/SoundBar/pause.svg'
 import SpClose from '~/assets/image/SoundBar/sp-close.svg'
 import { useMainStore } from '~/stores/main.js'
 const mainStore = useMainStore()
-import { useAnnotationsStore } from '~/stores/annotations.js'
 import { useEventBus } from '~/composables/useEventBus'
 import { useGardenData } from '~/composables/useGardenData'
-const annotationsStore = useAnnotationsStore()
 
 const props = defineProps({
   annotations: {
@@ -449,7 +447,7 @@ const emit = defineEmits(['spClose'])
 const visible = ref(true)
 const index = ref('0') // SelectBoxに渡す関係でStringにしておく必要がある
 const route = useRoute()
-const { $getTags, $nuxt } = useNuxtApp()
+const { $getTags } = useNuxtApp()
 const { getGardenData } = useGardenData()
 
 // 庭園データからsoundsを取得
