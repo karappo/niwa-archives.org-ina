@@ -68,13 +68,13 @@ export const useMainStore = defineStore('main', {
   }),
 
   getters: {
-    getLastUpdateDateTime: (state): LastUpdateDateTime => state.lastUpdateDateTime,
-    getCameraPosition: (state): CameraPosition | null => state.cameraPosition,
-    getCameraTarget: (state): CameraTarget | null => state.cameraTarget,
-    getPageName: (state): string => state.pageName,
-    getTourName: (state): string | null => state.tourName,
-    getAutoplay: (state): boolean => state.autoplay,
-    getAnnotationVisibilities: (state): AnnotationVisibilities => {
+    getLastUpdateDateTime: (state: MainState): LastUpdateDateTime => state.lastUpdateDateTime,
+    getCameraPosition: (state: MainState): CameraPosition | null => state.cameraPosition,
+    getCameraTarget: (state: MainState): CameraTarget | null => state.cameraTarget,
+    getPageName: (state: MainState): string => state.pageName,
+    getTourName: (state: MainState): string | null => state.tourName,
+    getAutoplay: (state: MainState): boolean => state.autoplay,
+    getAnnotationVisibilities: (state: MainState): AnnotationVisibilities => {
       // disabledなものを除外したannotationVisibilitiesを返す
       const result: Partial<AnnotationVisibilities> = {}
       for (const key in state.annotationVisibilities) {
