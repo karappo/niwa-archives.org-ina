@@ -133,22 +133,22 @@ export const useMainStore = defineStore('main', {
       }
       this.annotationVisibilities[key] = value
 
-      const annotationVisibilities = this.getAnnotationVisibilities
+      const visibilities = this.getAnnotationVisibilities
       // 'Viewpoints/'を含むものが全て同じ値なら、 Viewpointsの値もそれと同じにする
-      const vKeys = Object.keys(annotationVisibilities).filter((key) => key.includes('Viewpoints/'))
-      const vValues = vKeys.map((key) => annotationVisibilities[key as AnnotationKey])
+      const vKeys = Object.keys(visibilities).filter((key) => key.includes('Viewpoints/'))
+      const vValues = vKeys.map((key) => visibilities[key as AnnotationKey])
       if (_uniq(vValues).length === 1) {
         this.annotationVisibilities.Viewpoints = vValues[0]
       }
       // 'Elements/'を含むものが全て同じ値なら、 Elementsの値もそれと同じにする
-      const eKeys = Object.keys(annotationVisibilities).filter((key) => key.includes('Elements/'))
-      const eValues = eKeys.map((key) => annotationVisibilities[key as AnnotationKey])
+      const eKeys = Object.keys(visibilities).filter((key) => key.includes('Elements/'))
+      const eValues = eKeys.map((key) => visibilities[key as AnnotationKey])
       if (_uniq(eValues).length === 1) {
         this.annotationVisibilities.Elements = eValues[0]
       }
-      // Annotations以外の値が全て同じなら、Annotationの値もそれと同じにする
-      const aKeys = Object.keys(annotationVisibilities).filter((key) => key !== 'Annotations')
-      const aValues = aKeys.map((key) => annotationVisibilities[key as AnnotationKey])
+      // Annotations,Viewpoints,Elements以外の値が全て同じなら、Annotationの値もそれと同じにする
+      const aKeys = Object.keys(visibilities).filter((key) => !['Annotations', 'Viewpoints', 'Elements'].includes(key))
+      const aValues = aKeys.map((key) => visibilities[key as AnnotationKey])
       if (_uniq(aValues).length === 1) {
         this.annotationVisibilities.Annotations = aValues[0]
       }
