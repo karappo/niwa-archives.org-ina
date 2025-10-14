@@ -86,21 +86,27 @@ const visibility = computed({
 })
 
 const indeterminate = computed(() => {
+  const annotationVisibilities = mainStore.getAnnotationVisibilities
   if (props.listName === 'Annotations') {
-    const childrenValues = Object.keys(mainStore.annotationVisibilities).map(key => {
-      return mainStore.annotationVisibilities[key]
+    const childrenValues = Object.keys(annotationVisibilities).map(key => {
+      return annotationVisibilities[key]
     })
     return 1 < _uniq(childrenValues).length
   }
   if (['Viewpoints', 'Elements'].includes(props.listName)) {
     const childrenValues = []
-    Object.keys(mainStore.annotationVisibilities).map(key => {
+    Object.keys(annotationVisibilities).map(key => {
       if (key.includes(`${props.listName}/`)) {
-        childrenValues.push(mainStore.annotationVisibilities[key])
+        childrenValues.push(annotationVisibilities[key])
       }
     })
     return 1 < _uniq(childrenValues).length
   }
   return false
 })
+
+// disabledの変更を監視してmainStoreに通知
+watch(disabled, (newValue) => {
+  mainStore.setDisabledAnnotation(props.listName, newValue)
+}, { immediate: true })
 </script>

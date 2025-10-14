@@ -40,6 +40,7 @@ export interface MainState {
   tourName: string | null
   autoplay: boolean
   annotationVisibilities: AnnotationVisibilities
+  disabledAnnotations: Set<AnnotationKey>
 }
 
 export const useMainStore = defineStore('main', {
@@ -62,7 +63,8 @@ export const useMainStore = defineStore('main', {
       'Elements/Artifacts': true,
       'Elements/DNA Data': true,
       'Oral Archives': true
-    }
+    },
+    disabledAnnotations: new Set()
   }),
 
   getters: {
@@ -72,7 +74,17 @@ export const useMainStore = defineStore('main', {
     getPageName: (state): string => state.pageName,
     getTourName: (state): string | null => state.tourName,
     getAutoplay: (state): boolean => state.autoplay,
-    getAnnotationVisibilities: (state): AnnotationVisibilities => state.annotationVisibilities
+    getAnnotationVisibilities: (state): AnnotationVisibilities => {
+      // disabledなものを除外したannotationVisibilitiesを返す
+      const result: Partial<AnnotationVisibilities> = {}
+      for (const key in state.annotationVisibilities) {
+        const annotationKey = key as AnnotationKey
+        if (!state.disabledAnnotations.has(annotationKey)) {
+          result[annotationKey] = state.annotationVisibilities[annotationKey]
+        }
+      }
+      return result as AnnotationVisibilities
+    }
   },
 
   actions: {
@@ -138,6 +150,14 @@ export const useMainStore = defineStore('main', {
       const aValues = aKeys.map((key) => this.annotationVisibilities[key as AnnotationKey])
       if (_uniq(aValues).length === 1) {
         this.annotationVisibilities.Annotations = aValues[0]
+      }
+    },
+
+    setDisabledAnnotation(key: AnnotationKey, disabled: boolean): void {
+      if (disabled) {
+        this.disabledAnnotations.add(key)
+      } else {
+        this.disabledAnnotations.delete(key)
       }
     }
   }
