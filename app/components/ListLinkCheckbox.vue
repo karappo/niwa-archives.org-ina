@@ -86,18 +86,24 @@ const visibility = computed({
 })
 
 const indeterminate = computed(() => {
-  const annotationVisibilities = mainStore.getAnnotationVisibilities
+  const visibilities = mainStore.getAnnotationVisibilities
+
+  // グループ要素を除外
+  delete visibilities.Annotations
+  delete visibilities.Viewpoints
+  delete visibilities.Elements
+
   if (props.listName === 'Annotations') {
-    const childrenValues = Object.keys(annotationVisibilities).map(key => {
-      return annotationVisibilities[key]
+    const childrenValues = Object.keys(visibilities).map(key => {
+      return visibilities[key]
     })
     return 1 < _uniq(childrenValues).length
   }
   if (['Viewpoints', 'Elements'].includes(props.listName)) {
     const childrenValues = []
-    Object.keys(annotationVisibilities).map(key => {
+    Object.keys(visibilities).map(key => {
       if (key.includes(`${props.listName}/`)) {
-        childrenValues.push(annotationVisibilities[key])
+        childrenValues.push(visibilities[key])
       }
     })
     return 1 < _uniq(childrenValues).length
