@@ -459,11 +459,9 @@ watchEffect(async () => {
 const currentTime = ref('00:00')
 const totalTime = ref('00:00')
 const paused = ref(true)
-const duration = ref(0)
 const percent = ref(0) // Number: 0 ~ 100
 
 const data = computed(() => list.value[parseInt(index.value, 10)])
-const file = computed(() => data.value.src)
 const player = ref(null)
 const seekBarHitArea = ref(null)
 const returnBtn = ref(null)
