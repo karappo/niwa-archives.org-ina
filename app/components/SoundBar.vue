@@ -471,16 +471,25 @@ watch(index, () => {
   if (!paused.value) {
     pause()
   }
-  player.value.src = data.value.src
-  player.value.load()
+  // 音源の設定はwatchEffectに任せる
 })
 
-onMounted(() => {
-  if (list.value) {
+// イベントリスナー登録済みフラグ
+let listenersRegistered = false
+
+// listとplayerの両方が準備できたらイベントリスナーを登録し、audio要素を初期化
+watchEffect(() => {
+  // イベントリスナーをまだ登録していない場合は登録
+  if (player.value && !listenersRegistered) {
     player.value.addEventListener('playing', playing)
     player.value.addEventListener('pause', pause)
     player.value.addEventListener('timeupdate', timeupdate)
     player.value.addEventListener('loadedmetadata', loadedmetadata)
+    listenersRegistered = true
+  }
+
+  // 音源を設定
+  if (list.value && player.value && data.value) {
     player.value.src = data.value.src
     player.value.load()
   }
