@@ -32,7 +32,7 @@
             class="seekBarHitArea"
             @click.stop="seekBarClick"
           >
-            <div ref="return" class="return"></div>
+            <div ref="returnBtn" class="return"></div>
             <div class="seekBar">
               <div class="progress" :style="progressStyle()"></div>
             </div>
@@ -465,6 +465,8 @@ const percent = ref(0) // Number: 0 ~ 100
 const data = computed(() => list.value[parseInt(index.value, 10)])
 const file = computed(() => data.value.src)
 const player = ref(null)
+const seekBarHitArea = ref(null)
+const returnBtn = ref(null)
 const tags = computed(() => $getTags(props.annotations))
 
 watch(index, () => {
@@ -561,10 +563,10 @@ function progressStyle() {
 }
 
 function seekBarClick(e) {
-  if (e.target === player.value.$refs.return) {
+  if (e.target === returnBtn.value) {
     player.value.currentTime = 0
   } else {
-    player.value.currentTime = player.value.duration * (e.offsetX / player.value.$refs.seekBarHitArea.offsetWidth)
+    player.value.currentTime = player.value.duration * (e.offsetX / seekBarHitArea.value.offsetWidth)
   }
 }
 
