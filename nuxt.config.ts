@@ -81,20 +81,20 @@ export default defineNuxtConfig({
             '//webfont.fontplus.jp/accessor/script/fontplus.js?Kda7jDZHaBw%3D&box=BAYjMHHVKVM%3D&aa=1&ab=2',
           defer: true
         },
-        { src: '/ina/assets/potree/libs/jquery/jquery-3.1.1.min.js' },
-        { src: '/ina/assets/potree/libs/spectrum/spectrum.js' },
-        { src: '/ina/assets/potree/libs/jquery-ui/jquery-ui.min.js' },
-        { src: '/ina/assets/potree/libs/three.js/build/three.min.js' },
-        { src: '/ina/assets/potree/libs/three.js/extra/lines.js' },
-        { src: '/ina/assets/potree/libs/other/BinaryHeap.js' },
-        { src: '/ina/assets/potree/libs/tween/tween.min.js' },
-        { src: '/ina/assets/potree/libs/d3/d3.js' },
-        { src: '/ina/assets/potree/libs/proj4/proj4.js' },
-        { src: '/ina/assets/potree/libs/openlayers3/ol.js' },
-        { src: '/ina/assets/potree/libs/i18next/i18next.js' },
-        { src: '/ina/assets/potree/libs/jstree/jstree.js' },
-        { src: '/ina/assets/potree/build/potree/potree.js' },
-        { src: '/ina/assets/potree/libs/plasio/js/laslaz.js' }
+        { src: '/ina/assets/potree/libs/jquery/jquery-3.1.1.min.js', defer: true },
+        { src: '/ina/assets/potree/libs/spectrum/spectrum.js', defer: true },
+        { src: '/ina/assets/potree/libs/jquery-ui/jquery-ui.min.js', defer: true },
+        { src: '/ina/assets/potree/libs/three.js/build/three.min.js', defer: true },
+        { src: '/ina/assets/potree/libs/three.js/extra/lines.js', defer: true },
+        { src: '/ina/assets/potree/libs/other/BinaryHeap.js', defer: true },
+        { src: '/ina/assets/potree/libs/tween/tween.min.js', defer: true },
+        { src: '/ina/assets/potree/libs/d3/d3.js', defer: true },
+        { src: '/ina/assets/potree/libs/proj4/proj4.js', defer: true },
+        { src: '/ina/assets/potree/libs/openlayers3/ol.js', defer: true },
+        { src: '/ina/assets/potree/libs/i18next/i18next.js', defer: true },
+        { src: '/ina/assets/potree/libs/jstree/jstree.js', defer: true },
+        { src: '/ina/assets/potree/build/potree/potree.js', defer: true },
+        { src: '/ina/assets/potree/libs/plasio/js/laslaz.js', defer: true }
       ]
     }
   },
@@ -140,12 +140,7 @@ export default defineNuxtConfig({
       }
     },
     build: {
-      chunkSizeWarningLimit: 1600, // Increase limit to 1600kB for large 3D libraries
-      rollupOptions: {
-        output: {
-          inlineDynamicImports: true
-        }
-      }
+      chunkSizeWarningLimit: 1600 // Increase limit to 1600kB for large 3D libraries
     }
   }
 
