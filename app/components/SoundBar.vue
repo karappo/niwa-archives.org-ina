@@ -91,7 +91,7 @@
                 class="creature"
                 @click="tagClick(creature)"
               >
-                {{ tag }}
+                {{ creature }}
               </a>
               <span v-else :key="`span-${i}`" class="creature">
                 {{ creature }}
@@ -310,7 +310,6 @@
     .progress {
       height: 100%;
       max-width: 100%;
-      background-color: #3e3e3e;
       background-color: white;
     }
   }
