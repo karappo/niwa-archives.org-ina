@@ -20,6 +20,7 @@
               id="potree_render_area"
               ref="potreeRenderArea"
               :class="potreeRenderAreaClass"
+              :data-loading-message="loadingMessage"
             >
               <div
                 v-if="debugMode"
@@ -334,7 +335,7 @@ nav.spMenu {
   }
   &.loading {
     &::before {
-      content: 'Loading...';
+      content: attr(data-loading-message);
       opacity: 1;
       pointer-events: auto;
     }
@@ -479,6 +480,9 @@ import SpMenuList from '~/assets/image/spMenu/list.svg'
 import SpMenuNavigate from '~/assets/image/spMenu/navigate.svg'
 import SpMenuSound from '~/assets/image/spMenu/sound.svg'
 
+// Constants
+const LOADING_MESSAGE = 'Loading...'
+
 // Reactive data
 const debugMode = ref(false)
 const infoMode = ref(false)
@@ -493,6 +497,7 @@ const annotationData = ref<any>(null)
 const listData = ref<any>(null)
 const tourData = ref<any>(null)
 const loading = ref(true)
+const loadingMessage = ref(LOADING_MESSAGE)
 const noticeVisibility = ref(true)
 const rambleTourTimer = ref<NodeJS.Timeout | null>(null)
 const sideBarSpVisibility = ref(false)
@@ -993,11 +998,16 @@ const loadPageData = async () => {
     const annotationsData = annotationsStore[pageKey]
 
     if (!annotationsData) {
-      console.log('Annotation data not yet available for this alias')
+      const message = 'Annotation data not found'
+      console.log(message)
+      loadingMessage.value = message
       // データがない場合はフラグをリセット
       isDataLoaded.value = false
       return
     }
+
+    // データが正常にある場合はメッセージをリセット
+    loadingMessage.value = LOADING_MESSAGE
 
     // 同位置のアノテーションはgroupにする
     const annotationGroupsData = Object.values(
@@ -1057,6 +1067,7 @@ watch(
   () => {
     console.log('Route changed, resetting data loaded flag')
     isDataLoaded.value = false
+    loadingMessage.value = LOADING_MESSAGE
     // ページ遷移時に状態をクリア
     mainStore.setPageName('')
     mainStore.setTourName(null)
