@@ -533,18 +533,18 @@ const calcIsSp = () => {
   isSP.value = window.innerWidth <= pcSpThreshold
 }
 
-const keydown = (e) => {
-  const canvas = document.querySelector('canvas')
+const keydown = (e: KeyboardEvent) => {
+  const canvas = document.querySelector('canvas') as HTMLCanvasElement | null
   // canvas要素にフォーカスがない場合はフォーカスを設定
-  if (document.activeElement !== canvas) {
+  if (canvas && document.activeElement !== canvas) {
     canvas.focus()
   }
 }
 
-const keyup = (e) => {
-  const canvas = document.querySelector('canvas')
+const keyup = (e: KeyboardEvent) => {
+  const canvas = document.querySelector('canvas') as HTMLCanvasElement | null
   // canvas要素にフォーカスがない場合はフォーカスを設定
-  if (document.activeElement !== canvas) {
+  if (canvas && document.activeElement !== canvas) {
     canvas.focus()
   }
 }
