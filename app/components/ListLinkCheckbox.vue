@@ -48,9 +48,9 @@
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import _uniq from 'lodash/uniq'
-import { useMainStore } from '~/stores/main.js'
+import { useMainStore } from '~/stores/main'
 import { checkListDisabled } from '~/utils/checkListDisabled'
 
 const mainStore = useMainStore()

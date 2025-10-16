@@ -418,12 +418,12 @@ audio {
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg'
 import Play from '~/assets/image/SoundBar/play.svg'
 import Pause from '~/assets/image/SoundBar/pause.svg'
 import SpClose from '~/assets/image/SoundBar/sp-close.svg'
-import { useMainStore } from '~/stores/main.js'
+import { useMainStore } from '~/stores/main'
 const mainStore = useMainStore()
 import { useEventBus } from '~/composables/useEventBus'
 import { useGardenData } from '~/composables/useGardenData'

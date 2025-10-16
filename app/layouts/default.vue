@@ -2,7 +2,7 @@
   <NuxtPage />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, onBeforeUnmount } from 'vue'
 
 const resize = () => {

@@ -1,4 +1,6 @@
-export default {
+import type { GardenData } from '~/types/garden'
+
+const gardenData: GardenData = {
   title: 'Ryōgen-in Garden',
   pointcloud: 'ryogen-in_210903_0.005.las_converted/metadata.json',
   initCamera() {
@@ -52,3 +54,5 @@ CloudCompare<br />
 点群数：<br />
 59,793,125`
 }
+
+export default gardenData

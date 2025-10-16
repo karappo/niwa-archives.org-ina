@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import IconStop from '~/assets/image/icon-stop.svg'
 import { useMainStore } from '~/stores/main'
 

@@ -88,10 +88,10 @@
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import IconHyphen from '~/assets/image/icon-hyphen.svg'
 import IconTour from '~/assets/image/icon-tour.svg'
-import { useMainStore } from '~/stores/main.js'
+import { useMainStore } from '~/stores/main'
 import { useEventBus } from '~/composables/useEventBus'
 import { checkListDisabled } from '~/utils/checkListDisabled'
 import { useGardenData } from '~/composables/useGardenData'

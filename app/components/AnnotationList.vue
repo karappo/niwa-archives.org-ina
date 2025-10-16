@@ -145,7 +145,7 @@
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import TypeImage from '~/assets/image/type-image.svg'
 import TypeVideo from '~/assets/image/type-video.svg'
 import { useMainStore } from '~/stores/main'

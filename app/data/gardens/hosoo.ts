@@ -1,4 +1,6 @@
-export default {
+import type { GardenData } from '~/types/garden'
+
+const gardenData: GardenData = {
   title: 'House of Hosoo',
   pointcloud: '20241126_Hosoo_PotreeConverted/metadata.json',
   initCamera() {
@@ -9,3 +11,5 @@ export default {
   guidedTour: [],
   tours: []
 }
+
+export default gardenData

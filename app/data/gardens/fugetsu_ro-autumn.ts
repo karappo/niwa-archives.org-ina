@@ -1,7 +1,9 @@
-export default {
-  title: 'Fugetsuro - Winter',
+import type { GardenData } from '~/types/garden'
+
+const gardenData: GardenData = {
+  title: 'Fugetsuro - Autumn',
   pointcloud:
-    'Fugetsuro_Winter_20221024_clean_nonormal_small_noduplicate.laz_converted/metadata.json',
+    '20231016_20221227_FugetsuroPhotoRaserEdit_10mm.las_converted/metadata.json',
   variations: ['spring', 'summer', 'autumn', 'winter'],
   initCamera() {
     // viewer.fitToScreen()
@@ -11,3 +13,5 @@ export default {
   guidedTour: [],
   tours: []
 }
+
+export default gardenData

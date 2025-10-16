@@ -63,7 +63,7 @@
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import TriangleArrow from '~/assets/image/filter-triangle-arrow-down.svg'
 
 defineProps({

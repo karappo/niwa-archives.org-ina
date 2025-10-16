@@ -214,10 +214,10 @@ aside.sideBar {
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 // import MenuArrow from '~/assets/image/menu-arrow.svg'
 import SideBarClose from '~/assets/image/sideBar/close.svg'
-import { useMainStore } from '~/stores/main.js'
+import { useMainStore } from '~/stores/main'
 const mainStore = useMainStore()
 
 const props = defineProps({

@@ -13,7 +13,7 @@
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import IconClose from '~/assets/image/icon-close.svg'
 import { useEventBus } from '~/composables/useEventBus'
 

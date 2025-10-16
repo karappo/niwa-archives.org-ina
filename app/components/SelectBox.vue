@@ -79,7 +79,7 @@
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg'
 
 defineProps({

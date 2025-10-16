@@ -356,7 +356,7 @@ header {
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import dayjs from 'dayjs'
 import IconPrev from '~/assets/image/icon-prev.svg'
 import IconNext from '~/assets/image/icon-next.svg'

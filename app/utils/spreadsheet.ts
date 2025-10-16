@@ -1,11 +1,17 @@
 import { camelCase } from 'change-case'
+import type { Annotation } from '~/stores/annotations'
 
-const removeParams = (url) => {
-  url = new URL(url)
-  return url.origin + url.pathname
+interface SpreadsheetData {
+  lastUpdateDateTime: Record<string, string>
+  annotations: Record<string, Annotation[]>
 }
 
-const url2obj = (url) => {
+const removeParams = (url: string): string => {
+  const urlObj = new URL(url)
+  return urlObj.origin + urlObj.pathname
+}
+
+const url2obj = (url: string): Record<string, string> => {
   const search = new URL(url).search.substring(1)
   if (search.length) {
     return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
@@ -14,15 +20,15 @@ const url2obj = (url) => {
 }
 
 // 渡された配列を、1行目の値をキーとするCollectionに変換して返す
-const convertToCollection = (array) => {
-  const collection = []
-  const keys = array[1].values.map((x) => x.formattedValue)
+const convertToCollection = (array: any[]): Annotation[] => {
+  const collection: Annotation[] = []
+  const keys: string[] = array[1].values.map((x: any) => x.formattedValue)
   for (let i = 2; i < array.length; i++) {
     // ===== データ整形 =====
     if (array[i].values && array[i].values.length) {
-      const values = array[i].values.map((x) => x.formattedValue)
-      const data = {}
-      const valueOf = (_key) => values[keys.indexOf(_key)]
+      const values: string[] = array[i].values.map((x: any) => x.formattedValue)
+      const data: any = {}
+      const valueOf = (_key: string): string => values[keys.indexOf(_key)]
       values.forEach((element, index) => {
         let key = keys[index]
         let value = element
@@ -120,16 +126,16 @@ const convertToCollection = (array) => {
   return collection
 }
 
-export async function loadSpreadsheetData() {
+export async function loadSpreadsheetData(): Promise<SpreadsheetData> {
   const config = useRuntimeConfig()
-  const SPREADSHEET_ID = config.public.spreadsheetId
-  const API_KEY = config.public.apiKey
-  
+  const SPREADSHEET_ID = config.public.spreadsheetId as string
+  const API_KEY = config.public.apiKey as string
+
   if (!SPREADSHEET_ID || !API_KEY) {
     throw new Error('Spreadsheet ID or API key is not configured in environment variables')
   }
-  
-  const gss = await fetch(
+
+  const gss: any = await fetch(
     `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/?key=${API_KEY}&includeGridData=true`
   ).then((res) => res.json())
   
@@ -139,7 +145,7 @@ export async function loadSpreadsheetData() {
     throw new Error('Failed to load spreadsheet data')
   }
 
-  const result = {
+  const result: SpreadsheetData = {
     lastUpdateDateTime: {},
     annotations: {}
   }
@@ -169,12 +175,14 @@ export async function loadSpreadsheetData() {
 }
 
 class YouTube {
-  constructor(params) {
+  private _params: Record<string, any>
+
+  constructor(params: Record<string, any>) {
     this._params = params
   }
 
-  getParams() {
-    let params = { autoplay: 1 }
+  getParams(): Record<string, any> {
+    let params: Record<string, any> = { autoplay: 1 }
     params = Object.assign(params, this._params) // 複製（autoplayを追加）
     // Remove 'v'
     delete params.v
@@ -186,17 +194,17 @@ class YouTube {
     return params
   }
 
-  embedUrl() {
+  embedUrl(): string {
     const params = this.getParams()
     const query = Object.keys(params).map(key => key + '=' + params[key]).join('&')
     return `https://www.youtube.com/embed/${this._params.v}${query.length ? '?' + query : ''}`
   }
 
-  id() {
+  id(): string {
     return this._params.v
   }
 
-  thumbnailUrl() {
+  thumbnailUrl(): string {
     // 1,2,3は自動作成されるサムネイルで、0はカスタムサムネイル（未設定の場合は1-3のうち選択された画像）
     // 0が一番解像度高いので0にする
     return `https://img.youtube.com/vi/${this._params.v}/0.jpg`

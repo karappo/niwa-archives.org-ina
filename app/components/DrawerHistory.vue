@@ -21,7 +21,7 @@ article {
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import { useGardenData } from '~/composables/useGardenData'
 
 const route = useRoute()

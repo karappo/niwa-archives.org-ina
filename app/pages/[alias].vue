@@ -464,7 +464,7 @@ nav.spMenu {
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMainStore } from '~/stores/main'
@@ -1010,7 +1010,7 @@ const loadPageData = async () => {
     })
 
     // Load garden data
-    let importedData = await import(`~/data/gardens/${alias}.js`)
+    let importedData = await import(`~/data/gardens/${alias}.ts`)
     const gardenData = importedData.default
 
     // Apply loaded data

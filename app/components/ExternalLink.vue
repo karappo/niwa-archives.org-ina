@@ -4,7 +4,7 @@
   </a>
 </template>
 
-<script setup>
+<script setup lang="ts">
 defineProps({
   href: {
     type: String,

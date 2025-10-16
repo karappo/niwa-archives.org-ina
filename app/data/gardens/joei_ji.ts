@@ -1,4 +1,6 @@
-export default {
+import type { GardenData } from '~/types/garden'
+
+const gardenData: GardenData = {
   title: 'Jōei-ji Garden',
   pointcloud: 'Sessyutei_20211004_0.005.las_converted/metadata.json',
   initCamera() {
@@ -217,3 +219,5 @@ CloudCompare<br />
     }
   ]
 }
+
+export default gardenData

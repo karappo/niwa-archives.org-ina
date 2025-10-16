@@ -24,13 +24,13 @@ export const useGardenData = () => {
 
     try {
       // まず、正確なaliasでインポートを試みる
-      const gardenData = await import(`~/data/gardens/${alias}.js`)
+      const gardenData = await import(`~/data/gardens/${alias}.ts`)
       return gardenData.default as GardenData
     } catch (error) {
       // 失敗したら、基本名でインポートを試みる
       try {
         const baseName = getGardenBaseName(alias)
-        const gardenData = await import(`~/data/gardens/${baseName}.js`)
+        const gardenData = await import(`~/data/gardens/${baseName}.ts`)
         return gardenData.default as GardenData
       } catch (innerError) {
         console.error(`Garden data not found for alias: ${alias}`)

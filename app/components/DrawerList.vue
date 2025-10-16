@@ -168,7 +168,7 @@ article {
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import _groupBy from 'lodash/groupBy'
 import { useMainStore } from '~/stores/main'
 import { useEventBus } from '~/composables/useEventBus'

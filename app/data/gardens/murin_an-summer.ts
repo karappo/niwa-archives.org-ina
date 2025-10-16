@@ -1,8 +1,9 @@
-import { murinAnHistoryContent } from './murin_an-history.js'
+import type { GardenData } from '~/types/garden'
+import { murinAnHistoryContent } from './murin_an-history'
 
-export default {
-  title: 'Murin-an Garden - Snow',
-  pointcloud: 'MurinanWS_0.01.las_converted/metadata.json',
+const gardenData: GardenData = {
+  title: 'Murin-an Garden - Summer',
+  pointcloud: 'MurinanS_0.01.las_converted/metadata.json',
   variations: ['summer', 'winter', 'snow'],
   initCamera() {
     // viewer.fitToScreen()
@@ -29,7 +30,7 @@ export default {
     }
   ],
   historyContent: murinAnHistoryContent,
-  threeDDataContent: `撮影日：2020年12月17日<br />
+  threeDDataContent: `撮影日：2020年6月20日、21日、23日、24日<br />
 <br />
 撮影者：<br />
 井上智博（京都工芸繊維大学 KYOTO Design Lab）<br />
@@ -42,12 +43,14 @@ export default {
 撮影機材：FARO FocusS 350 / FocusX 130<br />
 精度：3x<br />
 解像度：1/4<br />
-測点数：48<br />
+測点数：91<br />
 <br />
 編集ソフトウェア：<br />
 FARO Scene<br />
 CloudCompare<br />
 <br />
 点群数：<br />
-43,348,577`
+74,236,424`
 }
+
+export default gardenData
