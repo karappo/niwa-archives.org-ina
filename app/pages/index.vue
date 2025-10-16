@@ -6,6 +6,6 @@
 // このページは存在しない。
 // リダイレクト処理を実行
 onMounted(() => {
-  navigateTo('/fugetsu_ro-spring/')
+  window.location.href = '/archives/'
 })
 </script>
