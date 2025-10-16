@@ -190,7 +190,7 @@ const groups = ref<Record<string, Annotation[]> | null>(null) // Oral Archivesã
 // Store and composables
 const store = useMainStore()
 const eventBus = useEventBus()
-const { $getTitle, $getTags, $nuxt } = useNuxtApp()
+const { $getTitle, $getTags } = useNuxtApp()
 
 // Computed properties
 const title = computed(() => $getTitle(props.data?.name))

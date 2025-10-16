@@ -407,7 +407,7 @@ const youtube = ref<any>(null)
 
 // Store
 const store = useMainStore()
-const { $getTitle, $isMobileOrTablet, $nuxt } = useNuxtApp()
+const { $getTitle, $isMobileOrTablet } = useNuxtApp()
 
 // Computed properties
 const pageName = computed(() => store.getPageName)

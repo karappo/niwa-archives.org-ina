@@ -480,7 +480,7 @@ nav.spMenu {
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useMainStore } from '~/stores/main'
 import { useAnnotationsStore } from '~/stores/annotations'
 import { useEventBus } from '~/composables/useEventBus'
@@ -522,7 +522,6 @@ const potreeRenderArea = ref(null)
 
 // Composables
 const route = useRoute()
-const router = useRouter()
 const mainStore = useMainStore()
 const device = useDevice()
 
