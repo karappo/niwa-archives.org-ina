@@ -28,18 +28,18 @@ const convertToCollection = (array: any[]): Annotation[] => {
     if (array[i].values && array[i].values.length) {
       const values: string[] = array[i].values.map((x: any) => x.formattedValue)
       const data: any = {}
-      const valueOf = (_key: string): string => values[keys.indexOf(_key)]
+      const valueOf = (_key: string): string | undefined => values[keys.indexOf(_key)]
       values.forEach((element, index) => {
-        let key = keys[index]
-        let value = element
-        if (!value) {
+        let key: string | undefined = keys[index]
+        let value: any = element
+        if (!value || !key) {
           return
         }
         // 配列化
         if (['position', 'cameraPosition', 'cameraTarget'].includes(key)) {
           // 数値以外の文字列が入っていたら無効化
           if (/^[-0-9., ]+$/.test(value)) {
-            value = value.split(',').map((v) => parseFloat(v))
+            value = value.split(',').map((v: string) => parseFloat(v))
           } else {
             value = null
           }
@@ -60,15 +60,17 @@ const convertToCollection = (array: any[]): Annotation[] => {
             value = new YouTube(url2obj(value))
           } else if (/\/\/youtu\.be\/([^/]*)/.test(value)) {
             key = 'youtube'
-            const v = value.match(/\/\/youtu\.be\/([^/?]*)/)[1] // まずid（v）だけ取得しておく
-            value = url2obj(value)
-            value.v = v // vをマージ
-            value = new YouTube(value)
+            const match = value.match(/\/\/youtu\.be\/([^/?]*)/)
+            const v = match ? match[1] : '' // まずid（v）だけ取得しておく
+            const urlObj = url2obj(value)
+            urlObj.v = v // vをマージ
+            value = new YouTube(urlObj)
           } else if (/\/\/drive\.google\.com/.test(value)) {
             if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.test(value)) {
               console.error(`"${valueOf('title')}"(${i+1}行目)の"attachment"の値が不正です。"//drive.google.com/file/d/xxxx" の形式である必要があります。`, value)
             }
-            const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
+            const match = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)
+            const id = match ? match[1] : ''
             // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得（'movie'は2024/7に削除したので現在は'image','pdf'のみ）
             const type = valueOf('attachmentType')
             switch (type) {
@@ -97,7 +99,9 @@ const convertToCollection = (array: any[]): Annotation[] => {
             }
           }
         }
-        data[key] = value
+        if (key) {
+          data[key] = value
+        }
       })
       // ===== /データ整形 =====
       // ===== バリデーション（この時点で要件を満たさないものはふるい落とす） =====
@@ -106,7 +110,7 @@ const convertToCollection = (array: any[]): Annotation[] => {
       }
       // ===== 追加のデータ整形 =====
       if (data.tags) {
-        data.tags = data.tags.split(',').map((t) => t.trim())
+        data.tags = data.tags.split(',').map((t: string) => t.trim())
       }
       if (data.cameraTarget) {
         data.cameraPosition = data.position
@@ -150,7 +154,7 @@ export async function loadSpreadsheetData(): Promise<SpreadsheetData> {
     annotations: {}
   }
 
-  gss.sheets.forEach((sheet) => {
+  gss.sheets.forEach((sheet: any) => {
     let data = sheet.data[0].rowData
     if (!data) {
       return
@@ -167,7 +171,7 @@ export async function loadSpreadsheetData(): Promise<SpreadsheetData> {
 
     data = convertToCollection(data)
     // titleが空のものは削除
-    data = data.filter((x) => x.title && 0 < x.title.length)
+    data = data.filter((x: any) => x.title && 0 < x.title.length)
     result.annotations[key] = data
   })
 

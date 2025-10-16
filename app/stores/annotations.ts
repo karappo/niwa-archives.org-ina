@@ -45,7 +45,7 @@ export const useAnnotationsStore = defineStore('annotations', {
   getters: {
     // 動的getters for each page
     ...pages.reduce((getters, page) => {
-      getters[`get${page.charAt(0).toUpperCase() + page.slice(1)}`] = (state: AnnotationsState) => state[page]
+      getters[`get${page.charAt(0).toUpperCase() + page.slice(1)}`] = (state: AnnotationsState) => state[page] ?? null
       return getters
     }, {} as Record<string, (state: AnnotationsState) => Annotation[] | null>)
   },
@@ -62,7 +62,7 @@ export const useAnnotationsStore = defineStore('annotations', {
     // 汎用的なsetter
     setPageAnnotations(page: string, value: Annotation[] | null) {
       if (Object.prototype.hasOwnProperty.call(this, page)) {
-        this[page] = value
+        (this as any)[page] = value
       }
     }
   }

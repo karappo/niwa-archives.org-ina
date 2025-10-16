@@ -78,15 +78,15 @@ const disabled = computed(() => {
 
 const visibility = computed({
   get() {
-    return mainStore.annotationVisibilities[props.listName]
+    return (mainStore.annotationVisibilities as any)[props.listName]
   },
   set(value) {
-    mainStore.setAnnotationVisibilities(props.listName, value)
+    mainStore.setAnnotationVisibilities(props.listName as any, value)
   }
 })
 
 const indeterminate = computed(() => {
-  const visibilities = mainStore.getAnnotationVisibilities
+  const visibilities = { ...mainStore.getAnnotationVisibilities } as any
 
   // グループ要素を除外
   delete visibilities.Annotations
@@ -113,6 +113,6 @@ const indeterminate = computed(() => {
 
 // disabledの変更を監視してmainStoreに通知
 watch(disabled, (newValue) => {
-  mainStore.setDisabledAnnotation(props.listName, newValue)
+  mainStore.setDisabledAnnotation(props.listName as any, newValue)
 }, { immediate: true })
 </script>

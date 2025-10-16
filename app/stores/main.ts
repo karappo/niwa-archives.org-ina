@@ -5,17 +5,9 @@ export interface LastUpdateDateTime {
   [key: string]: string
 }
 
-export interface CameraPosition {
-  x: number
-  y: number
-  z: number
-}
+export type CameraPosition = [number, number, number]
 
-export interface CameraTarget {
-  x: number
-  y: number
-  z: number
-}
+export type CameraTarget = [number, number, number]
 
 export type AnnotationKey =
   | 'Annotations'
@@ -88,77 +80,79 @@ export const useMainStore = defineStore('main', {
   },
 
   actions: {
-    setLastUpdateDateTime(key: string, value: string): void {
-      this.lastUpdateDateTime[key] = value
+    setLastUpdateDateTime(key: string, value: string) {
+      (this as unknown as MainState).lastUpdateDateTime[key] = value
     },
 
-    setCameraPosition(value: CameraPosition | null): void {
-      this.cameraPosition = value
+    setCameraPosition(value: CameraPosition | null) {
+      (this as unknown as MainState).cameraPosition = value
     },
 
-    setCameraTarget(value: CameraTarget | null): void {
-      this.cameraTarget = value
+    setCameraTarget(value: CameraTarget | null) {
+      (this as unknown as MainState).cameraTarget = value
     },
 
-    setPageName(value: string): void {
-      this.pageName = value
+    setPageName(value: string) {
+      (this as unknown as MainState).pageName = value
     },
 
-    setTourName(value: string | null): void {
+    setTourName(value: string | null) {
       // pageNameと違い''は入れられないようにする
-      this.tourName = value === '' ? null : value
+      (this as unknown as MainState).tourName = value === '' ? null : value
     },
 
-    setAutoplay(value: boolean): void {
-      this.autoplay = value
+    setAutoplay(value: boolean) {
+      (this as unknown as MainState).autoplay = value
     },
 
-    setAnnotationVisibilities(key: AnnotationKey, value: boolean): void {
+    setAnnotationVisibilities(key: AnnotationKey, value: boolean) {
+      const state = this as unknown as MainState
       switch (key) {
         case 'Annotations':
           // 全部変更
-          for (const k in this.annotationVisibilities) {
-            this.annotationVisibilities[k as AnnotationKey] = value
+          for (const k in state.annotationVisibilities) {
+            state.annotationVisibilities[k as AnnotationKey] = value
           }
           break
         case 'Viewpoints':
         case 'Elements':
           // Viewpoints/... や Elements/... を全部変更
-          for (const k in this.annotationVisibilities) {
+          for (const k in state.annotationVisibilities) {
             if (k.includes(`${key}/`)) {
-              this.annotationVisibilities[k as AnnotationKey] = value
+              state.annotationVisibilities[k as AnnotationKey] = value
             }
           }
           break
       }
-      this.annotationVisibilities[key] = value
+      state.annotationVisibilities[key] = value
 
-      const visibilities = this.getAnnotationVisibilities
+      const visibilities = (this as any).getAnnotationVisibilities
       // 'Viewpoints/'を含むものが全て同じ値なら、 Viewpointsの値もそれと同じにする
       const vKeys = Object.keys(visibilities).filter((key) => key.includes('Viewpoints/'))
       const vValues = vKeys.map((key) => visibilities[key as AnnotationKey])
       if (_uniq(vValues).length === 1) {
-        this.annotationVisibilities.Viewpoints = vValues[0]
+        state.annotationVisibilities.Viewpoints = vValues[0]
       }
       // 'Elements/'を含むものが全て同じ値なら、 Elementsの値もそれと同じにする
       const eKeys = Object.keys(visibilities).filter((key) => key.includes('Elements/'))
       const eValues = eKeys.map((key) => visibilities[key as AnnotationKey])
       if (_uniq(eValues).length === 1) {
-        this.annotationVisibilities.Elements = eValues[0]
+        state.annotationVisibilities.Elements = eValues[0]
       }
       // Annotations,Viewpoints,Elements以外の値が全て同じなら、Annotationの値もそれと同じにする
       const aKeys = Object.keys(visibilities).filter((key) => !['Annotations', 'Viewpoints', 'Elements'].includes(key))
       const aValues = aKeys.map((key) => visibilities[key as AnnotationKey])
       if (_uniq(aValues).length === 1) {
-        this.annotationVisibilities.Annotations = aValues[0]
+        state.annotationVisibilities.Annotations = aValues[0]
       }
     },
 
-    setDisabledAnnotation(key: AnnotationKey, disabled: boolean): void {
+    setDisabledAnnotation(key: AnnotationKey, disabled: boolean) {
+      const state = this as unknown as MainState
       if (disabled) {
-        this.disabledAnnotations.add(key)
+        state.disabledAnnotations.add(key)
       } else {
-        this.disabledAnnotations.delete(key)
+        state.disabledAnnotations.delete(key)
       }
     }
   }

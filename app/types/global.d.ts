@@ -9,6 +9,10 @@ declare global {
     THREE: any
   }
 
+  interface Navigator {
+    standalone?: boolean
+  }
+
   const Potree: any
   const THREE: any
   const $: any // jQuery

@@ -482,23 +482,23 @@ import SpMenuSound from '~/assets/image/spMenu/sound.svg'
 // Reactive data
 const debugMode = ref(false)
 const infoMode = ref(false)
-const benchmarkTime = ref(null)
+const benchmarkTime = ref<number | null>(null)
 const isLowPerformance = ref(false)
 const isSP = ref(false)
-const annotations = ref([])
-const annotationGroups = ref([])
-const data = ref(null)
-const tours = ref(null)
-const annotationData = ref('')
-const listData = ref(null)
-const tourData = ref(null)
+const annotations = ref<any[]>([])
+const annotationGroups = ref<any[]>([])
+const data = ref<any>(null)
+const tours = ref<any>(null)
+const annotationData = ref<any>(null)
+const listData = ref<any>(null)
+const tourData = ref<any>(null)
 const loading = ref(true)
 const noticeVisibility = ref(true)
-const rambleTourTimer = ref(null)
+const rambleTourTimer = ref<NodeJS.Timeout | null>(null)
 const sideBarSpVisibility = ref(false)
 const keyMapSpVisibility = ref(true)
 const soundSpVisibility = ref(false)
-const cameraPositionWatcher = ref(null)
+const cameraPositionWatcher = ref<NodeJS.Timeout | null>(null)
 
 // Template ref
 const potreeRenderArea = ref(null)
@@ -510,7 +510,7 @@ const mainStore = useMainStore()
 const device = useDevice()
 
 // Functions
-const setControlMode = (mode) => {
+const setControlMode = (mode: number) => {
   switch (mode) {
     case 0:
       // First Person
@@ -581,11 +581,11 @@ const update = () => {
   }
 }
 
-const onClickAnnotation = (e) => {
+const onClickAnnotation = (e: any) => {
   // console.log('▪️▪️▪️ onClickAnnotation ▪️▪️▪️', e.target.domElement.get(0))
   // この関数内でのみ、groupとannotationの切り替えが必要なので、下記関数を定義して処理をまとめる。
   // annotationData に直接代入する方法と混在すると用途が分かりにくくなるので、methods化したりしないこと
-  const setAnnotationData = (data) => {
+  const setAnnotationData = (data: any) => {
     // nextTickを使わないと、vue-youtubeがリロードされないので注意（next/prevなどで遷移した時にそのまま動画が再生されてしまう）
     nextTick(() => {
       if (data.grouped && !mainStore.getPageName.includes('Tour')) {
@@ -607,7 +607,7 @@ const onClickAnnotation = (e) => {
     setAnnotationData(e.target.data)
   } else {
     // カメラの移動が終わった時に、アノテーションを表示する
-    const onCameraAnimationComplete = (e) => {
+    const onCameraAnimationComplete = (e: any) => {
       setAnnotationData(e.target.data)
       e.target.removeEventListener('onCameraAnimationComplete', onCameraAnimationComplete)
     }
@@ -625,22 +625,22 @@ const closeDrawer = () => {
   tourData.value = null
 }
 
-const startCameraAnimation = (index) => {
+const startCameraAnimation = (index: any) => {
   if (tours.value && tours.value[index]) {
     tours.value[index].play()
   }
 }
 
-const selectList = (name) => {
+const selectList = (name: any) => {
   tourData.value = null
   clearAnnotationData()
   mainStore.setPageName(name)
 
   if (name.includes('Tour')) {
-    let list = []
+    let list: any[] = []
     if (name === 'Guided Tour') {
       // guidedTourの順でannotationをリスト化する
-      data.value.guidedTour.forEach((id) => {
+      data.value.guidedTour.forEach((id: any) => {
         for (const a of annotations.value) {
           if (a.id === id) {
             list.push(a)
@@ -657,7 +657,7 @@ const selectList = (name) => {
       list
     }
   } else {
-    let list = []
+    let list: any[] = []
     if (name === 'Annotations') {
       list = annotations.value
     } else {
@@ -671,7 +671,7 @@ const selectList = (name) => {
   }
 }
 
-const onClickAnnotationLink = (id) => {
+const onClickAnnotationLink = (id: any) => {
   // console.log('▪️▪️▪️ onClickAnnotationLink ▪️▪️▪️', id)
   openAnnotationById(id)
 }
@@ -704,7 +704,7 @@ const prevNextVisibility = computed(() => {
 })
 
 const listDataIdArray = computed(() => {
-  return listData.value ? listData.value.list.map((a) => a.id) : []
+  return listData.value ? listData.value.list.map((a: any) => a.id) : []
 })
 
 const listCurrentIndex = computed(() => {
@@ -715,7 +715,7 @@ const listCurrentIndex = computed(() => {
 })
 
 const tourDataIdArray = computed(() => {
-  return tourData.value ? tourData.value.list.map((a) => a.id) : []
+  return tourData.value ? tourData.value.list.map((a: any) => a.id) : []
 })
 
 const tourCurrentIndex = computed(() => {
@@ -780,7 +780,7 @@ const soundDataExists = computed(() => {
 })
 
 // Helper functions
-const getGardenFromRoute = (route) => {
+const getGardenFromRoute = (route: any) => {
   const arr = route.params.alias.split('-')
   if (arr.length >= 2) {
     return arr[0]
@@ -789,14 +789,14 @@ const getGardenFromRoute = (route) => {
   }
 }
 
-const getFirstAnnotationInSameGroup = (annotation) => {
+const getFirstAnnotationInSameGroup = (annotation: any) => {
   return window.viewer.scene.annotations.children.find(
-    (a) => JSON.stringify(a.data.position) === JSON.stringify(annotation.position)
+    (a: any) => JSON.stringify(a.data.position) === JSON.stringify(annotation.position)
   )
 }
 
 // Method implementations
-const highlightAnnotation = (domElement) => {
+const highlightAnnotation = (domElement: any) => {
   clearAnnotationHighlight()
   domElement.classList.add('highlighted')
 }
@@ -805,13 +805,13 @@ const clearAnnotationHighlight = () => {
   document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
 }
 
-const openAnnotationById = (id) => {
+const openAnnotationById = (id: any) => {
   // console.log('⭐️ openAnnotationById', id)
 
   // 【重要】点群上のAnnotation.click以外のアクションを起点として、annotationを表示する
   // スタックトレースを取得して、Annotation.clickを起点とした処理中で呼び出された場合はエラーを出力する
   const stackTrace = new Error().stack
-  if (stackTrace.includes('Annotation.click')) {
+  if (stackTrace && stackTrace.includes('Annotation.click')) {
     console.error("openAnnotationByIdは、Annotation.clickを起点とした処理中で呼び出されていますが、これは意図した動作ではありません。コードを見直して、呼び出されないようにしてください")
     return
   }
@@ -819,7 +819,7 @@ const openAnnotationById = (id) => {
 
   // 画面上に表示されているアノテーションを探す
   const annotation = window.viewer?.scene?.annotations?.children?.find(
-    (a) => a.data.id === id
+    (a: any) => a.data.id === id
   )
   if (annotation) {
     // リストからアノテーショングループに属するアノテーションをクリックした時に、ここを通る
@@ -848,9 +848,9 @@ const openAnnotationById = (id) => {
   console.error(`id=${id} のアノテーションが見つかりませんでした`)
 }
 
-const getAnnotationGroupByPosition = (position) => {
+const getAnnotationGroupByPosition = (position: any) => {
   return annotationGroups.value?.find(
-    (g) => JSON.stringify(g[0].position) === JSON.stringify(position)
+    (g: any) => JSON.stringify(g[0].position) === JSON.stringify(position)
   )
 }
 
@@ -863,8 +863,8 @@ const stopRambleTourWithoutAnnotations = () => {
   }
 }
 
-const prev = (id) => {
-  let idArray = null
+const prev = (id: any) => {
+  let idArray: any = null
   if (tourData.value) {
     idArray = tourDataIdArray.value
   } else if (listData.value) {
@@ -881,8 +881,8 @@ const prev = (id) => {
   openAnnotationById(idArray[index])
 }
 
-const next = (id) => {
-  let idArray = null
+const next = (id: any) => {
+  let idArray: any = null
   if (tourData.value) {
     idArray = tourDataIdArray.value
   } else if (listData.value) {
@@ -937,7 +937,7 @@ watch(soundSpVisibility, (val) => {
 watch(annotationData, (val) => {
   if (val) {
     const annotation = window.viewer?.scene?.annotations?.children?.find(
-      (a) => a.data.id === val.id
+      (a: any) => a.data.id === val.id
     )
     if (annotation) {
       highlightAnnotation(annotation.domElement[0])
@@ -979,7 +979,7 @@ const loadPageData = async () => {
     // 並行実行を防ぐため、関数開始時点でフラグを設定
     isDataLoaded.value = true
 
-    const alias = route.params.alias
+    const alias = route.params.alias as string
     const annotationsStore = useAnnotationsStore()
 
     // annotationsストアから直接ページデータを取得
@@ -998,14 +998,14 @@ const loadPageData = async () => {
       _groupBy(annotationsData, 'position')
     ).filter((a) => a.length > 1)
 
-    annotationsData.forEach((a) => {
+    annotationsData.forEach((a: any) => {
       // groupに属するかどうかをBooleanで持たせる
       a.grouped = annotationGroupsData.some(
-        (g) => JSON.stringify(g[0].position) === JSON.stringify(a.position)
+        (g: any) => JSON.stringify(g[0].position) === JSON.stringify(a.position)
       )
       // groupの最初のアノテーションかどうかをBooleanで持たせる
       a.firstInGroup = annotationGroupsData.some(
-        (g) => g[0].id === a.id
+        (g: any) => g[0].id === a.id
       )
     })
 
@@ -1034,7 +1034,7 @@ const loadPageData = async () => {
 // アノテーションストアの変化を監視
 const annotationsStore = useAnnotationsStore()
 watch(
-  () => annotationsStore[camelCase(route.params.alias)],
+  () => annotationsStore[camelCase(route.params.alias as string)],
   (newData) => {
     console.log('Watcher triggered, newData:', !!newData, 'isDataLoaded:', isDataLoaded.value)
     if (newData && Array.isArray(newData) && newData.length > 0 && !isDataLoaded.value) {
@@ -1137,8 +1137,8 @@ const initializePotree = async () => {
     }
 
     // Set Camera Animation
-    const toursArray = []
-    data.value.tours.forEach((tourData) => {
+    const toursArray: any[] = []
+    data.value.tours.forEach((tourData: any) => {
       const animation = new Potree.CameraAnimation(window.viewer)
       for (let i = 0; i < tourData.positions.length; i++) {
         const cp = animation.createControlPoint()
@@ -1242,7 +1242,9 @@ onBeforeUnmount(() => {
   eventBus.off('clickAnnotationLink', onClickAnnotationLink)
   eventBus.off('startRambleTourWithoutAnnotations', startRambleTourWithoutAnnotations)
 
-  clearInterval(cameraPositionWatcher.value)
+  if (cameraPositionWatcher.value) {
+    clearInterval(cameraPositionWatcher.value)
+  }
   document.querySelectorAll('#profile_window,.sp-container').forEach((e) => e.remove())
 })
 
