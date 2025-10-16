@@ -20,8 +20,19 @@
               id="potree_render_area"
               ref="potreeRenderArea"
               :class="potreeRenderAreaClass"
-              :data-loading-message="loadingMessage"
             >
+              <div v-if="loadingState === 'loading'" class="loading-overlay">
+                Loading...
+              </div>
+              <div
+                v-if="loadingState === 'error'"
+                class="loading-error-overlay"
+              >
+                <div class="error-content">
+                  <div class="error-message">Annotation data not found</div>
+                  <a href="/archives/" class="back-link">[ Back to top ]</a>
+                </div>
+              </div>
               <div
                 v-if="debugMode"
                 class="debugMenuButton"
@@ -311,33 +322,35 @@ nav.spMenu {
 #potree_render_area {
   width: 100%;
   height: 100%;
-  &::before {
-    content: '';
-    font-size: 30px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background: #111;
-    position: absolute;
-    z-index: 99999990;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 3s;
-    @media (max-width: 749px) {
-      font-size: 15px;
-    }
-  }
+  position: relative;
   &.disabled {
     pointer-events: none;
   }
-  &.loading {
-    &::before {
-      content: attr(data-loading-message);
-      opacity: 1;
-      pointer-events: auto;
+  .loading-overlay,
+  .loading-error-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    z-index: 99999990;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  .loading-error-overlay {
+    .error-content {
+      text-align: center;
+      .back-link {
+        display: inline-block;
+        color: #898989;
+        transition: color 0.2s;
+        &:hover {
+          color: white;
+        }
+      }
     }
   }
 }
@@ -480,8 +493,8 @@ import SpMenuList from '~/assets/image/spMenu/list.svg'
 import SpMenuNavigate from '~/assets/image/spMenu/navigate.svg'
 import SpMenuSound from '~/assets/image/spMenu/sound.svg'
 
-// Constants
-const LOADING_MESSAGE = 'Loading...'
+// Types
+type LoadingState = 'loading' | 'loaded' | 'error'
 
 // Reactive data
 const debugMode = ref(false)
@@ -496,8 +509,7 @@ const tours = ref<any>(null)
 const annotationData = ref<any>(null)
 const listData = ref<any>(null)
 const tourData = ref<any>(null)
-const loading = ref(true)
-const loadingMessage = ref(LOADING_MESSAGE)
+const loadingState = ref<LoadingState>('loading')
 const noticeVisibility = ref(true)
 const rambleTourTimer = ref<NodeJS.Timeout | null>(null)
 const sideBarSpVisibility = ref(false)
@@ -757,7 +769,6 @@ const potreeRenderAreaClass = computed(() => {
     delete visibilities[key]
   })
   const res = visibilities
-  res.loading = loading.value
   res.rambleTourWithoutAnnotations = tourName.value === 'Ramble Tour without Annotations'
   res.disabled = tourName.value !== null
   return res
@@ -998,16 +1009,15 @@ const loadPageData = async () => {
     const annotationsData = annotationsStore[pageKey]
 
     if (!annotationsData) {
-      const message = 'Annotation data not found'
-      console.log(message)
-      loadingMessage.value = message
+      console.log('Annotation data not found')
+      loadingState.value = 'error'
       // データがない場合はフラグをリセット
       isDataLoaded.value = false
       return
     }
 
-    // データが正常にある場合はメッセージをリセット
-    loadingMessage.value = LOADING_MESSAGE
+    // データが正常にある場合は状態をリセット
+    loadingState.value = 'loading'
 
     // 同位置のアノテーションはgroupにする
     const annotationGroupsData = Object.values(
@@ -1042,6 +1052,7 @@ const loadPageData = async () => {
     }
   } catch (error) {
     console.error('Failed to load page data:', error)
+    loadingState.value = 'error'
     // エラー時はフラグをリセット
     isDataLoaded.value = false
   }
@@ -1067,7 +1078,7 @@ watch(
   () => {
     console.log('Route changed, resetting data loaded flag')
     isDataLoaded.value = false
-    loadingMessage.value = LOADING_MESSAGE
+    loadingState.value = 'loading'
     // ページ遷移時に状態をクリア
     mainStore.setPageName('')
     mainStore.setTourName(null)
@@ -1207,7 +1218,7 @@ const initializePotree = async () => {
   }
 
   setTimeout(() => {
-    loading.value = false
+    loadingState.value = 'loaded'
   }, 1000)
 }
 
