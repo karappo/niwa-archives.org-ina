@@ -415,14 +415,6 @@ const tourName = computed(() => store.getTourName)
 const autoplay = computed(() => store.autoplay)
 const category = computed(() => $getTitle(props.data?.category))
 
-const belongingList = computed(() => {
-  // TODO ここ、グループに属するannotationのことを考慮できていなさそう
-  // window.viewer.scene.annotations.children ではなく props.annotations で判定するべきかも？
-  // でも、その時ほんとに動作大丈夫か？
-  // eslint-disable-next-line
-  return window.viewer?.scene?.annotations?.children?.filter((a: any) => a.data.category === props.data?.category) || []
-})
-
 const player = computed(() => (youtube.value as any)?.player)
 const isGuidedTour = computed(() => pageName.value === 'Guided Tour')
 const noBr = computed(() => {
