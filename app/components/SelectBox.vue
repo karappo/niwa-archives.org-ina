@@ -66,7 +66,7 @@
     }
   }
 }
-@media only screen and (max-width: 428px) {
+@media (max-width: 428px) {
   .selectBox {
     height: 38px;
     select {

@@ -85,7 +85,7 @@ aside.sideBar {
   z-index: 1;
   border-left: 1px solid #3c3c3c;
   overflow-y: auto;
-  @media only screen and (max-width: 428px) {
+  @media (max-width: 428px) {
     height: 100%;
   }
   > .wrap {
@@ -94,7 +94,7 @@ aside.sideBar {
 }
 .spHeader {
   display: none;
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     --size: 54px;
     height: var(--size);
     display: flex;

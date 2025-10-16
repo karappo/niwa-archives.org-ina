@@ -269,13 +269,13 @@
   }
 }
 
-@media only screen and (min-width: 1025px) {
+@media (min-width: 1025px) {
   .btn:hover {
     background-color: #333;
   }
 }
 
-@media only screen and (max-width: 1024px) {
+@media (max-width: 1024px) {
   .container {
     margin: auto 22px 22px 22px;
   }

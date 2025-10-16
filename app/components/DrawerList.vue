@@ -108,7 +108,7 @@ article {
 
   &.guidedTour {
     background-color: #112526;
-    @media only screen and (max-width: 1024px) {
+    @media (max-width: 1024px) {
       background-color: var(--color--guided-tour--darken);
     }
     &:hover {
@@ -118,7 +118,7 @@ article {
 
   &.rambleTour {
     background-color: #252134;
-    @media only screen and (max-width: 1024px) {
+    @media (max-width: 1024px) {
       background-color: var(--color--ramble-tour--darken);
     }
     &:hover {

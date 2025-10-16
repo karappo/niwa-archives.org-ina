@@ -128,11 +128,11 @@ header {
     margin-right: 8px;
     &.enabled {
       border-color: white !important;
-      @media only screen and (max-width: 990px) {
+      @media (max-width: 990px) {
         color: #fff !important;
       }
     }
-    @media only screen and (max-width: 990px) {
+    @media (max-width: 990px) {
       padding: 0 10px;
       margin-right: 0;
       background: transparent !important; /* activeやhoverの時に背景色が変わるのを防ぐために!importantつけている */

@@ -39,7 +39,7 @@
     animation-direction: alternate;
   }
 }
-@media only screen and (max-width: 428px) {
+@media (max-width: 428px) {
   .tourModeIndicator {
     flex-direction: row-reverse;
     top: auto;

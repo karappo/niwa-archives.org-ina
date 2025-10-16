@@ -115,7 +115,7 @@
   font-family: 'K2-v1-Bold';
   margin-bottom: -100%;
   transition: margin 0.8s;
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     font-size: 15px;
     .selectBox {
       order: 1;
@@ -158,11 +158,11 @@
     height: 100%;
     background-color: #3c3c3c;
   }
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     display: none;
   }
   &[data-sp-visibility='true'] {
-    @media only screen and (max-width: 749px) {
+    @media (max-width: 749px) {
       display: block;
     }
   }
@@ -172,7 +172,7 @@
       margin-bottom: 0;
       transition: margin 0.08s;
     }
-    @media only screen and (max-width: 749px) {
+    @media (max-width: 749px) {
       margin-bottom: 0;
     }
     .toggleBtn {
@@ -185,7 +185,7 @@
 .spHeader {
   display: none;
   position: relative;
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -223,7 +223,7 @@
   cursor: pointer;
   z-index: 10;
   justify-content: space-between;
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     display: none;
   }
   span.text {
@@ -246,7 +246,7 @@
   grid-template-rows: repeat(2, 1fr);
   row-gap: 15px;
   column-gap: 20px;
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     display: flex;
     flex-direction: column;
     padding: 0 20px 20px;
@@ -320,7 +320,7 @@
   white-space: nowrap;
   color: #898989;
   flex-shrink: 0;
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     letter-spacing: 0;
   }
 }
@@ -366,7 +366,7 @@ dl {
     font-family: 'K2-v1-Bold';
     font-size: 12px;
     border-right: 1px solid var(--background-color);
-    @media only screen and (max-width: 749px) {
+    @media (max-width: 749px) {
       font-size: 15px;
     }
   }
@@ -377,7 +377,7 @@ dl {
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    @media only screen and (max-width: 749px) {
+    @media (max-width: 749px) {
       font-size: 14px;
       font-weight: bold;
     }
@@ -396,7 +396,7 @@ dl {
   }
 }
 .creatures {
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     display: block;
     background-color: transparent;
     width: auto;

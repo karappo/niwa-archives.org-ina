@@ -143,7 +143,7 @@
   height: var(--vh);
   background: #000;
   display: flex;
-  @media only screen and (max-width: 428px) {
+  @media (max-width: 428px) {
     flex-direction: column;
   }
 }
@@ -152,7 +152,7 @@ main {
   flex-direction: column;
   width: 100%;
   position: relative;
-  @media only screen and (max-width: 428px) {
+  @media (max-width: 428px) {
     height: 100%;
     min-height: var(--main-min-height);
   }
@@ -169,7 +169,7 @@ main {
 }
 nav.spMenu {
   display: none;
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -200,7 +200,7 @@ nav.spMenu {
   height: 100%;
   margin: 0;
   border-left: 0;
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     display: none;
   }
 }
@@ -210,22 +210,22 @@ nav.spMenu {
   font-weight: normal;
   font-size: 17px;
   color: white;
-  @media only screen and (max-width: 749px) {
+  @media (max-width: 749px) {
     margin-right: calc(24px + var(--sp-menu-width));
   }
-  @media only screen and (max-width: 428px) {
+  @media (max-width: 428px) {
     margin: 10px 16px;
     letter-spacing: 0;
   }
   .scene {
     margin-left: 26px;
-    @media only screen and (max-width: 428px) {
+    @media (max-width: 428px) {
       margin-top: -2px;
       margin-left: 0;
     }
   }
   span {
-    @media only screen and (max-width: 428px) {
+    @media (max-width: 428px) {
       display: block;
     }
   }
@@ -247,11 +247,11 @@ nav.spMenu {
         display: flex;
         align-items: center;
         flex-shrink: 0;
-        @media only screen and (max-width: 749px) {
+        @media (max-width: 749px) {
           font-size: 10px;
         }
         &:not(.full) {
-          @media only screen and (max-width: 749px) {
+          @media (max-width: 749px) {
             margin-right: var(--sp-menu-width);
           }
         }
@@ -296,7 +296,7 @@ nav.spMenu {
     &.drawer {
       overflow-y: auto;
       background-color: black;
-      @media only screen and (min-width: 429px) {
+      @media (min-width: 429px) {
         margin-left: -6px;
         height: calc(100% - 1px);
       }
@@ -325,7 +325,7 @@ nav.spMenu {
     opacity: 0;
     pointer-events: none;
     transition: opacity 3s;
-    @media only screen and (max-width: 749px) {
+    @media (max-width: 749px) {
       font-size: 15px;
     }
   }
@@ -370,7 +370,7 @@ nav.spMenu {
     &:hover {
       background-color: #2a2a2a;
     }
-    @media only screen and (max-width: 749px) {
+    @media (max-width: 749px) {
       font-size: 15px;
       width: 110px;
       height: 40px;
@@ -398,7 +398,7 @@ nav.spMenu {
       width: 7px;
       z-index: 2;
       margin-left: 0; /* デフォルトのスタイルが-1になっていて変な線が生じてしまうので0にする */
-      @media only screen and (max-width: 428px) {
+      @media (max-width: 428px) {
         width: 100%;
         height: 7px;
       }
