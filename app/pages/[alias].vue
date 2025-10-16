@@ -29,7 +29,7 @@
               ></div>
               <div class="controls">
                 <h1 class="title" @dblclick="data && data.initCamera()">
-                  <span class="global">Incomplete Niwa Archives</span>
+                  <a class="global" href="/archives/">Incomplete Niwa Archives</a>
                   <span class="scene">{{ data ? data.title : '' }}</span>
                   <template v-if="infoMode">
                     <br />
