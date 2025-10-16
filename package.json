@@ -12,8 +12,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "deploy": "sh deploy.sh",
+    "typecheck": "nuxi typecheck",
     "lint:js": "eslint .",
-    "lint": "pnpm run lint:js",
+    "lint": "pnpm run lint:js && pnpm run typecheck",
     "postinstall": "nuxt prepare"
   },
   "config": {
