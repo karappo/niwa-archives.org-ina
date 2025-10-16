@@ -325,6 +325,9 @@ nav.spMenu {
     opacity: 0;
     pointer-events: none;
     transition: opacity 3s;
+    @media only screen and (max-width: 749px) {
+      font-size: 15px;
+    }
   }
   &.disabled {
     pointer-events: none;
