@@ -260,16 +260,18 @@ watch(() => props.data, async (data) => {
     // TODO ここ要るのか確認
     groups.value = null
   }
-}, { immediate: true })
 
-// Lifecycle hooks
-onMounted(() => {
-  eventBus.on('setTagIndexStr', setTagIndexStr)
+  // DrawerListの中身が変わる度にFONTPLUSを実行
   nextTick(() => {
     if (typeof FONTPLUS !== 'undefined') {
       FONTPLUS.start()
     }
   })
+}, { immediate: true })
+
+// Lifecycle hooks
+onMounted(() => {
+  eventBus.on('setTagIndexStr', setTagIndexStr)
 })
 
 onBeforeUnmount(() => {
