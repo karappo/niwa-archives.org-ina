@@ -5,10 +5,10 @@
       <option
         v-for="(item, index) in options"
         :key="index"
-        :label="(item as any).label || item"
+        :label="getLabel(item)"
         :value="index"
       >
-        {{ (item as any).label || item }}
+        {{ getLabel(item) }}
       </option>
     </select>
     <div class="icon">
@@ -82,14 +82,16 @@
 <script setup lang="ts">
 import TriangleArrow from '~/assets/image/SoundBar/triangle-arrow-down.svg'
 
-defineProps({
+type SelectOption = string | { label: string; [key: string]: any }
+
+const props = defineProps({
   modelValue: {
     type: String,
     require: true,
     default: '0'
   },
   options: {
-    type: Array,
+    type: Array as () => SelectOption[],
     require: true,
     default() {
       return []
@@ -106,4 +108,8 @@ const emit = defineEmits(['update:modelValue'])
 
 // Vue 3でユニークなIDを生成
 const uid = Math.random().toString(36).substr(2, 9)
+
+function getLabel(item: SelectOption): string {
+  return typeof item === 'string' ? item : item.label
+}
 </script>

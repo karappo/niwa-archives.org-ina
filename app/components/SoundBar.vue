@@ -564,7 +564,7 @@ function progressStyle() {
   }
 }
 
-function seekBarClick(e: any) {
+function seekBarClick(e: MouseEvent) {
   if (e.target === returnBtn.value) {
     player.value!.currentTime = 0
   } else {

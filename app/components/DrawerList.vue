@@ -51,6 +51,7 @@
             <div class="head">
               <h5>{{ key }}</h5>
               <div
+                v-if="val[0]?.youtube"
                 class="thumb"
                 :style="`background-image: url(${val[0].youtube.thumbnailUrl()});`"
               ></div>
@@ -172,6 +173,7 @@ article {
 import _groupBy from 'lodash/groupBy'
 import { useMainStore } from '~/stores/main'
 import { useEventBus } from '~/composables/useEventBus'
+import type { Annotation } from '~/stores/annotations'
 
 const props = defineProps({
   data: {
@@ -183,7 +185,7 @@ const props = defineProps({
 
 
 // Reactive data
-const groups = ref<Record<string, any> | null>(null) // Oral Archivesのときにdata.listをグルーピングして保持する
+const groups = ref<Record<string, Annotation[]> | null>(null) // Oral Archivesのときにdata.listをグルーピングして保持する
 
 // Store and composables
 const store = useMainStore()
@@ -234,26 +236,29 @@ function startTour(tourName: string) {
   })
 }
 
-function filterByTag(list: any[]) {
+function filterByTag(list: Annotation[]): Annotation[] {
   if (!selectedTag.value) {
     return list
   }
-  return list.filter((o: any) => o.tags && o.tags.includes(selectedTag.value))
+  return list.filter((o) => o.tags && o.tags.includes(selectedTag.value))
 }
 
 // Watch for data changes
-watch(() => props.data, async (data: any) => {
-  if (data?.name === 'Oral Archives') {
-    const groupedData = _groupBy(data.list, (item: any) => {
+watch(() => props.data, async (data: { name?: string; list?: Annotation[] }) => {
+  if (data?.name === 'Oral Archives' && data.list) {
+    const groupedData = _groupBy(data.list, (item: Annotation) => {
       return item.youtube.id()
     })
     // videoIdがkeyになっているのをYoutubeタイトルをキーに
-    const res: Record<string, any> = {}
+    const res: Record<string, Annotation[]> = {}
     for (const videoId of Object.keys(groupedData)) {
       const response = await fetch(
         `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.API_KEY}`
       ).then((res) => res.json())
-      res[response.items[0].snippet.title] = groupedData[videoId]
+      const annotations = groupedData[videoId]
+      if (annotations) {
+        res[response.items[0].snippet.title] = annotations
+      }
     }
     groups.value = res
   } else {

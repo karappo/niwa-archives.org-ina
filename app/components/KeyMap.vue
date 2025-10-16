@@ -331,9 +331,10 @@ const canvas = computed(() => {
   return null
 })
 
-const start = (e: any) => {
-  e.target.classList.add('touched')
-  const key = e.target.dataset.key
+const start = (e: PointerEvent) => {
+  const target = e.target as HTMLElement
+  target.classList.add('touched')
+  const key = target.dataset.key
   if (!key) return
 
   currentKey.value = key
@@ -347,9 +348,10 @@ const start = (e: any) => {
   )
 }
 
-const end = (e: any) => {
-  e.target.classList.remove('touched')
-  const key = e.target.dataset.key
+const end = (e: PointerEvent) => {
+  const target = e.target as HTMLElement
+  target.classList.remove('touched')
+  const key = target.dataset.key
   if (!key) return
 
   const keyCode = key.charCodeAt(0)

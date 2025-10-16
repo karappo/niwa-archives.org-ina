@@ -625,22 +625,22 @@ const closeDrawer = () => {
   tourData.value = null
 }
 
-const startCameraAnimation = (index: any) => {
+const startCameraAnimation = (index: number) => {
   if (tours.value && tours.value[index]) {
     tours.value[index].play()
   }
 }
 
-const selectList = (name: any) => {
+const selectList = (name: string) => {
   tourData.value = null
   clearAnnotationData()
   mainStore.setPageName(name)
 
   if (name.includes('Tour')) {
-    let list: any[] = []
+    let list = []
     if (name === 'Guided Tour') {
       // guidedTourの順でannotationをリスト化する
-      data.value.guidedTour.forEach((id: any) => {
+      data.value.guidedTour.forEach((id: string) => {
         for (const a of annotations.value) {
           if (a.id === id) {
             list.push(a)
@@ -657,7 +657,7 @@ const selectList = (name: any) => {
       list
     }
   } else {
-    let list: any[] = []
+    let list = []
     if (name === 'Annotations') {
       list = annotations.value
     } else {
@@ -671,7 +671,7 @@ const selectList = (name: any) => {
   }
 }
 
-const onClickAnnotationLink = (id: any) => {
+const onClickAnnotationLink = (id: string) => {
   // console.log('▪️▪️▪️ onClickAnnotationLink ▪️▪️▪️', id)
   openAnnotationById(id)
 }
@@ -805,7 +805,7 @@ const clearAnnotationHighlight = () => {
   document.querySelectorAll('.annotation').forEach((m) => m.classList.remove('highlighted'))
 }
 
-const openAnnotationById = (id: any) => {
+const openAnnotationById = (id: string) => {
   // console.log('⭐️ openAnnotationById', id)
 
   // 【重要】点群上のAnnotation.click以外のアクションを起点として、annotationを表示する
@@ -863,8 +863,8 @@ const stopRambleTourWithoutAnnotations = () => {
   }
 }
 
-const prev = (id: any) => {
-  let idArray: any = null
+const prev = (id: string) => {
+  let idArray: string[] = []
   if (tourData.value) {
     idArray = tourDataIdArray.value
   } else if (listData.value) {
@@ -878,11 +878,14 @@ const prev = (id: any) => {
   if (index < 0) {
     index = idArray.length - 1
   }
-  openAnnotationById(idArray[index])
+  const targetId = idArray[index]
+  if (targetId) {
+    openAnnotationById(targetId)
+  }
 }
 
-const next = (id: any) => {
-  let idArray: any = null
+const next = (id: string) => {
+  let idArray: string[] = []
   if (tourData.value) {
     idArray = tourDataIdArray.value
   } else if (listData.value) {
@@ -895,7 +898,10 @@ const next = (id: any) => {
   if (idArray.length <= index) {
     index = 0
   }
-  openAnnotationById(idArray[index])
+  const targetId = idArray[index]
+  if (targetId) {
+    openAnnotationById(targetId)
+  }
 }
 
 const saveCameraInfo = () => {

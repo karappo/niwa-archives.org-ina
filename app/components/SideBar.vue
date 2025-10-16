@@ -222,7 +222,7 @@ const mainStore = useMainStore()
 
 const props = defineProps({
   variations: {
-    type: Array,
+    type: Array as () => string[],
     default: () => []
   }
 })

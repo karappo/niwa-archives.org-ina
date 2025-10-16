@@ -2,26 +2,26 @@
   <div class="annotationList">
     <ul v-if="list.length" :class="{ thin }" class="list">
       <li
-        v-for="(o, i) in (list as any[])"
-        :key="(o as any).id"
-        @click="handleClickAnnotationLink((o as any).id)"
+        v-for="(o, i) in (list as Annotation[])"
+        :key="o.id"
+        @click="handleClickAnnotationLink(o.id)"
       >
         <div
           v-if="!isOralArchives"
           class="thumb"
-          :style="`background-image: url(${thumbURL(o as any)});`"
+          :style="`background-image: url(${thumbURL(o)});`"
         ></div>
         <span v-if="isOralArchives" class="index">{{ i + 1 }}</span>
         <span v-else class="type">
-          <TypeImage v-if="(o as any).image"></TypeImage>
-          <TypeVideo v-if="(o as any).youtube"></TypeVideo>
+          <TypeImage v-if="o.image"></TypeImage>
+          <TypeVideo v-if="o.youtube"></TypeVideo>
         </span>
-        <span class="title">{{ (o as any).title }}</span>
+        <span class="title">{{ o.title }}</span>
         <div
           v-if="typeVisibility"
           class="dotWrap"
-          :data-category="(o as any).category"
-          :title="(o as any).category"
+          :data-category="o.category"
+          :title="o.category"
         >
           <div class="dot"></div>
         </div>
@@ -150,6 +150,7 @@ import TypeImage from '~/assets/image/type-image.svg'
 import TypeVideo from '~/assets/image/type-video.svg'
 import { useMainStore } from '~/stores/main'
 import { useEventBus } from '~/composables/useEventBus'
+import type { Annotation } from '~/stores/annotations'
 
 const props = defineProps({
   list: {
@@ -176,7 +177,7 @@ const store = useMainStore()
 const eventBus = useEventBus()
 
 // Functions
-const handleClickAnnotationLink = (id: any) => {
+const handleClickAnnotationLink = (id: string) => {
   eventBus.emit('clickAnnotationLink', id)
 }
 
@@ -184,7 +185,7 @@ const handleClickAnnotationLink = (id: any) => {
 const isOralArchives = computed(() => store.getPageName === 'Oral Archives')
 
 // Methods
-function thumbURL(o: any) {
+function thumbURL(o: Annotation) {
   if (o.image) {
     return o.image
   } else if (o.youtube) {
