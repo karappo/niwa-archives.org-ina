@@ -321,8 +321,8 @@ const props = defineProps({
   }
 })
 
-const currentKey = ref(null)
-const currentKeyCode = ref(null)
+const currentKey = ref<string | null>(null)
+const currentKeyCode = ref<number | null>(null)
 
 const canvas = computed(() => {
   if (process.client) {
@@ -331,7 +331,7 @@ const canvas = computed(() => {
   return null
 })
 
-const start = (e) => {
+const start = (e: any) => {
   e.target.classList.add('touched')
   const key = e.target.dataset.key
   if (!key) return
@@ -341,13 +341,13 @@ const start = (e) => {
   canvas.value?.dispatchEvent(
     new KeyboardEvent('keydown', {
       key,
-      keyCode: currentKeyCode.value,
+      keyCode: currentKeyCode.value ?? undefined,
       code: `Key${key.toUpperCase()}`
     })
   )
 }
 
-const end = (e) => {
+const end = (e: any) => {
   e.target.classList.remove('touched')
   const key = e.target.dataset.key
   if (!key) return

@@ -94,7 +94,7 @@
             <span>#{{ tag }}</span>
             <span class="num">
               {{
-                annotations.filter((_a) => _a.tags && _a.tags.includes(tag))
+                annotations.filter((_a: any) => _a.tags && _a.tags.includes(tag))
                   .length
               }}
             </span>
@@ -397,13 +397,13 @@ const props = defineProps({
 const emit = defineEmits(['next', 'prev', 'backToList'])
 
 // Reactive data
-const playerVars = ref(null)
+const playerVars = ref<any>(null)
 const coverVisibility = ref(false)
-const timerID = ref(null)
+const timerID = ref<ReturnType<typeof setTimeout> | null>(null)
 const flagForYoutube = ref(true) // data.youtubeの値が変わった時に再描画されない問題への対処
 
 // Template refs
-const youtube = ref(null)
+const youtube = ref<any>(null)
 
 // Store
 const store = useMainStore()
@@ -420,10 +420,10 @@ const belongingList = computed(() => {
   // window.viewer.scene.annotations.children ではなく props.annotations で判定するべきかも？
   // でも、その時ほんとに動作大丈夫か？
   // eslint-disable-next-line
-  return window.viewer?.scene?.annotations?.children?.filter((a) => a.data.category === props.data?.category) || []
+  return window.viewer?.scene?.annotations?.children?.filter((a: any) => a.data.category === props.data?.category) || []
 })
 
-const player = computed(() => youtube.value?.player)
+const player = computed(() => (youtube.value as any)?.player)
 const isGuidedTour = computed(() => pageName.value === 'Guided Tour')
 const noBr = computed(() => {
   // DNA Dataの時はHTMLが複雑なので、自動で改行させない
@@ -431,7 +431,7 @@ const noBr = computed(() => {
 })
 
 // Methods
-function showDateTime(dateTime) {
+function showDateTime(dateTime: string | Date) {
   const d = dayjs(dateTime)
   let format = 'YYYY/MM/DD'
   if (!(d.hour() === 0 && d.minute() === 0 && d.second() === 0)) {
@@ -448,8 +448,9 @@ function goToNextAnnotation() {
     emit('next', props.data.id)
   } else {
     coverVisibility.value = true
-    player.value?.seekTo(playerVars.value?.start || 0)
-    player.value?.pauseVideo()
+    const playerValue = player.value as any
+    playerValue?.seekTo(playerVars.value?.start || 0)
+    playerValue?.pauseVideo()
   }
 }
 
@@ -470,7 +471,7 @@ function startGoToNextTimer() {
   timerID.value = setTimeout(goToNextAnnotation, 15000)
 }
 
-function onStateChange(event) {
+function onStateChange(event: any) {
   // YouTube player states:
   // -1: unstarted, 0: ended, 1: playing, 2: paused, 3: buffering, 5: cued
 
@@ -484,7 +485,7 @@ function onStateChange(event) {
   }
 }
 
-function tagClick(tag) {
+function tagClick(tag: string) {
   const eventBus = useEventBus()
   eventBus.emit('selectList', 'Annotations')
   nextTick(() => {
@@ -546,7 +547,7 @@ watch(() => props.data, (data) => {
       el.parentElement.scrollTop = 0
     }
     // フォント
-    if (typeof FONTPLUS !== 'undefined') {
+    if (typeof FONTPLUS !== 'undefined' && FONTPLUS) {
       FONTPLUS.start()
     }
   })

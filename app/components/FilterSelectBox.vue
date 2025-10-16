@@ -3,16 +3,16 @@
     <select
       class="button"
       :value="value"
-      @change="emit('update:value', $event.target.value)"
+      @change="emit('update:value', ($event.target as HTMLSelectElement).value)"
     >
       <option value="" selected>Filter</option>
       <option
         v-for="(item, index) in options"
         :key="index"
-        :label="item.label || item"
+        :label="(item as any).label || item"
         :value="index"
       >
-        {{ item.label || item }}
+        {{ (item as any).label || item }}
       </option>
     </select>
     <div class="icon">

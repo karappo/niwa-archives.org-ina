@@ -27,7 +27,7 @@ import { useGardenData } from '~/composables/useGardenData'
 const route = useRoute()
 const { getGardenData } = useGardenData()
 
-const historyContent = ref(null)
+const historyContent = ref<any>(null)
 const imageSrc = computed(() => {
   if (historyContent.value && historyContent.value.image) {
     return `/ina/image/history/${historyContent.value.image}`
@@ -37,12 +37,14 @@ const imageSrc = computed(() => {
 
 onMounted(async () => {
   // 庭園データを取得してhistoryContentを設定
-  const gardenData = await getGardenData(route.params.alias)
+  const alias = Array.isArray(route.params.alias) ? route.params.alias[0] : route.params.alias
+  if (!alias) return
+  const gardenData = await getGardenData(alias)
   if (gardenData && gardenData.historyContent) {
     historyContent.value = gardenData.historyContent
   }
   nextTick(() => {
-    if (typeof FONTPLUS !== 'undefined') {
+    if (typeof FONTPLUS !== 'undefined' && FONTPLUS) {
       FONTPLUS.start()
     }
   })

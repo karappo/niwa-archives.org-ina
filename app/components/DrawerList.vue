@@ -183,7 +183,7 @@ const props = defineProps({
 
 
 // Reactive data
-const groups = ref(null) // Oral Archivesのときにdata.listをグルーピングして保持する
+const groups = ref<Record<string, any> | null>(null) // Oral Archivesのときにdata.listをグルーピングして保持する
 
 // Store and composables
 const store = useMainStore()
@@ -209,11 +209,11 @@ const typeVisibility = computed(() => {
 })
 
 // Methods
-function setTagIndexStr(tag) {
+function setTagIndexStr(tag: string) {
   setTag(tag)
 }
 
-function setTag(tag) {
+function setTag(tag: string) {
   const index = tags.value.indexOf(tag)
   if (0 <= index) {
     props.data.tagIndexStr = tags.value.indexOf(tag) + ''
@@ -227,28 +227,28 @@ function startRambleTourWithoutAnnotations() {
   eventBus.emit('startRambleTourWithoutAnnotations')
 }
 
-function startTour(tourName) {
+function startTour(tourName: string) {
   store.setTourName(tourName)
   nextTick(() => {
     eventBus.emit('clickAnnotationLink', props.data.list[0].id)
   })
 }
 
-function filterByTag(list) {
+function filterByTag(list: any[]) {
   if (!selectedTag.value) {
     return list
   }
-  return list.filter((o) => o.tags && o.tags.includes(selectedTag.value))
+  return list.filter((o: any) => o.tags && o.tags.includes(selectedTag.value))
 }
 
 // Watch for data changes
-watch(() => props.data, async (data) => {
+watch(() => props.data, async (data: any) => {
   if (data?.name === 'Oral Archives') {
-    const groupedData = _groupBy(data.list, (item) => {
+    const groupedData = _groupBy(data.list, (item: any) => {
       return item.youtube.id()
     })
     // videoIdがkeyになっているのをYoutubeタイトルをキーに
-    const res = {}
+    const res: Record<string, any> = {}
     for (const videoId of Object.keys(groupedData)) {
       const response = await fetch(
         `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.API_KEY}`
@@ -263,7 +263,7 @@ watch(() => props.data, async (data) => {
 
   // DrawerListの中身が変わる度にFONTPLUSを実行
   nextTick(() => {
-    if (typeof FONTPLUS !== 'undefined') {
+    if (typeof FONTPLUS !== 'undefined' && FONTPLUS) {
       FONTPLUS.start()
     }
   })

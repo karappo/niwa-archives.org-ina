@@ -450,9 +450,11 @@ const { $getTags } = useNuxtApp()
 const { getGardenData } = useGardenData()
 
 // 庭園データからsoundsを取得
-const list = ref(null)
+const list = ref<any>(null)
 watchEffect(async () => {
-  const gardenData = await getGardenData(route.params.alias)
+  const alias = Array.isArray(route.params.alias) ? route.params.alias[0] : route.params.alias
+  if (!alias) return
+  const gardenData = await getGardenData(alias)
   list.value = gardenData?.sounds || null
 })
 const currentTime = ref('00:00')
@@ -461,9 +463,9 @@ const paused = ref(true)
 const percent = ref(0) // Number: 0 ~ 100
 
 const data = computed(() => list.value[parseInt(index.value, 10)])
-const player = ref(null)
-const seekBarHitArea = ref(null)
-const returnBtn = ref(null)
+const player = ref<HTMLAudioElement | null>(null)
+const seekBarHitArea = ref<HTMLElement | null>(null)
+const returnBtn = ref<HTMLElement | null>(null)
 const tags = computed(() => $getTags(props.annotations))
 
 watch(index, () => {
@@ -495,7 +497,7 @@ watchEffect(() => {
 })
 
 onBeforeUnmount(() => {
-  if (list.value) {
+  if (list.value && player.value) {
     player.value.removeEventListener('playing', playing)
     player.value.removeEventListener('pause', pause)
     player.value.removeEventListener('timeupdate', timeupdate)
@@ -512,6 +514,7 @@ function pause() {
 }
 
 function togglePlay() {
+  if (!player.value) return
   if (player.value.paused) {
     player.value.play()
   } else {
@@ -520,6 +523,7 @@ function togglePlay() {
 }
 
 function timeupdate() {
+  if (!player.value) return
   const current = Math.floor(player.value.currentTime)
   const duration = Math.floor(player.value.duration)
   percent.value = (current / duration) * 100
@@ -527,6 +531,7 @@ function timeupdate() {
 }
 
 function loadedmetadata() {
+  if (!player.value) return
   const current = Math.floor(player.value.currentTime)
   const duration = Math.floor(player.value.duration)
   percent.value = 0
@@ -534,12 +539,12 @@ function loadedmetadata() {
   totalTime.value = duration ? playTime(duration) : '00:00'
 }
 
-function playTime(t) {
+function playTime(t: number) {
   let hms = ''
   const h = (t / 3600) | 0
   const m = ((t % 3600) / 60) | 0
   const s = t % 60
-  const z2 = (v) => {
+  const z2 = (v: number) => {
     const s = '00' + v
     return s.substr(s.length - 2, 2)
   }
@@ -559,20 +564,20 @@ function progressStyle() {
   }
 }
 
-function seekBarClick(e) {
+function seekBarClick(e: any) {
   if (e.target === returnBtn.value) {
-    player.value.currentTime = 0
+    player.value!.currentTime = 0
   } else {
-    player.value.currentTime = player.value.duration * (e.offsetX / seekBarHitArea.value.offsetWidth)
+    player.value!.currentTime = player.value!.duration * (e.offsetX / seekBarHitArea.value!.offsetWidth)
   }
 }
 
-function placeClick(annotationId) {
+function placeClick(annotationId: string) {
   const eventBus = useEventBus()
   eventBus.emit('clickAnnotationLink', annotationId)
 }
 
-function tagClick(tag) {
+function tagClick(tag: string) {
   const eventBus = useEventBus()
   eventBus.emit('selectList', 'Annotations')
   nextTick(() => {

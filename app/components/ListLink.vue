@@ -121,7 +121,7 @@ const props = defineProps({
 const eventBus = useEventBus()
 
 // Functions
-const handleSelectList = (listName) => {
+const handleSelectList = (listName: string) => {
   eventBus.emit('selectList', listName)
 }
 
@@ -133,16 +133,21 @@ const disabled = ref(false)
 
 // 非同期でdisabledを更新
 watchEffect(async () => {
+  const alias = Array.isArray(route.params.alias) ? route.params.alias[0] : route.params.alias
+  if (!alias) {
+    disabled.value = true
+    return
+  }
   if (props.listName === 'History') {
-    disabled.value = !(await hasHistory(route.params.alias))
+    disabled.value = !(await hasHistory(alias))
   } else if (props.listName === 'Plans') {
     disabled.value = checkListDisabled(props.listName)
   } else if (props.listName === '3D Data') {
-    disabled.value = !(await has3DData(route.params.alias))
+    disabled.value = !(await has3DData(alias))
   } else if (props.listName === 'Guided Tour') {
-    disabled.value = !(await hasGuidedTour(route.params.alias))
+    disabled.value = !(await hasGuidedTour(alias))
   } else if (props.listName === 'Ramble Tour') {
-    disabled.value = checkListDisabled(null)
+    disabled.value = checkListDisabled(null as any)
   } else {
     disabled.value = false
   }

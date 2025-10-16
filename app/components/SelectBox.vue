@@ -1,14 +1,14 @@
 <template>
   <div class="selectBox">
-    <select :id="'selectbox-select-' + uid" :value="modelValue" @change="emit('update:modelValue', $event.target.value)">
+    <select :id="'selectbox-select-' + uid" :value="modelValue" @change="emit('update:modelValue', ($event.target as HTMLSelectElement).value)">
       <option v-if="allowEmpty"></option>
       <option
         v-for="(item, index) in options"
         :key="index"
-        :label="item.label || item"
+        :label="(item as any).label || item"
         :value="index"
       >
-        {{ item.label || item }}
+        {{ (item as any).label || item }}
       </option>
     </select>
     <div class="icon">

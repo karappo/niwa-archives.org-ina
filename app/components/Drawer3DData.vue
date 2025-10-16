@@ -24,16 +24,18 @@ import { useGardenData } from '~/composables/useGardenData'
 const route = useRoute()
 const { getGardenData } = useGardenData()
 
-const threeDDataContent = ref(null)
+const threeDDataContent = ref<string | null>(null)
 
 onMounted(async () => {
   // 庭園データを取得してthreeDDataContentを設定
-  const gardenData = await getGardenData(route.params.alias)
+  const alias = Array.isArray(route.params.alias) ? route.params.alias[0] : route.params.alias
+  if (!alias) return
+  const gardenData = await getGardenData(alias)
   if (gardenData && gardenData.threeDDataContent) {
     threeDDataContent.value = gardenData.threeDDataContent
   }
   nextTick(() => {
-    if (typeof FONTPLUS !== 'undefined') {
+    if (typeof FONTPLUS !== 'undefined' && FONTPLUS) {
       FONTPLUS.start()
     }
   })

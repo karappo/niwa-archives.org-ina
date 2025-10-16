@@ -2,26 +2,26 @@
   <div class="annotationList">
     <ul v-if="list.length" :class="{ thin }" class="list">
       <li
-        v-for="(o, i) in list"
-        :key="o.id"
-        @click="handleClickAnnotationLink(o.id)"
+        v-for="(o, i) in (list as any[])"
+        :key="(o as any).id"
+        @click="handleClickAnnotationLink((o as any).id)"
       >
         <div
           v-if="!isOralArchives"
           class="thumb"
-          :style="`background-image: url(${thumbURL(o)});`"
+          :style="`background-image: url(${thumbURL(o as any)});`"
         ></div>
         <span v-if="isOralArchives" class="index">{{ i + 1 }}</span>
         <span v-else class="type">
-          <TypeImage v-if="o.image"></TypeImage>
-          <TypeVideo v-if="o.youtube"></TypeVideo>
+          <TypeImage v-if="(o as any).image"></TypeImage>
+          <TypeVideo v-if="(o as any).youtube"></TypeVideo>
         </span>
-        <span class="title">{{ o.title }}</span>
+        <span class="title">{{ (o as any).title }}</span>
         <div
           v-if="typeVisibility"
           class="dotWrap"
-          :data-category="o.category"
-          :title="o.category"
+          :data-category="(o as any).category"
+          :title="(o as any).category"
         >
           <div class="dot"></div>
         </div>
@@ -176,7 +176,7 @@ const store = useMainStore()
 const eventBus = useEventBus()
 
 // Functions
-const handleClickAnnotationLink = (id) => {
+const handleClickAnnotationLink = (id: any) => {
   eventBus.emit('clickAnnotationLink', id)
 }
 
@@ -184,7 +184,7 @@ const handleClickAnnotationLink = (id) => {
 const isOralArchives = computed(() => store.getPageName === 'Oral Archives')
 
 // Methods
-function thumbURL(o) {
+function thumbURL(o: any) {
   if (o.image) {
     return o.image
   } else if (o.youtube) {

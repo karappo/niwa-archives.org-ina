@@ -94,13 +94,13 @@ const indeterminate = computed(() => {
   delete visibilities.Elements
 
   if (props.listName === 'Annotations') {
-    const childrenValues = Object.keys(visibilities).map(key => {
+    const childrenValues: boolean[] = Object.keys(visibilities).map(key => {
       return visibilities[key]
     })
     return 1 < _uniq(childrenValues).length
   }
   if (['Viewpoints', 'Elements'].includes(props.listName)) {
-    const childrenValues = []
+    const childrenValues: boolean[] = []
     Object.keys(visibilities).map(key => {
       if (key.includes(`${props.listName}/`)) {
         childrenValues.push(visibilities[key])
