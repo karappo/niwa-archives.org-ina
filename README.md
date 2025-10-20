@@ -73,9 +73,10 @@ for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
 ## 庭の増やし方
 
 1. 点群データを格納
-1. nuxt.config.js にルートを追加
-1. store/annotation.js を編集
-1. data/gardens 下にjsを追加
+2. nuxt.config.js にルートを追加
+3. store/annotation.js を編集
+4. data/gardens 下にjsを追加
+5. スプレッドシートのデータにシートを作成
 
 ## Potreeのサイドバーを表示する方法
 
