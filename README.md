@@ -92,6 +92,7 @@ joei_ji 6.26GB
 murin_an-snow 1.52GB 最軽
 murin_an-summer 2.6GB
 murin_an-winter 2.68GB
+rikugi_en 4.22GB
 ryogen_in 1.61GB
 
 ## よくあるエラー

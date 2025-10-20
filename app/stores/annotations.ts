@@ -23,6 +23,7 @@ const pages = [
   'murinAnSnow',
   'murinAnSummer',
   'murinAnWinter',
+  'rikugiEn',
   'ryogenIn'
 ] as const
 

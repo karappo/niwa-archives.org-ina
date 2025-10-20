@@ -31,6 +31,7 @@ export default defineNuxtConfig({
         '/murin_an-snow/',
         '/murin_an-summer/',
         '/murin_an-winter/',
+        '/rikugi_en/',
         '/ryogen_in/'
       ]
     }
