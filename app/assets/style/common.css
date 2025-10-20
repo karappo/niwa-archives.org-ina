@@ -159,6 +159,10 @@ a.disabled {
   }
 }
 
+#potree_sidebar_container {
+  top: 0;
+}
+
 /* スクロールバー */
 ::-webkit-scrollbar {
   width: 2px;

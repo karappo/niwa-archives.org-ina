@@ -71,6 +71,7 @@
                 </template>
               </div>
             </div>
+            <div id="potree_sidebar_container"></div>
           </div>
         </pane>
         <pane
@@ -1132,7 +1133,7 @@ const initializePotree = async () => {
       viewer.setLanguage('en')
       $('#menu_tools').next().show()
       $('#menu_scene').next().show()
-      // viewer.toggleSidebar() // Open sidebar
+      viewer.toggleSidebar() // Open sidebar
     })
   }
 
@@ -1223,16 +1224,16 @@ const initializePotree = async () => {
 
 // Lifecycle
 onMounted(async () => {
+  // GET変数にdebugがtrueだったらdebugModeをtrueにする（loadPageData()より前に設定する必要がある）
+  debugMode.value = new URLSearchParams(window.location.search).has('debug')
+  infoMode.value = new URLSearchParams(window.location.search).has('info')
+
   // 初期読み込み試行
   await loadPageData()
 
   if (typeof window !== 'undefined' && window.FONTPLUS) {
     window.FONTPLUS.start()
   }
-
-  // GET変数にdebugがtrueだったらdebugModeをtrueにする
-  debugMode.value = new URLSearchParams(window.location.search).has('debug')
-  infoMode.value = new URLSearchParams(window.location.search).has('info')
 
   // 処理速度を計測するためのベンチマーク
   function runBenchmark() {
