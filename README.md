@@ -72,6 +72,8 @@ for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
 
 ## 庭の増やし方
 
+[INAページ追加手順（原さん用）](https://docs.google.com/document/d/15qDdliMnK17ZpU8oKGiXVrO0Ex1hIu3RtPIN8p4gl_M/edit?fbclid=IwY2xjawNivYVleHRuA2FlbQIxM)
+
 1. 点群データを格納
 2. nuxt.config.js にルートを追加
 3. store/annotation.js を編集
