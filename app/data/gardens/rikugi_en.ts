@@ -5,8 +5,8 @@ const gardenData: GardenData = {
   pointcloud: 'rikugi_en/metadata.json',
   initCamera() {
     // viewer.fitToScreen()
-    window.viewer.scene.view.position.set(-7.155, 0.893, 82.685)
-    window.viewer.scene.view.lookAt(new THREE.Vector3(-7.481, 0.39, 82.691))
+    window.viewer.scene.view.position.set(221.585, 193.600, 0.234)
+    window.viewer.scene.view.lookAt(new THREE.Vector3(224.410, 192.609, 0.056))
   },
   guidedTour: [],
   tours: [],
