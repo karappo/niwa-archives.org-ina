@@ -109,3 +109,14 @@ Uncaught (in promise) SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not 
 型定義が見つからない等のエラーがCursorで出る時、修正後にTypeScriptサーバーを再起動してみる。
 1. VS Code/Cursorのコマンドパレットを開く (Cmd+Shift+P)
 2. "TypeScript: Restart TS Server" を実行
+
+
+# ビルド成果物をローカルで確認する方法
+
+```sh
+pnpm run generate
+pnpm run preview-build
+```
+
+ブラウザでhttp://localhost:8080/ina/にアクセスすると、ビルド成果物が確認できる。
+devサーバーでは起こらないエラーの確認時にしよう。制的ファイルでの動作確認ができる。
