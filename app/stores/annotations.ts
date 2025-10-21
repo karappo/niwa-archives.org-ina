@@ -27,8 +27,6 @@ const pages = [
   'ryogenIn'
 ] as const
 
-type PageName = typeof pages[number]
-
 // ストアの状態の型
 interface AnnotationsState {
   [key: string]: Annotation[] | null
