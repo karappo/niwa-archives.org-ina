@@ -29,4 +29,8 @@ public/assets/pointclouds/*
 public/assets/sound/*
 !public/assets/sound/.gitkeep
 
+# Claude Code
 .claude/*
+
+# Preview build directory
+.preview-build

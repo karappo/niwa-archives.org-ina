@@ -14,6 +14,7 @@
     "generate": "nuxt generate",
     "postgenerate": "pnpm run restore-large-assets",
     "preview": "nuxt preview",
+    "preview-build": "echo '🚀 ビルド成果物をローカルで確認します (http://localhost:8080/ina/)' && rm -rf .preview-build && mkdir -p .preview-build && ln -s ../.output/public .preview-build/ina && cd .preview-build && python3 -m http.server 8080",
     "deploy": "sh deploy.sh",
     "typecheck": "nuxi typecheck",
     "lint:js": "eslint .",
