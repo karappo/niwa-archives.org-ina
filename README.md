@@ -119,5 +119,5 @@ pnpm run generate
 pnpm run preview-build
 ```
 
-ブラウザでhttp://localhost:8080/ina/にアクセスすると、ビルド成果物が確認できる。
+ブラウザでhttp://localhost:3000/ina/にアクセスすると、ビルド成果物が確認できる。
 devサーバーでは起こらないエラーの確認時にしよう。制的ファイルでの動作確認ができる。
