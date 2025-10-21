@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.7.6",
+    "@nuxtjs/sitemap": "^7.4.7",
     "@nuxtjs/svg": "^0.4.1",
     "@types/lodash": "^4.17.12",
     "@types/node": "^22.8.1",

@@ -79,6 +79,7 @@ for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
 3. store/annotation.js を編集
 4. data/gardens 下にjsを追加
 5. スプレッドシートのデータにシートを作成
+5. nuxt.config.ts の sitemapにルートを追加
 
 ## Potreeのサイドバーを表示する方法
 

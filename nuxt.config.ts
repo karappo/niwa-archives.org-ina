@@ -119,8 +119,34 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxtjs/device',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@nuxtjs/sitemap'
   ],
+
+  site: {
+    url: 'https://niwa-archives.org'
+  },
+
+  sitemap: {
+    strictNuxtContentPaths: true,
+    urls: () => {
+      const baseUrl = 'https://niwa-archives.org/ina'
+      return [
+        `${baseUrl}/`,
+        `${baseUrl}/fugetsu_ro-spring/`,
+        `${baseUrl}/fugetsu_ro-summer/`,
+        `${baseUrl}/fugetsu_ro-autumn/`,
+        `${baseUrl}/fugetsu_ro-winter/`,
+        `${baseUrl}/hosoo/`,
+        `${baseUrl}/joei_ji/`,
+        `${baseUrl}/murin_an-snow/`,
+        `${baseUrl}/murin_an-summer/`,
+        `${baseUrl}/murin_an-winter/`,
+        `${baseUrl}/rikugi_en/`,
+        `${baseUrl}/ryogen_in/`
+      ]
+    }
+  },
 
   device: {
     // refreshOnResize option has been deprecated and removed
