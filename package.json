@@ -13,6 +13,7 @@
     "pregenerate": "rm -rf dist && pnpm run backup-large-assets",
     "generate": "nuxt generate",
     "postgenerate": "pnpm run restore-large-assets",
+    "prepreview-build": "pnpm run generate",
     "preview-build": "echo '🚀 ビルド成果物をローカルで確認します (http://localhost:3000/ina/)' && mkdir -p .preview-build && rm -f .preview-build/ina 2>/dev/null || true && ln -s ../.output/public .preview-build/ina && cd .preview-build && python3 -m http.server 3000",
     "deploy": "sh deploy.sh",
     "typecheck": "nuxi typecheck",

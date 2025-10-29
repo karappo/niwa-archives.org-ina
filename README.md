@@ -116,7 +116,6 @@ Uncaught (in promise) SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not 
 # ビルド成果物をローカルで確認する方法
 
 ```sh
-pnpm run generate
 pnpm run preview-build
 ```
 
