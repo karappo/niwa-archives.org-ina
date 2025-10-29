@@ -52,8 +52,8 @@ export const useAnnotationsStore = defineStore('annotations', {
   actions: {
     // 動的actions for each page
     ...pages.reduce((actions, page) => {
-      actions[`set${page.charAt(0).toUpperCase() + page.slice(1)}`] = function(this: AnnotationsState, value: Annotation[] | null) {
-        this[page] = value
+      actions[`set${page.charAt(0).toUpperCase() + page.slice(1)}`] = function(value: Annotation[] | null) {
+        (this as any)[page] = value
       }
       return actions
     }, {} as Record<string, (value: Annotation[] | null) => void>),

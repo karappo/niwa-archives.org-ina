@@ -5,6 +5,7 @@ import { loadSpreadsheetData } from '~/utils/spreadsheet'
 export default defineNuxtRouteMiddleware(async () => {
   // クライアントサイドでのみ実行
   if (process.client) {
+    console.log('spreadsheets.global.client.ts')
     // Pinia storeの初期化
     const mainStore = useMainStore()
     const annotationsStore = useAnnotationsStore()
