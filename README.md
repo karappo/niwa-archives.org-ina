@@ -27,6 +27,9 @@ FONTPLUS: https://fontplus.jp/users/login
 
 ## Getting started
 
+public/assets/pointclouds/に点群データ一式を追加
+
+
 ```sh
 # M1以降のMacの場合で、nodeのインストールに失敗する場合は、archコマンドを使ってインストールすること
 arch -x86_64 nodenv install xx.xx.xx
