@@ -12,7 +12,7 @@
     "generate": "nuxt generate",
     "postgenerate": "pnpm run restore-large-assets",
     "prepreview-build": "pnpm run generate",
-    "preview-build": "echo '🚀 ビルド成果物をローカルで確認します (http://localhost:3000/ina/)' && mkdir -p .preview-build && rm -f .preview-build/ina 2>/dev/null || true && ln -s ../.output/public .preview-build/ina && cd .preview-build && python3 -m http.server 3000",
+    "preview-build": "echo '🚀 ビルド成果物をローカルで確認します (http://localhost:3000/ina/)' && echo '⏳ プレビュー用に大容量アセットへのシンボリックリンクを作成中...' && mkdir -p .output/public/assets && ln -sf \"$PWD/public/assets/pointclouds\" .output/public/assets/pointclouds && ln -sf \"$PWD/public/assets/sound\" .output/public/assets/sound && echo '✅ シンボリックリンク作成完了' && mkdir -p .preview-build && rm -f .preview-build/ina 2>/dev/null || true && ln -s ../.output/public .preview-build/ina && npx --yes serve@latest .preview-build -l 3000",
     "deploy": "sh deploy.sh",
     "typecheck": "nuxi typecheck",
     "lint:js": "eslint .",

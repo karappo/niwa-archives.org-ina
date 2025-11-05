@@ -164,6 +164,14 @@ export default defineNuxtConfig({
         defaultImport: 'component'
       })
     ],
+    server: {
+      watch: {
+        ignored: [
+          '**/public/assets/pointclouds/**',
+          '**/public/assets/sound/**'
+        ]
+      }
+    },
     css: {
       preprocessorOptions: {
         scss: {

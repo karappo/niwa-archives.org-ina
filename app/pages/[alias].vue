@@ -1068,7 +1068,8 @@ const loadPageData = async () => {
     isDataLoaded.value = true
 
     const alias = route.params.alias as string
-    const annotationsStore = useAnnotationsStore()
+    const nuxtApp = useNuxtApp()
+    const annotationsStore = useAnnotationsStore(nuxtApp.$pinia)
 
     // annotationsストアから直接ページデータを取得
     const pageKey = camelCase(alias)
@@ -1380,6 +1381,11 @@ onMounted(async () => {
   eventBus.on('selectList', selectList)
   eventBus.on('clickAnnotationLink', onClickAnnotationLink)
   eventBus.on('startRambleTourWithoutAnnotations', startRambleTourWithoutAnnotations)
+
+  // ページデータをロード
+  console.log('Calling loadPageData()...')
+  await loadPageData()
+  console.log('loadPageData() completed')
 
   console.log('=== [alias].vue onMounted END ===')
   } catch (error) {

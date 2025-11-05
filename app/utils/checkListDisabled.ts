@@ -4,6 +4,12 @@ import { useAnnotationsStore, type Annotation } from '~/stores/annotations'
 
 export const checkListDisabled = (listName?: string): boolean => {
   const route = useRoute()
+
+  // ルートが初期化されていない場合は無効化
+  if (!route || !route.params) {
+    return true
+  }
+
   const annotationsStore = useAnnotationsStore()
 
   const alias = route.params.alias
