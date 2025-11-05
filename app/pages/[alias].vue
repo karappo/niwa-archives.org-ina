@@ -1,5 +1,11 @@
 <template>
-  <div class="root">
+  <!-- ストア初期化中のローディング -->
+  <div v-if="!isStoreReady" class="store-loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- メインコンテンツ（ストア初期化後） -->
+  <div v-else class="root">
     <main>
       <splitpanes class="default-theme" :horizontal="isSP">
         <pane class="potree_container" size="60">
@@ -151,6 +157,35 @@
 </template>
 
 <style scoped>
+/* ストア初期化中のローディング */
+.store-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  z-index: 10000;
+}
+
+.store-loading .spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #0D1F1F;
+  border-top-color: #666;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .root {
   width: 100%;
   height: var(--vh);
@@ -480,11 +515,14 @@ nav.spMenu {
 </style>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
+const buildTime = new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' })
+console.log('🔥🔥🔥 [alias].vue START - ビルド時刻:', buildTime, '🔥🔥🔥')
+
 import { useRoute } from 'vue-router'
 import { useMainStore } from '~/stores/main'
 import { useAnnotationsStore } from '~/stores/annotations'
 import { useEventBus } from '~/composables/useEventBus'
+import { loadSpreadsheetData } from '~/utils/spreadsheet'
 // Import device composable differently for Nuxt 4
 import _groupBy from 'lodash/groupBy'
 import _shuffle from 'lodash/shuffle'
@@ -493,6 +531,8 @@ import IconClose from '~/assets/image/icon-close.svg'
 import SpMenuList from '~/assets/image/spMenu/list.svg'
 import SpMenuNavigate from '~/assets/image/spMenu/navigate.svg'
 import SpMenuSound from '~/assets/image/spMenu/sound.svg'
+
+console.log('🔥🔥🔥 [alias].vue imports done 🔥🔥🔥')
 
 // Types
 type LoadingState = 'loading' | 'loaded' | 'error'
@@ -518,13 +558,34 @@ const keyMapSpVisibility = ref(true)
 const soundSpVisibility = ref(false)
 const cameraPositionWatcher = ref<NodeJS.Timeout | null>(null)
 
+// Pinia storeの初期化完了フラグ
+const isStoreReady = ref(false)
+
 // Template ref
 const potreeRenderArea = ref(null)
 
 // Composables
 const route = useRoute()
-const mainStore = useMainStore()
 const device = useDevice()
+
+console.log('About to initialize mainStore, process.client:', process.client)
+
+// Pinia storeの初期化（トップレベルではダミー、onMountedで実際のストアに置き換え）
+const mainStore: any = reactive({
+  getPageName: '',
+  getLastUpdateDateTime: {},
+  getCameraPosition: null,
+  getCameraTarget: null,
+  getTourName: null,
+  getAnnotationVisibilities: {},
+  setPageName: () => {},
+  setTourName: () => {},
+  setCameraPosition: () => {},
+  setCameraTarget: () => {},
+  setLastUpdateDateTime: () => {},
+})
+
+console.log('mainStore initialized with dummy object')
 
 // Functions
 const setControlMode = (mode: number) => {
@@ -992,6 +1053,11 @@ const isDataLoaded = ref(false)
 
 // データ読み込み処理を関数として分離
 const loadPageData = async () => {
+  // クライアント側でのみ実行
+  if (!process.client) {
+    return
+  }
+
   try {
     // 既に読み込み済みの場合はスキップ
     if (isDataLoaded.value) {
@@ -1047,9 +1113,7 @@ const loadPageData = async () => {
     console.log('Page data loaded successfully')
 
     // Initialize Potree after data is loaded
-    if (process.client) {
-      await initializePotree()
-    }
+    await initializePotree()
   } catch (error) {
     console.error('Failed to load page data:', error)
     loadingState.value = 'error'
@@ -1058,32 +1122,38 @@ const loadPageData = async () => {
   }
 }
 
-// アノテーションストアの変化を監視
-const annotationsStore = useAnnotationsStore()
-watch(
-  () => annotationsStore[camelCase(route.params.alias as string)],
-  (newData) => {
-    console.log('Watcher triggered, newData:', !!newData, 'isDataLoaded:', isDataLoaded.value)
-    if (newData && Array.isArray(newData) && newData.length > 0 && !isDataLoaded.value) {
-      console.log('Annotations data detected, calling loadPageData')
-      loadPageData()
-    }
-  },
-  { deep: true, immediate: true }
-)
+// アノテーションストアの変化を監視（クライアント側でのみ）
+// TODO: watcherはonMounted内で設定する必要がある
+// if (process.client) {
+//   const annotationsStore = useAnnotationsStore()
+//   watch(
+//     () => annotationsStore[camelCase(route.params.alias as string)],
+//     (newData) => {
+//       console.log('Watcher triggered, newData:', !!newData, 'isDataLoaded:', isDataLoaded.value)
+//       if (newData && Array.isArray(newData) && newData.length > 0 && !isDataLoaded.value) {
+//         console.log('Annotations data detected, calling loadPageData')
+//         loadPageData()
+//       }
+//     },
+//     { deep: true, immediate: true }
+//   )
+// }
+console.log('Watcher block commented out')
 
 // ルート変更時にフラグをリセット
-watch(
-  () => route.params.alias,
-  () => {
-    console.log('Route changed, resetting data loaded flag')
-    isDataLoaded.value = false
-    loadingState.value = 'loading'
-    // ページ遷移時に状態をクリア
-    mainStore.setPageName('')
-    mainStore.setTourName(null)
-  }
-)
+// TODO: watcherはonMounted内で設定する必要がある
+// watch(
+//   () => route.params.alias,
+//   () => {
+//     console.log('Route changed, resetting data loaded flag')
+//     isDataLoaded.value = false
+//     loadingState.value = 'loading'
+//     // ページ遷移時に状態をクリア
+//     mainStore.setPageName('')
+//     mainStore.setTourName(null)
+//   }
+// )
+console.log('Second watcher block (route change) also commented out')
 
 // Potree initialization function
 const initializePotree = async () => {
@@ -1224,12 +1294,63 @@ const initializePotree = async () => {
 
 // Lifecycle
 onMounted(async () => {
-  // GET変数にdebugがtrueだったらdebugModeをtrueにする（loadPageData()より前に設定する必要がある）
-  debugMode.value = new URLSearchParams(window.location.search).has('debug')
-  infoMode.value = new URLSearchParams(window.location.search).has('info')
+  console.log('=== [alias].vue onMounted START ===')
 
-  // 初期読み込み試行
-  await loadPageData()
+  try {
+    // useNuxtApp()からPiniaを取得
+    const nuxtApp = useNuxtApp()
+    console.log('nuxtApp:', !!nuxtApp)
+    console.log('nuxtApp.$pinia:', !!nuxtApp.$pinia)
+
+    if (!nuxtApp.$pinia) {
+      throw new Error('Pinia is not available in NuxtApp')
+    }
+
+    // 実際のPinia storeを取得してダミーオブジェクトを置き換え
+    // Piniaインスタンスを明示的に渡す
+    console.log('Getting real mainStore...')
+    const realMainStore = useMainStore(nuxtApp.$pinia)
+    console.log('Real mainStore obtained:', !!realMainStore)
+
+    // ダミーオブジェクトのプロパティを実際のストアで置き換え
+    Object.assign(mainStore, realMainStore)
+    console.log('mainStore replaced with real store')
+
+    // ストアの初期化が完了したのでテンプレートをレンダリング可能にする
+    isStoreReady.value = true
+    console.log('isStoreReady set to true')
+
+    // GET変数にdebugがtrueだったらdebugModeをtrueにする（loadPageData()より前に設定する必要がある）
+    debugMode.value = new URLSearchParams(window.location.search).has('debug')
+    infoMode.value = new URLSearchParams(window.location.search).has('info')
+    console.log('Debug mode and info mode set')
+
+    // スプレッドシートデータを読み込む（初回のみ）
+    console.log('Getting annotationsStore...')
+    const annotationsStore = useAnnotationsStore(nuxtApp.$pinia)
+    console.log('annotationsStore obtained:', !!annotationsStore)
+
+  if (Object.keys(mainStore.getLastUpdateDateTime).length === 0) {
+    try {
+      console.log('Loading spreadsheet data...')
+      const spreadsheetData = await loadSpreadsheetData()
+      console.log('Spreadsheet data loaded:', spreadsheetData)
+
+      // 更新日時をmainストアに保存
+      for (const [key, value] of Object.entries(spreadsheetData.lastUpdateDateTime)) {
+        mainStore.setLastUpdateDateTime(key, value)
+      }
+
+      // アノテーションデータをannotationsストアに保存
+      for (const [key, value] of Object.entries(spreadsheetData.annotations)) {
+        annotationsStore.setPageAnnotations(key, value)
+      }
+
+      console.log('Spreadsheet data saved to stores')
+    } catch (error) {
+      console.error('Failed to load spreadsheet data:', error)
+    }
+  }
 
   if (typeof window !== 'undefined' && window.FONTPLUS) {
     window.FONTPLUS.start()
@@ -1259,6 +1380,12 @@ onMounted(async () => {
   eventBus.on('selectList', selectList)
   eventBus.on('clickAnnotationLink', onClickAnnotationLink)
   eventBus.on('startRambleTourWithoutAnnotations', startRambleTourWithoutAnnotations)
+
+  console.log('=== [alias].vue onMounted END ===')
+  } catch (error) {
+    console.error('Error in onMounted:', error)
+    throw error
+  }
 })
 
 onBeforeUnmount(() => {
