@@ -515,9 +515,6 @@ nav.spMenu {
 </style>
 
 <script setup lang="ts">
-const buildTime = new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' })
-console.log('🔥🔥🔥 [alias].vue START - ビルド時刻:', buildTime, '🔥🔥🔥')
-
 import { useRoute } from 'vue-router'
 import { useMainStore } from '~/stores/main'
 import { useAnnotationsStore } from '~/stores/annotations'
@@ -531,8 +528,6 @@ import IconClose from '~/assets/image/icon-close.svg'
 import SpMenuList from '~/assets/image/spMenu/list.svg'
 import SpMenuNavigate from '~/assets/image/spMenu/navigate.svg'
 import SpMenuSound from '~/assets/image/spMenu/sound.svg'
-
-console.log('🔥🔥🔥 [alias].vue imports done 🔥🔥🔥')
 
 // Types
 type LoadingState = 'loading' | 'loaded' | 'error'
@@ -568,8 +563,6 @@ const potreeRenderArea = ref(null)
 const route = useRoute()
 const device = useDevice()
 
-console.log('About to initialize mainStore, process.client:', process.client)
-
 // Pinia storeの初期化（トップレベルではダミー、onMountedで実際のストアに置き換え）
 const mainStore: any = reactive({
   getPageName: '',
@@ -584,8 +577,6 @@ const mainStore: any = reactive({
   setCameraTarget: () => {},
   setLastUpdateDateTime: () => {},
 })
-
-console.log('mainStore initialized with dummy object')
 
 // Functions
 const setControlMode = (mode: number) => {
@@ -1076,7 +1067,6 @@ const loadPageData = async () => {
     const annotationsData = annotationsStore[pageKey]
 
     if (!annotationsData) {
-      console.log('Annotation data not found')
       loadingState.value = 'error'
       // データがない場合はフラグをリセット
       isDataLoaded.value = false
@@ -1111,8 +1101,6 @@ const loadPageData = async () => {
     annotationGroups.value = annotationGroupsData
     data.value = gardenData
 
-    console.log('Page data loaded successfully')
-
     // Initialize Potree after data is loaded
     await initializePotree()
   } catch (error) {
@@ -1139,7 +1127,6 @@ const loadPageData = async () => {
 //     { deep: true, immediate: true }
 //   )
 // }
-console.log('Watcher block commented out')
 
 // ルート変更時にフラグをリセット
 // TODO: watcherはonMounted内で設定する必要がある
@@ -1154,12 +1141,9 @@ console.log('Watcher block commented out')
 //     mainStore.setTourName(null)
 //   }
 // )
-console.log('Second watcher block (route change) also commented out')
 
 // Potree initialization function
 const initializePotree = async () => {
-  console.log('Starting Potree initialization...')
-
   // Wait for DOM to be ready
   await nextTick()
 
@@ -1295,13 +1279,9 @@ const initializePotree = async () => {
 
 // Lifecycle
 onMounted(async () => {
-  console.log('=== [alias].vue onMounted START ===')
-
   try {
     // useNuxtApp()からPiniaを取得
     const nuxtApp = useNuxtApp()
-    console.log('nuxtApp:', !!nuxtApp)
-    console.log('nuxtApp.$pinia:', !!nuxtApp.$pinia)
 
     if (!nuxtApp.$pinia) {
       throw new Error('Pinia is not available in NuxtApp')
@@ -1309,33 +1289,24 @@ onMounted(async () => {
 
     // 実際のPinia storeを取得してダミーオブジェクトを置き換え
     // Piniaインスタンスを明示的に渡す
-    console.log('Getting real mainStore...')
     const realMainStore = useMainStore(nuxtApp.$pinia)
-    console.log('Real mainStore obtained:', !!realMainStore)
 
     // ダミーオブジェクトのプロパティを実際のストアで置き換え
     Object.assign(mainStore, realMainStore)
-    console.log('mainStore replaced with real store')
 
     // ストアの初期化が完了したのでテンプレートをレンダリング可能にする
     isStoreReady.value = true
-    console.log('isStoreReady set to true')
 
     // GET変数にdebugがtrueだったらdebugModeをtrueにする（loadPageData()より前に設定する必要がある）
     debugMode.value = new URLSearchParams(window.location.search).has('debug')
     infoMode.value = new URLSearchParams(window.location.search).has('info')
-    console.log('Debug mode and info mode set')
 
     // スプレッドシートデータを読み込む（初回のみ）
-    console.log('Getting annotationsStore...')
     const annotationsStore = useAnnotationsStore(nuxtApp.$pinia)
-    console.log('annotationsStore obtained:', !!annotationsStore)
 
   if (Object.keys(mainStore.getLastUpdateDateTime).length === 0) {
     try {
-      console.log('Loading spreadsheet data...')
       const spreadsheetData = await loadSpreadsheetData()
-      console.log('Spreadsheet data loaded:', spreadsheetData)
 
       // 更新日時をmainストアに保存
       for (const [key, value] of Object.entries(spreadsheetData.lastUpdateDateTime)) {
@@ -1346,8 +1317,6 @@ onMounted(async () => {
       for (const [key, value] of Object.entries(spreadsheetData.annotations)) {
         annotationsStore.setPageAnnotations(key, value)
       }
-
-      console.log('Spreadsheet data saved to stores')
     } catch (error) {
       console.error('Failed to load spreadsheet data:', error)
     }
@@ -1383,11 +1352,7 @@ onMounted(async () => {
   eventBus.on('startRambleTourWithoutAnnotations', startRambleTourWithoutAnnotations)
 
   // ページデータをロード
-  console.log('Calling loadPageData()...')
   await loadPageData()
-  console.log('loadPageData() completed')
-
-  console.log('=== [alias].vue onMounted END ===')
   } catch (error) {
     console.error('Error in onMounted:', error)
     throw error
