@@ -22,16 +22,16 @@
             </div>
           </div>
           <div class="potree_wrap">
-            <!-- Loading overlay (最前面、常に表示してz-indexで制御) -->
-            <div v-if="loadingState === 'loading'" class="loading-overlay">
-              Loading...
+            <!-- Loading overlay (最前面、フェードアウトで消える) -->
+            <div class="loading-overlay" :class="{ 'fade-out': loadingState === 'loaded' }">
+              <div class="spinner"></div>
             </div>
 
-            <!-- Potreeのコンテンツ全体をloading完了後にフェードイン表示 -->
+            <!-- Potreeのコンテンツ（常時レンダリング） -->
             <div
               id="potree_render_area"
               ref="potreeRenderArea"
-              :class="[potreeRenderAreaClass, { 'fade-in': loadingState === 'loaded' }]"
+              :class="potreeRenderAreaClass"
             >
               <div
                 v-if="loadingState === 'error'"
@@ -80,7 +80,7 @@
                 </template>
               </div>
             </div>
-            <div id="potree_sidebar_container" :class="{ 'fade-in': loadingState === 'loaded' }"></div>
+            <div id="potree_sidebar_container"></div>
           </div>
         </pane>
         <pane
@@ -354,8 +354,28 @@ nav.spMenu {
           display: flex;
           justify-content: center;
           align-items: center;
-          color: white;
-          font-size: 18px;
+          opacity: 1;
+          transition: opacity 2s ease-in-out;
+          pointer-events: none; /* 常にポインターイベントを無効化してレンダリングに影響させない */
+
+          .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #0D1F1F;
+            border-top-color: #666;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            opacity: 1;
+            transition: opacity 0s;
+          }
+
+          &.fade-out {
+            opacity: 0; /* 背景が2秒かけて消える */
+
+            .spinner {
+              opacity: 0; /* スピナーは即座に消える */
+            }
+          }
         }
       }
     }
@@ -376,12 +396,6 @@ nav.spMenu {
 #potree_render_area {
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transition: opacity 2s ease-in-out;
-
-  &.fade-in {
-    opacity: 1;
-  }
   position: relative;
 
   &.disabled {
@@ -539,14 +553,6 @@ nav.spMenu {
   }
 }
 
-#potree_sidebar_container {
-  opacity: 0;
-  transition: opacity 0s 2.5s; /* フェードイン完了(2秒) + 0.5秒の間を置いてパッと表示 */
-
-  &.fade-in {
-    opacity: 1;
-  }
-}
 </style>
 
 <script setup lang="ts">
@@ -1249,27 +1255,19 @@ const initializePotree = async () => {
     // 点群の可視ポイント数を監視して、十分な点が描画されたらLoadingを消す
     let checkCount = 0
     let stableCount = 0 // 安定してポイントが表示されているカウント
-    const maxChecks = 600 // 最大600フレーム（約10秒 @ 60fps）チェック
+    const maxChecks = 3000 // 最大3000フレーム（約50秒 @ 60fps）チェック
     const minPoints = 50000 // 最低限表示されるべきポイント数
-    let previousPoints = 0
 
     const checkPointsLoaded = () => {
       checkCount++
-      const visiblePoints = pointcloud.visiblePoints || 0
       const numVisiblePoints = pointcloud.numVisiblePoints || 0
-      const visibleNodes = viewer.scene.visibleNodes?.length || 0
-      const visiblePointsInScene = viewer.scene.visiblePointsTarget || 0
+      const loading = pointcloud.loading || false
+      const loaded = pointcloud.pcoGeometry?.root?.loaded || false
 
-      // 実際に使えるポイント数を判定
-      const actualPoints = numVisiblePoints || visiblePoints || 0
-
-      console.log('Debug [' + checkCount + '] - actualPoints:', actualPoints, 'visibleNodes:', visibleNodes, 'stable:', stableCount)
-
-      // ポイント数が十分で、かつ安定している（3フレーム連続で十分なポイント数）
-      if (actualPoints >= minPoints) {
+      // ポイント数が十分で、かつルートノードがロードされ、安定している（3フレーム連続）
+      if (numVisiblePoints >= minPoints && loaded && !loading) {
         stableCount++
         if (stableCount >= 3) {
-          console.log('✅ Point cloud loaded! actualPoints:', actualPoints)
           loadingState.value = 'loaded'
           return
         }
@@ -1279,20 +1277,17 @@ const initializePotree = async () => {
 
       // タイムアウト
       if (checkCount >= maxChecks) {
-        console.log('⚠️ Timeout reached, hiding loading screen anyway. actualPoints:', actualPoints)
+        console.warn('⚠️ Point cloud loading timeout reached, hiding loading screen anyway.')
         loadingState.value = 'loaded'
         return
       }
 
-      previousPoints = actualPoints
       // まだ点が十分に描画されていない場合は次のフレームで再チェック
       requestAnimationFrame(checkPointsLoaded)
     }
 
     // レンダリングループが開始されるまで少し待ってからチェック開始
-    console.log('⏳ Waiting for rendering loop to start...')
     setTimeout(() => {
-      console.log('🚀 Starting point cloud check (minPoints:', minPoints, ')')
       requestAnimationFrame(checkPointsLoaded)
     }, 100)
 
