@@ -1233,8 +1233,11 @@ const initializePotree = async () => {
     })
   }
 
+  // アセットパスを取得
+  const assetsPath = useAssetsPath()
+
   try {
-    const { pointcloud } = await Potree.loadPointCloud(`/ina/assets/pointclouds/${data.value.pointcloud}`)
+    const { pointcloud } = await Potree.loadPointCloud(assetsPath(`pointclouds/${data.value.pointcloud}`))
     pointcloud.material.activeAttributeName = 'rgba'
     pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE
 

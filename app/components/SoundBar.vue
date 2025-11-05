@@ -467,6 +467,7 @@ const player = ref<HTMLAudioElement | null>(null)
 const seekBarHitArea = ref<HTMLElement | null>(null)
 const returnBtn = ref<HTMLElement | null>(null)
 const tags = computed(() => $getTags(props.annotations))
+const assetsPath = useAssetsPath()
 
 watch(index, () => {
   if (!paused.value) {
@@ -491,7 +492,7 @@ watchEffect(() => {
 
   // 音源を設定
   if (list.value && player.value && data.value) {
-    player.value.src = data.value.src
+    player.value.src = assetsPath(data.value.src)
     player.value.load()
   }
 })
