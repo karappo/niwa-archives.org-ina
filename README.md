@@ -38,6 +38,7 @@ git clone --recursive git@github.com:karappo/IncompleteNiwaArchives.git
 # Ready potree to create build dir.
 cd public/assets/potree
 pnpm install
+pnpm build
 
 cd ../../../
 pnpm install
