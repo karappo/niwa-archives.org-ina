@@ -492,7 +492,10 @@ watchEffect(() => {
 
   // 音源を設定
   if (list.value && player.value && data.value) {
-    player.value.src = assetsPath(data.value.src)
+    const audioSrc = assetsPath(data.value.src)
+    console.log('SoundBar - Setting audio src:', audioSrc)
+    player.value.src = audioSrc
+    console.log('SoundBar - Audio element src after setting:', player.value.src)
     player.value.load()
   }
 })
