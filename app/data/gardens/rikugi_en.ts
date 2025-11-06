@@ -2,7 +2,7 @@ import type { GardenData } from '~/types/garden'
 
 const gardenData: GardenData = {
   title: 'Rikugi-en Garden',
-  pointcloud: 'rikugi_en/metadata.json',
+  pointcloud: '20250804-rikugi_en/metadata.json',
   initCamera() {
     // viewer.fitToScreen()
     window.viewer.scene.view.position.set(221.585, 193.600, 0.234)
