@@ -91,12 +91,14 @@
 <script setup lang="ts">
 import IconHyphen from '~/assets/image/icon-hyphen.svg'
 import IconTour from '~/assets/image/icon-tour.svg'
+import { camelCase } from 'change-case'
 import { useMainStore } from '~/stores/main'
 import { useEventBus } from '~/composables/useEventBus'
-import { checkListDisabled } from '~/utils/checkListDisabled'
+import { useAnnotationsStore, type Annotation } from '~/stores/annotations'
 import { useGardenData } from '~/composables/useGardenData'
 
 const mainStore = useMainStore()
+const annotationsStore = useAnnotationsStore()
 const route = useRoute()
 const { $getTitle } = useNuxtApp()
 const { hasHistory, has3DData, hasGuidedTour } = useGardenData()
@@ -131,6 +133,21 @@ const title = computed(() => {
 
 const disabled = ref(false)
 
+// アノテーションストアからdisabled状態を計算するヘルパー
+const checkAnnotationDisabled = (listName?: string): boolean => {
+  const alias = Array.isArray(route.params.alias) ? route.params.alias[0] : route.params.alias
+  if (!alias) return true
+
+  const annotations = annotationsStore[camelCase(alias)] as Annotation[] | null
+  if (!annotations || !Array.isArray(annotations)) {
+    return true
+  } else if (!listName) {
+    return !annotations.length
+  } else {
+    return !annotations.filter(a => a.category.includes(listName)).length
+  }
+}
+
 // 非同期でdisabledを更新
 watchEffect(async () => {
   const alias = Array.isArray(route.params.alias) ? route.params.alias[0] : route.params.alias
@@ -141,13 +158,13 @@ watchEffect(async () => {
   if (props.listName === 'History') {
     disabled.value = !(await hasHistory(alias))
   } else if (props.listName === 'Plans') {
-    disabled.value = checkListDisabled(props.listName)
+    disabled.value = checkAnnotationDisabled(props.listName)
   } else if (props.listName === '3D Data') {
     disabled.value = !(await has3DData(alias))
   } else if (props.listName === 'Guided Tour') {
     disabled.value = !(await hasGuidedTour(alias))
   } else if (props.listName === 'Ramble Tour') {
-    disabled.value = checkListDisabled(null as any)
+    disabled.value = checkAnnotationDisabled()
   } else {
     disabled.value = false
   }
