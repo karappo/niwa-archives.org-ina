@@ -53,6 +53,7 @@ import _uniq from 'lodash/uniq'
 import { camelCase } from 'change-case'
 import { useMainStore } from '~/stores/main'
 import { useAnnotationsStore, type Annotation } from '~/stores/annotations'
+import { checkListDisabledFromAnnotations } from '~/composables/useListDisabled'
 
 const mainStore = useMainStore()
 const annotationsStore = useAnnotationsStore()
@@ -75,27 +76,14 @@ const title = computed(() => {
   return $getTitle(props.listName)
 })
 
+// コンポーネント内でストアにアクセスし、共通関数でdisabled判定（リアクティブ）
 const disabled = computed(() => {
-  // ルートが初期化されていない場合は無効化
-  if (!route || !route.params) {
-    return true
-  }
-
+  if (!route || !route.params) return true
   const alias = route.params.alias
-  if (typeof alias !== 'string') {
-    return true
-  }
+  if (typeof alias !== 'string') return true
 
-  // ストアから直接アノテーションを取得（リアクティブ）
   const annotations = annotationsStore[camelCase(alias)] as Annotation[] | null
-  if (!annotations || !Array.isArray(annotations)) {
-    return true
-  } else if (props.listName === 'Annotations') {
-    return !annotations.length
-  } else if (props.listName) {
-    return !annotations.filter(a => a.category.includes(props.listName)).length
-  }
-  return !annotations.length
+  return checkListDisabledFromAnnotations(annotations, props.listName)
 })
 
 const visibility = computed({
