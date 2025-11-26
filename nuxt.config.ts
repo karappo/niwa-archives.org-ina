@@ -8,7 +8,7 @@ const baseUrl = 'https://niwa-archives.org/ina/'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   sourcemap: {
     server: true,
