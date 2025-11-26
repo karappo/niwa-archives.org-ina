@@ -50,10 +50,13 @@
 
 <script setup lang="ts">
 import _uniq from 'lodash/uniq'
+import { camelCase } from 'change-case'
 import { useMainStore } from '~/stores/main'
-import { checkListDisabled } from '~/utils/checkListDisabled'
+import { useAnnotationsStore, type Annotation } from '~/stores/annotations'
 
 const mainStore = useMainStore()
+const annotationsStore = useAnnotationsStore()
+const route = useRoute()
 const { $getTitle } = useNuxtApp()
 
 const props = defineProps({
@@ -73,7 +76,26 @@ const title = computed(() => {
 })
 
 const disabled = computed(() => {
-  return checkListDisabled(props.listName)
+  // ルートが初期化されていない場合は無効化
+  if (!route || !route.params) {
+    return true
+  }
+
+  const alias = route.params.alias
+  if (typeof alias !== 'string') {
+    return true
+  }
+
+  // ストアから直接アノテーションを取得（リアクティブ）
+  const annotations = annotationsStore[camelCase(alias)] as Annotation[] | null
+  if (!annotations || !Array.isArray(annotations)) {
+    return true
+  } else if (props.listName === 'Annotations') {
+    return !annotations.length
+  } else if (props.listName) {
+    return !annotations.filter(a => a.category.includes(props.listName)).length
+  }
+  return !annotations.length
 })
 
 const visibility = computed({
