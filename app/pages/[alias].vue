@@ -245,7 +245,7 @@ nav.spMenu {
     border-top: 1px solid #3d3d3d;
   }
 }
-.sideBar {
+.root > .sideBar {
   flex-shrink: 0;
   width: 165px;
   height: 100%;
