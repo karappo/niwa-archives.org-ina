@@ -604,19 +604,14 @@ const potreeRenderArea = ref(null)
 const route = useRoute()
 const device = useDevice()
 
-// Pinia storeの初期化（トップレベルではダミー、onMountedで実際のストアに置き換え）
-const mainStore: any = reactive({
-  getPageName: '',
-  getLastUpdateDateTime: {},
-  getCameraPosition: null,
-  getCameraTarget: null,
-  getTourName: null,
-  getAnnotationVisibilities: {},
-  setPageName: () => {},
-  setTourName: () => {},
-  setCameraPosition: () => {},
-  setCameraTarget: () => {},
-  setLastUpdateDateTime: () => {},
+// Pinia storeの初期化（shallowRefで保持し、onMountedで実際のストアをセット）
+const mainStoreRef = shallowRef<ReturnType<typeof useMainStore> | null>(null)
+
+// 後方互換性のためのプロキシオブジェクト
+const mainStore = new Proxy({} as any, {
+  get(_, prop) {
+    return mainStoreRef.value?.[prop as keyof ReturnType<typeof useMainStore>]
+  }
 })
 
 // Functions
@@ -856,7 +851,9 @@ const nextDisabled = computed(() => {
 })
 
 const potreeRenderAreaClass = computed(() => {
-  const visibilities = JSON.parse(JSON.stringify(mainStore.getAnnotationVisibilities))
+  // mainStoreRef.valueを直接参照してリアクティビティを確保
+  const storeVisibilities = mainStoreRef.value?.getAnnotationVisibilities || {}
+  const visibilities = JSON.parse(JSON.stringify(storeVisibilities))
   Object.keys(visibilities).forEach(function (key) {
     visibilities[camelCase(key)] = visibilities[key]
     delete visibilities[key]
@@ -868,7 +865,8 @@ const potreeRenderAreaClass = computed(() => {
 })
 
 const tourName = computed(() => {
-  return mainStore.getTourName
+  // mainStoreRef.valueを直接参照してリアクティビティを確保
+  return mainStoreRef.value?.getTourName
 })
 
 const spSideBarVisibility = computed(() => {
@@ -1366,12 +1364,9 @@ onMounted(async () => {
       throw new Error('Pinia is not available in NuxtApp')
     }
 
-    // 実際のPinia storeを取得してダミーオブジェクトを置き換え
+    // 実際のPinia storeを取得してrefにセット
     // Piniaインスタンスを明示的に渡す
-    const realMainStore = useMainStore(nuxtApp.$pinia)
-
-    // ダミーオブジェクトのプロパティを実際のストアで置き換え
-    Object.assign(mainStore, realMainStore)
+    mainStoreRef.value = useMainStore(nuxtApp.$pinia)
 
     // ストアの初期化が完了したのでテンプレートをレンダリング可能にする
     isStoreReady.value = true
