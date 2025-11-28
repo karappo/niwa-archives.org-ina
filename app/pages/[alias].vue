@@ -8,7 +8,7 @@
   <div v-else class="root">
     <main>
       <splitpanes class="default-theme" :horizontal="isSP">
-        <pane class="potree_container" size="60">
+        <pane class="potree_container" :size="isSP && (drawerVisibility || spSideBarVisibility) ? 40 : 60">
           <div
             v-if="isLowPerformance && noticeVisibility"
             class="notice"
