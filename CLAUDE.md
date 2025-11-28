@@ -20,6 +20,12 @@ Nuxt 2からNuxt 4への移行プロジェクト
 - 開発サーバー: `pnpm run dev`
 - ビルド: `pnpm run build`
 - テスト: `pnpm run test`
+- デプロイ: `pnpm run deploy staging`
+
+## デプロイ手順
+「デプロイしてください」と指示された場合：
+1. **devサーバーが起動していれば必ず停止する**（重要：停止しないとデプロイが失敗する可能性あり）
+2. `pnpm run deploy staging` を実行する
 
 ## 注意事項
-- [移行時に気をつけるべき点があれば記載]
+- デプロイ前にdevサーバーを停止すること
