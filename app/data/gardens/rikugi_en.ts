@@ -2,11 +2,11 @@ import type { GardenData } from '~/types/garden'
 
 const gardenData: GardenData = {
   title: 'Rikugi-en Garden',
-  pointcloud: '20250804-rikugi_en/metadata.json',
+  pointcloud: '20251204-rikugi_en/metadata.json',
   initCamera() {
     // viewer.fitToScreen()
-    window.viewer.scene.view.position.set(381.307, 214.081, 59.51)
-    window.viewer.scene.view.lookAt(new THREE.Vector3(381.561, 213.902, 56.527))
+    window.viewer.scene.view.position.set(358.856, 217.928, 59.510)
+    window.viewer.scene.view.lookAt(new THREE.Vector3(356.099, 218.609, 58.544))
   },
   guidedTour: [],
   tours: [],
