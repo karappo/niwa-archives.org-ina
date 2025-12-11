@@ -30,7 +30,7 @@ public/assets/sound/*
 !public/assets/sound/.gitkeep
 
 # Claude Code
-.claude/*
+.claude/settings.local.json
 
 # Preview build directory
 .preview-build
