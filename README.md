@@ -85,6 +85,7 @@ for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
 3. app/stores/annotations を編集
 4. app/data/gardens 下にjsを追加
 5. スプレッドシートのデータにシートを作成
+   1. 初回は権限の問題があるので、「スクリプト＞ランダムなIDを作成して選択中のセルにペースト」を一度実行しておくこと！
 
 ## Potreeのサイドバーを表示する方法
 
