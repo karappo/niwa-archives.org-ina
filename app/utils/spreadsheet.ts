@@ -66,10 +66,10 @@ const convertToCollection = (array: any[]): Annotation[] => {
             urlObj.v = v // vをマージ
             value = new YouTube(urlObj)
           } else if (/\/\/drive\.google\.com/.test(value)) {
-            if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.test(value)) {
+            if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\??/.test(value)) {
               console.error(`"${valueOf('title')}"(${i+1}行目)の"attachment"の値が不正です。"//drive.google.com/file/d/xxxx" の形式である必要があります。`, value)
             }
-            const match = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)
+            const match = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\??/.exec(value)
             const id = match ? match[1] : ''
             // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得（'movie'は2024/7に削除したので現在は'image','pdf'のみ）
             const type = valueOf('attachmentType')
