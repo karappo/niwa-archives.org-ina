@@ -52,12 +52,12 @@ export default async function ({ store }) {
               value = new YouTube(value)
             } else if (/\/\/drive\.google\.com/.test(value)) {
               // eslint-disable-next-line
-              if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.test(value)) {
+              if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\??/.test(value)) {
                 // eslint-disable-next-line
                 console.error(`"${valueOf('title')}"(${i+1}行目)の"attachment"の値が不正です。"//drive.google.com/file/d/xxxx" の形式である必要があります。`, value)
               }
               // eslint-disable-next-line
-              const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)[1]
+              const id = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\??/.exec(value)[1]
               // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得（'movie'は2024/7に削除したので現在は'image','pdf'のみ）
               const type = valueOf('attachmentType')
               switch (type) {
