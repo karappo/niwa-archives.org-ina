@@ -66,10 +66,10 @@ const convertToCollection = (array: any[]): Annotation[] => {
             urlObj.v = v // vをマージ
             value = new YouTube(urlObj)
           } else if (/\/\/drive\.google\.com/.test(value)) {
-            if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\??/.test(value)) {
+            if (!/\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.test(value)) {
               console.error(`"${valueOf('title')}"(${i+1}行目)の"attachment"の値が不正です。"//drive.google.com/file/d/xxxx" の形式である必要があります。`, value)
             }
-            const match = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\??/.exec(value)
+            const match = /\/\/drive\.google\.com\/file\/d\/(.*)\/view\?/.exec(value)
             const id = match ? match[1] : ''
             // GoogleDriveはアタッチメントの種類をURLから取得できないので、スプレッドシートから取得（'movie'は2024/7に削除したので現在は'image','pdf'のみ）
             const type = valueOf('attachmentType')
@@ -130,7 +130,7 @@ const convertToCollection = (array: any[]): Annotation[] => {
   return collection
 }
 
-export async function loadSpreadsheetData(): Promise<SpreadsheetData> {
+export async function loadSpreadsheetData(sheetName?: string): Promise<SpreadsheetData> {
   const config = useRuntimeConfig()
   const SPREADSHEET_ID = config.public.spreadsheetId as string
   const API_KEY = config.public.apiKey as string
@@ -139,8 +139,11 @@ export async function loadSpreadsheetData(): Promise<SpreadsheetData> {
     throw new Error('Spreadsheet ID or API key is not configured in environment variables')
   }
 
+  // 特定シートのみ取得する場合はrangesパラメータを追加
+  // シート名はcamelCase形式に変換（スプレッドシートのシート名がcamelCaseのため）
+  const rangesParam = sheetName ? `&ranges=${encodeURIComponent(camelCase(sheetName))}` : ''
   const gss: any = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/?key=${API_KEY}&includeGridData=true`
+    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/?key=${API_KEY}&includeGridData=true${rangesParam}`
   ).then((res) => res.json())
 
   if (gss.error) {
