@@ -1375,12 +1375,13 @@ onMounted(async () => {
     debugMode.value = new URLSearchParams(window.location.search).has('debug')
     infoMode.value = new URLSearchParams(window.location.search).has('info')
 
-    // スプレッドシートデータを読み込む（初回のみ）
+    // スプレッドシートデータを読み込む（このページのシートのみ）
     const annotationsStore = useAnnotationsStore(nuxtApp.$pinia)
+    const alias = route.params.alias as string
 
-  if (Object.keys(mainStore.getLastUpdateDateTime).length === 0) {
     try {
-      const spreadsheetData = await loadSpreadsheetData()
+      // このページに必要なシートのみを読み込む
+      const spreadsheetData = await loadSpreadsheetData(alias)
 
       // 更新日時をmainストアに保存
       for (const [key, value] of Object.entries(spreadsheetData.lastUpdateDateTime)) {
@@ -1393,8 +1394,8 @@ onMounted(async () => {
       }
     } catch (error) {
       console.error('Failed to load spreadsheet data:', error)
+      // エラーはこのページのみに影響し、他のページは正常に閲覧可能
     }
-  }
 
   if (typeof window !== 'undefined' && window.FONTPLUS) {
     window.FONTPLUS.start()
