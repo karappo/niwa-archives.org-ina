@@ -558,7 +558,7 @@ nav.spMenu {
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useMainStore } from '~/stores/main'
-import { useAnnotationsStore } from '~/stores/annotations'
+import { useAnnotationsStore, isPublishedPage } from '~/stores/annotations'
 import { useEventBus } from '~/composables/useEventBus'
 import { loadSpreadsheetData } from '~/utils/spreadsheet'
 // Import device composable differently for Nuxt 4
@@ -603,6 +603,12 @@ const potreeRenderArea = ref(null)
 // Composables
 const route = useRoute()
 const device = useDevice()
+
+// annotations.tsのpagesリストに含まれないaliasは404
+// （非公開化したいページはannotations.tsのpagesからコメントアウトする）
+if (!isPublishedPage(route.params.alias as string)) {
+  throw createError({ statusCode: 404, statusMessage: 'Page Not Found', fatal: true })
+}
 
 // Pinia storeの初期化（shallowRefで保持し、onMountedで実際のストアをセット）
 const mainStoreRef = shallowRef<ReturnType<typeof useMainStore> | null>(null)

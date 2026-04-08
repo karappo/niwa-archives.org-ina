@@ -27,6 +27,12 @@ const pages = [
   'ryogenIn'
 ] as const
 
+// 公開ページかどうかを判定（route.params.aliasの形式：'rikugi_en'）
+export const isPublishedPage = (alias: string): boolean => {
+  const camelAlias = alias.replace(/_([a-z])/g, (_, c) => c.toUpperCase())
+  return (pages as readonly string[]).includes(camelAlias)
+}
+
 // ストアの状態の型
 interface AnnotationsState {
   [key: string]: Annotation[] | null
