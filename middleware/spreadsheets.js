@@ -1,5 +1,14 @@
 import { camelCase } from 'change-case'
 
+// 読み込み対象のシート名（camelCase化後）。ここに無いシートは無視される。
+const TARGET_SHEETS = [
+  'joeiJi',
+  'murinAnSnow',
+  'murinAnSummer',
+  'murinAnWinter',
+  'ryogenIn'
+]
+
 const removeParams = (url) => {
   url = new URL(url)
   return url.origin + url.pathname
@@ -117,6 +126,11 @@ export default async function ({ store }) {
       console.log(...gss.error)
     }
     gss.sheets.forEach((sheet) => {
+      const key = camelCase(sheet.properties.title)
+      // 対象外のシートはスキップ
+      if (!TARGET_SHEETS.includes(key)) {
+        return
+      }
       let data = sheet.data[0].rowData
       if (!data) {
         return
@@ -127,14 +141,13 @@ export default async function ({ store }) {
       }
 
       // 更新日時の登録
-      const key = camelCase(sheet.properties.title)
       const value = data[0].values[0].formattedValue
       store.commit('lastUpdateDateTime', { key, value })
 
       data = convertToCollection(data)
       // titleが空のものは削除
       data = data.filter((x) => x.title && 0 < x.title.length)
-      store.commit(`annotations/${camelCase(sheet.properties.title)}`, data)
+      store.commit(`annotations/${key}`, data)
     })
   }
 
