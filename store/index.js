@@ -1,5 +1,4 @@
 export const state = () => ({
-  lastUpdateDateTime: {}, // 各スプレッドシートの最終更新日時を保持
   cameraPosition: null,
   cameraTarget: null,
   pageName: '', // nullにするとエラーになる箇所があるので、必ずStringにしておく
@@ -31,9 +30,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-  lastUpdateDateTime(state, { key, value }) {
-    state.lastUpdateDateTime[key] = value
-  },
   cameraPosition(state, value) {
     state.cameraPosition = value
   },
@@ -104,9 +100,6 @@ export const mutations = {
 }
 
 export const getters = {
-  lastUpdateDateTime(state) {
-    return state.lastUpdateDateTime
-  },
   cameraPosition(state) {
     return state.cameraPosition
   },

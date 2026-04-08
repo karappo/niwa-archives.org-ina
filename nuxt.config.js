@@ -74,8 +74,7 @@ export default {
 
   router: {
     base: '/niwa/',
-    trailingSlash: true,
-    middleware: ['spreadsheets']
+    trailingSlash: true
   },
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

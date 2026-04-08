@@ -52,10 +52,10 @@
           | Yamaguchi
         .col.date
           | Update<br class="pc">
-          | {{ format($store.getters.lastUpdateDateTime.joeiJi) }}
+          | -
         .col.annotationsQuantity
           | Annotations Quantity<br class="pc">
-          | {{ $store.state.annotations.joeiJi.length }}
+          | -
       a.image.pc(href='https://niwa-archives.org/joei_ji/' target='_blank')
         img(
           src='~/assets/image/top/joei_ji.jpg'
@@ -83,10 +83,10 @@
           | Kyoto
         .col.date
           | Update<br class="pc">
-          | {{ format(murinAnLastUpdateDateTime) }}
+          | -
         .col.annotationsQuantity
           | Annotations Quantity<br class="pc">
-          | {{ murinAnDataQuantity }}
+          | -
       .image.pc
         img(
           src='~/assets/image/top/murin_an.jpg'
@@ -113,15 +113,19 @@
           | Kyoto
         .col.date
           | Update<br class="pc">
-          | {{ format($store.getters.lastUpdateDateTime.ryogenIn) }}
+          | -
         .col.annotationsQuantity
           | Annotations Quantity<br class="pc">
-          | {{ $store.state.annotations.ryogenIn.length }}
+          | -
       a.image.pc(href='https://niwa-archives.org/ryogen_in/' target='_blank')
         img(
           src='~/assets/image/top/ryogen_in.jpg'
           alt='無鄰菴の点群'
         )
+    p.note
+      | ※ 最新の「Update」および「Annotations Quantity」は
+      a.noteLink(href='https://niwa-archives.org/archives/' target='_blank') こちら
+      | でご確認ください。
   section#exhibition
     .wrap
       h2 Exhibition
@@ -732,6 +736,18 @@ section
       margin-top: 82px
       +sp
         margin-top: 60px
+    .note
+      @extend %wrap
+      margin-top: 60px
+      font-size: 13px
+      line-height: calc(24 / 13)
+      opacity: 0.7
+      +sp
+        font-size: 11px
+        margin-top: 40px
+      .noteLink
+        text-decoration: underline
+        margin: 0 0.25em
 
   &#exhibition
     background-color: #0D1F1F
@@ -997,7 +1013,6 @@ footer
 </style>
 
 <script>
-import dayjs from 'dayjs'
 import {
   ExternalLink,
   MailLink,
@@ -1023,24 +1038,6 @@ export default {
       spGlobalNavVisibility: false,
       spGlobalNavVisibilityTimer: null,
       select3dVisibiligy: false
-    }
-  },
-  computed: {
-    murinAnLastUpdateDateTime() {
-      const array = [
-        this.$store.getters.lastUpdateDateTime.murinAnSummer,
-        this.$store.getters.lastUpdateDateTime.murinAnWinter,
-        this.$store.getters.lastUpdateDateTime.murinAnSnow
-      ]
-      return array.sort((pre, cur) => {
-        return new Date(cur) - new Date(pre)
-      })[0]
-    },
-    murinAnDataQuantity() {
-      const a = this.$store.state.annotations
-      return (
-        a.murinAnSummer.length + a.murinAnWinter.length + a.murinAnSnow.length
-      )
     }
   },
   watch: {
@@ -1071,10 +1068,6 @@ export default {
     FONTPLUS.start()
   },
   methods: {
-    format(datetime) {
-      // return dayjs(datetime).format('YYYY.MM.DD HH:mm')
-      return dayjs(datetime).format('YYYY.MM.DD')
-    },
     toggleGlobalMenu() {
       this.hamOpened = !this.hamOpened
       // $('#global_header').css('top', 0).attr('data-sp_menu_visibility', this.hamOpened)
