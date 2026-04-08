@@ -28,9 +28,12 @@ const pages = [
 ] as const
 
 // 公開ページかどうかを判定（route.params.aliasの形式：'rikugi_en'）
+// camelCase形式（例：'joeiJi'）でのアクセスは無効として扱う
 export const isPublishedPage = (alias: string): boolean => {
-  const camelAlias = alias.replace(/_([a-z])/g, (_, c) => c.toUpperCase())
-  return (pages as readonly string[]).includes(camelAlias)
+  const snakeCasePages = pages.map((p) =>
+    p.replace(/[A-Z]/g, (c) => '_' + c.toLowerCase())
+  )
+  return snakeCasePages.includes(alias)
 }
 
 // ストアの状態の型
