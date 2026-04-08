@@ -27,13 +27,15 @@ const pages = [
   'ryogenIn'
 ] as const
 
-// 公開ページかどうかを判定（route.params.aliasの形式：'rikugi_en'）
+// 公開ページかどうかを判定（route.params.aliasの形式：'rikugi_en', 'murin_an-snow'）
 // camelCase形式（例：'joeiJi'）でのアクセスは無効として扱う
 export const isPublishedPage = (alias: string): boolean => {
-  const snakeCasePages = pages.map((p) =>
-    p.replace(/[A-Z]/g, (c) => '_' + c.toLowerCase())
-  )
-  return snakeCasePages.includes(alias)
+  // 大文字が含まれていたらcamelCase形式の直接アクセスとみなし無効
+  // （このチェックがないと /joeiJi/ のようなURLでアクセスした時に
+  // 下のcamelAliasが 'joeiJi' のままpagesと一致してしまい404にならない）
+  if (/[A-Z]/.test(alias)) return false
+  const camelAlias = alias.replace(/[_-]([a-z])/g, (_, c) => c.toUpperCase())
+  return (pages as readonly string[]).includes(camelAlias)
 }
 
 // ストアの状態の型
