@@ -158,6 +158,9 @@ export async function loadSpreadsheetData(sheetName?: string): Promise<Spreadshe
   }
 
   gss.sheets.forEach((sheet: any) => {
+    if (!sheet.data || !sheet.data[0]) {
+      return
+    }
     let data = sheet.data[0].rowData
     if (!data) {
       return
