@@ -122,10 +122,16 @@
           src='~/assets/image/top/ryogen_in.jpg'
           alt='無鄰菴の点群'
         )
-    p.note
-      | ※ 最新の「Update」および「Annotations Quantity」は
-      a.noteLink(href='https://niwa-archives.org/archives/' target='_blank') こちら
-      | でご確認ください。
+    .note
+      .cols(data-col="2")
+        .col
+          | ※ 最新の「Update」および「Annotations Quantity」は
+          a.noteLink(href='https://niwa-archives.org/archives/' target='_blank') こちら
+          | でご確認ください。
+        .col
+          | * For the latest “Update” and “Annotations Quantity”, please visit
+          a.noteLink(href='https://niwa-archives.org/archives/' target='_blank') here
+          | .
   section#exhibition
     .wrap
       h2 Exhibition
@@ -738,13 +744,13 @@ section
         margin-top: 60px
     .note
       @extend %wrap
-      margin-top: 60px
+      margin-top: 82px
       font-size: 13px
       line-height: calc(24 / 13)
       opacity: 0.7
       +sp
         font-size: 11px
-        margin-top: 40px
+        margin-top: 60px
       .noteLink
         text-decoration: underline
         margin: 0 0.25em
