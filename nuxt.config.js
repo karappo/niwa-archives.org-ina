@@ -1,3 +1,6 @@
+const fs = require('fs')
+const path = require('path')
+
 const site_title = 'Incomplete Niwa Archives 終らない庭のアーカイヴ'
 const site_description = '2019年4月より始動した庭園アーカイヴ・プロジェクトは、現代のテクノロジーを駆使して、日本庭園の多様な側面をデータ化した新しい総合的アーカイヴを研究開発するものです。'
 // TODO: 環境変数から読み込むなどしてstagingなどにも対応する
@@ -124,5 +127,25 @@ export default {
       '/ryogen_in/',
       '/joei_ji/'
     ]
+  },
+
+  hooks: {
+    generate: {
+      before() {
+        const filePath = path.resolve(__dirname, 'static/2020/assets/sessyutei.mp3')
+        if (!fs.existsSync(filePath)) {
+          const dropboxPath = "/Users/terada/Karappo Inc. Dropbox/KARAPPO/1 Works/YCAM/庭園アーカイブ・プロジェクト/_通期_終らない庭のアーカイヴ/special.ycam.jp/niwa/2020/assets/sessyutei.mp3"
+          console.warn('\n' + '='.repeat(70))
+          console.warn('⚠️  sessyutei.mp3 が見つかりません')
+          console.warn('='.repeat(70))
+          console.warn(`\n対象: static/2020/assets/sessyutei.mp3\n`)
+          console.warn('このファイルは容量が大きいためリポジトリに含めず、Dropboxで別途管理しています。')
+          console.warn('\n以下のコマンドでコピーしてください:\n')
+          console.warn(`cp "${dropboxPath}" "${filePath}"\n`)
+          console.warn('Dropbox URL: https://www.dropbox.com/scl/fi/zhulku80jiwznzx0m9vbr/sessyutei.mp3?rlkey=2k0pax6j4ax0c204beisd32ef&dl=0')
+          console.warn('='.repeat(70) + '\n')
+        }
+      }
+    }
   }
 }
