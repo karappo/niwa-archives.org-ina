@@ -125,11 +125,11 @@
     .note
       .cols(data-col="2")
         .col
-          | ※ 最新の「Update」および「Annotations Quantity」は
+          | ＊これらのアーカイヴはウェブサイト「庭園アーカイヴ・プロジェクト」に移行しています。最新の情報は
           a.noteLink(href='https://niwa-archives.org/archives/' target='_blank') こちら
-          | でご確認ください。
+          | をご覧ください。
         .col
-          | * For the latest “Update” and “Annotations Quantity”, please visit
+          | * These archives have been moved to the website “Garden Archive Project.” For the latest information, please check
           a.noteLink(href='https://niwa-archives.org/archives/' target='_blank') here
           | .
   section#exhibition
