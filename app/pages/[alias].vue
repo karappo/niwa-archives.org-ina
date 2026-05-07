@@ -1307,12 +1307,53 @@ const initializePotree = async () => {
     }, 100)
 
     // Camera initialization
-    if (mainStore.getCameraPosition && mainStore.getCameraTarget) {
+    // URL に position/target が含まれていれば viewer.loadSettingsFromURL() で
+    // 既に適用済みなので、ここでの上書きをスキップする（パーマリンク用）
+    const urlParams = new URLSearchParams(window.location.search)
+    const hasUrlCamera = urlParams.has('position') && urlParams.has('target')
+
+    if (hasUrlCamera) {
+      // loadSettingsFromURL() で適用された値をそのまま使う
+    } else if (mainStore.getCameraPosition && mainStore.getCameraTarget) {
       window.viewer.scene.view.position.set(...mainStore.getCameraPosition)
       window.viewer.scene.view.lookAt(new THREE.Vector3(...mainStore.getCameraTarget))
     } else {
       data.value.initCamera()
     }
+
+    // カメラの位置・注視点をURLに同期（Potree同梱の loadSettingsFromURL と互換形式）
+    // 移動が止まった後に history.replaceState で更新する（500ms間隔のポーリング）
+    let lastPos: any = null
+    let lastTarget: any = null
+    let urlDirty = false
+    cameraPositionWatcher.value = setInterval(() => {
+      if (!window.viewer?.scene?.view) return
+      const view = window.viewer.scene.view
+      const pos = view.position
+      const target = view.getPivot()
+
+      const moved =
+        !lastPos || !lastTarget || !lastPos.equals(pos) || !lastTarget.equals(target)
+
+      if (moved) {
+        lastPos = pos.clone()
+        lastTarget = target.clone()
+        urlDirty = true
+        return
+      }
+
+      if (urlDirty) {
+        const fmt = (n: number) => n.toFixed(3)
+        const params = new URLSearchParams(window.location.search)
+        params.set('position', `${fmt(pos.x)};${fmt(pos.y)};${fmt(pos.z)}`)
+        params.set('target', `${fmt(target.x)};${fmt(target.y)};${fmt(target.z)}`)
+        // `;` はクエリ文字列で有効な文字なのでエスケープを戻して可読性を保つ
+        const queryString = params.toString().replace(/%3B/g, ';')
+        const newUrl = `${window.location.pathname}?${queryString}${window.location.hash}`
+        window.history.replaceState(null, '', newUrl)
+        urlDirty = false
+      }
+    }, 500)
 
     // Set Camera Animation
     const toursArray: any[] = []
