@@ -19,8 +19,20 @@ Nuxt 2からNuxt 4への移行プロジェクト
 ## よく使うコマンド
 - 開発サーバー: `pnpm run dev`
 - ビルド: `pnpm run build`
+- 本番相当のローカルプレビュー: `pnpm run preview-build`
 - テスト: `pnpm run test`
 - デプロイ: `pnpm run deploy staging`
+
+## 本番ビルドでのみ発生する不具合に注意
+Pinia や Vue リアクティビティ、ビルド時に挙動が変わる仕組み（dynamic import / `import.meta.glob` / 環境変数分岐 等）に関わる修正をした際は、`pnpm run dev` だけでは検出できない不具合が出ることがある。以下に該当する変更を加えた場合は、ユーザーに `pnpm run preview-build` での確認を促すこと：
+
+- Pinia ストア定義、ストアの取得方法、ストアへのアクセス経路の変更（Proxy・reactive ラッパー導入など）
+- グローバルな状態管理・リアクティビティ周りの変更
+- 動的 import / glob import の追加・変更
+- `process.env` / `import.meta.env` / `useRuntimeConfig` の分岐追加
+- nuxt.config.ts の build 関連設定の変更
+
+実例: dev では Pinia アクションのラッパーが caller の `this` を見ない実装になっているが、本番ビルドでは `this.$id === store.$id` を見るため、Proxy 経由でアクションを呼ぶと dev では動くが本番ではストアが更新されない、という事故が発生した（commit dfe9a5f）。
 
 ## デプロイ手順
 「デプロイしてください」と指示された場合：
@@ -36,10 +48,13 @@ Nuxt 2からNuxt 4への移行プロジェクト
 「インテグレーションテストを実行してください」と指示された場合：
 
 ### 準備
-1. devサーバーを起動する（未起動の場合）
-2. Chrome MCPで以下の2つのページをリロードする
-   - ローカル: `http://localhost:3000/ina/joei_ji/`
+1. devサーバーが起動していたら停止する（preview-buildと同じ3000番ポートを使うため）
+2. `pnpm run preview-build` を実行し、本番相当のビルドをローカルで起動する
+3. Chrome MCPで以下の2つのページをリロードする
+   - ローカル（本番相当ビルド）: `http://localhost:3000/ina/joei_ji/`
    - 本番: `https://niwa-archives.org/ina/joei_ji/`
+
+※ `pnpm run dev` ではなく `pnpm run preview-build` を使うのは、dev サーバーと本番ビルドで挙動が異なるケース（Piniaのアクション周りなど）を検出するため。
 
 ### チェック項目
 両方のページで同じ操作を行い、動作に相違がないか確認する。
