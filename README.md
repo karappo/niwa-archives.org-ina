@@ -30,7 +30,7 @@
 
 | キー | 意味 | 値の形式 |
 |---|---|---|
-| `position` | カメラ位置 | `x;y;z`（小数点3桁、Potree同梱 `loadSettingsFromURL` 互換）。以下のいずれかの場合は省略される: (1) `data.initCamera()` の初期位置と一致、(2) 開いているアノテーションの `cameraPosition` と一致 |
+| `position` | カメラ位置 | `x;y;z`（小数点3桁、Potree同梱 `loadSettingsFromURL` 互換）。以下のいずれかの場合は省略される: (1) `data.initCamera()` の初期位置と一致、(2) 開いているアノテーションの `cameraPosition` と一致。一致判定は **位置 + 視線方向の単位ベクトル** で行う（FirstPersonControlsが `view.radius = 3 * moveSpeed` で毎フレーム上書きするため、`view.getPivot()` の値で比較できない） |
 | `target` | 注視点 | `x;y;z`（同上）。`position` と同じ条件で省略される |
 | `open` | ドロワーで開いている画面 | 単一スラグ |
 | `annotation` | DrawerAnnotationで表示中のアノテーションID | スプレッドシート上のidをそのまま。`position` / `target` が無い場合は、復元時にそのアノテーションへカメラを移動させる。逆に、書き出し時にカメラ位置がアノテーションのデフォルト視点（moveHereの到達点）と一致する場合は`position`/`target`を省略してURLを短縮 |

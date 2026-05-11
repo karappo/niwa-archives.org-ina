@@ -1130,17 +1130,32 @@ const writeUrl = () => {
   // 復元時に同じ位置に戻せるので状態は等価:
   //   (a) アノテーションのデフォルト視点（moveHereの到達点） → openAnnotationById が再現
   //   (b) initCamera() の初期位置 → URLに無い場合は initCamera() の値が使われるので再現される
+  //
+  // 注意: FirstPersonControls は毎フレーム view.radius = 3 * moveSpeed で上書きするため、
+  // view.getPivot() の値は view.lookAt() に渡した target とは異なる（同じ direction の
+  // 別距離の点になる）。したがって target 値での比較は使えず、direction で比較する。
   const eq = (a: number, b: number) => a.toFixed(3) === b.toFixed(3)
+  const dir = view.direction
+  const unitDir = (cp: number[], ct: number[]): [number, number, number] | null => {
+    const dx = ct[0] - cp[0], dy = ct[1] - cp[1], dz = ct[2] - cp[2]
+    const len = Math.sqrt(dx * dx + dy * dy + dz * dz)
+    if (len === 0) return null
+    return [dx / len, dy / len, dz / len]
+  }
+  const matchesCameraView = (cp: number[] | null | undefined, ct: number[] | null | undefined) => {
+    if (!cp || !ct) return false
+    if (!(eq(pos.x, cp[0]) && eq(pos.y, cp[1]) && eq(pos.z, cp[2]))) return false
+    const u = unitDir(cp, ct)
+    if (!u) return false
+    return eq(dir.x, u[0]) && eq(dir.y, u[1]) && eq(dir.z, u[2])
+  }
   const ann = annotationData.value
-  const cameraEqualsAnnotation =
-    ann?.cameraPosition && ann?.cameraTarget &&
-    eq(pos.x, ann.cameraPosition[0]) && eq(pos.y, ann.cameraPosition[1]) && eq(pos.z, ann.cameraPosition[2]) &&
-    eq(target.x, ann.cameraTarget[0]) && eq(target.y, ann.cameraTarget[1]) && eq(target.z, ann.cameraTarget[2])
+  const cameraEqualsAnnotation = matchesCameraView(ann?.cameraPosition, ann?.cameraTarget)
   const def = defaultCameraView.value
-  const cameraEqualsDefault =
-    def &&
-    eq(pos.x, def.position.x) && eq(pos.y, def.position.y) && eq(pos.z, def.position.z) &&
-    eq(target.x, def.target.x) && eq(target.y, def.target.y) && eq(target.z, def.target.z)
+  const cameraEqualsDefault = def && matchesCameraView(
+    [def.position.x, def.position.y, def.position.z],
+    [def.target.x, def.target.y, def.target.z]
+  )
   if (cameraEqualsAnnotation || cameraEqualsDefault) {
     params.delete('position')
     params.delete('target')
