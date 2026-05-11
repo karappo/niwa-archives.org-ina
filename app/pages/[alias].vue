@@ -1194,7 +1194,7 @@ const writeUrl = () => {
     .replace(/%3B/g, ';')
     .replace(/%2F/g, '/')
     .replace(/%2C/g, ',')
-  const newUrl = `${window.location.pathname}?${queryString}${window.location.hash}`
+  const newUrl = `${window.location.pathname}${queryString ? '?' + queryString : ''}${window.location.hash}`
   window.history.replaceState(null, '', newUrl)
 }
 
