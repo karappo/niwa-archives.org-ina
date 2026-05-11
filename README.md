@@ -20,6 +20,89 @@
 例: `/joei_ji/?info=1`<br>
 現在のモード（Low Performance Modeかどうか）を画面上に表示する
 
+# パーマリンク
+
+カメラ位置とサイドバーの状態をURLクエリパラメータに反映する。ユーザーがUIを操作するたびに `history.replaceState` でURLが書き換わり、そのURLを開けば同じ状態を再現できる。
+
+書き込みはカメラが停止したタイミングで行う（移動中は保留）。デフォルト状態のパラメータは出力しない。
+
+## クエリパラメータ
+
+| キー | 意味 | 値の形式 |
+|---|---|---|
+| `position` | カメラ位置 | `x;y;z`（小数点3桁、Potree同梱 `loadSettingsFromURL` 互換） |
+| `target` | 注視点 | `x;y;z`（同上） |
+| `open` | ドロワーで開いている画面 | 単一スラグ |
+| `annotation` | DrawerAnnotationで表示中のアノテーションID | スプレッドシート上のidをそのまま |
+| `hide` | チェックを外しているvisibilityキー | hybrid形式のカンマ区切り |
+| `filter` | DrawerList内のタグフィルタ | `listData.tagIndexStr`をそのまま |
+
+## `open=` のスラグ
+
+ページ名を `lowercase` + 空白を `-` に。`/` はそのまま残す。
+
+| ストアのpageName | open=の値 |
+|---|---|
+| `History` / `Plans` / `3D Data` | `history` / `plans` / `3d-data` |
+| `Annotations` | `annotations` |
+| `Viewpoints` / `Viewpoints/Still Images` / `Viewpoints/Movies` | `viewpoints` / `viewpoints/still-images` / `viewpoints/movies` |
+| `Elements` / `Elements/Stones` / ... / `Elements/DNA Data` | `elements` / `elements/stones` / ... / `elements/dna-data` |
+| `Oral Archives` | `oral-archives` |
+| `Guided Tour` / `Ramble Tour` | `guided-tour` / `ramble-tour` |
+
+## `hide=` のスラグ（hybrid形式）
+
+### 圧縮ルール（書き出し）
+
+1. 全leafがhidden → `hide=annotations`
+2. 特定グループの全leafがhidden → 親キーに圧縮（例: `viewpoints`, `elements`）
+3. 同一親グループの子が連続する場合 → 2番目以降の `親/` プレフィックスを省略
+
+| 状態 | URL |
+|---|---|
+| Elements/Plants, Creatures, Artifacts, DNA Data がoff | `hide=elements/plants,creatures,artifacts,dna-data` |
+| Viewpoints/Movies + Elements/Plants, Creatures がoff | `hide=viewpoints/movies,elements/plants,creatures` |
+| Viewpoints全部off + Oral Archives off | `hide=viewpoints,oral-archives` |
+| Elements全部off | `hide=elements` |
+| 全leaf off | `hide=annotations` |
+
+### パースルール（読み込み）
+
+カンマで分割して左から順に処理:
+
+| トークン | 解釈 |
+|---|---|
+| `親/子`（例: `elements/plants`） | `親/子` キーをhide。currentGroupを更新 |
+| 既知の親/単独キー（`annotations`, `viewpoints`, `elements`, `oral-archives`） | そのキーをhide。currentGroupをリセット |
+| 上記以外のbareトークン | 直前のcurrentGroupの子として解釈 |
+| 上記いずれにも該当しない | スキップ |
+
+復元時は各キーに `mainStore.setAnnotationVisibilities(key, false)` を呼ぶ。親キーを渡すとストアのカスケード処理で子も全部 false になる。
+
+## 不正な値・予期せぬパラメータの扱い
+
+| ケース | 挙動 | URL の最終状態 |
+|---|---|---|
+| 関係ないパラメータ（例: `utm_source=foo`）| 完全に無視されつつ保持される | そのまま残る |
+| 既存の `debug=1` / `info=1` | パーマリンク機能から無視されつつ保持される | そのまま残る |
+| 不正な `open=nonsense` | スキップ（state変更なし）| 復元完了後のwriteUrlで`open=`削除 |
+| `hide=` 内の不明トークン | 該当トークンのみスキップ、有効なものは処理 | writeUrlが再構築するので有効なものだけ残る |
+| 不正な `annotation=nonexistent` | `console.error` を出して`annotationData`セットせず | writeUrlで`annotation=`削除 |
+| 空値（`open=` / `hide=` / `annotation=`）| falsy判定でスキップ | 削除 |
+| 不正な `filter=abc`（数字以外）| バリデーションで弾く、`tagIndexStr`セットせず | writeUrlで`filter=`削除 |
+| 不正な `position=` / `target=`（NaN等）| `loadSettingsFromURL()`の前にURLから削除、`mainStore`保存値または`initCamera()`にフォールバック | 削除 |
+
+書き込みは `writeUrl()` が「現状の state を元に URL を再構築する」方式なので、復元後の最初の書き込みで不正値は自動的にクリーンアップされる。
+
+## 実装場所
+
+`app/pages/[alias].vue`
+- `writeUrl()`: 状態 → URL
+- `restoreFromUrl()`: URL → 状態（Potree初期化後・アノテーション登録後に1回だけ実行）
+- `urlSyncEnabled`: restore完了までURL書き込みを抑止するフラグ
+- `urlSyncDirty`: サイドバー状態変化時に立つフラグ。カメラポーリングが停止検知時に書き込む
+- `isValidVec3Slug()`: `position=` / `target=` の値のバリデーション
+
 # ウェブフォント
 
 FONTPLUS: https://fontplus.jp/users/login
