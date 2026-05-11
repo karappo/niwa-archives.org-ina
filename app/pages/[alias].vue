@@ -1713,7 +1713,7 @@ const initializePotree = async () => {
         writeUrl()
         urlSyncDirty = false
       }
-    }, 500)
+    }, 150)
 
     // Set Camera Animation
     const toursArray: any[] = []
