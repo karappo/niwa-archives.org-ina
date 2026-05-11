@@ -715,6 +715,10 @@ const keyMapSpVisibility = ref(true)
 const soundSpVisibility = ref(false)
 const cameraPositionWatcher = ref<NodeJS.Timeout | null>(null)
 
+// data.initCamera() で設定される初期カメラ位置のスナップショット。
+// URL書き出し時に「初期位置と同じならposition/targetを省略」判定に使う。
+const defaultCameraView = ref<{ position: any; target: any } | null>(null)
+
 // パーマリンク復元完了までURL書き込みを抑止するフラグ
 const urlSyncEnabled = ref(false)
 
@@ -1108,8 +1112,6 @@ const writeUrl = () => {
   const fmt = (n: number) => n.toFixed(3)
 
   const params = new URLSearchParams(window.location.search)
-  params.set('position', `${fmt(pos.x)};${fmt(pos.y)};${fmt(pos.z)}`)
-  params.set('target', `${fmt(target.x)};${fmt(target.y)};${fmt(target.z)}`)
 
   const pageName = mainStore.getPageName
   if (pageName) {
@@ -1122,6 +1124,44 @@ const writeUrl = () => {
     params.set('annotation', annotationData.value.id)
   } else {
     params.delete('annotation')
+  }
+
+  // 以下のいずれかと一致するならposition/targetを省略してURLを短くする。
+  // 復元時に同じ位置に戻せるので状態は等価:
+  //   (a) アノテーションのデフォルト視点（moveHereの到達点） → openAnnotationById が再現
+  //   (b) initCamera() の初期位置 → URLに無い場合は initCamera() の値が使われるので再現される
+  //
+  // 注意: FirstPersonControls は毎フレーム view.radius = 3 * moveSpeed で上書きするため、
+  // view.getPivot() の値は view.lookAt() に渡した target とは異なる（同じ direction の
+  // 別距離の点になる）。したがって target 値での比較は使えず、direction で比較する。
+  const eq = (a: number, b: number) => a.toFixed(3) === b.toFixed(3)
+  const dir = view.direction
+  const unitDir = (cp: number[], ct: number[]): [number, number, number] | null => {
+    const dx = ct[0] - cp[0], dy = ct[1] - cp[1], dz = ct[2] - cp[2]
+    const len = Math.sqrt(dx * dx + dy * dy + dz * dz)
+    if (len === 0) return null
+    return [dx / len, dy / len, dz / len]
+  }
+  const matchesCameraView = (cp: number[] | null | undefined, ct: number[] | null | undefined) => {
+    if (!cp || !ct) return false
+    if (!(eq(pos.x, cp[0]) && eq(pos.y, cp[1]) && eq(pos.z, cp[2]))) return false
+    const u = unitDir(cp, ct)
+    if (!u) return false
+    return eq(dir.x, u[0]) && eq(dir.y, u[1]) && eq(dir.z, u[2])
+  }
+  const ann = annotationData.value
+  const cameraEqualsAnnotation = matchesCameraView(ann?.cameraPosition, ann?.cameraTarget)
+  const def = defaultCameraView.value
+  const cameraEqualsDefault = def && matchesCameraView(
+    [def.position.x, def.position.y, def.position.z],
+    [def.target.x, def.target.y, def.target.z]
+  )
+  if (cameraEqualsAnnotation || cameraEqualsDefault) {
+    params.delete('position')
+    params.delete('target')
+  } else {
+    params.set('position', `${fmt(pos.x)};${fmt(pos.y)};${fmt(pos.z)}`)
+    params.set('target', `${fmt(target.x)};${fmt(target.y)};${fmt(target.z)}`)
   }
 
   const vis = mainStore.getAnnotationVisibilities || {}
@@ -1169,7 +1209,7 @@ const writeUrl = () => {
     .replace(/%3B/g, ';')
     .replace(/%2F/g, '/')
     .replace(/%2C/g, ',')
-  const newUrl = `${window.location.pathname}?${queryString}${window.location.hash}`
+  const newUrl = `${window.location.pathname}${queryString ? '?' + queryString : ''}${window.location.hash}`
   window.history.replaceState(null, '', newUrl)
 }
 
@@ -1200,17 +1240,23 @@ const restoreFromUrl = () => {
     }
   }
 
-  // annotation → DrawerAnnotation を開く
-  // openAnnotationById() ではなく直接 annotationData をセットする。
-  // moveHere() を呼ぶと URL で指定されたカメラ位置が上書きされてしまうため。
+  // annotation → DrawerAnnotation を開く。
+  // URL にカメラ位置が指定されていれば、そのカメラを尊重して annotationData だけセットする
+  // （moveHere で上書きされないように）。指定がなければ openAnnotationById でアノテーション
+  // 位置までカメラを移動させる（クリックと同等の挙動）。
   const annotationId = params.get('annotation')
   if (annotationId) {
+    const hasUrlCamera = params.has('position') && params.has('target')
     nextTick(() => {
       const found = annotations.value?.find((a) => a.id === annotationId)
-      if (found) {
+      if (!found) {
+        console.error(`URLで指定されたid=${annotationId}のアノテーションが見つかりませんでした`)
+        return
+      }
+      if (hasUrlCamera) {
         annotationData.value = found
       } else {
-        console.error(`URLで指定されたid=${annotationId}のアノテーションが見つかりませんでした`)
+        openAnnotationById(annotationId)
       }
     })
   }
@@ -1578,18 +1624,27 @@ const initializePotree = async () => {
     }, 100)
 
     // Camera initialization
-    // URL に position/target が含まれていれば viewer.loadSettingsFromURL() で
-    // 既に適用済みなので、ここでの上書きをスキップする（パーマリンク用）
+    // パーマリンク用に「初期カメラ位置」を必ずスナップショットしてから、
+    // URL/store の値があればその上に上書きする。
+    // - initCamera() を先に呼んで defaultCameraView に保存
+    // - URL に position/target があればそれを適用（loadSettingsFromURL は initCamera で
+    //   上書きされたので再適用が必要）
+    // - URL に無く store に保存値があればそれを適用
+    data.value.initCamera()
+    defaultCameraView.value = {
+      position: window.viewer.scene.view.position.clone(),
+      target: window.viewer.scene.view.getPivot().clone()
+    }
     const urlParams = new URLSearchParams(window.location.search)
     const hasUrlCamera = urlParams.has('position') && urlParams.has('target')
-
     if (hasUrlCamera) {
-      // loadSettingsFromURL() で適用された値をそのまま使う
+      const [px, py, pz] = urlParams.get('position')!.split(';').map(parseFloat)
+      const [tx, ty, tz] = urlParams.get('target')!.split(';').map(parseFloat)
+      window.viewer.scene.view.position.set(px, py, pz)
+      window.viewer.scene.view.lookAt(new THREE.Vector3(tx, ty, tz))
     } else if (mainStore.getCameraPosition && mainStore.getCameraTarget) {
       window.viewer.scene.view.position.set(...mainStore.getCameraPosition)
       window.viewer.scene.view.lookAt(new THREE.Vector3(...mainStore.getCameraTarget))
-    } else {
-      data.value.initCamera()
     }
 
     // カメラの位置・注視点をURLに同期。カメラが止まったタイミングで writeUrl() を呼ぶ。
