@@ -1108,8 +1108,6 @@ const writeUrl = () => {
   const fmt = (n: number) => n.toFixed(3)
 
   const params = new URLSearchParams(window.location.search)
-  params.set('position', `${fmt(pos.x)};${fmt(pos.y)};${fmt(pos.z)}`)
-  params.set('target', `${fmt(target.x)};${fmt(target.y)};${fmt(target.z)}`)
 
   const pageName = mainStore.getPageName
   if (pageName) {
@@ -1122,6 +1120,23 @@ const writeUrl = () => {
     params.set('annotation', annotationData.value.id)
   } else {
     params.delete('annotation')
+  }
+
+  // 現在のカメラ位置がアノテーションのデフォルト視点（moveHere の到達点）と一致するなら、
+  // position/target を出力せず annotation= だけ残す。復元時は openAnnotationById が
+  // 同じ位置にカメラを動かしてくれるので URL を短くできる。
+  const ann = annotationData.value
+  const eq = (a: number, b: number) => a.toFixed(3) === b.toFixed(3)
+  const cameraEqualsAnnotation =
+    ann?.cameraPosition && ann?.cameraTarget &&
+    eq(pos.x, ann.cameraPosition[0]) && eq(pos.y, ann.cameraPosition[1]) && eq(pos.z, ann.cameraPosition[2]) &&
+    eq(target.x, ann.cameraTarget[0]) && eq(target.y, ann.cameraTarget[1]) && eq(target.z, ann.cameraTarget[2])
+  if (cameraEqualsAnnotation) {
+    params.delete('position')
+    params.delete('target')
+  } else {
+    params.set('position', `${fmt(pos.x)};${fmt(pos.y)};${fmt(pos.z)}`)
+    params.set('target', `${fmt(target.x)};${fmt(target.y)};${fmt(target.z)}`)
   }
 
   const vis = mainStore.getAnnotationVisibilities || {}
