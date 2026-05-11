@@ -715,6 +715,10 @@ const keyMapSpVisibility = ref(true)
 const soundSpVisibility = ref(false)
 const cameraPositionWatcher = ref<NodeJS.Timeout | null>(null)
 
+// data.initCamera() で設定される初期カメラ位置のスナップショット。
+// URL書き出し時に「初期位置と同じならposition/targetを省略」判定に使う。
+const defaultCameraView = ref<{ position: any; target: any } | null>(null)
+
 // パーマリンク復元完了までURL書き込みを抑止するフラグ
 const urlSyncEnabled = ref(false)
 
@@ -1122,16 +1126,22 @@ const writeUrl = () => {
     params.delete('annotation')
   }
 
-  // 現在のカメラ位置がアノテーションのデフォルト視点（moveHere の到達点）と一致するなら、
-  // position/target を出力せず annotation= だけ残す。復元時は openAnnotationById が
-  // 同じ位置にカメラを動かしてくれるので URL を短くできる。
-  const ann = annotationData.value
+  // 以下のいずれかと一致するならposition/targetを省略してURLを短くする。
+  // 復元時に同じ位置に戻せるので状態は等価:
+  //   (a) アノテーションのデフォルト視点（moveHereの到達点） → openAnnotationById が再現
+  //   (b) initCamera() の初期位置 → URLに無い場合は initCamera() の値が使われるので再現される
   const eq = (a: number, b: number) => a.toFixed(3) === b.toFixed(3)
+  const ann = annotationData.value
   const cameraEqualsAnnotation =
     ann?.cameraPosition && ann?.cameraTarget &&
     eq(pos.x, ann.cameraPosition[0]) && eq(pos.y, ann.cameraPosition[1]) && eq(pos.z, ann.cameraPosition[2]) &&
     eq(target.x, ann.cameraTarget[0]) && eq(target.y, ann.cameraTarget[1]) && eq(target.z, ann.cameraTarget[2])
-  if (cameraEqualsAnnotation) {
+  const def = defaultCameraView.value
+  const cameraEqualsDefault =
+    def &&
+    eq(pos.x, def.position.x) && eq(pos.y, def.position.y) && eq(pos.z, def.position.z) &&
+    eq(target.x, def.target.x) && eq(target.y, def.target.y) && eq(target.z, def.target.z)
+  if (cameraEqualsAnnotation || cameraEqualsDefault) {
     params.delete('position')
     params.delete('target')
   } else {
@@ -1599,18 +1609,27 @@ const initializePotree = async () => {
     }, 100)
 
     // Camera initialization
-    // URL に position/target が含まれていれば viewer.loadSettingsFromURL() で
-    // 既に適用済みなので、ここでの上書きをスキップする（パーマリンク用）
+    // パーマリンク用に「初期カメラ位置」を必ずスナップショットしてから、
+    // URL/store の値があればその上に上書きする。
+    // - initCamera() を先に呼んで defaultCameraView に保存
+    // - URL に position/target があればそれを適用（loadSettingsFromURL は initCamera で
+    //   上書きされたので再適用が必要）
+    // - URL に無く store に保存値があればそれを適用
+    data.value.initCamera()
+    defaultCameraView.value = {
+      position: window.viewer.scene.view.position.clone(),
+      target: window.viewer.scene.view.getPivot().clone()
+    }
     const urlParams = new URLSearchParams(window.location.search)
     const hasUrlCamera = urlParams.has('position') && urlParams.has('target')
-
     if (hasUrlCamera) {
-      // loadSettingsFromURL() で適用された値をそのまま使う
+      const [px, py, pz] = urlParams.get('position')!.split(';').map(parseFloat)
+      const [tx, ty, tz] = urlParams.get('target')!.split(';').map(parseFloat)
+      window.viewer.scene.view.position.set(px, py, pz)
+      window.viewer.scene.view.lookAt(new THREE.Vector3(tx, ty, tz))
     } else if (mainStore.getCameraPosition && mainStore.getCameraTarget) {
       window.viewer.scene.view.position.set(...mainStore.getCameraPosition)
       window.viewer.scene.view.lookAt(new THREE.Vector3(...mainStore.getCameraTarget))
-    } else {
-      data.value.initCamera()
     }
 
     // カメラの位置・注視点をURLに同期。カメラが止まったタイミングで writeUrl() を呼ぶ。
