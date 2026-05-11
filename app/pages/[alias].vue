@@ -614,9 +614,17 @@ if (!isPublishedPage(route.params.alias as string)) {
 const mainStoreRef = shallowRef<ReturnType<typeof useMainStore> | null>(null)
 
 // 後方互換性のためのプロキシオブジェクト
+// 注意: メソッドは実ストアに bind して返している。Pinia本番ビルドの
+// アクションラッパーは `this.$id === store.$id` の判定で caller の this
+// を採用する実装になっており、Proxy 経由で素のまま呼ぶと this が Proxy
+// になりミューテーションが Proxy のターゲット（空オブジェクト）に飛ぶ。
+// 詳細経緯: dfe9a5f → CLAUDE.md「本番ビルドでのみ発生する不具合に注意」
 const mainStore = new Proxy({} as any, {
   get(_, prop) {
-    return mainStoreRef.value?.[prop as keyof ReturnType<typeof useMainStore>]
+    const target = mainStoreRef.value
+    if (!target) return undefined
+    const value = target[prop as keyof ReturnType<typeof useMainStore>]
+    return typeof value === 'function' ? value.bind(target) : value
   }
 })
 
