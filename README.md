@@ -34,6 +34,7 @@
 | `target` | 注視点 | `x;y;z`（同上）。`position` と同じ条件で省略される |
 | `open` | ドロワーで開いている画面 | 単一スラグ |
 | `annotation` | DrawerAnnotationで表示中のアノテーションID | スプレッドシート上のidをそのまま。`position` / `target` が無い場合は、復元時にそのアノテーションへカメラを移動させる。逆に、書き出し時にカメラ位置がアノテーションのデフォルト視点（moveHereの到達点）と一致する場合は`position`/`target`を省略してURLを短縮 |
+| `group` | Groupドロワーで表示中のグループID | グループ代表アノテーション（list[0]）のid。`position` / `target` が無い場合は、復元時に代表アノテーションへカメラを移動させる。`annotation` と同時指定可（グループ内の特定メンバーをDrawerAnnotationで開く状態） |
 | `hide` | チェックを外しているvisibilityキー | hybrid形式のカンマ区切り |
 | `filter` | DrawerList内のタグフィルタ | `listData.tagIndexStr`をそのまま |
 

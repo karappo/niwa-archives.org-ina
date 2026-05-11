@@ -1126,10 +1126,18 @@ const writeUrl = () => {
     params.delete('annotation')
   }
 
+  // Groupドロワーが開いている時はその代表アノテーション（list[0]）のIDで識別する
+  if (listData.value?.name === 'Group' && listData.value.list?.[0]?.id) {
+    params.set('group', listData.value.list[0].id)
+  } else {
+    params.delete('group')
+  }
+
   // 以下のいずれかと一致するならposition/targetを省略してURLを短くする。
   // 復元時に同じ位置に戻せるので状態は等価:
   //   (a) アノテーションのデフォルト視点（moveHereの到達点） → openAnnotationById が再現
   //   (b) initCamera() の初期位置 → URLに無い場合は initCamera() の値が使われるので再現される
+  //   (c) Groupドロワー代表のデフォルト視点 → group=指定時に restoreFromUrl がmoveHere
   //
   // 注意: FirstPersonControls は毎フレーム view.radius = 3 * moveSpeed で上書きするため、
   // view.getPivot() の値は view.lookAt() に渡した target とは異なる（同じ direction の
@@ -1151,12 +1159,14 @@ const writeUrl = () => {
   }
   const ann = annotationData.value
   const cameraEqualsAnnotation = matchesCameraView(ann?.cameraPosition, ann?.cameraTarget)
+  const groupAnchor = listData.value?.name === 'Group' ? listData.value.list?.[0] : null
+  const cameraEqualsGroup = matchesCameraView(groupAnchor?.cameraPosition, groupAnchor?.cameraTarget)
   const def = defaultCameraView.value
   const cameraEqualsDefault = def && matchesCameraView(
     [def.position.x, def.position.y, def.position.z],
     [def.target.x, def.target.y, def.target.z]
   )
-  if (cameraEqualsAnnotation || cameraEqualsDefault) {
+  if (cameraEqualsAnnotation || cameraEqualsGroup || cameraEqualsDefault) {
     params.delete('position')
     params.delete('target')
   } else {
@@ -1240,13 +1250,43 @@ const restoreFromUrl = () => {
     }
   }
 
+  // group → Groupドロワーを開く。groupId はグループ代表（list[0]）のアノテーションID。
+  // annotation= が同時指定されている場合、annotation 側でカメラ移動を行うのでここではしない。
+  const groupId = params.get('group')
+  const annotationId = params.get('annotation')
+  const hasUrlCamera = params.has('position') && params.has('target')
+  if (groupId) {
+    const anchor = annotations.value?.find((a) => a.id === groupId)
+    if (anchor) {
+      const groupList = getAnnotationGroupByPosition(anchor.position)
+      if (groupList) {
+        listData.value = {
+          name: 'Group',
+          list: groupList,
+          tagIndexStr: ''
+        }
+        // カメラ指定もannotation=もなければ、代表アノテーションへカメラ移動（クリック相当）
+        if (!hasUrlCamera && !annotationId) {
+          nextTick(() => {
+            const a = window.viewer?.scene?.annotations?.children?.find(
+              (x: any) => x.data.id === groupId
+            )
+            if (a) a.moveHere(null)
+          })
+        }
+      } else {
+        console.error(`URLで指定されたid=${groupId}のグループが見つかりませんでした`)
+      }
+    } else {
+      console.error(`URLで指定されたid=${groupId}のアノテーションが見つかりませんでした`)
+    }
+  }
+
   // annotation → DrawerAnnotation を開く。
   // URL にカメラ位置が指定されていれば、そのカメラを尊重して annotationData だけセットする
   // （moveHere で上書きされないように）。指定がなければ openAnnotationById でアノテーション
   // 位置までカメラを移動させる（クリックと同等の挙動）。
-  const annotationId = params.get('annotation')
   if (annotationId) {
-    const hasUrlCamera = params.has('position') && params.has('target')
     nextTick(() => {
       const found = annotations.value?.find((a) => a.id === annotationId)
       if (!found) {
@@ -1743,7 +1783,10 @@ watch(
       store?.getPageName,
       annotationData.value?.id,
       JSON.stringify(store?.getAnnotationVisibilities || {}),
-      listData.value?.tagIndexStr
+      listData.value?.tagIndexStr,
+      // Group ドロワーが開いた/閉じた/別のグループに切り替わった検知用
+      listData.value?.name,
+      listData.value?.list?.[0]?.id
     ]
   },
   () => {
