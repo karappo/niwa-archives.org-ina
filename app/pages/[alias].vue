@@ -573,6 +573,127 @@ import SpMenuSound from '~/assets/image/spMenu/sound.svg'
 // Types
 type LoadingState = 'loading' | 'loaded' | 'error'
 
+// Permalink helpers
+// view= や hide= に出すスラグと、ストアで使うページ名・visibilityキーを相互変換する。
+const PERMALINK_PAGE_NAMES: string[] = [
+  'History', 'Plans', '3D Data',
+  'Annotations',
+  'Viewpoints', 'Viewpoints/Still Images', 'Viewpoints/Movies',
+  'Elements', 'Elements/Stones', 'Elements/Plants', 'Elements/Creatures',
+  'Elements/Artifacts', 'Elements/DNA Data',
+  'Oral Archives',
+  'Guided Tour', 'Ramble Tour'
+]
+const PERMALINK_VISIBILITY_KEYS: string[] = [
+  'Annotations',
+  'Viewpoints', 'Viewpoints/Still Images', 'Viewpoints/Movies',
+  'Elements', 'Elements/Stones', 'Elements/Plants', 'Elements/Creatures',
+  'Elements/Artifacts', 'Elements/DNA Data',
+  'Oral Archives'
+]
+// 実際の表示に影響するのは葉キーのみ。書き出し時の圧縮判定に使う。
+const PERMALINK_LEAF_KEYS: string[] = [
+  'Viewpoints/Still Images', 'Viewpoints/Movies',
+  'Elements/Stones', 'Elements/Plants', 'Elements/Creatures',
+  'Elements/Artifacts', 'Elements/DNA Data',
+  'Oral Archives'
+]
+// 親 → 子の対応。親キーがhideに入ると、復元時に setAnnotationVisibilities() のカスケードで全子が hide される
+const PERMALINK_GROUPS: Record<string, string[]> = {
+  Viewpoints: ['Viewpoints/Still Images', 'Viewpoints/Movies'],
+  Elements: ['Elements/Stones', 'Elements/Plants', 'Elements/Creatures', 'Elements/Artifacts', 'Elements/DNA Data']
+}
+const pageNameToSlug = (name: string) => name.toLowerCase().replace(/ /g, '-')
+const slugToPageName = (slug: string): string | null =>
+  PERMALINK_PAGE_NAMES.find((n) => pageNameToSlug(n) === slug) || null
+
+// hide= の表記:
+// - 親キーや独立キーは basename slug（例: 'elements', 'oral-archives'）
+// - 子キーは 'parent/leaf' 形式（例: 'elements/plants'）
+// - 連続して同じ親グループの子が続く場合は、2つめ以降は 'parent/' を省略する。
+//   例: ['Elements/Plants', 'Elements/Creatures'] → 'elements/plants,creatures'
+const basenameSlug = (s: string) => s.toLowerCase().replace(/ /g, '-')
+// 親グループの slug → 親キー（例: 'elements' → 'Elements'）
+const HIDE_GROUP_SLUG_TO_KEY: Record<string, string> = Object.fromEntries(
+  Object.keys(PERMALINK_GROUPS).map((k) => [basenameSlug(k), k])
+)
+// 独立扱いの slug → キー（'annotations' は全leafの親、'oral-archives' は単独leaf）
+const HIDE_TOP_SLUG_TO_KEY: Record<string, string> = {
+  ...HIDE_GROUP_SLUG_TO_KEY,
+  annotations: 'Annotations',
+  'oral-archives': 'Oral Archives'
+}
+// 親キー → { 子basename slug → 子キー }
+const HIDE_GROUP_CHILDREN: Record<string, Record<string, string>> = {}
+for (const [group, leaves] of Object.entries(PERMALINK_GROUPS)) {
+  const groupSlug = basenameSlug(group)
+  HIDE_GROUP_CHILDREN[groupSlug] = {}
+  for (const leaf of leaves) {
+    const leafBase = leaf.split('/').pop() as string
+    HIDE_GROUP_CHILDREN[groupSlug][basenameSlug(leafBase)] = leaf
+  }
+}
+
+// position= / target= の値が `数値;数値;数値` 形式かチェック。NaN や不正値が入ったまま
+// Potree の loadSettingsFromURL() に渡るとシーンが壊れるので、読み込み前に弾く用。
+const isValidVec3Slug = (s: string | null): boolean => {
+  if (!s) return false
+  const parts = s.split(';')
+  if (parts.length !== 3) return false
+  return parts.every((n) => {
+    const t = n.trim()
+    return t !== '' && Number.isFinite(Number(t))
+  })
+}
+
+// 連続する同一グループのプレフィックスを省略しつつ、hide キー列を URL文字列にエンコードする。
+const encodeHide = (keys: string[]): string => {
+  const parts: string[] = []
+  let currentGroupSlug: string | null = null
+  for (const key of keys) {
+    if (key.includes('/')) {
+      const [group, leaf] = key.split('/')
+      const groupSlug = basenameSlug(group)
+      const leafSlug = basenameSlug(leaf)
+      if (groupSlug === currentGroupSlug) {
+        parts.push(leafSlug)
+      } else {
+        parts.push(`${groupSlug}/${leafSlug}`)
+        currentGroupSlug = groupSlug
+      }
+    } else {
+      parts.push(basenameSlug(key))
+      currentGroupSlug = null
+    }
+  }
+  return parts.join(',')
+}
+
+// hide URL文字列をキー列にデコードする。
+// '/' なし & 既知の親/単独キー → そのキー（currentGroup をリセット）
+// '/' あり → group/leaf として解釈し、currentGroup を更新
+// '/' なし & 直前グループ配下にある名前 → 親を補完して子キーに復元
+const decodeHide = (str: string): string[] => {
+  const keys: string[] = []
+  let currentGroupSlug: string | null = null
+  for (const part of str.split(',').filter(Boolean)) {
+    if (part.includes('/')) {
+      const [groupSlug, leafSlug] = part.split('/')
+      const childKey = HIDE_GROUP_CHILDREN[groupSlug]?.[leafSlug]
+      if (childKey) {
+        keys.push(childKey)
+        currentGroupSlug = groupSlug
+      }
+    } else if (HIDE_TOP_SLUG_TO_KEY[part]) {
+      keys.push(HIDE_TOP_SLUG_TO_KEY[part])
+      currentGroupSlug = null
+    } else if (currentGroupSlug && HIDE_GROUP_CHILDREN[currentGroupSlug]?.[part]) {
+      keys.push(HIDE_GROUP_CHILDREN[currentGroupSlug][part])
+    }
+  }
+  return keys
+}
+
 // Reactive data
 const debugMode = ref(false)
 const infoMode = ref(false)
@@ -593,6 +714,14 @@ const sideBarSpVisibility = ref(false)
 const keyMapSpVisibility = ref(true)
 const soundSpVisibility = ref(false)
 const cameraPositionWatcher = ref<NodeJS.Timeout | null>(null)
+
+// パーマリンク復元完了までURL書き込みを抑止するフラグ
+const urlSyncEnabled = ref(false)
+
+// サイドバー状態が変わった時に立てる「URL書き込み待ち」フラグ。
+// カメラ移動中に書き込むと移動前の位置が記録されるので、
+// カメラポーリング側でカメラが止まったタイミングで書き込む。
+let urlSyncDirty = false
 
 // Pinia storeの初期化完了フラグ
 const isStoreReady = ref(false)
@@ -969,6 +1098,124 @@ const openAnnotationById = (id: string) => {
   console.error(`id=${id} のアノテーションが見つかりませんでした`)
 }
 
+// 現在の状態（カメラ + サイドバー）を URL にシリアライズして history.replaceState する。
+// 既存パラメータ（debug, info 等）は保持。デフォルト状態のキーは出力しない。
+const writeUrl = () => {
+  if (!window.viewer?.scene?.view) return
+  const view = window.viewer.scene.view
+  const pos = view.position
+  const target = view.getPivot()
+  const fmt = (n: number) => n.toFixed(3)
+
+  const params = new URLSearchParams(window.location.search)
+  params.set('position', `${fmt(pos.x)};${fmt(pos.y)};${fmt(pos.z)}`)
+  params.set('target', `${fmt(target.x)};${fmt(target.y)};${fmt(target.z)}`)
+
+  const pageName = mainStore.getPageName
+  if (pageName) {
+    params.set('open', pageNameToSlug(pageName))
+  } else {
+    params.delete('open')
+  }
+
+  if (annotationData.value?.id) {
+    params.set('annotation', annotationData.value.id)
+  } else {
+    params.delete('annotation')
+  }
+
+  const vis = mainStore.getAnnotationVisibilities || {}
+  // 隠れているleaf集合を計算し、グループ単位でまとめられるものは親キーに圧縮する。
+  // 例: Viewpoints/Still Images と Viewpoints/Movies が両方 hidden なら `viewpoints` だけに圧縮。
+  // 全leafが hidden なら `annotations` 一つに圧縮（無効化されているleafは vis に出てこないので無視される）。
+  const hiddenLeaves = PERMALINK_LEAF_KEYS.filter((k) => vis[k] === false)
+  const availableLeaves = PERMALINK_LEAF_KEYS.filter((k) => k in vis)
+  let hiddenSlugs: string[] = []
+  if (
+    availableLeaves.length > 0 &&
+    hiddenLeaves.length === availableLeaves.length
+  ) {
+    hiddenSlugs = ['Annotations']
+  } else {
+    const consumed = new Set<string>()
+    for (const [group, leaves] of Object.entries(PERMALINK_GROUPS)) {
+      const groupLeavesAvailable = leaves.filter((l) => l in vis)
+      if (
+        groupLeavesAvailable.length > 0 &&
+        groupLeavesAvailable.every((l) => vis[l] === false)
+      ) {
+        hiddenSlugs.push(group)
+        groupLeavesAvailable.forEach((l) => consumed.add(l))
+      }
+    }
+    for (const leaf of hiddenLeaves) {
+      if (!consumed.has(leaf)) hiddenSlugs.push(leaf)
+    }
+  }
+  if (hiddenSlugs.length > 0) {
+    params.set('hide', encodeHide(hiddenSlugs))
+  } else {
+    params.delete('hide')
+  }
+
+  if (listData.value?.tagIndexStr) {
+    params.set('filter', listData.value.tagIndexStr)
+  } else {
+    params.delete('filter')
+  }
+
+  // クエリ文字列で有効な文字（; / ,）は読みやすさのためエスケープを戻す
+  const queryString = params.toString()
+    .replace(/%3B/g, ';')
+    .replace(/%2F/g, '/')
+    .replace(/%2C/g, ',')
+  const newUrl = `${window.location.pathname}?${queryString}${window.location.hash}`
+  window.history.replaceState(null, '', newUrl)
+}
+
+// URL のパラメータから状態を復元。Potree 初期化後、アノテーション登録後に呼ぶ。
+const restoreFromUrl = () => {
+  const params = new URLSearchParams(window.location.search)
+
+  // hide → visibility を false に（hybrid 形式をパース。親キーは setAnnotationVisibilities の
+  // カスケードで子に伝播するので、デコード結果のキーをそのまま渡す）
+  const hide = params.get('hide')
+  if (hide) {
+    for (const key of decodeHide(hide)) {
+      mainStore.setAnnotationVisibilities(key, false)
+    }
+  }
+
+  // open → ドロワーを開く
+  const openSlug = params.get('open')
+  if (openSlug) {
+    const pageName = slugToPageName(openSlug)
+    if (pageName) {
+      selectList(pageName)
+      // filter → リスト内タグフィルタ。tagIndex は数値なので数字以外は弾く
+      const filter = params.get('filter')
+      if (filter && listData.value && /^\d+$/.test(filter)) {
+        listData.value.tagIndexStr = filter
+      }
+    }
+  }
+
+  // annotation → DrawerAnnotation を開く
+  // openAnnotationById() ではなく直接 annotationData をセットする。
+  // moveHere() を呼ぶと URL で指定されたカメラ位置が上書きされてしまうため。
+  const annotationId = params.get('annotation')
+  if (annotationId) {
+    nextTick(() => {
+      const found = annotations.value?.find((a) => a.id === annotationId)
+      if (found) {
+        annotationData.value = found
+      } else {
+        console.error(`URLで指定されたid=${annotationId}のアノテーションが見つかりませんでした`)
+      }
+    })
+  }
+}
+
 const getAnnotationGroupByPosition = (position: any) => {
   return annotationGroups.value?.find(
     (g: any) => JSON.stringify(g[0].position) === JSON.stringify(position)
@@ -1213,6 +1460,30 @@ const initializePotree = async () => {
   const viewer = new Potree.Viewer(potreeRenderArea.value)
   window.viewer = viewer
   viewer.setFOV(75)
+
+  // 不正な position/target がそのまま loadSettingsFromURL に渡ると NaN が camera に
+  // 入って画面が真っ黒になるので、ここで弾いて URL からも消す。
+  {
+    const sanitizeParams = new URLSearchParams(window.location.search)
+    let dirty = false
+    if (sanitizeParams.has('position') && !isValidVec3Slug(sanitizeParams.get('position'))) {
+      sanitizeParams.delete('position')
+      dirty = true
+    }
+    if (sanitizeParams.has('target') && !isValidVec3Slug(sanitizeParams.get('target'))) {
+      sanitizeParams.delete('target')
+      dirty = true
+    }
+    if (dirty) {
+      const qs = sanitizeParams.toString()
+        .replace(/%3B/g, ';')
+        .replace(/%2F/g, '/')
+        .replace(/%2C/g, ',')
+      const newUrl = `${window.location.pathname}${qs ? '?' + qs : ''}${window.location.hash}`
+      window.history.replaceState(null, '', newUrl)
+    }
+  }
+
   viewer.loadSettingsFromURL()
   viewer.setBackground('originalColor')
   viewer.setEDLEnabled(true)
@@ -1307,12 +1578,47 @@ const initializePotree = async () => {
     }, 100)
 
     // Camera initialization
-    if (mainStore.getCameraPosition && mainStore.getCameraTarget) {
+    // URL に position/target が含まれていれば viewer.loadSettingsFromURL() で
+    // 既に適用済みなので、ここでの上書きをスキップする（パーマリンク用）
+    const urlParams = new URLSearchParams(window.location.search)
+    const hasUrlCamera = urlParams.has('position') && urlParams.has('target')
+
+    if (hasUrlCamera) {
+      // loadSettingsFromURL() で適用された値をそのまま使う
+    } else if (mainStore.getCameraPosition && mainStore.getCameraTarget) {
       window.viewer.scene.view.position.set(...mainStore.getCameraPosition)
       window.viewer.scene.view.lookAt(new THREE.Vector3(...mainStore.getCameraTarget))
     } else {
       data.value.initCamera()
     }
+
+    // カメラの位置・注視点をURLに同期。カメラが止まったタイミングで writeUrl() を呼ぶ。
+    // writeUrl() はサイドバー状態も合わせてシリアライズするので、サイドバー側の watch
+    // で urlSyncDirty を立てた場合も、カメラ移動完了を待ってから書き込まれる。
+    let lastPos: any = null
+    let lastTarget: any = null
+    cameraPositionWatcher.value = setInterval(() => {
+      if (!urlSyncEnabled.value) return
+      if (!window.viewer?.scene?.view) return
+      const view = window.viewer.scene.view
+      const pos = view.position
+      const target = view.getPivot()
+
+      const moved =
+        !lastPos || !lastTarget || !lastPos.equals(pos) || !lastTarget.equals(target)
+
+      if (moved) {
+        lastPos = pos.clone()
+        lastTarget = target.clone()
+        urlSyncDirty = true
+        return
+      }
+
+      if (urlSyncDirty) {
+        writeUrl()
+        urlSyncDirty = false
+      }
+    }, 500)
 
     // Set Camera Animation
     const toursArray: any[] = []
@@ -1362,11 +1668,33 @@ const initializePotree = async () => {
     window.addEventListener('resize', calcIsSp)
     document.addEventListener('keydown', keydown)
     document.addEventListener('keyup', keyup)
+
+    // パーマリンク: アノテーション登録後に URL から状態を復元し、以降は同期を有効化する
+    restoreFromUrl()
+    urlSyncEnabled.value = true
   } catch (error) {
     console.error('Potree initialization failed:', error)
     loadingState.value = 'error'
   }
 }
+
+// パーマリンク: サイドバー側の状態が変わったら dirty フラグを立てる。
+// 実際の書き込みはカメラポーリングが「カメラが止まった」と判断したタイミングで行う
+// （アノテーションクリック等で moveHere が走るケースに備えて）。
+watch(
+  () => {
+    const store = mainStoreRef.value
+    return [
+      store?.getPageName,
+      annotationData.value?.id,
+      JSON.stringify(store?.getAnnotationVisibilities || {}),
+      listData.value?.tagIndexStr
+    ]
+  },
+  () => {
+    if (urlSyncEnabled.value) urlSyncDirty = true
+  }
+)
 
 // Lifecycle
 onMounted(async () => {
