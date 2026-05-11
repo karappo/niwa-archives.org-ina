@@ -33,7 +33,7 @@
 | `position` | カメラ位置 | `x;y;z`（小数点3桁、Potree同梱 `loadSettingsFromURL` 互換） |
 | `target` | 注視点 | `x;y;z`（同上） |
 | `open` | ドロワーで開いている画面 | 単一スラグ |
-| `annotation` | DrawerAnnotationで表示中のアノテーションID | スプレッドシート上のidをそのまま |
+| `annotation` | DrawerAnnotationで表示中のアノテーションID | スプレッドシート上のidをそのまま。`position` / `target` が無い場合は、復元時にそのアノテーションへカメラを移動させる |
 | `hide` | チェックを外しているvisibilityキー | hybrid形式のカンマ区切り |
 | `filter` | DrawerList内のタグフィルタ | `listData.tagIndexStr`をそのまま |
 

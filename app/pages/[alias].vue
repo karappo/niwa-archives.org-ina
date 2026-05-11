@@ -1200,17 +1200,23 @@ const restoreFromUrl = () => {
     }
   }
 
-  // annotation → DrawerAnnotation を開く
-  // openAnnotationById() ではなく直接 annotationData をセットする。
-  // moveHere() を呼ぶと URL で指定されたカメラ位置が上書きされてしまうため。
+  // annotation → DrawerAnnotation を開く。
+  // URL にカメラ位置が指定されていれば、そのカメラを尊重して annotationData だけセットする
+  // （moveHere で上書きされないように）。指定がなければ openAnnotationById でアノテーション
+  // 位置までカメラを移動させる（クリックと同等の挙動）。
   const annotationId = params.get('annotation')
   if (annotationId) {
+    const hasUrlCamera = params.has('position') && params.has('target')
     nextTick(() => {
       const found = annotations.value?.find((a) => a.id === annotationId)
-      if (found) {
+      if (!found) {
+        console.error(`URLで指定されたid=${annotationId}のアノテーションが見つかりませんでした`)
+        return
+      }
+      if (hasUrlCamera) {
         annotationData.value = found
       } else {
-        console.error(`URLで指定されたid=${annotationId}のアノテーションが見つかりませんでした`)
+        openAnnotationById(annotationId)
       }
     })
   }
