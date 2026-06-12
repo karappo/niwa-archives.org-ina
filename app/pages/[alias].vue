@@ -50,7 +50,11 @@
               <div class="controls">
                 <h1 class="title" @dblclick="data && data.initCamera()">
                   <a class="global" href="/archives/">Incomplete Niwa Archives</a>
-                  <span class="scene">{{ data ? data.title : '' }}</span>
+                  <span
+                    class="scene"
+                    @click="data && data.initCamera()"
+                    >{{ data ? data.title : '' }}</span
+                  >
                   <template v-if="infoMode">
                     <br />
                     <span style="font-size: 13px">
@@ -270,6 +274,7 @@ nav.spMenu {
   }
   .scene {
     margin-left: 26px;
+    cursor: pointer;
     @media (max-width: 428px) {
       margin-top: -2px;
       margin-left: 0;
