@@ -5,7 +5,7 @@
       <div v-if="tags.length && !data.name.includes('Tour')" class="filter">
         <FilterSelectBox
           :options="tags"
-          :value.sync="data.tagIndexStr"
+          v-model:value="data.tagIndexStr"
         ></FilterSelectBox>
       </div>
       <DrawerCloseButton></DrawerCloseButton>
