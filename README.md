@@ -10,25 +10,9 @@
 - [ファイル保存先](https://drive.google.com/drive/u/0/folders/1mwweu4PCDgja-3FXoQ1Pl4zvc-W9X_in)
 
 
-# デバッグモード
+# Getting started
 
-## debug
-例: `/joei_ji/?debug=1`<br>
-点群の左上に4px角の透明なボタンを表示して、サイドバーを表示する
-
-## info
-例: `/joei_ji/?info=1`<br>
-現在のモード（Low Performance Modeかどうか）を画面上に表示する
-
-# ウェブフォント
-
-FONTPLUS: https://fontplus.jp/users/login
-アカウント: info@karappo.net
-
-## Getting started
-
-public/assets/pointclouds/に点群データ一式を追加
-
+`public/assets/pointclouds/` に点群データ一式を追加。
 
 ```sh
 # M1以降のMacの場合で、nodeのインストールに失敗する場合は、archコマンドを使ってインストールすること
@@ -48,31 +32,135 @@ pnpm install
 pnpm run dev
 ```
 
-もし、spreadsheetが読み込めず`Spreadsheetの読み込みでエラー発生`が出る場合は、[GoogleCloudPlatform](https://console.cloud.google.com/apis/credentials/key/c238b06c-505e-4198-91bf-6557605ab380?hl=ja&project=proxies-of-client)の管理画面から、ウェブサイトの制限のところにドメインまたはIPを追加すること。
+もし、spreadsheetが読み込めず `Spreadsheetの読み込みでエラー発生` が出る場合は、[GoogleCloudPlatform](https://console.cloud.google.com/apis/credentials/key/c238b06c-505e-4198-91bf-6557605ab380?hl=ja&project=proxies-of-client)の管理画面から、ウェブサイトの制限のところにドメインまたはIPを追加すること。
 
-## デプロイ
 
-基本的に、pointcolud/は`.depignore`で無視しているので、点群データも更新したい場合は`.depignore`を一時的に修正してdeployすること
+# ローカルで本番ビルドを確認する
 
 ```sh
-pnpm run deploy (procution|staging)
+pnpm run preview-build
 ```
 
+ブラウザで http://localhost:3000/ina/ にアクセスすると、ビルド成果物が確認できる。devサーバーでは起こらないエラーの確認時に使用。静的ファイルでの動作確認ができる。
+
+
+# デプロイ
+
+基本的に、pointcloud/は `.depignore` で無視しているので、点群データも更新したい場合は `.depignore` を一時的に修正してdeployすること。
+
+```sh
+pnpm run deploy (production|staging)
+```
+
+
+# デバッグモード
+
+## debug
+例: `/joei_ji/?debug=1`<br>
+点群の左上に4px角の透明なボタンを表示して、サイドバーを表示する
+
+## info
+例: `/joei_ji/?info=1`<br>
+現在のモード（Low Performance Modeかどうか）を画面上に表示する
+
+
+# パーマリンク
+
+カメラ位置とサイドバーの状態をURLクエリパラメータに反映する。ユーザーがUIを操作するたびに `history.replaceState` でURLが書き換わり、そのURLを開けば同じ状態を再現できる。
+
+書き込みはカメラが停止したタイミングで行う（移動中は保留）。デフォルト状態のパラメータは出力しない。
+
+<details>
+<summary>仕様詳細</summary>
+
+## クエリパラメータ
+
+| キー | 意味 | 値の形式 |
+|---|---|---|
+| `position` | カメラ位置 | `x;y;z`（小数点3桁、Potree同梱 `loadSettingsFromURL` 互換）。以下のいずれかの場合は省略される: (1) `data.initCamera()` の初期位置と一致、(2) 開いているアノテーションの `cameraPosition` と一致。一致判定は **位置 + 視線方向の単位ベクトル** で行う（FirstPersonControlsが `view.radius = 3 * moveSpeed` で毎フレーム上書きするため、`view.getPivot()` の値で比較できない） |
+| `target` | 注視点 | `x;y;z`（同上）。`position` と同じ条件で省略される |
+| `open` | ドロワーで開いている画面 | 単一スラグ |
+| `annotation` | DrawerAnnotationで表示中のアノテーションID | スプレッドシート上のidをそのまま。`position` / `target` が無い場合は、復元時にそのアノテーションへカメラを移動させる。逆に、書き出し時にカメラ位置がアノテーションのデフォルト視点（moveHereの到達点）と一致する場合は`position`/`target`を省略してURLを短縮 |
+| `group` | Groupドロワーで表示中のグループID | グループ代表アノテーション（list[0]）のid。`position` / `target` が無い場合は、復元時に代表アノテーションへカメラを移動させる。`annotation` と同時指定可（グループ内の特定メンバーをDrawerAnnotationで開く状態） |
+| `hide` | チェックを外しているvisibilityキー | hybrid形式のカンマ区切り |
+| `filter` | DrawerList内のタグフィルタ | `listData.tagIndexStr`をそのまま |
+
+## `open=` のスラグ
+
+ページ名を `lowercase` + 空白を `-` に。`/` はそのまま残す。
+
+| ストアのpageName | open=の値 |
+|---|---|
+| `History` / `Plans` / `3D Data` | `history` / `plans` / `3d-data` |
+| `Annotations` | `annotations` |
+| `Viewpoints` / `Viewpoints/Still Images` / `Viewpoints/Movies` | `viewpoints` / `viewpoints/still-images` / `viewpoints/movies` |
+| `Elements` / `Elements/Stones` / ... / `Elements/DNA Data` | `elements` / `elements/stones` / ... / `elements/dna-data` |
+| `Oral Archives` | `oral-archives` |
+| `Guided Tour` / `Ramble Tour` | `guided-tour` / `ramble-tour` |
+
+## `hide=` のスラグ（hybrid形式）
+
+### 圧縮ルール（書き出し）
+
+1. 全leafがhidden → `hide=annotations`
+2. 特定グループの全leafがhidden → 親キーに圧縮（例: `viewpoints`, `elements`）
+3. 同一親グループの子が連続する場合 → 2番目以降の `親/` プレフィックスを省略
+
+| 状態 | URL |
+|---|---|
+| Elements/Plants, Creatures, Artifacts, DNA Data がoff | `hide=elements/plants,creatures,artifacts,dna-data` |
+| Viewpoints/Movies + Elements/Plants, Creatures がoff | `hide=viewpoints/movies,elements/plants,creatures` |
+| Viewpoints全部off + Oral Archives off | `hide=viewpoints,oral-archives` |
+| Elements全部off | `hide=elements` |
+| 全leaf off | `hide=annotations` |
+
+### パースルール（読み込み）
+
+カンマで分割して左から順に処理:
+
+| トークン | 解釈 |
+|---|---|
+| `親/子`（例: `elements/plants`） | `親/子` キーをhide。currentGroupを更新 |
+| 既知の親/単独キー（`annotations`, `viewpoints`, `elements`, `oral-archives`） | そのキーをhide。currentGroupをリセット |
+| 上記以外のbareトークン | 直前のcurrentGroupの子として解釈 |
+| 上記いずれにも該当しない | スキップ |
+
+復元時は各キーに `mainStore.setAnnotationVisibilities(key, false)` を呼ぶ。親キーを渡すとストアのカスケード処理で子も全部 false になる。
+
+## 不正な値・予期せぬパラメータの扱い
+
+| ケース | 挙動 | URL の最終状態 |
+|---|---|---|
+| 関係ないパラメータ（例: `utm_source=foo`）| 完全に無視されつつ保持される | そのまま残る |
+| 既存の `debug=1` / `info=1` | パーマリンク機能から無視されつつ保持される | そのまま残る |
+| 不正な `open=nonsense` | スキップ（state変更なし）| 復元完了後のwriteUrlで`open=`削除 |
+| `hide=` 内の不明トークン | 該当トークンのみスキップ、有効なものは処理 | writeUrlが再構築するので有効なものだけ残る |
+| 不正な `annotation=nonexistent` | `console.error` を出して`annotationData`セットせず | writeUrlで`annotation=`削除 |
+| 空値（`open=` / `hide=` / `annotation=`）| falsy判定でスキップ | 削除 |
+| 不正な `filter=abc`（数字以外）| バリデーションで弾く、`tagIndexStr`セットせず | writeUrlで`filter=`削除 |
+| 不正な `position=` / `target=`（NaN等）| `loadSettingsFromURL()`の前にURLから削除、`mainStore`保存値または`initCamera()`にフォールバック | 削除 |
+
+書き込みは `writeUrl()` が「現状の state を元に URL を再構築する」方式なので、復元後の最初の書き込みで不正値は自動的にクリーンアップされる。
+
+## 実装場所
+
+`app/pages/[alias].vue`
+- `writeUrl()`: 状態 → URL
+- `restoreFromUrl()`: URL → 状態（Potree初期化後・アノテーション登録後に1回だけ実行）
+- `urlSyncEnabled`: restore完了までURL書き込みを抑止するフラグ
+- `urlSyncDirty`: サイドバー状態変化時に立つフラグ。カメラポーリングが停止検知時に書き込む
+- `defaultCameraView`: `data.initCamera()` で設定される初期カメラ位置のスナップショット。URL省略判定に使う
+- `isValidVec3Slug()`: `position=` / `target=` の値のバリデーション
+
+</details>
+
+
+# 開発時の運用
 
 ## potreeのソースコードを修正する場合
 
-`./public/assets/potree`にサブモジュールとして配置しているpotreeのforkを編集する場合は、`pnpm run start`しておくこと。
-また、編集内容が確定したら`pnpm run build`をして、potreeリポジトリ側をcommitし、IncompleteNiwaArchivesのリポジトリにもcommitする。
-
-## アノテーションに紐付ける画像のサイズはFullHD（1920x1080）とする
-
-GoogleDriveをFinderにローカル同期し、下記実行すると大きいものはリサイズされる
-
-```sh
-for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
-```
-※ imagemagicが必要
-
+`./public/assets/potree` にサブモジュールとして配置しているpotreeのforkを編集する場合は、`pnpm run start` しておくこと。
+また、編集内容が確定したら `pnpm run build` をして、potreeリポジトリ側をcommitし、IncompleteNiwaArchivesのリポジトリにもcommitする。
 
 ## 庭の増やし方
 
@@ -87,42 +175,55 @@ for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
 5. スプレッドシートのデータにシートを作成
    1. 初回は権限の問題があるので、「スクリプト＞ランダムなIDを作成して選択中のセルにペースト」を一度実行しておくこと！
 
+## アノテーションに紐付ける画像のサイズはFullHD（1920x1080）とする
+
+GoogleDriveをFinderにローカル同期し、下記実行すると大きいものはリサイズされる。
+
+```sh
+for f in **/*.JPG; do convert "$f" -resize 1920\> "$f"; done
+```
+※ imagemagickが必要
+
 ## Potreeのサイドバーを表示する方法
 
 画面の左上数ピクセルの透明なボタンがあるので、カーソルを合わせると形状が変化することで場所を特定し、Shiftキーを押しながらクリックするとサイドバーが現れる。
 
-## 点群テータの重さ参考
+## ウェブフォント
 
-fugetsu_ro-autumn 3.12GB
-fugetsu_ro-spring 2.34GB
-fugetsu_ro-summer 10.14GB 最重
-fugetsu_ro-winter 8.83GB
-joei_ji 6.26GB
-murin_an-snow 1.52GB 最軽
-murin_an-summer 2.6GB
-murin_an-winter 2.68GB
-rikugi_en 4.22GB
-ryogen_in 1.61GB
+FONTPLUS: https://fontplus.jp/users/login
+アカウント: info@karappo.net
+
+
+# 参考情報
+
+## 点群データの重さ参考
+
+| ガーデン | サイズ |
+|---|---|
+| fugetsu_ro-autumn | 3.12 GB |
+| fugetsu_ro-spring | 2.34 GB |
+| fugetsu_ro-summer | 10.14 GB（最重） |
+| fugetsu_ro-winter | 8.83 GB |
+| joei_ji | 6.26 GB |
+| murin_an-snow | 1.52 GB（最軽） |
+| murin_an-summer | 2.6 GB |
+| murin_an-winter | 2.68 GB |
+| rikugi_en | 4.22 GB |
+| ryogen_in | 1.61 GB |
 
 ## よくあるエラー
 
 ### JSONエラー
-consoleに下記のようなエラーがある場合、pointcloud/のデータを確認する。
+
+console に下記のようなエラーがある場合、pointcloud/のデータを確認する。
+
 ```
 Uncaught (in promise) SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON  VM6642:1
 ```
 
 ### 型定義の更新
+
 型定義が見つからない等のエラーがCursorで出る時、修正後にTypeScriptサーバーを再起動してみる。
+
 1. VS Code/Cursorのコマンドパレットを開く (Cmd+Shift+P)
 2. "TypeScript: Restart TS Server" を実行
-
-
-# ビルド成果物をローカルで確認する方法
-
-```sh
-pnpm run preview-build
-```
-
-ブラウザでhttp://localhost:3000/ina/にアクセスすると、ビルド成果物が確認できる。
-devサーバーでは起こらないエラーの確認時にしよう。制的ファイルでの動作確認ができる。
