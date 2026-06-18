@@ -9,6 +9,9 @@ dist
 # Node dependencies
 node_modules
 
+# pnpm local store (通常はグローバルストアを使う。誤って生成されるプロジェクトローカル分を除外)
+.pnpm-store
+
 # Logs
 logs
 *.log
