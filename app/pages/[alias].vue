@@ -1623,6 +1623,14 @@ const initializePotree = async () => {
     // pointcloud.material.size = isLowPerformance.value ? 1 : 0.66
     pointcloud.material.size = 0.66
 
+    // 平坦な点群（HOUSE of HOSOO / Rikugi-en 等）で、粗いLODノードの点が巨大な円盤状に
+    // 肥大化して表示される不具合への対策。ADAPTIVE は octree spacing から点サイズを算出するため、
+    // 点密度の低い領域で極端に大きな点が描画される。点サイズの上限(px)をクランプして抑える。
+    // 注意: pointcloud.material.maxSize への代入は効かない（このPotreeビルドの PointCloudMaterial には
+    // maxSize のアクセサが無く、constructor で uniform に渡されるのみ）。必ず uniform を直接更新すること。
+    // 参照: https://github.com/karappo/niwa-archives.org-ina/issues/2
+    pointcloud.material.uniforms.maxSize.value = 10 // px（Potreeデフォルトは50）
+
     // 色の詳細を減らすことで、レンダリング負荷を軽減可能。点群データが非常にカラフルである場合に特に有効。
     // ただし、見た目の印象に大きな影響を与える
     // pointcloud.material.rgbGamma = isLowPerformance.value ? 2.2 : 1 // default: 1
